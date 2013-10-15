@@ -101,7 +101,7 @@ var consoleLogger = {
 				var val = prefs.get(ns + pName);
 				if(pName.slice(-8) == ".enabled") {
 					if(!val)
-						disabled[pName.slice(0, -8)] = true;
+						_disabled[pName.slice(0, -8)] = true;
 				}
 				else if(pName.slice(-8) == ".exclude") {
 					_excludes[pName.slice(0, -8)] = val;
