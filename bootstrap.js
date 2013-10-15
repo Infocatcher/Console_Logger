@@ -81,10 +81,11 @@ var consoleLogger = {
 			if(flags & msg[flag + "Flag"])
 				details.push(flag);
 		});
+		var line = ":" + msg.lineNumber + (msg.columnNumber ? ":" + msg.columnNumber : "");
 		this.writeToFile(
 			this.getFile(key),
 			timestamp + " [" + details.join(", ") + "]" + ":\n"
-			+ msg.sourceName + ":" + msg.lineNumber + "\n"
+			+ msg.sourceName + line + "\n"
 			+ msg.errorMessage
 			+ (msg.sourceLine ? "\n" + msg.sourceLine : "")
 			+ "\n\n"
