@@ -1,6 +1,6 @@
 // Usage:
 // extensions.consoleLogger.patterns.%someName%         - pattern for new RegExp(..., "i"), checks for nsIScriptError.sourceName
-// extensions.consoleLogger.patterns.%someName%.enabled - (optional) optional to disable
+// extensions.consoleLogger.patterns.%someName%.enabled - (optional) to disable
 // extensions.consoleLogger.patterns.%someName%.exclude - (optional) exclusions, checks for nsIScriptError.errorMessage
 // Output: %browser_profile%/consoleLogger_%someName%.log
 pref("extensions.consoleLogger.patterns.Private_Tab", "/privateTab@infocatcher|://privatetab/");

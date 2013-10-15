@@ -122,7 +122,7 @@ var consoleLogger = {
 					excludes[key] = new RegExp(_excludes[key], "i");
 				}
 				catch(e2) {
-					Components.utils.reportError(LOG_PREFIX + 'Invalid exclision for "' + key + '":\n' + _excludes[key]);
+					Components.utils.reportError(LOG_PREFIX + 'Invalid exclusion for "' + key + '":\n' + _excludes[key]);
 					Components.utils.reportError(e);
 				}
 			}
