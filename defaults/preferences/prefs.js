@@ -6,5 +6,5 @@
 // Output: %browser_profile%/consoleLogger_%someName%.log
 pref("extensions.consoleLogger.patterns.Private_Tab", "/privateTab@infocatcher|://privatetab/");
 pref("extensions.consoleLogger.patterns.Private_Tab.enabled", true);
-pref("extensions.consoleLogger.patterns.Private_Tab.message", "^\\[Private Tab\\]");
+pref("extensions.consoleLogger.patterns.Private_Tab.message", /*"^\\[Private Tab\\]"*/ "");
 pref("extensions.consoleLogger.patterns.Private_Tab.exclude", "^Only internal code is allowed to set the usePrivateBrowsing attribute");

@@ -153,7 +153,7 @@ var consoleLogger = {
 					_excludes[pShort] = val;
 				}
 				else if(type == ".message") {
-					try {
+					if(val) try {
 						messages[pShort] = new RegExp(val);
 					}
 					catch(e) {
@@ -169,9 +169,9 @@ var consoleLogger = {
 		for(var key in _patterns) {
 			if(key in _disabled)
 				continue;
-			try {
+			if(_patterns[key]) try {
 				patterns[key] = new RegExp(_patterns[key], "i");
-				if(key in _excludes) try {
+				if(key in _excludes && _excludes[key]) try {
 					excludes[key] = new RegExp(_excludes[key], "i");
 				}
 				catch(e2) {
