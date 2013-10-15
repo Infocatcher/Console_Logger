@@ -74,9 +74,16 @@ var consoleLogger = {
 			: new Date();
 		var ms = d.getMilliseconds();
 		var timestamp = d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
+		var details = [msg.category || "unknown"];
+		var flags = msg.flags;
+		var flagConsts = ["warning", "exception", "strict"];
+		flagConsts.forEach(function(flag) {
+			if(flags & msg[flag + "Flag"])
+				details.push(flag);
+		});
 		this.writeToFile(
 			this.getFile(key),
-			timestamp + ":\n"
+			timestamp + " [" + details.join(", ") + "]" + ":\n"
 			+ msg.sourceName + ":" + msg.lineNumber + "\n"
 			+ msg.errorMessage
 			+ (msg.sourceLine ? "\n" + msg.sourceLine : "")
