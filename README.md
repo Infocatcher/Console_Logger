@@ -1,0 +1,2 @@
+﻿This is extension for Gecko-based applications (Firefox, Thunderbird, SeaMonkey), for developers and testers.
+<br>Adds ability to write certain console messages to log files, see <a href="defaults/preferences/prefs.js#files">defaults/preferences/prefs.js</a> for details.
