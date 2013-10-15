@@ -49,8 +49,22 @@ var consoleLogger = {
 	},
 
 	observe: function(msg) {
-		if(!(msg instanceof Components.interfaces.nsIScriptError))
+		if(!(msg instanceof Components.interfaces.nsIScriptError)) {
+			if(msg instanceof Components.interfaces.nsIConsoleMessage) {
+				var msgText = msg.message;
+				var messages = this.messages;
+				for(var key in messages) {
+					if(messages[key].test(msgText)) {
+						var excludes = this.excludes;
+						if(key in excludes && excludes[key].test(msgText))
+							break;
+						this.writeStringMessage(msg, key);
+						break;
+					}
+				}
+			}
 			return;
+		}
 		var msgSource = msg.sourceName;
 		var patterns = this.patterns;
 		for(var key in patterns) {
@@ -66,14 +80,19 @@ var consoleLogger = {
 		}
 	},
 
+	writeStringMessage: function(msg, key) {
+		var timestamp = this.getTimestamp(msg);
+		this.writeToFile(
+			this.getFile(key),
+			timestamp + " [message]" + ":\n"
+			+ msg.message
+			+ "\n\n"
+		);
+	},
 	writeMessage: function(msg, key) {
 		if("nsIScriptError2" in Components.interfaces)
 			msg instanceof (Components.interfaces.nsIScriptError2);
-		var d = msg.timeStamp
-			? new Date(msg.timeStamp)
-			: new Date();
-		var ms = d.getMilliseconds();
-		var timestamp = d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
+		var timestamp = this.getTimestamp(msg);
 		var details = [msg.category || "unknown"];
 		var flags = msg.flags;
 		var flagConsts = ["warning", "exception", "strict"];
@@ -91,15 +110,29 @@ var consoleLogger = {
 			+ "\n\n"
 		);
 	},
+	getTimestamp: function(msg) {
+		var d = msg.timeStamp
+			? new Date(msg.timeStamp)
+			: new Date();
+		var ms = d.getMilliseconds();
+		return d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
+	},
 
 	get patterns() {
 		return this.loadPatterns().patterns;
+	},
+	get messages() {
+		return this.loadPatterns().messages;
 	},
 	get excludes() {
 		return this.loadPatterns().excludes;
 	},
 	loadPatterns: function() {
 		var ns = "patterns.";
+		var patterns = { __proto__: null };
+		var messages = { __proto__: null };
+		var excludes = { __proto__: null };
+
 		var _patterns = { __proto__: null };
 		var _disabled = { __proto__: null };
 		var _excludes = { __proto__: null };
@@ -107,20 +140,32 @@ var consoleLogger = {
 			.getChildList("", {})
 			.forEach(function(pName) {
 				var val = prefs.get(ns + pName);
-				if(pName.slice(-8) == ".enabled") {
-					if(!val)
-						_disabled[pName.slice(0, -8)] = true;
+				var pShort, type;
+				if(/\.[^.]+$/.test(pName)) {
+					pShort = RegExp.leftContext;
+					type = RegExp.lastMatch;
 				}
-				else if(pName.slice(-8) == ".exclude") {
-					_excludes[pName.slice(0, -8)] = val;
+				if(type == ".enabled") {
+					if(!val)
+						_disabled[pShort] = true;
+				}
+				else if(type == ".exclude") {
+					_excludes[pShort] = val;
+				}
+				else if(type == ".message") {
+					try {
+						messages[pShort] = new RegExp(val);
+					}
+					catch(e) {
+						Components.utils.reportError(LOG_PREFIX + 'Invalid message pattern for "' + pShort + '":\n' + val);
+						Components.utils.reportError(e);
+					}
 				}
 				else {
 					_patterns[pName] = val;
 				}
 			});
 
-		var patterns = { __proto__: null };
-		var excludes = { __proto__: null };
 		for(var key in _patterns) {
 			if(key in _disabled)
 				continue;
@@ -143,6 +188,7 @@ var consoleLogger = {
 		delete this.excludes;
 		return {
 			patterns: (this.patterns = patterns),
+			messages: (this.messages = messages),
 			excludes: (this.excludes = excludes)
 		}
 	},
