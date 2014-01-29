@@ -40,6 +40,9 @@ var consoleLogger = {
 		Services.console.registerListener(this);
 	},
 	destroy: function(reason) {
+		if(reason == APP_SHUTDOWN)
+			return;
+
 		if(!this.initialized)
 			return;
 		this.initialized = false;
