@@ -7,7 +7,7 @@
 		<em:type>2</em:type>
 		<em:bootstrap>true</em:bootstrap>
 		<em:name>Console Logger</em:name>
-		<em:version>0.1.0pre</em:version>
+		<em:version>0.1.0pre2</em:version>
 		<em:description>Adds ability to write certain console messages to log files, see defaults/preferences/prefs.js for details</em:description>
 		<em:creator>Infocatcher</em:creator>
 		<em:updateURL>http://infocatcher.ucoz.net/ext/fx/console_logger/update.rdf</em:updateURL>

@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.1.0pre2 (2014-01-29)
 `x` Correctly handle <em>.enabled</em> = <em>false</em> preference.<br>
 `+` Write error category and additional flags.<br>
 `+` Write column number (if available).<br>
