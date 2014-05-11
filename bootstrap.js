@@ -83,6 +83,10 @@ var consoleLogger = {
 		}
 	},
 
+	get platformVersion() {
+		delete this.platformVersion;
+		return this.platformVersion = parseFloat(Services.appinfo.platformVersion);
+	},
 	writeStringMessage: function(msg, key) {
 		var timestamp = this.getTimestamp(msg);
 		this.writeToFile(
@@ -215,20 +219,49 @@ var consoleLogger = {
 		}
 		this._writeInProgress = true;
 
-		var ostream = FileUtils.openFileOutputStream(file, FileUtils.MODE_WRONLY | FileUtils.MODE_APPEND);
-		var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
-			.createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
-		converter.charset = "UTF-8";
-		var istream = converter.convertToInputStream(data);
-		NetUtil.asyncCopy(istream, ostream, function(status) {
-			if(!Components.isSuccessCode(status))
-				Components.utils.reportError(LOG_PREFIX + "Can't write to " + file.path + ", status: " + status);
-
+		var done = function(err) {
+			err && Components.utils.reportError(LOG_PREFIX + "Can't write to " + file.path + ", error:\n" + err);
 			this._writeInProgress = false;
 			var next = this._writeQueue.shift();
 			if(next)
 				this.writeToFile.apply(this, next);
-		}.bind(this));
+		}.bind(this);
+
+		if(this.platformVersion < 27) {
+			var ostream = FileUtils.openFileOutputStream(file, FileUtils.MODE_WRONLY | FileUtils.MODE_APPEND);
+			var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+				.createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+			converter.charset = "UTF-8";
+			var istream = converter.convertToInputStream(data);
+			NetUtil.asyncCopy(istream, ostream, function(status) {
+				done(!Components.isSuccessCode(status) && "Status: " + status);
+			});
+			return;
+		}
+
+		Components.utils.import("resource://gre/modules/osfile.jsm");
+		var onFailure = done;
+		var _this = this;
+		OS.File.open(file.path, { write: true, append: true }).then(
+			function onSuccess(osFile) {
+				var ensureClosed = function(err) {
+					osFile.close()
+						.then(done, onFailure)
+						.then(null, onFailure);
+				};
+				var encoder = _this.textEncoder || (
+					_this.textEncoder = new (Components.utils.getGlobalForObject(OS)).TextEncoder()
+				);
+				var arr = encoder.encode(data);
+				osFile.write(arr).then(
+					function onSuccess(bytesCount) {
+						ensureClosed();
+					},
+					ensureClosed
+				).then(null, ensureClosed);
+			},
+			onFailure
+		).then(null, onFailure);
 	},
 
 	prefChanged: function(pName, val) {
