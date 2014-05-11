@@ -6,7 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
-`*` Now used OS.File API to write logs with better performance (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
+`*` Now used <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API to write logs with better performance (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
 
 ##### 0.1.0pre2 (2014-01-29)
 `x` Correctly handle <em>.enabled</em> = <em>false</em> preference.<br>

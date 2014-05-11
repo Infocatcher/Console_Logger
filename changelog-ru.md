@@ -6,7 +6,7 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
-`*` Теперь используется OS.File API для записи логов с лучшей производительностью (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
+`*` Теперь используется <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API для записи логов с лучшей производительностью (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
 
 ##### 0.1.0pre2 (2014-01-29)
 `x` Исправлена обработка настроек <em>.enabled</em> = <em>false</em>.<br>
