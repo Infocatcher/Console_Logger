@@ -1,5 +1,6 @@
 const LOG_PREFIX = "[Console Logger] ";
 const FILE_NAME_PREFIX = "consoleLogger_";
+const FILE_NAME_DEBUG = "consoleLogger-debug.log";
 var rootURI;
 
 Components.utils.import("resource://gre/modules/Services.jsm");
@@ -121,8 +122,14 @@ var consoleLogger = {
 			+ "\n\n"
 		);
 	},
+	writeDebugMessage: function(msg) {
+		this.writeToFile(
+			this.getFile(FILE_NAME_DEBUG, FILE_NAME_DEBUG),
+			this.getTimestamp() + " " + msg + "\n"
+		);
+	},
 	getTimestamp: function(msg) {
-		var d = msg.timeStamp
+		var d = msg && msg.timeStamp
 			? new Date(msg.timeStamp)
 			: new Date();
 		var ms = d.getMilliseconds();
@@ -206,11 +213,11 @@ var consoleLogger = {
 	},
 
 	_files: { __proto__: null },
-	getFile: function(key) {
+	getFile: function(key, name) {
 		var files = this._files;
 		if(key in files)
 			return files[key];
-		var file = FileUtils.getFile("ProfD", [FILE_NAME_PREFIX + key + ".log"]);
+		var file = FileUtils.getFile("ProfD", [name || FILE_NAME_PREFIX + key + ".log"]);
 		if(!file.exists())
 			file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 		return files[key] = file;
@@ -364,3 +371,8 @@ var prefs = {
 		return Services.prefs.PREF_STRING;
 	}
 };
+
+function _log(s) {
+	if(prefs.get("debug"))
+		consoleLogger.writeDebugMessage(s);
+}
