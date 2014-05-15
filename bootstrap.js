@@ -304,7 +304,8 @@ var prefs = {
 			return;
 		var shortName = pName.substr(this.ns.length);
 		var val = this.getPref(pName);
-		this._cache[shortName] = val;
+		if(shortName.substr(0, 9) != "patterns.")
+			this._cache[shortName] = val;
 		consoleLogger.prefChanged(shortName, val);
 	},
 
