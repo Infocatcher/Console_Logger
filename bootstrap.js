@@ -192,6 +192,7 @@ var consoleLogger = {
 			}
 		}
 		delete this.patterns;
+		delete this.messages;
 		delete this.excludes;
 		return {
 			patterns: (this.patterns = patterns),
