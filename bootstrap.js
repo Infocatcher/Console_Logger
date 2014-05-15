@@ -11,6 +11,10 @@ this.__defineGetter__("FileUtils", function() {
 	delete this.FileUtils;
 	return Components.utils.import("resource://gre/modules/FileUtils.jsm").FileUtils;
 });
+this.__defineGetter__("OS", function() {
+	delete this.OS;
+	return Components.utils.import("resource://gre/modules/osfile.jsm").OS;
+});
 
 function install(params, reason) {
 }
@@ -240,7 +244,6 @@ var consoleLogger = {
 			return;
 		}
 
-		Components.utils.import("resource://gre/modules/osfile.jsm");
 		var onFailure = done;
 		var _this = this;
 		OS.File.open(file.path, { write: true, append: true }).then(
