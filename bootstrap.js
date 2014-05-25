@@ -273,10 +273,6 @@ var consoleLogger = {
 			},
 			onFailure
 		).then(null, onFailure);
-	},
-
-	prefChanged: function(pName, val) {
-		this.loadPatterns();
 	}
 };
 
@@ -303,10 +299,12 @@ var prefs = {
 		if(topic != "nsPref:changed")
 			return;
 		var shortName = pName.substr(this.ns.length);
-		var val = this.getPref(pName);
-		if(shortName.substr(0, 9) != "patterns.")
+		if(shortName.substr(0, 9) == "patterns.")
+			consoleLogger.loadPatterns();
+		else {
+			var val = this.getPref(pName);
 			this._cache[shortName] = val;
-		consoleLogger.prefChanged(shortName, val);
+		}
 	},
 
 	loadDefaultPrefs: function() {
