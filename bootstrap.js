@@ -146,7 +146,7 @@ var consoleLogger = {
 		return this.loadPatterns().excludes;
 	},
 	loadPatterns: function() {
-		var ns = "patterns.";
+		var ns = prefs.ns + "patterns.";
 		var patterns = { __proto__: null };
 		var messages = { __proto__: null };
 		var excludes = { __proto__: null };
@@ -154,10 +154,10 @@ var consoleLogger = {
 		var _patterns = { __proto__: null };
 		var _disabled = { __proto__: null };
 		var _excludes = { __proto__: null };
-		Services.prefs.getBranch(prefs.ns + ns)
+		Services.prefs.getBranch(ns)
 			.getChildList("", {})
 			.forEach(function(pName) {
-				var val = prefs.get(ns + pName);
+				var val = prefs.getPref(ns + pName);
 				var pShort, type;
 				if(/\.[^.]+$/.test(pName)) {
 					pShort = RegExp.leftContext;
@@ -209,7 +209,7 @@ var consoleLogger = {
 			patterns: (this.patterns = patterns),
 			messages: (this.messages = messages),
 			excludes: (this.excludes = excludes)
-		}
+		};
 	},
 
 	_files: { __proto__: null },
