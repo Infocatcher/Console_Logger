@@ -375,3 +375,7 @@ function _log(s) {
 	if(prefs.get("debug"))
 		consoleLogger.writeDebugMessage(s);
 }
+function _dump(s) {
+	if(prefs.get("debug"))
+		dump(LOG_PREFIX + s + "\n");
+}
