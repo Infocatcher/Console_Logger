@@ -243,6 +243,7 @@ var consoleLogger = {
 				this.writeToFile.apply(this, next);
 		}.bind(this);
 
+		var _this = this;
 		if(!this.osFileAPI) {
 			var ostream = FileUtils.openFileOutputStream(file, FileUtils.MODE_WRONLY | FileUtils.MODE_APPEND);
 			var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
@@ -250,13 +251,12 @@ var consoleLogger = {
 			converter.charset = "UTF-8";
 			var istream = converter.convertToInputStream(data);
 			NetUtil.asyncCopy(istream, ostream, function(status) {
-				done(!Components.isSuccessCode(status) && "Status: " + status);
+				done(!Components.isSuccessCode(status) && "Status: " + _this.getErrorName(status));
 			});
 			return;
 		}
 
 		var onFailure = done;
-		var _this = this;
 		OS.File.open(file.path, { write: true, append: true }).then(
 			function onSuccess(osFile) {
 				var ensureClosed = function(err) {
@@ -277,6 +277,13 @@ var consoleLogger = {
 			},
 			onFailure
 		).then(null, onFailure);
+	},
+	getErrorName: function(code) {
+		var Cr = Components.results;
+		for(var errName in Cr)
+			if(Cr[errName] == code)
+				return errName;
+		return "" + code;
 	}
 };
 
