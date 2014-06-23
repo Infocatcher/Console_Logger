@@ -212,13 +212,17 @@ var consoleLogger = {
 		};
 	},
 
+	get osFileAPI() {
+		delete this.osFileAPI;
+		return this.osFileAPI = this.platformVersion >= 27;
+	},
 	_files: { __proto__: null },
 	getFile: function(key, name) {
 		var files = this._files;
 		if(key in files)
 			return files[key];
 		var file = FileUtils.getFile("ProfD", [name || FILE_NAME_PREFIX + key + ".log"]);
-		if(!file.exists())
+		if(!this.osFileAPI && !file.exists())
 			file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 		return files[key] = file;
 	},
@@ -239,7 +243,7 @@ var consoleLogger = {
 				this.writeToFile.apply(this, next);
 		}.bind(this);
 
-		if(this.platformVersion < 27) {
+		if(!this.osFileAPI) {
 			var ostream = FileUtils.openFileOutputStream(file, FileUtils.MODE_WRONLY | FileUtils.MODE_APPEND);
 			var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
 				.createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
