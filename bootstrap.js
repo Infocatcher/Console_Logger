@@ -63,10 +63,8 @@ var consoleLogger = {
 				var messages = this.messages;
 				for(var key in messages) {
 					if(messages[key].test(msgText)) {
-						var excludes = this.excludes;
-						if(key in excludes && excludes[key].test(msgText))
-							break;
-						this.writeStringMessage(msg, key);
+						if(!this.exclude(msgText, key))
+							this.writeStringMessage(msg, key);
 						break;
 					}
 				}
@@ -78,11 +76,8 @@ var consoleLogger = {
 		for(var key in patterns) {
 			var pattern = patterns[key];
 			if(pattern.test(msgSource)) {
-				var msgText = msg.errorMessage;
-				var excludes = this.excludes;
-				if(key in excludes && excludes[key].test(msgText))
-					break;
-				this.writeMessage(msg, key);
+				if(!this.exclude(msg.errorMessage, key))
+					this.writeMessage(msg, key);
 				break;
 			}
 		}
@@ -210,6 +205,12 @@ var consoleLogger = {
 			messages: (this.messages = messages),
 			excludes: (this.excludes = excludes)
 		};
+	},
+	exclude: function(msgText, key) {
+		var excludes = this.excludes;
+		if(key in excludes && excludes[key].test(msgText))
+			return true;
+		return false;
 	},
 
 	get osFileAPI() {
