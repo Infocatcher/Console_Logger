@@ -188,7 +188,7 @@ var consoleLogger = {
 				}
 				catch(e2) {
 					Components.utils.reportError(LOG_PREFIX + 'Invalid exclusion for "' + key + '":\n' + _excludes[key]);
-					Components.utils.reportError(e);
+					Components.utils.reportError(e2);
 				}
 			}
 			catch(e) {
