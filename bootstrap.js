@@ -4,14 +4,6 @@ const FILE_NAME_DEBUG = "consoleLogger-debug.log";
 var rootURI;
 
 Components.utils.import("resource://gre/modules/Services.jsm");
-this.__defineGetter__("NetUtil", function() {
-	delete this.NetUtil;
-	return Components.utils.import("resource://gre/modules/NetUtil.jsm").NetUtil;
-});
-this.__defineGetter__("FileUtils", function() {
-	delete this.FileUtils;
-	return Components.utils.import("resource://gre/modules/FileUtils.jsm").FileUtils;
-});
 this.__defineGetter__("OS", function() {
 	delete this.OS;
 	return Components.utils.import("resource://gre/modules/osfile.jsm").OS;
@@ -269,6 +261,12 @@ var consoleLogger = {
 			return;
 		}
 		if(this.platformVersion < 27) {
+			var FileUtils = this.FileUtils || (
+				this.FileUtils = Components.utils.import("resource://gre/modules/FileUtils.jsm").FileUtils
+			);
+			var NetUtil = this.NetUtil || (
+				this.NetUtil = Components.utils.import("resource://gre/modules/NetUtil.jsm").NetUtil
+			);
 			//if(!file.exists())
 			//	file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 			var ostream = FileUtils.openFileOutputStream(
