@@ -228,8 +228,6 @@ var consoleLogger = {
 		if(key in files)
 			return files[key];
 		var file = FileUtils.getFile("ProfD", [name || FILE_NAME_PREFIX + key + ".log"]);
-		if(!this.osFileAPI && !file.exists())
-			file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 		return files[key] = file;
 	},
 	_writeInProgress: false,
@@ -251,6 +249,8 @@ var consoleLogger = {
 
 		var _this = this;
 		if(!this.osFileAPI) {
+			if(!file.exists())
+				file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 			var ostream = FileUtils.openFileOutputStream(file, FileUtils.MODE_WRONLY | FileUtils.MODE_APPEND);
 			var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
 				.createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
