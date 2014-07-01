@@ -244,6 +244,29 @@ var consoleLogger = {
 		}.bind(this);
 
 		var _this = this;
+		if(this.platformVersion < 7) {
+			try {
+				var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+					.createInstance(Components.interfaces.nsIFileOutputStream);
+				foStream.init(
+					file,
+					0x02 /*PR_WRONLY*/ | 0x08 /*PR_CREATE_FILE*/ | 0x10 /*PR_APPEND*/,
+					parseInt("0644", 8),
+					0
+				);
+				var converter = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+					.createInstance(Components.interfaces.nsIConverterOutputStream);
+				converter.init(foStream, "UTF-8", 0, 0);
+				converter.writeString(data);
+				converter.close(); // this closes foStream
+				done();
+			}
+			catch(e) {
+				Components.utils.reportError(e);
+				done(e);
+			}
+			return;
+		}
 		if(this.platformVersion < 27) {
 			//if(!file.exists())
 			//	file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
