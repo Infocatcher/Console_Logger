@@ -144,6 +144,7 @@ var consoleLogger = {
 
 		var _patterns = { __proto__: null };
 		var _disabled = { __proto__: null };
+		var _messages = { __proto__: null };
 		var _excludes = { __proto__: null };
 		Services.prefs.getBranch(ns)
 			.getChildList("", {})
@@ -162,13 +163,7 @@ var consoleLogger = {
 					_excludes[pShort] = val;
 				}
 				else if(type == ".message") {
-					if(val) try {
-						messages[pShort] = new RegExp(val);
-					}
-					catch(e) {
-						Components.utils.reportError(LOG_PREFIX + 'Invalid message pattern for "' + pShort + '":\n' + val);
-						Components.utils.reportError(e);
-					}
+					_messages[pShort] = val;
 				}
 				else {
 					_patterns[pName] = val;
@@ -178,6 +173,13 @@ var consoleLogger = {
 		for(var key in _patterns) {
 			if(key in _disabled)
 				continue;
+			if(key in _messages && _messages[key]) try {
+				messages[key] = new RegExp(_messages[key]);
+			}
+			catch(e) {
+				Components.utils.reportError(LOG_PREFIX + 'Invalid message pattern for "' + key + '":\n' + _messages[key]);
+				Components.utils.reportError(e);
+			}
 			if(_patterns[key]) try {
 				patterns[key] = new RegExp(_patterns[key], "i");
 				if(key in _excludes && _excludes[key]) try {
