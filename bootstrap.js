@@ -1,7 +1,8 @@
 const LOG_PREFIX = "[Console Logger] ";
 const FILE_NAME_PREFIX = "consoleLogger_";
 const FILE_NAME_DEBUG = "consoleLogger-debug.log";
-var rootURI;
+var rootURI = "chrome://consolelogger/content/";
+var platformVersion;
 
 Components.utils.import("resource://gre/modules/Services.jsm");
 this.__defineGetter__("OS", function() {
@@ -14,12 +15,14 @@ function install(params, reason) {
 function uninstall(params, reason) {
 }
 function startup(params, reason) {
-	rootURI = params && params.resourceURI
-		? params.resourceURI.spec
-		: new Error().fileName
-			.replace(/^.* -> /, "")
-			.replace(/[^\/]+$/, "");
-
+	platformVersion = parseFloat(Services.appinfo.platformVersion);
+	if(platformVersion < 10) {
+		rootURI = params && params.resourceURI
+			? params.resourceURI.spec
+			: new Error().fileName
+				.replace(/^.* -> /, "")
+				.replace(/[^\/]+$/, "");
+	}
 	consoleLogger.init(reason);
 }
 function shutdown(params, reason) {
