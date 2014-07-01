@@ -223,7 +223,8 @@ var consoleLogger = {
 		var files = this._files;
 		if(key in files)
 			return files[key];
-		var file = FileUtils.getFile("ProfD", [name || FILE_NAME_PREFIX + key + ".log"]);
+		var file = Services.dirsvc.get("ProfD", Components.interfaces.nsIFile);
+		file.append(name || FILE_NAME_PREFIX + key + ".log");
 		return files[key] = file;
 	},
 	_writeInProgress: false,
