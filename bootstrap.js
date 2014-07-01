@@ -83,10 +83,6 @@ var consoleLogger = {
 		}
 	},
 
-	get platformVersion() {
-		delete this.platformVersion;
-		return this.platformVersion = parseFloat(Services.appinfo.platformVersion);
-	},
 	writeStringMessage: function(msg, key) {
 		var timestamp = this.getTimestamp(msg);
 		this.writeToFile(
@@ -240,7 +236,7 @@ var consoleLogger = {
 		}.bind(this);
 
 		var _this = this;
-		if(this.platformVersion < 7) {
+		if(platformVersion < 7) {
 			try {
 				var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
 					.createInstance(Components.interfaces.nsIFileOutputStream);
@@ -263,7 +259,7 @@ var consoleLogger = {
 			}
 			return;
 		}
-		if(this.platformVersion < 27) {
+		if(platformVersion < 27) {
 			var FileUtils = this.FileUtils || (
 				this.FileUtils = Components.utils.import("resource://gre/modules/FileUtils.jsm").FileUtils
 			);
