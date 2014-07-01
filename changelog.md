@@ -9,8 +9,8 @@
 `*` Now used <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API to write logs with better performance (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
 `*` Slightly improved performance: now console notifications are handled after small delay to not hang browser (<a href="https://github.com/Infocatcher/Console_Logger/issues/2">#2</a>).<br>
 `*` Now works correctly, if \*.log file was removed.<br>
-`+` Added support for Gecko 2 – 6.<br>
 `x` Correctly disable \*.message patterns.<br>
+`+` Added support for Firefox 1.5+, Thunderbird 1.5+ and SeaMonkey 2.0+.<br>
 
 ##### 0.1.0pre2 (2014-01-29)
 `x` Correctly handle <em>.enabled</em> = <em>false</em> preference.<br>
