@@ -7,6 +7,8 @@
 
 ##### master/HEAD
 `*` Теперь используется <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API для записи логов с лучшей производительностью (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
+`*` Немного улучшена производительность: теперь уведомления о сообщениях в консоли обрабатываются после небольшой задержки, чтобы не блокировать браузер (<a href="https://github.com/Infocatcher/Console_Logger/issues/2">#2</a>).<br>
+`*` Теперь корректно работает, если \*.log файл был удален.<br>
 
 ##### 0.1.0pre2 (2014-01-29)
 `x` Исправлена обработка настроек <em>.enabled</em> = <em>false</em>.<br>
