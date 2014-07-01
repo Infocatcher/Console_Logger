@@ -4,10 +4,11 @@ const FILE_NAME_DEBUG = "consoleLogger-debug.log";
 var rootURI = "chrome://consolelogger/content/";
 var platformVersion;
 
-Components.utils.import("resource://gre/modules/Services.jsm");
+if(!("Services" in this))
+	Components.utils["import"]("resource://gre/modules/Services.jsm");
 this.__defineGetter__("OS", function() {
 	delete this.OS;
-	return Components.utils.import("resource://gre/modules/osfile.jsm").OS;
+	return Components.utils["import"]("resource://gre/modules/osfile.jsm").OS;
 });
 
 function install(params, reason) {
@@ -263,10 +264,10 @@ var consoleLogger = {
 		}
 		if(platformVersion < 27) {
 			var FileUtils = this.FileUtils || (
-				this.FileUtils = Components.utils.import("resource://gre/modules/FileUtils.jsm").FileUtils
+				this.FileUtils = Components.utils["import"]("resource://gre/modules/FileUtils.jsm").FileUtils
 			);
 			var NetUtil = this.NetUtil || (
-				this.NetUtil = Components.utils.import("resource://gre/modules/NetUtil.jsm").NetUtil
+				this.NetUtil = Components.utils["import"]("resource://gre/modules/NetUtil.jsm").NetUtil
 			);
 			//if(!file.exists())
 			//	file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
@@ -323,8 +324,9 @@ var prefs = {
 			return;
 		this.initialized = true;
 
-		//~ todo: add condition when https://bugzilla.mozilla.org/show_bug.cgi?id=564675 will be fixed
-		this.loadDefaultPrefs();
+		//~ todo: add new condition when https://bugzilla.mozilla.org/show_bug.cgi?id=564675 will be fixed
+		if(platformVersion >= 2)
+			this.loadDefaultPrefs();
 		Services.prefs.addObserver(this.ns, this, false);
 	},
 	destroy: function() {
@@ -411,6 +413,17 @@ var prefs = {
 };
 
 function delay(callback, context) {
+	if(platformVersion <= 1.8) { // Firefox 2 and older
+		delay = function(callback, context) {
+			var timer = Components.classes["@mozilla.org/timer;1"]
+				.createInstance(Components.interfaces.nsITimer);
+			timer.init({observe: function(subject, topic, data) {
+				callback.call(context);
+			}}, 0, timer.TYPE_ONE_SHOT);
+		};
+		delay.apply(this, arguments);
+		return;
+	}
 	var tm = Services.tm;
 	var DISPATCH_NORMAL = Components.interfaces.nsIThread.DISPATCH_NORMAL;
 	delay = function(callback, context) {
