@@ -245,9 +245,12 @@ var consoleLogger = {
 
 		var _this = this;
 		if(this.platformVersion < 27) {
-			if(!file.exists())
-				file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
-			var ostream = FileUtils.openFileOutputStream(file, FileUtils.MODE_WRONLY | FileUtils.MODE_APPEND);
+			//if(!file.exists())
+			//	file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
+			var ostream = FileUtils.openFileOutputStream(
+				file,
+				FileUtils.MODE_WRONLY | FileUtils.MODE_CREATE | FileUtils.MODE_APPEND
+			);
 			var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
 				.createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
 			converter.charset = "UTF-8";
