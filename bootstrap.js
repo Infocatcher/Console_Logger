@@ -218,10 +218,6 @@ var consoleLogger = {
 		return false;
 	},
 
-	get osFileAPI() {
-		delete this.osFileAPI;
-		return this.osFileAPI = this.platformVersion >= 27;
-	},
 	_files: { __proto__: null },
 	getFile: function(key, name) {
 		var files = this._files;
@@ -248,7 +244,7 @@ var consoleLogger = {
 		}.bind(this);
 
 		var _this = this;
-		if(!this.osFileAPI) {
+		if(this.platformVersion < 27) {
 			if(!file.exists())
 				file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 			var ostream = FileUtils.openFileOutputStream(file, FileUtils.MODE_WRONLY | FileUtils.MODE_APPEND);
