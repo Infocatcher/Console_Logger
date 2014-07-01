@@ -57,6 +57,11 @@ var consoleLogger = {
 	},
 
 	observe: function(msg) {
+		delay(function() {
+			this.observeDelayed(msg);
+		}, this);
+	},
+	observeDelayed: function(msg) {
 		if(!(msg instanceof Components.interfaces.nsIScriptError)) {
 			if(msg instanceof Components.interfaces.nsIConsoleMessage) {
 				var msgText = msg.message;
@@ -382,6 +387,18 @@ var prefs = {
 		return Services.prefs.PREF_STRING;
 	}
 };
+
+function delay(callback, context) {
+	var tm = Services.tm;
+	var DISPATCH_NORMAL = Components.interfaces.nsIThread.DISPATCH_NORMAL;
+	delay = function(callback, context) {
+		// Note: dispatch(function() { ... }) works only in Firefox 4+
+		tm.mainThread.dispatch({run: function() {
+			callback.call(context);
+		}}, DISPATCH_NORMAL);
+	}
+	delay.apply(this, arguments);
+}
 
 function _log(s) {
 	if(prefs.get("debug"))
