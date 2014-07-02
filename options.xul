@@ -12,6 +12,11 @@
 	onunload="consoleLoggerOptions.destroy();"
 	ondialogaccept="consoleLoggerOptions.save();"
 	ondialogextra1="consoleLoggerOptions.save();"
+	oncommand="consoleLoggerOptions.checkUnsaved();"
+	onchange="consoleLoggerOptions.checkUnsaved();"
+	oninput="consoleLoggerOptions.checkUnsaved();"
+	ondrop="consoleLoggerOptions.checkUnsaved();"
+	oncut="consoleLoggerOptions.checkUnsaved();"
 	width="640"
 	height="480"
 	persist="width height screenX screenY">

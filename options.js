@@ -3,7 +3,7 @@ var consoleLoggerOptions = {
 	exports: ["consoleLogger"],
 	init: function() {
 		var root = document.documentElement;
-		var applyBtn = root.getButton("extra1");
+		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
 		// Insert Apply button between OK and Cancel
 		var okBtn = root.getButton("accept");
@@ -72,11 +72,35 @@ var consoleLoggerOptions = {
 		return rli;
 	},
 
+	_savedOptions: null,
+	get optionsHash() {
+		var options = this.options;
+		if("JSON" in window)
+			return JSON.stringify(options);
+		return uneval(options);
+	},
+	markAsSaved: function() {
+		this._savedOptions = this.optionsHash;
+		this.applyBtn.disabled = true;
+	},
+	_checkUnsavedTimer: 0,
+	checkUnsaved: function() {
+		clearTimeout(this._checkUnsavedTimer);
+		this._checkUnsavedTimer = setTimeout(function(_this) {
+			_this._checkUnsaved();
+		}, 15, this);
+	},
+	_checkUnsaved: function() {
+		this.applyBtn.disabled = this.optionsHash == this._savedOptions;
+	},
+
 	load: function() {
 		this.options = consoleLogger.options;
+		this.markAsSaved();
 	},
 	save: function() {
 		consoleLogger.options = this.options;
+		this.markAsSaved();
 	},
 	add: function() {
 		this.appendItem();
