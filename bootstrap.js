@@ -1,6 +1,7 @@
 const LOG_PREFIX = "[Console Logger] ";
 const FILE_NAME_PREFIX = "consoleLogger_";
 const FILE_NAME_DEBUG = "consoleLogger-debug.log";
+var global = this;
 var rootURI = "chrome://consolelogger/content/";
 var platformVersion;
 
@@ -43,6 +44,7 @@ var consoleLogger = {
 
 		prefs.init();
 		Services.console.registerListener(this);
+		Services.obs.addObserver(this, "consoleLogger-exportScope", false);
 	},
 	destroy: function(reason) {
 		if(reason == APP_SHUTDOWN)
@@ -54,14 +56,20 @@ var consoleLogger = {
 
 		prefs.destroy();
 		Services.console.unregisterListener(this);
+		Services.obs.removeObserver(this, "consoleLogger-exportScope");
 	},
 
-	observe: function(msg) {
-		delay(function() {
-			this.observeDelayed(msg);
-		}, this);
+	observe: function(subject, topic, data) {
+		if(!topic) {
+			delay(function() {
+				this.handleConsoleMessage(subject);
+			}, this);
+		}
+		else if(topic == "consoleLogger-exportScope") {
+			subject[data] = global;
+		}
 	},
-	observeDelayed: function(msg) {
+	handleConsoleMessage: function(msg) {
 		if(!(msg instanceof Components.interfaces.nsIScriptError)) {
 			if(msg instanceof Components.interfaces.nsIConsoleMessage) {
 				var msgText = msg.message;
