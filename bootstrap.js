@@ -183,16 +183,16 @@ var consoleLogger = {
 			}
 			if(_patterns[key]) try {
 				patterns[key] = new RegExp(_patterns[key], "i");
-				if(key in _excludes && _excludes[key]) try {
-					excludes[key] = new RegExp(_excludes[key], "i");
-				}
-				catch(e2) {
-					Components.utils.reportError(LOG_PREFIX + 'Invalid exclusion for "' + key + '":\n' + _excludes[key]);
-					Components.utils.reportError(e2);
-				}
 			}
 			catch(e) {
 				Components.utils.reportError(LOG_PREFIX + 'Invalid pattern for "' + key + '":\n' + _patterns[key]);
+				Components.utils.reportError(e);
+			}
+			if(key in _excludes && _excludes[key]) try {
+				excludes[key] = new RegExp(_excludes[key], "i");
+			}
+			catch(e) {
+				Components.utils.reportError(LOG_PREFIX + 'Invalid exclusion for "' + key + '":\n' + _excludes[key]);
 				Components.utils.reportError(e);
 			}
 		}
