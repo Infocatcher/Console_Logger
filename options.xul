@@ -23,7 +23,7 @@
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
 	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1" context="cl-context"
 		onselect="consoleLoggerOptions.disableControls();"
-		ondblclick="if(event.target == this) consoleLoggerOptions.add();"
+		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
 		onclick="if(event.button == 1) consoleLoggerOptions.remove();" />
 	<hbox align="center" pack="center">
 		<button id="cl-btn-add" label="Add" oncommand="consoleLoggerOptions.add();" />

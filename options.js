@@ -128,11 +128,13 @@ var consoleLoggerOptions = {
 		var rli = this.appendItem({ name: name });
 		rli.firstChild.focus();
 		this.box.selectedItem = rli;
+		this.checkUnsaved();
 	},
 	remove: function() {
 		this.removableItems.forEach(function(elt) {
 			elt.parentNode.removeChild(elt);
 		});
+		this.checkUnsaved();
 		this.disableControls();
 	}
 };
