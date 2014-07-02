@@ -94,9 +94,16 @@ var consoleLoggerOptions = {
 		this.applyBtn.disabled = this.optionsHash == this._savedOptions;
 	},
 
+	disableControls: function() {
+		var noSelected = this.selectedItems.length == 0;
+		document.getElementById("cl-btn-remove").disabled = noSelected;
+		document.getElementById("cl-mi-remove").disabled = noSelected;
+	},
+
 	load: function() {
 		this.options = consoleLogger.options;
 		this.markAsSaved();
+		this.disableControls();
 	},
 	save: function() {
 		consoleLogger.options = this.options;
@@ -116,5 +123,6 @@ var consoleLoggerOptions = {
 		this.selectedItems.forEach(function(elt) {
 			elt.parentNode.removeChild(elt);
 		});
+		this.disableControls();
 	}
 };

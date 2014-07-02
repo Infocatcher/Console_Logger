@@ -22,14 +22,15 @@
 	persist="width height screenX screenY sizemode">
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
 	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1" context="cl-context"
+		onselect="consoleLoggerOptions.disableControls();"
 		ondblclick="if(event.target == this) consoleLoggerOptions.add();" />
 	<hbox align="center" pack="center">
-		<button label="Add" oncommand="consoleLoggerOptions.add();" />
-		<button label="Remove" oncommand="consoleLoggerOptions.remove();" />
+		<button id="cl-btn-add" label="Add" oncommand="consoleLoggerOptions.add();" />
+		<button id="cl-btn-remove" label="Remove" oncommand="consoleLoggerOptions.remove();" />
 	</hbox>
 	<menupopup id="cl-context">
-		<menuitem key="cl-key-add" label="Add" oncommand="consoleLoggerOptions.add();" />
-		<menuitem key="cl-key-remove" label="Remove" oncommand="consoleLoggerOptions.remove();" />
+		<menuitem id="cl-mi-add" key="cl-key-add" label="Add" oncommand="consoleLoggerOptions.add();" />
+		<menuitem id="cl-mi-remove" key="cl-key-remove" label="Remove" oncommand="consoleLoggerOptions.remove();" />
 	</menupopup>
 	<keyset>
 		<key id="cl-key-add" keycode="VK_INSERT" oncommand="consoleLoggerOptions.add();" />
