@@ -158,6 +158,25 @@ var consoleLogger = {
 			});
 		return items;
 	},
+	set options(options) {
+		prefs.lockObserver = true;
+		var ns = prefs.ns + "patterns.";
+		Services.prefs.getBranch(ns) // Reset all prefs in branch
+			.getChildList("", {})
+			.forEach(function(pName) {
+				if(Services.prefs.prefHasUserValue(ns + pName))
+					Services.prefs.clearUserPref(ns + pName);
+			});
+		for(var name in options) {
+			var item = options[name];
+			prefs.setPref(ns + name, item.source || "");
+			prefs.setPref(ns + name + ".message", item.message || "");
+			prefs.setPref(ns + name + ".exclude", item.exclude || "");
+			prefs.setPref(ns + name + ".enabled", !("enabled" in item) || item.enabled);
+		}
+		prefs.lockObserver = false;
+		this.loadPatterns();
+	},
 	loadPatterns: function() {
 		var messages = { __proto__: null };
 		var sources  = { __proto__: null };
@@ -320,8 +339,9 @@ var prefs = {
 
 		Services.prefs.removeObserver(this.ns, this);
 	},
+	lockObserver: false,
 	observe: function(subject, topic, pName) {
-		if(topic != "nsPref:changed")
+		if(topic != "nsPref:changed" || this.lockObserver)
 			return;
 		var shortName = pName.substr(this.ns.length);
 		if(shortName.substr(0, 9) == "patterns.")
