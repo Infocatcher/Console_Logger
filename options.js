@@ -2,6 +2,21 @@ var consoleLoggerGlobal;
 var consoleLoggerOptions = {
 	exports: ["consoleLogger"],
 	init: function() {
+		var root = document.documentElement;
+		var applyBtn = root.getButton("extra1");
+		// Insert Apply button between OK and Cancel
+		var okBtn = root.getButton("accept");
+		var cancelBtn = root.getButton("cancel");
+		var btnBox = okBtn.parentNode;
+		for(var node = btnBox.firstChild; node; node = node.nextSibling) {
+			if(node == okBtn || node == cancelBtn) {
+				node = node.nextSibling;
+				if(node != applyBtn)
+					btnBox.insertBefore(applyBtn, node);
+				break;
+			}
+		}
+
 		//Services.obs
 		Components.classes["@mozilla.org/observer-service;1"]
 			.getService(Components.interfaces.nsIObserverService)
