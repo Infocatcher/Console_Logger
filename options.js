@@ -72,7 +72,7 @@ var consoleLoggerOptions = {
 		this.box.appendChild(rli);
 		if(state)
 			cli.state = state;
-		return cli;
+		return rli;
 	},
 
 	_savedOptions: null,
@@ -120,7 +120,9 @@ var consoleLoggerOptions = {
 			if(!(name in options))
 				break;
 		}
-		this.appendItem({ name: name }).focus();
+		var rli = this.appendItem({ name: name });
+		rli.firstChild.focus();
+		this.box.selectedItem = rli;
 	},
 	remove: function() {
 		this.selectedItems.forEach(function(elt) {
