@@ -44,6 +44,11 @@ const Services = {
 		return this.dirsvc = Components.classes["@mozilla.org/file/directory_service;1"]
 			.getService(Components.interfaces.nsIDirectoryService)
 			.QueryInterface(Components.interfaces.nsIProperties);
+	},
+	get wm() {
+		delete this.wm;
+		return this.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+			.getService(Components.interfaces.nsIWindowMediator);
 	}
 };
 

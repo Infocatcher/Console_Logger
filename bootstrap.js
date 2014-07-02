@@ -57,6 +57,17 @@ var consoleLogger = {
 		prefs.destroy();
 		Services.console.unregisterListener(this);
 		Services.obs.removeObserver(this, "consoleLogger-exportScope");
+
+		function closeOptions(window) {
+			if(window.location.href.substr(0, 23) == "chrome://consolelogger/") {
+				window.close();
+				return;
+			}
+			Array.forEach(window.frames, closeOptions);
+		};
+		var windows = Services.wm.getEnumerator(null);
+		while(windows.hasMoreElements())
+			closeOptions(windows.getNext());
 	},
 
 	observe: function(subject, topic, data) {
