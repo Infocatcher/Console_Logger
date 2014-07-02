@@ -4,6 +4,7 @@ var consoleLoggerOptions = {
 	init: function() {
 		var root = document.documentElement;
 		var applyBtn = root.getButton("extra1");
+		applyBtn.setAttribute("icon", "apply");
 		// Insert Apply button between OK and Cancel
 		var okBtn = root.getButton("accept");
 		var cancelBtn = root.getButton("cancel");
