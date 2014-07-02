@@ -65,9 +65,9 @@ var consoleLogger = {
 		if(!(msg instanceof Components.interfaces.nsIScriptError)) {
 			if(msg instanceof Components.interfaces.nsIConsoleMessage) {
 				var msgText = msg.message;
-				var messages = this.messages;
-				for(var key in messages) {
-					if(messages[key].test(msgText)) {
+				var patterns = this.messages;
+				for(var key in patterns) {
+					if(patterns[key].test(msgText)) {
 						if(!this.exclude(msgText, key))
 							this.writeStringMessage(msg, key);
 						break;
@@ -77,10 +77,9 @@ var consoleLogger = {
 			return;
 		}
 		var msgSource = msg.sourceName;
-		var patterns = this.patterns;
+		var patterns = this.sources;
 		for(var key in patterns) {
-			var pattern = patterns[key];
-			if(pattern.test(msgSource)) {
+			if(patterns[key].test(msgSource)) {
 				if(!this.exclude(msg.errorMessage, key))
 					this.writeMessage(msg, key);
 				break;
@@ -132,8 +131,8 @@ var consoleLogger = {
 		return d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
 	},
 
-	get patterns() {
-		return this.loadPatterns().patterns;
+	get sources() {
+		return this.loadPatterns().sources;
 	},
 	get messages() {
 		return this.loadPatterns().messages;
@@ -141,77 +140,58 @@ var consoleLogger = {
 	get excludes() {
 		return this.loadPatterns().excludes;
 	},
-	loadPatterns: function() {
+	get options() {
 		var ns = prefs.ns + "patterns.";
-		var patterns = { __proto__: null };
-		var messages = { __proto__: null };
-		var excludes = { __proto__: null };
-
-		var _patterns = { __proto__: null };
-		var _disabled = { __proto__: null };
-		var _messages = { __proto__: null };
-		var _excludes = { __proto__: null };
+		var items = { __proto__: null };
 		Services.prefs.getBranch(ns)
 			.getChildList("", {})
 			.forEach(function(pName) {
 				var val = prefs.getPref(ns + pName);
-				var pShort, type;
-				if(/\.[^.]+$/.test(pName)) {
-					pShort = RegExp.leftContext;
-					type = RegExp.lastMatch;
+				var name = pName;
+				var type = "source";
+				if(/\.(enabled|exclude|message)$/.test(pName)) {
+					name = RegExp.leftContext;
+					type = RegExp.$1;
 				}
-				if(type == ".enabled") {
-					if(!val)
-						_disabled[pShort] = true;
-				}
-				else if(type == ".exclude") {
-					_excludes[pShort] = val;
-				}
-				else if(type == ".message") {
-					_messages[pShort] = val;
-				}
-				else {
-					_patterns[pName] = val;
-				}
+				var item = items[name] || (items[name] = { __proto__: null });
+				item[type] = val;
 			});
-
-		for(var key in _patterns) {
-			if(key in _disabled)
-				continue;
-			if(key in _messages && _messages[key]) try {
-				messages[key] = new RegExp(_messages[key]);
+		return items;
+	},
+	loadPatterns: function() {
+		var messages = { __proto__: null };
+		var sources  = { __proto__: null };
+		var excludes = { __proto__: null };
+		function makePattern(out, name, item, type, flags) {
+			if(type in item && item[type]) try {
+				out[name] = new RegExp(item[type], flags);
 			}
 			catch(e) {
-				Components.utils.reportError(LOG_PREFIX + 'Invalid message pattern for "' + key + '":\n' + _messages[key]);
-				Components.utils.reportError(e);
-			}
-			if(_patterns[key]) try {
-				patterns[key] = new RegExp(_patterns[key], "i");
-			}
-			catch(e) {
-				Components.utils.reportError(LOG_PREFIX + 'Invalid pattern for "' + key + '":\n' + _patterns[key]);
-				Components.utils.reportError(e);
-			}
-			if(key in _excludes && _excludes[key]) try {
-				excludes[key] = new RegExp(_excludes[key], "i");
-			}
-			catch(e) {
-				Components.utils.reportError(LOG_PREFIX + 'Invalid exclusion for "' + key + '":\n' + _excludes[key]);
+				Components.utils.reportError(LOG_PREFIX + "Invalid " + type + " pattern for \"" + name + "\":\n" + item[type]);
 				Components.utils.reportError(e);
 			}
 		}
-		delete this.patterns;
+		var options = this.options;
+		for(var name in options) {
+			var item = options[name];
+			if("enabled" in item && !item.enabled)
+				continue;
+			makePattern(messages, name, item, "message", "");
+			makePattern(sources,  name, item, "source",  "i");
+			makePattern(excludes, name, item, "exclude", "i");
+		}
 		delete this.messages;
+		delete this.sources;
 		delete this.excludes;
 		return {
-			patterns: (this.patterns = patterns),
 			messages: (this.messages = messages),
+			sources:  (this.sources  = sources),
 			excludes: (this.excludes = excludes)
 		};
 	},
 	exclude: function(msgText, key) {
-		var excludes = this.excludes;
-		if(key in excludes && excludes[key].test(msgText))
+		var patterns = this.excludes;
+		if(key in patterns && patterns[key].test(msgText))
 			return true;
 		return false;
 	},
