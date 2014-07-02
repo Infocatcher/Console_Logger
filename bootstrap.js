@@ -63,7 +63,7 @@ var consoleLogger = {
 				window.close();
 				return;
 			}
-			Array.forEach(window.frames, closeOptions);
+			Array.slice(window.frames).forEach(closeOptions);
 		};
 		var windows = Services.wm.getEnumerator(null);
 		while(windows.hasMoreElements())
