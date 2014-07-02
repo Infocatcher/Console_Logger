@@ -26,4 +26,10 @@
 		<button label="Add" oncommand="consoleLoggerOptions.add();" />
 		<button label="Remove" oncommand="consoleLoggerOptions.remove();" />
 	</hbox>
+	<keyset>
+		<key id="cl-key-add" keycode="VK_INSERT" oncommand="consoleLoggerOptions.add();" />
+		<key id="cl-key-add" keycode="VK_F7" oncommand="consoleLoggerOptions.add();" />
+		<key id="cl-key-remove" keycode="VK_DELETE" oncommand="consoleLoggerOptions.remove();" />
+		<key id="cl-key-remove" keycode="VK_F8" oncommand="consoleLoggerOptions.remove();" />
+	</keyset>
 </dialog>
