@@ -21,7 +21,8 @@
 	height="480"
 	persist="width height screenX screenY sizemode">
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
-	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1" />
+	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1"
+		ondblclick="if(event.target == this) consoleLoggerOptions.add();" />
 	<hbox align="center" pack="center">
 		<button label="Add" oncommand="consoleLoggerOptions.add();" />
 		<button label="Remove" oncommand="consoleLoggerOptions.remove();" />
