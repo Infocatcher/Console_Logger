@@ -34,6 +34,25 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 
+	get options() {
+		var options = { __proto__: null };
+		Array.forEach(
+			this.box.getElementsByTagName("consoleloggeritem"),
+			function(cli) {
+				var item = cli.state;
+				var name = item.name;
+				if(!name)
+					return;
+				options[name] = item;
+			}
+		);
+		return options;
+	},
+	set options(options) {
+		this.box.textContent = "";
+		for(var name in options)
+			this.appendItem(options[name]);
+	},
 	get box() {
 		delete this.box;
 		return this.box = document.getElementById("cl-richlistbox");
@@ -54,24 +73,10 @@ var consoleLoggerOptions = {
 	},
 
 	load: function() {
-		this.box.textContent = "";
-		var options = consoleLogger.options;
-		for(var name in options)
-			this.appendItem(options[name]);
+		this.options = consoleLogger.options;
 	},
 	save: function() {
-		var options = { __proto__: null };
-		Array.forEach(
-			this.box.getElementsByTagName("consoleloggeritem"),
-			function(cli) {
-				var item = cli.state;
-				var name = item.name;
-				if(!name)
-					return;
-				options[name] = item;
-			}
-		);
-		consoleLogger.options = options;
+		consoleLogger.options = this.options;
 	},
 	add: function() {
 		this.appendItem();
