@@ -24,6 +24,7 @@
 			null
 		);
 	}
+	consoleLoggerGlobal = Services = null;
 	window.close();
 	</script>
 </window>
