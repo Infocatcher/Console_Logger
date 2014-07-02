@@ -59,7 +59,10 @@ var consoleLoggerOptions = {
 	},
 	get selectedItems() {
 		var rlb = this.box;
-		return rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem];
+		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem];
+		return selectedItems.filter(function(elt) {
+			return elt.parentNode;
+		});
 	},
 	appendItem: function(state) {
 		var rli = document.createElement("richlistitem");
