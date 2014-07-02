@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://consolelogger/content/options.css" type="text/css"?>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	id="consoleLoggerOptions"
+	windowtype="consoleLogger:options"
+	title="Console Logger: Options"
+	buttons="accept,cancel"
+	onload="consoleLoggerOptions.init();"
+	onunload="consoleLoggerOptions.destroy();"
+	ondialogaccept="consoleLoggerOptions.save();"
+	width="640"
+	height="480"
+	persist="width height screenX screenY">
+	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
+	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1" />
+	<hbox align="center" pack="center">
+		<button label="Add" oncommand="consoleLoggerOptions.add();" />
+		<button label="Remove" oncommand="consoleLoggerOptions.remove();" />
+	</hbox>
+</dialog>

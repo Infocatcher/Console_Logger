@@ -163,6 +163,7 @@ var consoleLogger = {
 				}
 				var item = items[name] || (
 					items[name] = {
+						name: name,
 						enabled: true,
 						source: "",
 						message: "",
