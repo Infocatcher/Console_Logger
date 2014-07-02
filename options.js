@@ -83,9 +83,16 @@ var consoleLoggerOptions = {
 	_savedOptions: null,
 	get optionsHash() {
 		var options = this.options;
-		if("JSON" in window)
-			return JSON.stringify(options);
-		return uneval(options);
+		if(!("JSON" in window)) {
+			var data = [];
+			for(var name in options) {
+				var item = options[name];
+				for(var p in item)
+					data.push(p + ":" + item[p]);
+			}
+			return data.join("\n");
+		}
+		return JSON.stringify(options);
 	},
 	markAsSaved: function() {
 		this._savedOptions = this.optionsHash;
