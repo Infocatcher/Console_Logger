@@ -162,6 +162,7 @@ var consoleLogger = {
 	get options() {
 		var ns = prefs.ns + "patterns.";
 		var items = { __proto__: null };
+		var defaultBranch = Services.prefs.getDefaultBranch("");
 		Services.prefs.getBranch(ns)
 			.getChildList("", {})
 			.forEach(function(pName) {
@@ -179,6 +180,7 @@ var consoleLogger = {
 						source: "",
 						message: "",
 						exclude: "",
+						locked: prefs.getPref(ns + pName, null, defaultBranch) !== null,
 						__proto__: null
 					}
 				);

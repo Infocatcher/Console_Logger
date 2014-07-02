@@ -64,6 +64,11 @@ var consoleLoggerOptions = {
 			return elt.parentNode;
 		});
 	},
+	get removableItems() {
+		return this.selectedItems.filter(function(elt) {
+			return !elt.firstChild.getItem("name").disabled;
+		});
+	},
 	appendItem: function(state) {
 		var rli = document.createElement("richlistitem");
 		var cli = document.createElement("consoleloggeritem");
@@ -98,9 +103,9 @@ var consoleLoggerOptions = {
 	},
 
 	disableControls: function() {
-		var noSelected = this.selectedItems.length == 0;
-		document.getElementById("cl-btn-remove").disabled = noSelected;
-		document.getElementById("cl-mi-remove").setAttribute("disabled", noSelected);
+		var cantRemove = this.removableItems.length == 0;
+		document.getElementById("cl-btn-remove").disabled = cantRemove;
+		document.getElementById("cl-mi-remove").setAttribute("disabled", cantRemove);
 	},
 
 	load: function() {
@@ -125,7 +130,7 @@ var consoleLoggerOptions = {
 		this.box.selectedItem = rli;
 	},
 	remove: function() {
-		this.selectedItems.forEach(function(elt) {
+		this.removableItems.forEach(function(elt) {
 			elt.parentNode.removeChild(elt);
 		});
 		this.disableControls();
