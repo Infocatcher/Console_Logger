@@ -100,7 +100,7 @@ var consoleLoggerOptions = {
 	disableControls: function() {
 		var noSelected = this.selectedItems.length == 0;
 		document.getElementById("cl-btn-remove").disabled = noSelected;
-		document.getElementById("cl-mi-remove").disabled = noSelected;
+		document.getElementById("cl-mi-remove").setAttribute("disabled", noSelected);
 	},
 
 	load: function() {
