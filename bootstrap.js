@@ -161,7 +161,15 @@ var consoleLogger = {
 					name = RegExp.leftContext;
 					type = RegExp.$1;
 				}
-				var item = items[name] || (items[name] = { __proto__: null });
+				var item = items[name] || (
+					items[name] = {
+						enabled: true,
+						source: "",
+						message: "",
+						exclude: "",
+						__proto__: null
+					}
+				);
 				item[type] = val;
 			});
 		return items;
@@ -177,10 +185,10 @@ var consoleLogger = {
 			});
 		for(var name in options) {
 			var item = options[name];
-			prefs.setPref(ns + name, item.source || "");
-			prefs.setPref(ns + name + ".message", item.message || "");
-			prefs.setPref(ns + name + ".exclude", item.exclude || "");
-			prefs.setPref(ns + name + ".enabled", !("enabled" in item) || item.enabled);
+			prefs.setPref(ns + name, item.source);
+			prefs.setPref(ns + name + ".message", item.message);
+			prefs.setPref(ns + name + ".exclude", item.exclude);
+			prefs.setPref(ns + name + ".enabled", item.enabled);
 		}
 		prefs.lockObserver = false;
 		this.loadPatterns();
@@ -190,7 +198,7 @@ var consoleLogger = {
 		var sources  = { __proto__: null };
 		var excludes = { __proto__: null };
 		function makePattern(out, name, item, type, flags) {
-			if(type in item && item[type]) try {
+			if(item[type]) try {
 				out[name] = new RegExp(item[type], flags);
 			}
 			catch(e) {
