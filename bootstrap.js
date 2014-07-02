@@ -58,9 +58,16 @@ var consoleLogger = {
 		Services.console.unregisterListener(this);
 		Services.obs.removeObserver(this, "consoleLogger-exportScope");
 
+		var isUpdate = reason == ADDON_UPGRADE || reason == ADDON_DOWNGRADE;
 		function closeOptions(window) {
 			if(window.location.href.substr(0, 23) == "chrome://consolelogger/") {
-				window.close();
+				if(!isUpdate)
+					window.close();
+				else {
+					window.setTimeout(function(w) {
+						w.location.reload(true);
+					}, 50, window);
+				}
 				return;
 			}
 			Array.slice(window.frames).forEach(closeOptions);
