@@ -17,7 +17,9 @@ function uninstall(params, reason) {
 }
 function startup(params, reason) {
 	platformVersion = parseFloat(Services.appinfo.platformVersion);
-	if(platformVersion < 10) {
+	if(platformVersion < 10 && "addBootstrappedManifestLocation" in Components.manager)
+		Components.manager.addBootstrappedManifestLocation(params.installPath);
+	if(platformVersion < 8) {
 		rootURI = params && params.resourceURI
 			? params.resourceURI.spec
 			: new Error().fileName
@@ -27,6 +29,8 @@ function startup(params, reason) {
 	consoleLogger.init(reason);
 }
 function shutdown(params, reason) {
+	if(platformVersion < 10 && "addBootstrappedManifestLocation" in Components.manager)
+		Components.manager.removeBootstrappedManifestLocation(params.installPath);
 	consoleLogger.destroy(reason);
 }
 
