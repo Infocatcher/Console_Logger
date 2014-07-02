@@ -6,10 +6,12 @@
 	id="consoleLoggerOptions"
 	windowtype="consoleLogger:options"
 	title="Console Logger: Options"
-	buttons="accept,cancel"
+	buttons="accept,cancel,extra1"
+	buttonlabelextra1="Apply"
 	onload="consoleLoggerOptions.init();"
 	onunload="consoleLoggerOptions.destroy();"
 	ondialogaccept="consoleLoggerOptions.save();"
+	ondialogextra1="consoleLoggerOptions.save();"
 	width="640"
 	height="480"
 	persist="width height screenX screenY">
