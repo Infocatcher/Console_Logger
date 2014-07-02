@@ -36,5 +36,7 @@
 		<key id="cl-key-add" keycode="VK_F7" oncommand="consoleLoggerOptions.add();" />
 		<key id="cl-key-remove" keycode="VK_DELETE" oncommand="consoleLoggerOptions.remove();" />
 		<key id="cl-key-remove" keycode="VK_F8" oncommand="consoleLoggerOptions.remove();" />
+		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
+		<key id="cl-key-reload" keycode="VK_F5" oncommand="consoleLoggerOptions.load();" />
 	</keyset>
 </dialog>
