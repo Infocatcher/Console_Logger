@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	id="consoleLoggerOptionsOpener"
+	windowtype="consoleLogger:optionsOpener">
+	<script type="application/javascript">
+	// Hack to open options in not modal window
+	Components.classes["@mozilla.org/observer-service;1"]
+		.getService(Components.interfaces.nsIObserverService)
+		.notifyObservers(window, "consoleLogger-exportScope", "consoleLoggerGlobal");
+	var Services = consoleLoggerGlobal.Services;
+	var w = Services.wm.getMostRecentWindow("consoleLogger:options");
+	if(w) {
+		var wo = window.opener || w;
+		wo.setTimeout(function(w) {
+			w.focus();
+		}, 0, w);
+	}
+	else {
+		Services.ww.openWindow(
+			window.opener,
+			"chrome://consolelogger/content/options.xul",
+			"_blank",
+			"chrome,all,toolbar,centerscreen,resizable,dialog=0",
+			null
+		);
+	}
+	window.close();
+	</script>
+</window>

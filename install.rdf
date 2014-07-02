@@ -10,7 +10,7 @@
 		<em:version>0.1.0pre2</em:version>
 		<em:description>Adds ability to write certain console messages to log files, see defaults/preferences/prefs.js for details</em:description>
 		<em:creator>Infocatcher</em:creator>
-		<em:optionsURL>chrome://consolelogger/content/options.xul</em:optionsURL>
+		<em:optionsURL>chrome://consolelogger/content/optionsOpener.xul</em:optionsURL>
 		<em:optionsType>1</em:optionsType>
 		<em:updateURL>http://infocatcher.ucoz.net/ext/fx/console_logger/update.rdf</em:updateURL>
 		<em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDLgtEbrhCdZetIAanFNvkT441WwBgXcg1Zzlo5s5

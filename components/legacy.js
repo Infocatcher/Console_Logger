@@ -49,6 +49,11 @@ const Services = {
 		delete this.wm;
 		return this.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 			.getService(Components.interfaces.nsIWindowMediator);
+	},
+	get ww() {
+		delete this.ww;
+		return this.ww = Components.classes["@mozilla.org/embedcomp/window-watcher;1"]
+			.getService(Components.interfaces.nsIWindowWatcher);
 	}
 };
 
