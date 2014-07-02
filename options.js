@@ -69,7 +69,7 @@ var consoleLoggerOptions = {
 		this.box.appendChild(rli);
 		if(state)
 			cli.state = state;
-		return rli;
+		return cli;
 	},
 
 	_savedOptions: null,
@@ -103,7 +103,14 @@ var consoleLoggerOptions = {
 		this.markAsSaved();
 	},
 	add: function() {
-		this.appendItem();
+		var options = this.options;
+		var n = 0;
+		for(;;) {
+			var name = "Extension" + ++n;
+			if(!(name in options))
+				break;
+		}
+		this.appendItem({ name: name }).focus();
 	},
 	remove: function() {
 		this.selectedItems.forEach(function(elt) {
