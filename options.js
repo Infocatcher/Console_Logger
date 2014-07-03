@@ -265,6 +265,7 @@ var consoleLoggerOptions = {
 		});
 		rli.firstChild.focus();
 		this.box.selectedItem = rli;
+		this.box.ensureElementIsVisible(rli);
 		this.checkUnsaved();
 	},
 	reset: function() {
