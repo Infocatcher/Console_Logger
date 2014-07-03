@@ -153,14 +153,35 @@ var consoleLoggerOptions = {
 			consoleLogger.resetOptions(cli.state.name);
 		});
 		var savedOptions = consoleLogger.options;
+		var moveSelection = true;
+		var origItems = Array.slice(this.box.children);
 		selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
 			var name = cli.state.name;
 			if(name in savedOptions)
-				cli.state = savedOptions[name];
+				cli.state = savedOptions[name], moveSelection = false;
 			else
 				rli.parentNode.removeChild(rli);
 		});
+		if(moveSelection) {
+			// Select nearest not removed item
+			var newSelectedItem, nearestItem, foundRemoved;
+			for(var i = origItems.length - 1; i >= 0; --i) {
+				var rli = origItems[i];
+				if(!rli.parentNode) {
+					foundRemoved = true;
+					if(nearestItem) {
+						this.box.selectedItem = newSelectedItem = nearestItem;
+						break;
+					}
+				}
+				else if(!foundRemoved || !nearestItem) {
+					nearestItem = rli;
+				}
+			}
+			if(!newSelectedItem)
+				this.box.selectedItem = this.box.lastChild;
+		}
 		this._savedOptions = this.getOptionsHash(savedOptions);
 		this.checkUnsaved();
 		this.updateControls();
