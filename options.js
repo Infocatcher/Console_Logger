@@ -1,6 +1,6 @@
 var consoleLoggerGlobal;
 var consoleLoggerOptions = {
-	exports: ["consoleLogger"],
+	exports: ["consoleLogger", "Services"],
 	init: function() {
 		var root = document.documentElement;
 		var applyBtn = this.applyBtn = root.getButton("extra1");
@@ -74,6 +74,96 @@ var consoleLoggerOptions = {
 			cli.state = state;
 		return rli;
 	},
+	getUniqueName: function(baseName) {
+		var options = this.options;
+		for(var n = 1; ; ++n) {
+			var name = baseName
+				? n == 1 ? baseName : baseName + "#" + n
+				: "Extension" + n;
+			if(!(name in options))
+				break;
+		}
+		return name;
+	},
+
+	exportHeader: "// Console Logger options\n",
+	exportedFields: ["enabled", "source", "message", "exclude"],
+	get clipboard() {
+		var data = this.readFromClipboard()
+			.replace(/^\/\/[^\n\r]+[\n\r]+/, "");
+		if(data) try {
+			var options = JSON.parse(data);
+			return this.validateOptions(options);
+		}
+		catch(e) {
+		}
+		return null;
+	},
+	set clipboard(options) {
+		this.cleanupOptions(options);
+		var data = JSON.stringify(options, null, "\t");
+		this.copyString(this.exportHeader + data);
+	},
+	validateOptions: function(options) {
+		if(!options || typeof options != "object")
+			return null;
+		for(var name in options) {
+			var item = options[name];
+			if(!item || typeof item != "object")
+				return null;
+			for(var p in item)
+				if(this.exportedFields.indexOf(p) == -1)
+					return null;
+		}
+		return options;
+	},
+	cleanupOptions: function(options) {
+		for(var name in options) {
+			var item = options[name];
+			for(var p in item)
+				if(this.exportedFields.indexOf(p) == -1)
+					delete item[p];
+		}
+		return options;
+	},
+	readFromClipboard: function() {
+		// Based on readFromClipboard() function from
+		// chrome://browser/content/browser.js in Firefox 30
+		var str = "";
+		try {
+			var cb = Services.clipboard;
+			var trans = Components.classes["@mozilla.org/widget/transferable;1"]
+				.createInstance(Components.interfaces.nsITransferable);
+			if("init" in trans) try {
+				trans.init(
+					window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+						.getInterface(Components.interfaces.nsIWebNavigation)
+						.QueryInterface(Components.interfaces.nsILoadContext)
+				);
+			}
+			catch(e2) {
+				Components.utils.reportError(e2);
+			}
+			trans.addDataFlavor("text/unicode");
+			cb.getData(trans, cb.kGlobalClipboard);
+			var data = {};
+			var dataLen = {};
+			trans.getTransferData("text/unicode", data, dataLen);
+			if(data) {
+				data = data.value.QueryInterface(Components.interfaces.nsISupportsString);
+				str = data.data.substring(0, dataLen.value/2);
+			}
+		}
+		catch(e) {
+		}
+		return str;
+	},
+	copyString: function(str) {
+		str = str.replace(/\r\n?|\n/g, Services.appinfo.OS == "WINNT" ? "\r\n" : "\n");
+		Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+			.getService(Components.interfaces.nsIClipboardHelper)
+			.copyString(str, document);
+	},
 
 	_savedOptions: null,
 	get optionsHash() {
@@ -122,6 +212,17 @@ var consoleLoggerOptions = {
 		miReset.setAttribute("disabled", cantReset);
 		miRemove.setAttribute("hidden", hasLocked);
 		miReset.setAttribute("hidden", !hasLocked);
+		document.getElementById("cl-mi-copy").setAttribute("disabled", cantReset);
+	},
+	updateContextMenu: function() {
+		if(!("JSON" in window)) {
+			document.getElementById("cl-ms-beforeCopy").setAttribute("hidden", "true");
+			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
+			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
+			this.updateContextMenu = function() {};
+			return;
+		}
+		document.getElementById("cl-mi-paste").setAttribute("disabled", !this.clipboard);
 	},
 
 	load: function() {
@@ -134,14 +235,9 @@ var consoleLoggerOptions = {
 		this.markAsSaved();
 	},
 	add: function() {
-		var options = this.options;
-		var n = 0;
-		for(;;) {
-			var name = "Extension" + ++n;
-			if(!(name in options))
-				break;
-		}
-		var rli = this.appendItem({ name: name });
+		var rli = this.appendItem({
+			name: this.getUniqueName()
+		});
 		rli.firstChild.focus();
 		this.box.selectedItem = rli;
 		this.checkUnsaved();
@@ -185,5 +281,25 @@ var consoleLoggerOptions = {
 		this._savedOptions = this.getOptionsHash(savedOptions);
 		this.checkUnsaved();
 		this.updateControls();
+	},
+	copy: function() {
+		var options = { __proto__: null };
+		this.selectedItems.forEach(function(rli) {
+			var cli = rli.firstChild;
+			var item = cli.state;
+			var name = item.name;
+			//if(!name)
+			//	return;
+			options[name] = item;
+		});
+		this.clipboard = options;
+	},
+	paste: function() {
+		var options = this.clipboard;
+		for(var name in options) {
+			var item = options[name];
+			item.name = this.getUniqueName(name);
+			this.appendItem(item);
+		}
 	}
 };

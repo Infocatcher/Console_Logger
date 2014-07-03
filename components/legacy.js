@@ -54,6 +54,11 @@ const Services = {
 		delete this.ww;
 		return this.ww = Components.classes["@mozilla.org/embedcomp/window-watcher;1"]
 			.getService(Components.interfaces.nsIWindowWatcher);
+	},
+	get clipboard() {
+		delete this.clipboard;
+		return this.clipboard = Components.classes["@mozilla.org/widget/clipboard;1"]
+			.getService(Components.interfaces.nsIClipboard);
 	}
 };
 
