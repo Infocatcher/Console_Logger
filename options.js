@@ -269,19 +269,14 @@ var consoleLoggerOptions = {
 		this.checkUnsaved();
 	},
 	reset: function() {
-		var selectedItems = this.selectedItems;
-		selectedItems.forEach(function(rli) {
-			var cli = rli.firstChild;
-			consoleLogger.resetOptions(cli.state.name);
-		});
-		var savedOptions = consoleLogger.options;
+		var defaultOptions = consoleLogger.defaultOptions;
 		var moveSelection = true;
 		var origItems = Array.slice(this.box.children);
-		selectedItems.forEach(function(rli) {
+		this.selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
 			var name = cli.state.name;
-			if(name in savedOptions)
-				cli.state = savedOptions[name], moveSelection = false;
+			if(name in defaultOptions)
+				cli.state = defaultOptions[name], moveSelection = false;
 			else
 				rli.parentNode.removeChild(rli);
 		});
@@ -303,7 +298,6 @@ var consoleLoggerOptions = {
 			}
 			this.box.selectedItem = newSelectedItem || this.box.lastChild;
 		}
-		this._savedOptions = this.getOptionsHash(savedOptions);
 		this.checkUnsaved();
 		this.updateControls();
 	},

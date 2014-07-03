@@ -167,33 +167,7 @@ var consoleLogger = {
 		return this.loadPatterns().excludes;
 	},
 	get options() {
-		var ns = prefs.ns + "patterns.";
-		var items = { __proto__: null };
-		var defaultBranch = Services.prefs.getDefaultBranch("");
-		Services.prefs.getBranch(ns)
-			.getChildList("", {})
-			.forEach(function(pName) {
-				var val = prefs.getPref(ns + pName);
-				var name = pName;
-				var type = "source";
-				if(/\.(enabled|exclude|message)$/.test(pName)) {
-					name = RegExp.leftContext;
-					type = RegExp.$1;
-				}
-				var item = items[name] || (
-					items[name] = {
-						name: name,
-						enabled: true,
-						source: "",
-						message: "",
-						exclude: "",
-						locked: prefs.getPref(ns + pName, null, defaultBranch) !== null,
-						__proto__: null
-					}
-				);
-				item[type] = val;
-			});
-		return items;
+		return this.getOptions(false);
 	},
 	set options(options) {
 		prefs.lockObserver = true;
@@ -208,6 +182,41 @@ var consoleLogger = {
 		}
 		prefs.lockObserver = false;
 		this.loadPatterns();
+	},
+	get defaultOptions() {
+		return this.getOptions(true);
+	},
+	getOptions: function(defaults) {
+		var ns = prefs.ns + "patterns.";
+		var items = { __proto__: null };
+		var defaultBranch = Services.prefs.getDefaultBranch("");
+		var branch = defaults && defaultBranch;
+		Services.prefs.getBranch(ns)
+			.getChildList("", {})
+			.forEach(function(pName) {
+				var val = prefs.getPref(ns + pName, null, branch);
+				if(val === null)
+					return;
+				var name = pName;
+				var type = "source";
+				if(/\.(enabled|exclude|message)$/.test(pName)) {
+					name = RegExp.leftContext;
+					type = RegExp.$1;
+				}
+				var item = items[name] || (
+					items[name] = {
+						name: name,
+						enabled: true,
+						source: "",
+						message: "",
+						exclude: "",
+						locked: defaults || prefs.getPref(ns + pName, null, defaultBranch) !== null,
+						__proto__: null
+					}
+				);
+				item[type] = val;
+			});
+		return items;
 	},
 	resetOptions: function(name) {
 		prefs.resetBranch(prefs.ns + "patterns." + name);
