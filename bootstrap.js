@@ -198,12 +198,7 @@ var consoleLogger = {
 	set options(options) {
 		prefs.lockObserver = true;
 		var ns = prefs.ns + "patterns.";
-		Services.prefs.getBranch(ns) // Reset all prefs in branch
-			.getChildList("", {})
-			.forEach(function(pName) {
-				if(Services.prefs.prefHasUserValue(ns + pName))
-					Services.prefs.clearUserPref(ns + pName);
-			});
+		prefs.resetBranch(ns);
 		for(var name in options) {
 			var item = options[name];
 			prefs.setPref(ns + name, item.source);
@@ -454,6 +449,14 @@ var prefs = {
 			case "number":  return Services.prefs.PREF_INT;
 		}
 		return Services.prefs.PREF_STRING;
+	},
+	resetBranch: function(branchName) {
+		// Note: nsIPrefBranch.resetBranch() isn't implemented
+		var branch = Services.prefs.getBranch(branchName);
+		branch.getChildList("", {}).forEach(function(pName) {
+			if(branch.prefHasUserValue(pName))
+				branch.clearUserPref(pName);
+		});
 	}
 };
 
