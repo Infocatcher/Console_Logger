@@ -26,8 +26,8 @@
 		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
 		onclick="if(event.button == 1) consoleLoggerOptions.remove();" />
 	<hbox align="center" pack="center">
-		<button id="cl-btn-add" label="Add" oncommand="consoleLoggerOptions.add();" />
-		<button id="cl-btn-remove" label="Remove" oncommand="consoleLoggerOptions.remove();" />
+		<button id="cl-btn-add" icon="add" label="Add" oncommand="consoleLoggerOptions.add();" />
+		<button id="cl-btn-remove" icon="remove" label="Remove" oncommand="consoleLoggerOptions.remove();" />
 	</hbox>
 	<menupopup id="cl-context">
 		<menuitem id="cl-mi-add" key="cl-key-add" label="Add" oncommand="consoleLoggerOptions.add();" />
