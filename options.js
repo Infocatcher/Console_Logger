@@ -18,6 +18,14 @@ var consoleLoggerOptions = {
 			}
 		}
 
+		this.canExport = "JSON" in window; // Firefox 3.5+
+		if(!this.canExport) {
+			document.getElementById("cl-btn-options").setAttribute("hidden", "true");
+			document.getElementById("cl-ms-beforeCopy").setAttribute("hidden", "true");
+			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
+			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
+		}
+
 		//Services.obs
 		Components.classes["@mozilla.org/observer-service;1"]
 			.getService(Components.interfaces.nsIObserverService)
@@ -212,17 +220,17 @@ var consoleLoggerOptions = {
 		miReset.setAttribute("disabled", cantReset);
 		miRemove.setAttribute("hidden", hasLocked);
 		miReset.setAttribute("hidden", !hasLocked);
-		document.getElementById("cl-mi-copy").setAttribute("disabled", cantReset);
+		if(this.canExport) {
+			document.getElementById("cl-mi-copy").setAttribute("disabled", cantReset);
+			document.getElementById("cl-bmi-copy").setAttribute("disabled", cantReset);
+		}
 	},
 	updateContextMenu: function() {
-		if(!("JSON" in window)) {
-			document.getElementById("cl-ms-beforeCopy").setAttribute("hidden", "true");
-			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
-			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
-			this.updateContextMenu = function() {};
-			return;
+		if(this.canExport) {
+			var cantPaste = !this.clipboard;
+			document.getElementById("cl-mi-paste").setAttribute("disabled", cantPaste);
+			document.getElementById("cl-bmi-paste").setAttribute("disabled", cantPaste);
 		}
-		document.getElementById("cl-mi-paste").setAttribute("disabled", !this.clipboard);
 	},
 
 	load: function() {

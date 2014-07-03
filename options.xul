@@ -31,6 +31,12 @@
 			<button id="cl-btn-remove" icon="remove" label="Remove" />
 			<button id="cl-btn-reset" icon="remove" label="Reset" />
 		</deck>
+		<button id="cl-btn-options" label="Options" type="menu">
+			<menupopup position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
+				<menuitem id="cl-bmi-copy" key="cl-key-copy" label="Copy" oncommand="consoleLoggerOptions.copy();" />
+				<menuitem id="cl-bmi-paste" key="cl-key-paste" label="Paste" oncommand="consoleLoggerOptions.paste();" />
+			</menupopup>
+		</button>
 	</hbox>
 	<menupopup id="cl-context" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
 		<menuitem id="cl-mi-add" key="cl-key-add" label="Add" oncommand="consoleLoggerOptions.add();" />
