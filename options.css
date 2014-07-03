@@ -2,3 +2,7 @@
 consoleloggeritem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 }
+#cl-richlistbox[cl_compact] > richlistitem:not([selected]) .cl-row-detail {
+	overflow: hidden;
+	height: 0;
+}

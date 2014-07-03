@@ -1,6 +1,6 @@
 var consoleLoggerGlobal;
 var consoleLoggerOptions = {
-	exports: ["consoleLogger", "Services"],
+	exports: ["consoleLogger", "Services", "prefs"],
 	init: function() {
 		//Services.obs
 		Components.classes["@mozilla.org/observer-service;1"]
@@ -42,6 +42,8 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
 		}
+
+		this.setCompactMode();
 	},
 
 	get options() {
@@ -233,6 +235,16 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-mi-paste").setAttribute("disabled", cantPaste);
 			document.getElementById("cl-bmi-paste").setAttribute("disabled", cantPaste);
 		}
+	},
+	setCompactMode: function(compact) {
+		if(compact === undefined)
+			compact = prefs.get("options.compact");
+		else
+			prefs.set("options.compact", compact);
+		if(compact)
+			this.box.setAttribute("cl_compact", "true");
+		else
+			this.box.removeAttribute("cl_compact");
 	},
 
 	load: function() {
