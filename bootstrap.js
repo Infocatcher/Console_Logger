@@ -420,10 +420,14 @@ var prefs = {
 	},
 	getPref: function(pName, defaultVal, prefBranch) {
 		var ps = prefBranch || Services.prefs;
-		switch(ps.getPrefType(pName)) {
-			case ps.PREF_BOOL:   return ps.getBoolPref(pName);
-			case ps.PREF_INT:    return ps.getIntPref(pName);
-			case ps.PREF_STRING: return ps.getComplexValue(pName, Components.interfaces.nsISupportsString).data;
+		try { // nsIPrefBranch.getPrefType() returns type of changed value for default branch
+			switch(ps.getPrefType(pName)) {
+				case ps.PREF_BOOL:   return ps.getBoolPref(pName);
+				case ps.PREF_INT:    return ps.getIntPref(pName);
+				case ps.PREF_STRING: return ps.getComplexValue(pName, Components.interfaces.nsISupportsString).data;
+			}
+		}
+		catch(e) {
 		}
 		return defaultVal;
 	},
