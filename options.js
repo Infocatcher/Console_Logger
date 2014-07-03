@@ -181,9 +181,7 @@ var consoleLoggerOptions = {
 
 	_savedOptions: null,
 	get optionsHash() {
-		return this.getOptionsHash(this.options);
-	},
-	getOptionsHash: function(options) {
+		var options = this.options;
 		if(!("JSON" in window)) {
 			var data = [];
 			for(var name in options) {
