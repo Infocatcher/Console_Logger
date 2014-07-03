@@ -2,6 +2,23 @@ var consoleLoggerGlobal;
 var consoleLoggerOptions = {
 	exports: ["consoleLogger", "Services"],
 	init: function() {
+		//Services.obs
+		Components.classes["@mozilla.org/observer-service;1"]
+			.getService(Components.interfaces.nsIObserverService)
+			.notifyObservers(window, "consoleLogger-exportScope", "consoleLoggerGlobal");
+		this.exports.forEach(function(prop) {
+			window[prop] = consoleLoggerGlobal[prop];
+		}, this);
+		this.setupUI();
+		this.load();
+	},
+	destroy: function() {
+		consoleLoggerGlobal = null;
+		this.exports.forEach(function(prop) {
+			window[prop] = null;
+		}, this);
+	},
+	setupUI: function() {
 		var root = document.documentElement;
 		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
@@ -25,21 +42,6 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
 		}
-
-		//Services.obs
-		Components.classes["@mozilla.org/observer-service;1"]
-			.getService(Components.interfaces.nsIObserverService)
-			.notifyObservers(window, "consoleLogger-exportScope", "consoleLoggerGlobal");
-		this.exports.forEach(function(prop) {
-			window[prop] = consoleLoggerGlobal[prop];
-		}, this);
-		this.load();
-	},
-	destroy: function() {
-		consoleLoggerGlobal = null;
-		this.exports.forEach(function(prop) {
-			window[prop] = null;
-		}, this);
 	},
 
 	get options() {
