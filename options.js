@@ -37,7 +37,9 @@ var consoleLoggerOptions = {
 
 		this.canExport = "JSON" in window; // Firefox 3.5+
 		if(!this.canExport) {
-			document.getElementById("cl-btn-options").setAttribute("hidden", "true");
+			document.getElementById("cl-bms-beforeCopy").setAttribute("hidden", "true");
+			document.getElementById("cl-bmi-copy").setAttribute("hidden", "true");
+			document.getElementById("cl-bmi-paste").setAttribute("hidden", "true");
 			document.getElementById("cl-ms-beforeCopy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
@@ -235,6 +237,7 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-mi-paste").setAttribute("disabled", cantPaste);
 			document.getElementById("cl-bmi-paste").setAttribute("disabled", cantPaste);
 		}
+		document.getElementById("cl-bmi-compact").setAttribute("checked", this.box.hasAttribute("cl_compact"));
 	},
 	setCompactMode: function(compact) {
 		if(compact === undefined)
