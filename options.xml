@@ -48,6 +48,7 @@
 						var elt = this.getItem(name);
 						state[name] = "checked" in elt ? elt.checked : elt.value;
 					}, this);
+					state.locked = this.getItem("name").disabled;
 					return state;
 				</getter>
 				<setter>

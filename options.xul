@@ -22,22 +22,26 @@
 	persist="width height screenX screenY sizemode">
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
 	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1" context="cl-context"
-		onselect="consoleLoggerOptions.disableControls();"
+		onselect="consoleLoggerOptions.updateControls();"
 		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
-		onclick="if(event.button == 1) consoleLoggerOptions.remove();" />
+		onclick="if(event.button == 1) consoleLoggerOptions.reset();" />
 	<hbox align="center" pack="center">
 		<button id="cl-btn-add" icon="add" label="Add" oncommand="consoleLoggerOptions.add();" />
-		<button id="cl-btn-remove" icon="remove" label="Remove" oncommand="consoleLoggerOptions.remove();" />
+		<deck id="cl-deck-reset" oncommand="consoleLoggerOptions.reset();">
+			<button id="cl-btn-remove" icon="remove" label="Remove" />
+			<button id="cl-btn-reset" icon="remove" label="Reset" />
+		</deck>
 	</hbox>
 	<menupopup id="cl-context">
 		<menuitem id="cl-mi-add" key="cl-key-add" label="Add" oncommand="consoleLoggerOptions.add();" />
-		<menuitem id="cl-mi-remove" key="cl-key-remove" label="Remove" oncommand="consoleLoggerOptions.remove();" />
+		<menuitem id="cl-mi-remove" key="cl-key-remove" label="Remove" oncommand="consoleLoggerOptions.reset();" />
+		<menuitem id="cl-mi-reset" key="cl-key-remove" label="Reset" oncommand="consoleLoggerOptions.reset();" />
 	</menupopup>
 	<keyset>
 		<key id="cl-key-add" keycode="VK_INSERT" oncommand="consoleLoggerOptions.add();" />
 		<key id="cl-key-add2" keycode="VK_F7" oncommand="consoleLoggerOptions.add();" />
-		<key id="cl-key-remove" keycode="VK_DELETE" oncommand="consoleLoggerOptions.remove();" />
-		<key id="cl-key-remove2" keycode="VK_F8" oncommand="consoleLoggerOptions.remove();" />
+		<key id="cl-key-remove" keycode="VK_DELETE" oncommand="consoleLoggerOptions.reset();" />
+		<key id="cl-key-remove2" keycode="VK_F8" oncommand="consoleLoggerOptions.reset();" />
 		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
 		<key id="cl-key-reload" keycode="VK_F5" oncommand="consoleLoggerOptions.load();" />
 	</keyset>

@@ -209,6 +209,9 @@ var consoleLogger = {
 		prefs.lockObserver = false;
 		this.loadPatterns();
 	},
+	resetOptions: function(name) {
+		prefs.resetBranch(prefs.ns + "patterns." + name);
+	},
 	loadPatterns: function() {
 		var messages = { __proto__: null };
 		var sources  = { __proto__: null };

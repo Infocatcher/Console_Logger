@@ -64,11 +64,6 @@ var consoleLoggerOptions = {
 			return elt.parentNode;
 		});
 	},
-	get removableItems() {
-		return this.selectedItems.filter(function(elt) {
-			return !elt.firstChild.getItem("name").disabled;
-		});
-	},
 	appendItem: function(state) {
 		var rli = document.createElement("richlistitem");
 		var cli = document.createElement("consoleloggeritem");
@@ -82,7 +77,9 @@ var consoleLoggerOptions = {
 
 	_savedOptions: null,
 	get optionsHash() {
-		var options = this.options;
+		return this.getOptionsHash(this.options);
+	},
+	getOptionsHash: function(options) {
 		if(!("JSON" in window)) {
 			var data = [];
 			for(var name in options) {
@@ -109,16 +106,28 @@ var consoleLoggerOptions = {
 		this.applyBtn.disabled = this.optionsHash == this._savedOptions;
 	},
 
-	disableControls: function() {
-		var cantRemove = this.removableItems.length == 0;
+	updateControls: function() {
+		var selectedItems = this.selectedItems;
+		var hasLocked = selectedItems.some(function(rli) {
+			return rli.firstChild.getItem("name").disabled;
+		});
+		var cantReset = selectedItems.length == 0;
+		var cantRemove = cantReset || hasLocked;
+		document.getElementById("cl-deck-reset").selectedIndex = hasLocked ? 1 : 0;
 		document.getElementById("cl-btn-remove").disabled = cantRemove;
-		document.getElementById("cl-mi-remove").setAttribute("disabled", cantRemove);
+		document.getElementById("cl-btn-reset").disabled = cantReset;
+		var miRemove = document.getElementById("cl-mi-remove");
+		var miReset = document.getElementById("cl-mi-reset");
+		miRemove.setAttribute("disabled", cantRemove);
+		miReset.setAttribute("disabled", cantReset);
+		miRemove.setAttribute("hidden", hasLocked);
+		miReset.setAttribute("hidden", !hasLocked);
 	},
 
 	load: function() {
 		this.options = consoleLogger.options;
 		this.markAsSaved();
-		this.disableControls();
+		this.updateControls();
 	},
 	save: function() {
 		consoleLogger.options = this.options;
@@ -137,11 +146,23 @@ var consoleLoggerOptions = {
 		this.box.selectedItem = rli;
 		this.checkUnsaved();
 	},
-	remove: function() {
-		this.removableItems.forEach(function(elt) {
-			elt.parentNode.removeChild(elt);
+	reset: function() {
+		var selectedItems = this.selectedItems;
+		selectedItems.forEach(function(rli) {
+			var cli = rli.firstChild;
+			consoleLogger.resetOptions(cli.state.name);
 		});
+		var savedOptions = consoleLogger.options;
+		selectedItems.forEach(function(rli) {
+			var cli = rli.firstChild;
+			var name = cli.state.name;
+			if(name in savedOptions)
+				cli.state = savedOptions[name];
+			else
+				rli.parentNode.removeChild(rli);
+		});
+		this._savedOptions = this.getOptionsHash(savedOptions);
 		this.checkUnsaved();
-		this.disableControls();
+		this.updateControls();
 	}
 };
