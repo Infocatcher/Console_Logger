@@ -6,3 +6,9 @@ consoleloggeritem {
 	overflow: hidden;
 	height: 0;
 }
+#consoleLoggerOptions {
+	padding: 8px;
+}
+#cl-richlistbox {
+	margin: 2px;
+}
