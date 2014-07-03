@@ -293,7 +293,7 @@ var consoleLoggerOptions = {
 				if(!rli.parentNode) {
 					foundRemoved = true;
 					if(nearestItem) {
-						this.box.selectedItem = newSelectedItem = nearestItem;
+						newSelectedItem = nearestItem;
 						break;
 					}
 				}
@@ -301,8 +301,7 @@ var consoleLoggerOptions = {
 					nearestItem = rli;
 				}
 			}
-			if(!newSelectedItem)
-				this.box.selectedItem = this.box.lastChild;
+			this.box.selectedItem = newSelectedItem || this.box.lastChild;
 		}
 		this._savedOptions = this.getOptionsHash(savedOptions);
 		this.checkUnsaved();
