@@ -44,6 +44,10 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
 		}
+		if(!("selectAll" in this.box)) { // Only single selection in Firefox 1.5 and 2.0
+			document.getElementById("cl-ms-beforeSelectAll").setAttribute("hidden", "true");
+			document.getElementById("cl-mi-selectAll").setAttribute("hidden", "true");
+		}
 
 		this.setCompactMode();
 	},
@@ -249,6 +253,7 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-bmi-paste").setAttribute("disabled", cantPaste);
 		}
 		document.getElementById("cl-bmi-compact").setAttribute("checked", this.box.hasAttribute("cl_compact"));
+		document.getElementById("cl-mi-selectAll").setAttribute("disabled", !this.box.hasChildNodes());
 	},
 	setCompactMode: function(compact) {
 		if(compact === undefined)
