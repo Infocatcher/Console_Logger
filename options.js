@@ -251,6 +251,9 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-mi-copy").setAttribute("disabled", cantReset);
 			document.getElementById("cl-bmi-copy").setAttribute("disabled", cantReset);
 		}
+		var isEmpty = !this.box.hasChildNodes();
+		this.filter.disabled = isEmpty;
+		document.getElementById("cl-filterLabel").disabled = isEmpty;
 	},
 	updateContextMenu: function() {
 		if(this.canExport) {
