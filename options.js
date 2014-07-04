@@ -44,9 +44,12 @@ var consoleLoggerOptions = {
 			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
 		}
-		if(!("selectAll" in this.box)) { // Only single selection in Firefox 1.5 and 2.0
+		if(!("selectAll" in this.box)) { // Only single selection in Firefox 2.0 and older
 			document.getElementById("cl-ms-beforeSelectAll").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-selectAll").setAttribute("hidden", "true");
+		}
+		if(!("timeout" in this.filter)) { // Firefox 3.0 and older
+			this.filter.setAttribute("type", "timed");
 		}
 
 		this.setCompactMode();
