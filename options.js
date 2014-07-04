@@ -276,6 +276,7 @@ var consoleLoggerOptions = {
 		this.options = consoleLogger.options;
 		this.markAsSaved();
 		this.updateControls();
+		this.updateFilter();
 	},
 	save: function() {
 		consoleLogger.options = this.options;
@@ -290,6 +291,7 @@ var consoleLoggerOptions = {
 		this.box.selectedItem = rli;
 		this.box.ensureElementIsVisible(rli);
 		this.checkUnsaved();
+		this.updateFilter();
 	},
 	reset: function() {
 		var defaultOptions = consoleLogger.defaultOptions;
@@ -326,6 +328,7 @@ var consoleLoggerOptions = {
 		}
 		this.checkUnsaved();
 		this.updateControls();
+		this.updateFilter();
 	},
 	copy: function() {
 		var options = { __proto__: null };
@@ -346,6 +349,7 @@ var consoleLoggerOptions = {
 			item.name = this.getUniqueName(name);
 			this.appendItem(item);
 		}
+		this.updateFilter();
 	},
 	setFilter: function(filter) {
 		filter = filter
@@ -372,5 +376,12 @@ var consoleLoggerOptions = {
 			this.filter.setAttribute("cl-notFound", "true");
 		else
 			this.filter.removeAttribute("cl-notFound");
+	},
+	updateFilter: function() {
+		var filterBox = this.filter;
+		var filter = filterBox.value;
+		if(!filter)
+			return;
+		this.setFilter(filter);
 	}
 };
