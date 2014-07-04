@@ -377,18 +377,19 @@ var consoleLoggerOptions = {
 		else
 			this.filter.removeAttribute("cl-notFound");
 	},
-	updateFilter: function() {
+	updateFilter: function(notifyTimes) {
 		var filterBox = this.filter;
 		var filter = filterBox.value;
 		if(!filter)
 			return;
 		this.setFilter(filter);
-		var times = 3;
-		(function blink() {
+		if(notifyTimes === undefined)
+			notifyTimes = 3;
+		if(notifyTimes) (function blink() {
 			filterBox.setAttribute("cl_highlight", "true");
 			setTimeout(function() {
 				filterBox.removeAttribute("cl_highlight");
-				if(--times)
+				if(--notifyTimes)
 					setTimeout(blink, 100);
 			}, 150);
 		})();
