@@ -219,8 +219,13 @@ var consoleLoggerOptions = {
 	updateControls: function() {
 		var selectedItems = this.selectedItems;
 		var hasLocked = selectedItems.some(function(rli) {
-			return rli.firstChild.getItem("name").disabled;
-		});
+			var cli = rli.firstChild;
+			var nameField = cli.getItem("name");
+			return nameField.disabled
+				&& !this.getItemsByName(nameField.value).some(function(cli) {
+					return selectedItems.indexOf(cli.parentNode) == -1;
+				});
+		}, this);
 		var cantReset = selectedItems.length == 0;
 		var cantRemove = cantReset || hasLocked;
 		document.getElementById("cl-deck-reset").selectedIndex = hasLocked ? 1 : 0;
