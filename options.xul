@@ -68,5 +68,6 @@
 		<key id="cl-key-selectAll2" key="A" modifiers="accel" oncommand="consoleLoggerOptions.box.selectAll();" />
 		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
 		<key id="cl-key-reload" keycode="VK_F5" oncommand="consoleLoggerOptions.load();" />
+		<key id="cl-key-reload2" key="R" modifiers="accel" oncommand="consoleLoggerOptions.load();" />
 	</keyset>
 </dialog>
