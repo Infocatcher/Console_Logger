@@ -277,7 +277,8 @@ var consoleLoggerOptions = {
 	},
 	add: function() {
 		var rli = this.appendItem({
-			name: this.getUniqueName()
+			name: this.getUniqueName(),
+			enabled: true
 		});
 		rli.firstChild.focus();
 		this.box.selectedItem = rli;
