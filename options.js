@@ -116,14 +116,13 @@ var consoleLoggerOptions = {
 	exportedFields: ["enabled", "source", "message", "exclude"],
 	get clipboard() {
 		var data = this.readFromClipboard()
-			.replace(/^\/\/[^\n\r]+[\n\r]+/, "");
-		if(data) try {
+			.replace(/^\s*\/\/[^\n\r]+[\n\r]+/, "");
+		if(data && data.charAt(0) == "{") try {
 			var options = JSON.parse(data);
-			return this.validateOptions(options);
 		}
 		catch(e) {
 		}
-		return null;
+		return this.validateOptions(options);
 	},
 	set clipboard(options) {
 		this.cleanupOptions(options);
