@@ -75,6 +75,24 @@
 					nameField.select();
 				</body>
 			</method>
+			<method name="setFilter">
+				<parameter name="matcher" />
+				<body>
+				<![CDATA[
+					var matched = false;
+					this.params.forEach(function(name) {
+						var elt = this.getItem(name);
+						if("checked" in elt)
+							return;
+						if(matcher && matcher(elt.value))
+							elt.setAttribute("cl_highlight", "true"), matched = true;
+						else
+							elt.removeAttribute("cl_highlight");
+					}, this);
+					return matched;
+				]]>
+				</body>
+			</method>
 		</implementation>
 	</binding>
 </bindings>

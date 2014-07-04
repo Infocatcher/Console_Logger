@@ -82,6 +82,10 @@ var consoleLoggerOptions = {
 			return elt.parentNode;
 		});
 	},
+	get filter() {
+		delete this.filter;
+		return this.filter = document.getElementById("cl-filter");
+	},
 	getItemsByName: function(name) {
 		return Array.filter(
 			this.box.getElementsByTagName("consoleloggeritem"),
@@ -339,5 +343,31 @@ var consoleLoggerOptions = {
 			item.name = this.getUniqueName(name);
 			this.appendItem(item);
 		}
+	},
+	setFilter: function(filter) {
+		filter = filter
+			.replace(/^\s+|\s+$/g, "")
+			.toLowerCase();
+		var tokens = filter.split(/\s+/);
+		var matcher = filter && tokens.length && function(s) {
+			s = s.toLowerCase();
+			return !tokens.some(function(token) {
+				return s.indexOf(token) == -1;
+			});
+		};
+		var found = false;
+		Array.forEach(
+			this.box.getElementsByTagName("consoleloggeritem"),
+			function(cli) {
+				if(!cli.setFilter(matcher) && matcher)
+					cli.parentNode.setAttribute("collapsed", "true");
+				else
+					cli.parentNode.removeAttribute("collapsed"), found = true;
+			}
+		);
+		if(!found && matcher)
+			this.filter.setAttribute("cl-notFound", "true");
+		else
+			this.filter.removeAttribute("cl-notFound");
 	}
 };

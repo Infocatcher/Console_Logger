@@ -21,6 +21,11 @@
 	height="480"
 	persist="width height screenX screenY sizemode">
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
+	<hbox id="cl-filterBox" align="center">
+		<label control="cl-filter" value="Filter:" />
+		<textbox id="cl-filter" type="search" timeout="250" flex="1"
+			oncommand="consoleLoggerOptions.setFilter(this.value);" />
+	</hbox>
 	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1" context="cl-context"
 		onselect="consoleLoggerOptions.updateControls();"
 		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
