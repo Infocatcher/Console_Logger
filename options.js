@@ -383,5 +383,14 @@ var consoleLoggerOptions = {
 		if(!filter)
 			return;
 		this.setFilter(filter);
+		var times = 3;
+		(function blink() {
+			filterBox.setAttribute("cl_highlight", "true");
+			setTimeout(function() {
+				filterBox.removeAttribute("cl_highlight");
+				if(--times)
+					setTimeout(blink, 100);
+			}, 150);
+		})();
 	}
 };
