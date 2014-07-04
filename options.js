@@ -80,7 +80,7 @@ var consoleLoggerOptions = {
 	},
 	get selectedItems() {
 		var rlb = this.box;
-		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem];
+		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
 		return selectedItems.filter(function(elt) {
 			return elt.parentNode;
 		});
