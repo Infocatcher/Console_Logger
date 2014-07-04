@@ -24,7 +24,7 @@
 	<richlistbox id="cl-richlistbox" seltype="multiple" flex="1" context="cl-context"
 		onselect="consoleLoggerOptions.updateControls();"
 		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
-		onclick="if(event.button == 1) consoleLoggerOptions.reset();" />
+		onclick="if(event.target.localName == 'consoleloggeritem' &amp;&amp; event.button == 1) consoleLoggerOptions.reset();" />
 	<hbox align="center" pack="center">
 		<button id="cl-btn-add" icon="add" label="Add" oncommand="consoleLoggerOptions.add();" />
 		<deck id="cl-deck-reset" oncommand="consoleLoggerOptions.reset();">
