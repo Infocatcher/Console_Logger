@@ -60,8 +60,10 @@
 		<key id="cl-key-remove2" keycode="VK_F8" oncommand="consoleLoggerOptions.reset();" />
 		<key id="cl-key-copy" key="C" modifiers="accel,shift" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy2" key="C" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
+		<key id="cl-key-copy3" keycode="VK_INSERT" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-paste" key="V" modifiers="accel,shift" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-paste2" key="V" modifiers="accel" oncommand="consoleLoggerOptions.paste();" />
+		<key id="cl-key-paste3" keycode="VK_INSERT" modifiers="shift" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-selectAll" key="A" modifiers="accel,shift" oncommand="consoleLoggerOptions.box.selectAll();" />
 		<key id="cl-key-selectAll2" key="A" modifiers="accel" oncommand="consoleLoggerOptions.box.selectAll();" />
 		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
