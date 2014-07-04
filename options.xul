@@ -35,6 +35,8 @@
 			<menupopup position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
 				<menuitem id="cl-bmi-compact" type="checkbox" label="Compact Mode"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
+				<menuseparator id="cl-bms-beforeReload" />
+				<menuitem id="cl-bmi-reload" key="cl-key-reload" label="Reload" oncommand="consoleLoggerOptions.load();" />
 				<menuseparator id="cl-bms-beforeCopy" />
 				<menuitem id="cl-bmi-copy" key="cl-key-copy" label="Copy" oncommand="consoleLoggerOptions.copy();" />
 				<menuitem id="cl-bmi-paste" key="cl-key-paste" label="Paste" oncommand="consoleLoggerOptions.paste();" />
