@@ -78,6 +78,14 @@ var consoleLoggerOptions = {
 			return elt.parentNode;
 		});
 	},
+	getItemsByName: function(name) {
+		return Array.filter(
+			this.box.getElementsByTagName("consoleloggeritem"),
+			function(cli) {
+				return cli.getItem("name").value == name;
+			}
+		);
+	},
 	appendItem: function(state) {
 		var rli = document.createElement("richlistitem");
 		var cli = document.createElement("consoleloggeritem");
@@ -273,11 +281,14 @@ var consoleLoggerOptions = {
 		this.selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
 			var name = cli.state.name;
-			if(name in defaultOptions)
+			if(
+				name in defaultOptions
+				&& this.getItemsByName(name).length <= 1
+			)
 				cli.state = defaultOptions[name], moveSelection = false;
 			else
 				rli.parentNode.removeChild(rli);
-		});
+		}, this);
 		if(moveSelection) {
 			// Select nearest not removed item
 			var newSelectedItem, nearestItem, foundRemoved;
