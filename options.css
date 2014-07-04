@@ -12,10 +12,14 @@ consoleloggeritem {
 #cl-richlistbox {
 	margin: 2px;
 }
-#cl-filter[cl-notFound] {
+#cl-filter[type="search"][cl-notFound] {
 	-moz-box-shadow: 0 0 0 1em #f66 inset;
 	box-shadow: 0 0 0 1em #f66 inset;
 	color: white;
+}
+#cl-filter[type="timed"][cl-notFound] {
+	outline: 2px solid #f66;
+	outline-offset: -2px;
 }
 textbox[cl_highlight] {
 	outline: 2px solid ThreeDShadow;
