@@ -84,7 +84,8 @@ var consoleLogger = {
 			}, this);
 		}
 		else if(topic == "consoleLogger-exportScope") {
-			subject[data] = global;
+			var out = subject.wrappedJSObject || subject;
+			out[data] = global;
 		}
 	},
 	handleConsoleMessage: function(msg) {
