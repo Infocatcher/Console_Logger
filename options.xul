@@ -53,6 +53,8 @@
 		<menuitem id="cl-mi-add" key="cl-key-add" label="Add" oncommand="consoleLoggerOptions.add();" />
 		<menuitem id="cl-mi-remove" key="cl-key-remove" label="Remove" oncommand="consoleLoggerOptions.reset();" />
 		<menuitem id="cl-mi-reset" key="cl-key-remove" label="Reset" oncommand="consoleLoggerOptions.reset();" />
+		<menuseparator id="cl-ms-beforeToggle" />
+		<menuitem id="cl-mi-toggle" type="checkbox" key="cl-key-toggle" label="Enabled" oncommand="consoleLoggerOptions.toggle();" />
 		<menuseparator id="cl-ms-beforeCopy" />
 		<menuitem id="cl-mi-copy" key="cl-key-copy" label="Copy" oncommand="consoleLoggerOptions.copy();" />
 		<menuitem id="cl-mi-paste" key="cl-key-paste" label="Paste" oncommand="consoleLoggerOptions.paste();" />
@@ -64,6 +66,8 @@
 		<key id="cl-key-add2" keycode="VK_F7" oncommand="consoleLoggerOptions.add();" />
 		<key id="cl-key-remove" keycode="VK_DELETE" oncommand="consoleLoggerOptions.reset();" />
 		<key id="cl-key-remove2" keycode="VK_F8" oncommand="consoleLoggerOptions.reset();" />
+		<key id="cl-key-toggle" key="E" modifiers="accel" oncommand="consoleLoggerOptions.toggle();" />
+		<key id="cl-key-toggle" key=" " oncommand="consoleLoggerOptions.toggle();" />
 		<key id="cl-key-copy" key="C" modifiers="accel,shift" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy2" key="C" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy3" keycode="VK_INSERT" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />

@@ -85,6 +85,22 @@ var consoleLoggerOptions = {
 			return elt.parentNode;
 		});
 	},
+	get enabledInSelection() {
+		var selectedItems = this.selectedItems;
+		if(!selectedItems.length)
+			return undefined;
+		var hasEnabled = false;
+		var allEnabled = true;
+		selectedItems.some(function(rli) {
+			var cli = rli.firstChild;
+			if(cli.getItem("enabled").checked)
+				hasEnabled = true;
+			else
+				allEnabled = false;
+			return hasEnabled && !allEnabled;
+		});
+		return allEnabled ? 1 : hasEnabled ? -1 : 0;
+	},
 	get filter() {
 		delete this.filter;
 		return this.filter = document.getElementById("cl-filter");
@@ -263,6 +279,17 @@ var consoleLoggerOptions = {
 		}
 		document.getElementById("cl-bmi-compact").setAttribute("checked", this.box.hasAttribute("cl_compact"));
 		document.getElementById("cl-mi-selectAll").setAttribute("disabled", !this.box.hasChildNodes());
+		var toggler = document.getElementById("cl-mi-toggle");
+		var hasEnabled = this.enabledInSelection;
+		if(hasEnabled)
+			toggler.setAttribute("checked", "true");
+		else
+			toggler.removeAttribute("checked");
+		if(hasEnabled == -1)
+			toggler.setAttribute("cl_intermediate", "true");
+		else
+			toggler.removeAttribute("cl_intermediate");
+		toggler.setAttribute("disabled", hasEnabled === undefined);
 	},
 	setCompactMode: function(compact) {
 		if(compact === undefined)
@@ -332,6 +359,14 @@ var consoleLoggerOptions = {
 		this.checkUnsaved();
 		this.updateControls();
 		this.updateFilter();
+	},
+	toggle: function() {
+		var enable = this.enabledInSelection < 1;
+		this.selectedItems.forEach(function(rli) {
+			var cli = rli.firstChild;
+			var cb = cli.getItem("enabled");
+			cb.checked = enable;
+		});
 	},
 	copy: function() {
 		var options = { __proto__: null };
