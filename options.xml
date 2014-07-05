@@ -35,6 +35,7 @@
 		</content>
 		<implementation implements="nsIDOMEventListener">
 			<constructor>
+				this._elts = { __proto__: null };
 				var nameBox = this.getItem("name");
 				nameBox.addEventListener("keypress", this, false);
 				nameBox.addEventListener("input", this, false);
@@ -64,7 +65,9 @@
 			<method name="getItem">
 				<parameter name="anonId" />
 				<body>
-					return this.ownerDocument.getAnonymousElementByAttribute(this, "anonid", anonId);
+					return this._elts[anonId] || (
+						this._elts[anonId] = this.ownerDocument.getAnonymousElementByAttribute(this, "anonid", anonId)
+					);
 				</body>
 			</method>
 			<property name="state">
