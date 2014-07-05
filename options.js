@@ -96,7 +96,7 @@ var consoleLoggerOptions = {
 		var allEnabled = true;
 		selectedItems.some(function(rli) {
 			var cli = rli.firstChild;
-			if(cli.getItem("enabled").checked)
+			if(cli.enabled)
 				hasEnabled = true;
 			else
 				allEnabled = false;
@@ -112,7 +112,7 @@ var consoleLoggerOptions = {
 		return Array.filter(
 			this.list.getElementsByTagName("consoleloggeritem"),
 			function(cli) {
-				return cli.getItem("name").value == name;
+				return cli.name == name;
 			}
 		);
 	},
@@ -249,9 +249,8 @@ var consoleLoggerOptions = {
 		var selectedItems = this.selectedItems;
 		var hasLocked = selectedItems.some(function(rli) {
 			var cli = rli.firstChild;
-			var nameField = cli.getItem("name");
-			return nameField.disabled
-				&& !this.getItemsByName(nameField.value).some(function(cli) {
+			return cli.locked
+				&& !this.getItemsByName(cli.name).some(function(cli) {
 					return selectedItems.indexOf(cli.parentNode) == -1;
 				});
 		}, this);
@@ -332,7 +331,7 @@ var consoleLoggerOptions = {
 		var origItems = Array.slice(this.list.children);
 		this.selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
-			var name = cli.state.name;
+			var name = cli.name;
 			if(
 				name in defaultOptions
 				&& this.getItemsByName(name).length <= 1
@@ -367,8 +366,7 @@ var consoleLoggerOptions = {
 		var enable = this.enabledInSelection < 1;
 		this.selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
-			var cb = cli.getItem("enabled");
-			cb.checked = enable;
+			cli.enabled = enable;
 		});
 	},
 	copy: function() {

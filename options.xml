@@ -70,6 +70,15 @@
 					);
 				</body>
 			</method>
+			<property name="name"
+				onget="return this.getItem('name').value;"
+				onset="this.getItem('name').value = val;" />
+			<property name="enabled"
+				onget="return this.getItem('enabled').checked;"
+				onset="this.getItem('enabled').checked = val;" />
+			<property name="locked"
+				onget="return this.getItem('name').disabled;"
+				onset="this.getItem('name').disabled = val;" />
 			<property name="state">
 				<getter>
 					var state = { __proto__: null };
