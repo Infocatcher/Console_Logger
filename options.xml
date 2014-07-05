@@ -33,7 +33,33 @@
 				</xul:rows>
 			</xul:grid>
 		</content>
-		<implementation>
+		<implementation implements="nsIDOMEventListener">
+			<constructor>
+				var nameBox = this.getItem("name");
+				nameBox.addEventListener("keypress", this, false);
+				nameBox.addEventListener("input", this, false);
+				if("ondrop" in nameBox) // Firefox 4+
+					nameBox.addEventListener("drop", this, false);
+				else {
+					nameBox.addEventListener("dragexit", this, false);
+					nameBox.addEventListener("dragend", this, false);
+				}
+			</constructor>
+			<destructor>
+				var nameBox = this.getItem("name");
+				nameBox.removeEventListener("keypress", this, false);
+				nameBox.removeEventListener("input",    this, false);
+				nameBox.removeEventListener("drop",     this, false);
+				nameBox.removeEventListener("dragexit", this, false);
+				nameBox.removeEventListener("dragend",  this, false);
+			</destructor>
+			<method name="handleEvent">
+				<parameter name="event" />
+				<body>
+					if(event.currentTarget.getAttribute("anonid") == "name")
+						this.validateName(event);
+				</body>
+			</method>
 			<field name="params">["name", "enabled", "source", "message", "exclude"]</field>
 			<method name="getItem">
 				<parameter name="anonId" />
@@ -90,6 +116,86 @@
 							elt.removeAttribute("cl_highlight");
 					}, this);
 					return matched;
+				]]>
+				</body>
+			</method>
+			<field name="_fixNameTimer">0</field>
+			<method name="validateName">
+				<parameter name="event" />
+				<body>
+				<![CDATA[
+					var nameBox = event.currentTarget;
+					if(event.type == "keypress") {
+						var key = event.charCode || 0;
+						if(
+							key >= 0 && key <= 127 // US-ASCII (includes control characters)
+							|| event.ctrlKey || event.altKey || event.metaKey // Some hotkey
+						)
+							return;
+						event.preventDefault();
+						this.showValidNameTip(nameBox);
+						return;
+					}
+					// Wait for changes (and don't call too often)
+					clearTimeout(this._fixNameTimer);
+					this._fixNameTimer = setTimeout(function(_this) {
+						_this.fixName(nameBox);
+					}, 0, this);
+				]]>
+				</body>
+			</method>
+			<method name="fixName">
+				<parameter name="nameBox" />
+				<body>
+				<![CDATA[
+					var nameField = nameBox.inputField;
+					var curVal = nameField.value;
+					if(!/[^\x20-\x7e]/.test(curVal))
+						return;
+					try {
+						var editor = nameField
+							.QueryInterface(Components.interfaces.nsIDOMNSEditableElement)
+							.editor
+							.QueryInterface(Components.interfaces.nsIEditor);
+						editor.undo(1);
+						var sc = editor.selectionController;
+						sc.scrollSelectionIntoView(
+							sc.SELECTION_NORMAL,
+							sc.SELECTION_ANCHOR_REGION,
+							true
+						);
+					}
+					catch(e) {
+						Components.utils.reportError(e);
+					}
+					this.showValidNameTip(nameBox);
+				]]>
+				</body>
+			</method>
+			<field name="_validNameTooltip">null</field>
+			<field name="_hideNameTooltipTimer">0</field>
+			<method name="showValidNameTip">
+				<parameter name="nameBox" />
+				<body>
+				<![CDATA[
+					var tt = this._validNameTooltip;
+					if(!tt) {
+						tt = this._validNameTooltip = document.createElement("tooltip");
+						tt.style.margin = 0;
+						tt.setAttribute("label", "Allowed only ASCII characters!");
+						document.documentElement.appendChild(tt);
+					}
+					var bo = nameBox.boxObject;
+					var x = bo.screenX;
+					var y = bo.screenY + bo.height + 2;
+					if("openPopupAtScreen" in tt) // Firefox 3.0+
+						tt.openPopupAtScreen(x, y, false /*isContextMenu*/);
+					else
+						tt.showPopup(nameBox, x, y, "tooltip", null, null);
+					clearTimeout(this._hideNameTooltipTimer);
+					this._hideNameTooltipTimer = setTimeout(function() {
+						tt.hidePopup();
+					}, 1000);
 				]]>
 				</body>
 			</method>
