@@ -157,6 +157,11 @@
 							.QueryInterface(Components.interfaces.nsIDOMNSEditableElement)
 							.editor
 							.QueryInterface(Components.interfaces.nsIEditor);
+						var undoEnabled = { value: false };
+						var canUndo = { value: false };
+						editor.canUndo(undoEnabled, canUndo);
+						if(!undoEnabled.value || !canUndo.value)
+							throw new Error("nsIEditor: can't undo");
 						editor.undo(1);
 						var sc = editor.selectionController;
 						sc.scrollSelectionIntoView(
@@ -167,6 +172,14 @@
 					}
 					catch(e) {
 						Components.utils.reportError(e);
+						var fix = function(s) {
+							return s.replace(/[^\x20-\x7e]+/g, "");
+						};
+						var ss = fix(curVal.substr(0, nameField.selectionStart)).length;
+						var se = fix(curVal.substr(0, nameField.selectionEnd)).length;
+						nameField.value = fix(curVal);
+						nameField.selectionStart = ss;
+						nameField.selectionEnd = se;
 					}
 					this.showValidNameTip(nameBox);
 				]]>
