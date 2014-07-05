@@ -37,15 +37,15 @@ var consoleLoggerOptions = {
 
 		this.canExport = "JSON" in window; // Firefox 3.5+
 		if(!this.canExport) {
-			document.getElementById("cl-bms-beforeCopy").setAttribute("hidden", "true");
-			document.getElementById("cl-bmi-copy").setAttribute("hidden", "true");
-			document.getElementById("cl-bmi-paste").setAttribute("hidden", "true");
-			document.getElementById("cl-ms-beforeCopy").setAttribute("hidden", "true");
+			document.getElementById("cl-sep-opts-beforeCopy").setAttribute("hidden", "true");
+			document.getElementById("cl-mi-opts-copy").setAttribute("hidden", "true");
+			document.getElementById("cl-mi-opts-paste").setAttribute("hidden", "true");
+			document.getElementById("cl-sep-beforeCopy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
 		}
-		if(!("selectAll" in this.box)) { // Only single selection in Firefox 2.0 and older
-			document.getElementById("cl-ms-beforeSelectAll").setAttribute("hidden", "true");
+		if(!("selectAll" in this.list)) { // Only single selection in Firefox 2.0 and older
+			document.getElementById("cl-sep-beforeSelectAll").setAttribute("hidden", "true");
 			document.getElementById("cl-mi-selectAll").setAttribute("hidden", "true");
 		}
 		if(!("timeout" in this.filter)) { // Firefox 3.0 and older
@@ -58,7 +58,7 @@ var consoleLoggerOptions = {
 	get options() {
 		var options = { __proto__: null };
 		Array.forEach(
-			this.box.getElementsByTagName("consoleloggeritem"),
+			this.list.getElementsByTagName("consoleloggeritem"),
 			function(cli) {
 				var item = cli.state;
 				var name = item.name;
@@ -70,16 +70,16 @@ var consoleLoggerOptions = {
 		return options;
 	},
 	set options(options) {
-		this.box.textContent = "";
+		this.list.textContent = "";
 		for(var name in options)
 			this.appendItem(options[name]);
 	},
-	get box() {
-		delete this.box;
-		return this.box = document.getElementById("cl-richlistbox");
+	get list() {
+		delete this.list;
+		return this.list = document.getElementById("cl-list");
 	},
 	get selectedItems() {
-		var rlb = this.box;
+		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
 		return selectedItems.filter(function(elt) {
 			return elt.parentNode;
@@ -107,7 +107,7 @@ var consoleLoggerOptions = {
 	},
 	getItemsByName: function(name) {
 		return Array.filter(
-			this.box.getElementsByTagName("consoleloggeritem"),
+			this.list.getElementsByTagName("consoleloggeritem"),
 			function(cli) {
 				return cli.getItem("name").value == name;
 			}
@@ -118,7 +118,7 @@ var consoleLoggerOptions = {
 		var cli = document.createElement("consoleloggeritem");
 		cli.setAttribute("flex", "1");
 		rli.appendChild(cli);
-		this.box.appendChild(rli);
+		this.list.appendChild(rli);
 		if(state)
 			cli.state = state;
 		return rli;
@@ -265,9 +265,9 @@ var consoleLoggerOptions = {
 		miReset.setAttribute("hidden", !hasLocked);
 		if(this.canExport) {
 			document.getElementById("cl-mi-copy").setAttribute("disabled", cantReset);
-			document.getElementById("cl-bmi-copy").setAttribute("disabled", cantReset);
+			document.getElementById("cl-mi-opts-copy").setAttribute("disabled", cantReset);
 		}
-		var isEmpty = !this.box.hasChildNodes();
+		var isEmpty = !this.list.hasChildNodes();
 		this.filter.disabled = isEmpty;
 		document.getElementById("cl-filterLabel").disabled = isEmpty;
 	},
@@ -275,10 +275,10 @@ var consoleLoggerOptions = {
 		if(this.canExport) {
 			var cantPaste = !this.clipboard;
 			document.getElementById("cl-mi-paste").setAttribute("disabled", cantPaste);
-			document.getElementById("cl-bmi-paste").setAttribute("disabled", cantPaste);
+			document.getElementById("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		}
-		document.getElementById("cl-bmi-compact").setAttribute("checked", this.box.hasAttribute("cl_compact"));
-		document.getElementById("cl-mi-selectAll").setAttribute("disabled", !this.box.hasChildNodes());
+		document.getElementById("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
+		document.getElementById("cl-mi-selectAll").setAttribute("disabled", !this.list.hasChildNodes());
 		var toggler = document.getElementById("cl-mi-toggle");
 		var hasEnabled = this.enabledInSelection;
 		if(hasEnabled)
@@ -297,9 +297,9 @@ var consoleLoggerOptions = {
 		else
 			prefs.set("options.compact", compact);
 		if(compact)
-			this.box.setAttribute("cl_compact", "true");
+			this.list.setAttribute("cl_compact", "true");
 		else
-			this.box.removeAttribute("cl_compact");
+			this.list.removeAttribute("cl_compact");
 	},
 
 	load: function() {
@@ -318,15 +318,15 @@ var consoleLoggerOptions = {
 			enabled: true
 		});
 		rli.firstChild.focus();
-		this.box.selectedItem = rli;
-		this.box.ensureElementIsVisible(rli);
+		this.list.selectedItem = rli;
+		this.list.ensureElementIsVisible(rli);
 		this.checkUnsaved();
 		this.updateFilter();
 	},
 	reset: function() {
 		var defaultOptions = consoleLogger.defaultOptions;
 		var moveSelection = true;
-		var origItems = Array.slice(this.box.children);
+		var origItems = Array.slice(this.list.children);
 		this.selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
 			var name = cli.state.name;
@@ -354,7 +354,7 @@ var consoleLoggerOptions = {
 					nearestItem = rli;
 				}
 			}
-			this.box.selectedItem = newSelectedItem || this.box.lastChild;
+			this.list.selectedItem = newSelectedItem || this.list.lastChild;
 		}
 		this.checkUnsaved();
 		this.updateControls();
@@ -402,7 +402,7 @@ var consoleLoggerOptions = {
 		};
 		var found = false;
 		Array.forEach(
-			this.box.getElementsByTagName("consoleloggeritem"),
+			this.list.getElementsByTagName("consoleloggeritem"),
 			function(cli) {
 				if(!cli.setFilter(matcher) && matcher)
 					cli.parentNode.setAttribute("collapsed", "true");

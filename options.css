@@ -2,14 +2,14 @@
 consoleloggeritem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 }
-#cl-richlistbox[cl_compact] > richlistitem:not([selected]) .cl-row-detail {
+#cl-list[cl_compact] > richlistitem:not([selected]) .cl-row-detail {
 	overflow: hidden;
 	height: 0;
 }
 #consoleLoggerOptions {
 	padding: 8px;
 }
-#cl-richlistbox {
+#cl-list {
 	margin: 2px;
 }
 #cl-filter[type="search"][cl-notFound] {
