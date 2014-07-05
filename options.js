@@ -37,16 +37,16 @@ var consoleLoggerOptions = {
 
 		this.canExport = "JSON" in window; // Firefox 3.5+
 		if(!this.canExport) {
-			document.getElementById("cl-sep-opts-beforeCopy").setAttribute("hidden", "true");
-			document.getElementById("cl-mi-opts-copy").setAttribute("hidden", "true");
-			document.getElementById("cl-mi-opts-paste").setAttribute("hidden", "true");
-			document.getElementById("cl-sep-beforeCopy").setAttribute("hidden", "true");
-			document.getElementById("cl-mi-copy").setAttribute("hidden", "true");
-			document.getElementById("cl-mi-paste").setAttribute("hidden", "true");
+			this.$("cl-sep-opts-beforeCopy").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-copy").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-paste").setAttribute("hidden", "true");
+			this.$("cl-sep-beforeCopy").setAttribute("hidden", "true");
+			this.$("cl-mi-copy").setAttribute("hidden", "true");
+			this.$("cl-mi-paste").setAttribute("hidden", "true");
 		}
 		if(!("selectAll" in this.list)) { // Only single selection in Firefox 2.0 and older
-			document.getElementById("cl-sep-beforeSelectAll").setAttribute("hidden", "true");
-			document.getElementById("cl-mi-selectAll").setAttribute("hidden", "true");
+			this.$("cl-sep-beforeSelectAll").setAttribute("hidden", "true");
+			this.$("cl-mi-selectAll").setAttribute("hidden", "true");
 		}
 		if(!("timeout" in this.filter)) { // Firefox 3.0 and older
 			this.filter.setAttribute("type", "timed");
@@ -55,6 +55,9 @@ var consoleLoggerOptions = {
 		this.setCompactMode();
 	},
 
+	$: function(id) {
+		return document.getElementById(id);
+	},
 	get options() {
 		var options = { __proto__: null };
 		Array.forEach(
@@ -76,7 +79,7 @@ var consoleLoggerOptions = {
 	},
 	get list() {
 		delete this.list;
-		return this.list = document.getElementById("cl-list");
+		return this.list = this.$("cl-list");
 	},
 	get selectedItems() {
 		var rlb = this.list;
@@ -103,7 +106,7 @@ var consoleLoggerOptions = {
 	},
 	get filter() {
 		delete this.filter;
-		return this.filter = document.getElementById("cl-filter");
+		return this.filter = this.$("cl-filter");
 	},
 	getItemsByName: function(name) {
 		return Array.filter(
@@ -254,32 +257,32 @@ var consoleLoggerOptions = {
 		}, this);
 		var cantReset = selectedItems.length == 0;
 		var cantRemove = cantReset || hasLocked;
-		document.getElementById("cl-deck-reset").selectedIndex = hasLocked ? 1 : 0;
-		document.getElementById("cl-btn-remove").disabled = cantRemove;
-		document.getElementById("cl-btn-reset").disabled = cantReset;
-		var miRemove = document.getElementById("cl-mi-remove");
-		var miReset = document.getElementById("cl-mi-reset");
+		this.$("cl-deck-reset").selectedIndex = hasLocked ? 1 : 0;
+		this.$("cl-btn-remove").disabled = cantRemove;
+		this.$("cl-btn-reset").disabled = cantReset;
+		var miRemove = this.$("cl-mi-remove");
+		var miReset = this.$("cl-mi-reset");
 		miRemove.setAttribute("disabled", cantRemove);
 		miReset.setAttribute("disabled", cantReset);
 		miRemove.setAttribute("hidden", hasLocked);
 		miReset.setAttribute("hidden", !hasLocked);
 		if(this.canExport) {
-			document.getElementById("cl-mi-copy").setAttribute("disabled", cantReset);
-			document.getElementById("cl-mi-opts-copy").setAttribute("disabled", cantReset);
+			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
+			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
 		}
 		var isEmpty = !this.list.hasChildNodes();
 		this.filter.disabled = isEmpty;
-		document.getElementById("cl-filterLabel").disabled = isEmpty;
+		this.$("cl-filterLabel").disabled = isEmpty;
 	},
 	updateContextMenu: function() {
 		if(this.canExport) {
 			var cantPaste = !this.clipboard;
-			document.getElementById("cl-mi-paste").setAttribute("disabled", cantPaste);
-			document.getElementById("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
+			this.$("cl-mi-paste").setAttribute("disabled", cantPaste);
+			this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		}
-		document.getElementById("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
-		document.getElementById("cl-mi-selectAll").setAttribute("disabled", !this.list.hasChildNodes());
-		var toggler = document.getElementById("cl-mi-toggle");
+		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
+		this.$("cl-mi-selectAll").setAttribute("disabled", !this.list.hasChildNodes());
+		var toggler = this.$("cl-mi-toggle");
 		var hasEnabled = this.enabledInSelection;
 		if(hasEnabled)
 			toggler.setAttribute("checked", "true");
