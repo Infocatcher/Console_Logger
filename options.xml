@@ -185,15 +185,15 @@
 				]]>
 				</body>
 			</method>
-			<field name="_validNameTooltip">null</field>
 			<field name="_hideNameTooltipTimer">0</field>
 			<method name="showValidNameTip">
 				<parameter name="nameBox" />
 				<body>
 				<![CDATA[
-					var tt = this._validNameTooltip;
+					var tt = document.getElementById("cl-tt-validName");
 					if(!tt) {
-						tt = this._validNameTooltip = document.createElement("tooltip");
+						tt = document.createElement("tooltip");
+						tt.id = "cl-tt-validName";
 						tt.style.margin = 0;
 						tt.setAttribute("label", "Allowed only ASCII characters!");
 						document.documentElement.appendChild(tt);
