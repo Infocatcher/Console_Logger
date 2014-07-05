@@ -31,14 +31,14 @@
 		onselect="consoleLoggerOptions.updateControls();"
 		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
 		onclick="if(event.target.localName == 'consoleloggeritem' &amp;&amp; event.button == 1) consoleLoggerOptions.reset();" />
-	<hbox align="center" pack="center">
+	<hbox id="cl-buttonsPanel" align="center" pack="center">
 		<button id="cl-btn-add" icon="add" label="Add" oncommand="consoleLoggerOptions.add();" />
 		<deck id="cl-deck-reset" oncommand="consoleLoggerOptions.reset();">
 			<button id="cl-btn-remove" icon="remove" label="Remove" />
 			<button id="cl-btn-reset" icon="remove" label="Reset" />
 		</deck>
 		<button id="cl-btn-options" label="Options" type="menu">
-			<menupopup position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
+			<menupopup id="cl-mp-options" position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
 				<menuitem id="cl-bmi-compact" type="checkbox" label="Compact Mode"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
 				<menuseparator id="cl-bms-beforeReload" />
