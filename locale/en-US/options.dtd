@@ -1,0 +1,17 @@
+<!ENTITY cl.optionsTitle "Console Logger: Options">
+<!ENTITY cl.apply "Apply">
+<!ENTITY cl.filter "Filter:">
+<!ENTITY cl.add "Add">
+<!ENTITY cl.remove "Remove">
+<!ENTITY cl.reset "Reset">
+<!ENTITY cl.options "Options">
+<!ENTITY cl.compactMode "Compact Mode">
+<!ENTITY cl.reload "Reload">
+<!ENTITY cl.copy "Copy">
+<!ENTITY cl.paste "Paste">
+<!ENTITY cl.enabled "Enabled">
+<!ENTITY cl.selectAll "Select All">
+<!ENTITY cl.name "Name:">
+<!ENTITY cl.sourcePattern "Source pattern:">
+<!ENTITY cl.messagePattern "Message pattern:">
+<!ENTITY cl.excludePattern "Exclude pattern:">

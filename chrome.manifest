@@ -1,1 +1,3 @@
 content consolelogger ./
+
+locale consolelogger en-US locale/en-US/

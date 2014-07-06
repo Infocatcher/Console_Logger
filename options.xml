@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!DOCTYPE bindings SYSTEM "chrome://consolelogger/locale/options.dtd">
 <bindings id="consoleLogger-bindings"
 	xmlns="http://www.mozilla.org/xbl"
 	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -12,22 +13,22 @@
 				</xul:columns>
 				<xul:rows>
 					<xul:row align="center" class="cl-row-main">
-						<xul:label value="Name:" />
+						<xul:label value="&cl.name;" />
 						<xul:hbox align="center">
 							<xul:textbox anonid="name" size="30" />
-							<xul:checkbox anonid="enabled" label="Enabled" />
+							<xul:checkbox anonid="enabled" label="&cl.enabled;" />
 						</xul:hbox>
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label value="Source pattern:" />
+						<xul:label value="&cl.sourcePattern;" />
 						<xul:textbox anonid="source" flex="1" />
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label value="Message pattern:" />
+						<xul:label value="&cl.messagePattern;" />
 						<xul:textbox anonid="message" flex="1" />
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label value="Exclude pattern:" />
+						<xul:label value="&cl.excludePattern;" />
 						<xul:textbox anonid="exclude" flex="1" />
 					</xul:row>
 				</xul:rows>
