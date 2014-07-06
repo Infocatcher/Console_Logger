@@ -303,6 +303,9 @@ var consoleLoggerOptions = {
 		else
 			this.list.removeAttribute("cl_compact");
 	},
+	toggleCompactMode: function() {
+		this.setCompactMode(!prefs.get("options.compact"));
+	},
 
 	load: function() {
 		this.options = consoleLogger.options;

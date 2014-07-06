@@ -39,7 +39,7 @@
 		</deck>
 		<button id="cl-btn-options" label="&cl.options;" type="menu">
 			<menupopup id="cl-mp-options" position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
-				<menuitem id="cl-mi-opts-compact" type="checkbox" label="&cl.compactMode;"
+				<menuitem id="cl-mi-opts-compact" key="cl-key-toggleCompact" type="checkbox" label="&cl.compactMode;"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
 				<menuseparator id="cl-sep-opts-beforeReload" />
 				<menuitem id="cl-mi-opts-reload" key="cl-key-reload" label="&cl.reload;" oncommand="consoleLoggerOptions.load();" />
@@ -77,6 +77,7 @@
 		<key id="cl-key-selectAll" key="A" modifiers="accel,shift" oncommand="consoleLoggerOptions.list.selectAll();" />
 		<key id="cl-key-selectAll2" key="A" modifiers="accel" oncommand="consoleLoggerOptions.list.selectAll();" />
 		<key id="cl-key-search" key="F" modifiers="accel" oncommand="consoleLoggerOptions.filter.focus();" />
+		<key id="cl-key-toggleCompact" key="M" modifiers="accel" oncommand="consoleLoggerOptions.toggleCompactMode();" />
 		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
 		<key id="cl-key-reload" keycode="VK_F5" oncommand="consoleLoggerOptions.load();" />
 		<key id="cl-key-reload2" key="R" modifiers="accel" oncommand="consoleLoggerOptions.load();" />
