@@ -202,13 +202,12 @@
 			<method name="showValidNameTip">
 				<parameter name="nameBox" />
 				<body>
-				<![CDATA[
 					var tt = document.getElementById("cl-tt-validName");
 					if(!tt) {
 						tt = document.createElement("tooltip");
 						tt.id = "cl-tt-validName";
 						tt.style.margin = 0;
-						tt.setAttribute("label", "Allowed only ASCII characters!");
+						tt.setAttribute("label", "&cl.onlyASCII;");
 						document.documentElement.appendChild(tt);
 					}
 					var bo = nameBox.boxObject;
@@ -222,7 +221,6 @@
 					this._hideNameTooltipTimer = setTimeout(function() {
 						tt.hidePopup();
 					}, 1000);
-				]]>
 				</body>
 			</method>
 		</implementation>

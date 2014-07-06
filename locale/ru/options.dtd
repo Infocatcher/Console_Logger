@@ -15,3 +15,4 @@
 <!ENTITY cl.sourcePattern "Шаблон источника:">
 <!ENTITY cl.messagePattern "Шаблон сообщения:">
 <!ENTITY cl.excludePattern "Шаблон исключения:">
+<!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">

@@ -15,3 +15,4 @@
 <!ENTITY cl.sourcePattern "Source pattern:">
 <!ENTITY cl.messagePattern "Message pattern:">
 <!ENTITY cl.excludePattern "Exclude pattern:">
+<!ENTITY cl.onlyASCII "Allowed only ASCII characters!">
