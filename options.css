@@ -5,6 +5,9 @@
 #cl-list {
 	margin: 2px;
 }
+#cl-list > richlistitem {
+	border-bottom: 1px solid ThreeDLightShadow;
+}
 consoleloggeritem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 }
