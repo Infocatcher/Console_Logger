@@ -419,6 +419,7 @@ var consoleLoggerOptions = {
 		else
 			this.filter.removeAttribute("cl-notFound");
 	},
+	_notifyFilterTimer: 0,
 	updateFilter: function(notifyTimes) {
 		var filterBox = this.filter;
 		var filter = filterBox.value;
@@ -427,12 +428,14 @@ var consoleLoggerOptions = {
 		this.setFilter(filter);
 		if(notifyTimes === undefined)
 			notifyTimes = 3;
+		var _this = this;
 		if(notifyTimes) (function blink() {
+			clearTimeout(_this._notifyFilterTimer);
 			filterBox.setAttribute("cl_highlight", "true");
-			setTimeout(function() {
+			_this._notifyFilterTimer = setTimeout(function() {
 				filterBox.removeAttribute("cl_highlight");
 				if(--notifyTimes)
-					setTimeout(blink, 100);
+					_this._notifyFilterTimer = setTimeout(blink, 100);
 			}, 150);
 		})();
 	}
