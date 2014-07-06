@@ -1,4 +1,10 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+#consoleLoggerOptions {
+	padding: 8px;
+}
+#cl-list {
+	margin: 2px;
+}
 consoleloggeritem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 }
@@ -6,12 +12,7 @@ consoleloggeritem {
 	overflow: hidden;
 	height: 0;
 }
-#consoleLoggerOptions {
-	padding: 8px;
-}
-#cl-list {
-	margin: 2px;
-}
+
 #cl-filter[type="search"][cl-notFound] {
 	-moz-box-shadow: 0 0 0 1em #f66 inset;
 	box-shadow: 0 0 0 1em #f66 inset;
@@ -25,6 +26,7 @@ textbox[cl_highlight] {
 	outline: 2px solid ThreeDShadow;
 	outline-offset: -2px;
 }
+
 menuitem[checked="true"][cl_intermediate] .menu-iconic-left {
 	opacity: 0.42;
 }
