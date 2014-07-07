@@ -300,6 +300,10 @@ var consoleLoggerOptions = {
 		else
 			prefs.set("enabled", enabled);
 		this.$("cl-enabled").checked = enabled;
+		if(enabled)
+			document.documentElement.removeAttribute("cl_disabled");
+		else
+			document.documentElement.setAttribute("cl_disabled", "true");
 	},
 	setCompactMode: function(compact) {
 		if(compact === undefined)

@@ -15,6 +15,9 @@ consoleloggeritem {
 	overflow: hidden;
 	height: 0;
 }
+#consoleLoggerOptions[cl_disabled] #cl-list > richlistitem .cl-enabled {
+	opacity: 0.68;
+}
 
 #cl-filter[type="search"][cl-notFound] {
 	-moz-box-shadow: 0 0 0 1em #f66 inset;
