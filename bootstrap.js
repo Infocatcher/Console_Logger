@@ -281,8 +281,13 @@ var consoleLogger = {
 		if(key in files)
 			return files[key];
 		var file = Services.dirsvc.get("ProfD", Components.interfaces.nsIFile);
-		file.append(name || FILE_NAME_PREFIX + key + ".log");
+		file.append(name || FILE_NAME_PREFIX + this.safeFileName(key) + ".log");
 		return files[key] = file;
+	},
+	safeFileName: function(s) {
+		// From Session Manager extension,
+		// https://addons.mozilla.org/files/browse/261680/file/chrome/content/modules/utils.jsm#L130
+		return s.replace(/[<>:"\/\\|*?^\x00-\x1F]/g, "_");
 	},
 	_writeInProgress: false,
 	_writeQueue: [],
