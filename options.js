@@ -52,6 +52,16 @@ var consoleLoggerOptions = {
 			this.filter.setAttribute("type", "timed");
 		}
 
+		// Align: show global "enabled" checkbox right above other ones
+		var cs = window.getComputedStyle(this.list, null);
+		var right = cs.direction == "rtl" ? "Left" : "Right";
+		var cb = this.$("cl-enabled");
+		cb.style["margin" + right] = parseFloat(window.getComputedStyle(cb, null)["margin" + right])
+			+ parseFloat(cs["margin" + right])
+			+ parseFloat(cs["border" + right + "Width"])
+			+ parseFloat(cs["padding" + right])
+			+ "px";
+
 		this.setCompactMode();
 	},
 
