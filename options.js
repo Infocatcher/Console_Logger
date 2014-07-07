@@ -1,6 +1,6 @@
 var consoleLoggerGlobal;
 var consoleLoggerOptions = {
-	exports: ["consoleLogger", "Services", "prefs"],
+	exports: ["consoleLogger", "Services", "prefs", "delay"],
 	init: function() {
 		//Services.obs
 		Components.classes["@mozilla.org/observer-service;1"]
@@ -329,6 +329,9 @@ var consoleLoggerOptions = {
 		consoleLogger.options = this.options;
 		consoleLogger.enabled = this.enabled;
 		this.markAsSaved();
+		delay(function() {
+			Services.prefs.savePrefFile(null);
+		});
 	},
 	add: function() {
 		var rli = this.appendItem({
