@@ -43,7 +43,8 @@ var consoleLogger = {
 		this.initialized = true;
 
 		prefs.init();
-		Services.console.registerListener(this);
+		if(prefs.get("enabled"))
+			this.listen(true);
 		Services.obs.addObserver(this, "consoleLogger-exportScope", false);
 	},
 	destroy: function(reason) {
@@ -54,9 +55,10 @@ var consoleLogger = {
 			return;
 		this.initialized = false;
 
-		prefs.destroy();
-		Services.console.unregisterListener(this);
+		if(prefs.get("enabled"))
+			this.listen(false);
 		Services.obs.removeObserver(this, "consoleLogger-exportScope");
+		prefs.destroy();
 
 		var isUpdate = reason == ADDON_UPGRADE || reason == ADDON_DOWNGRADE;
 		function closeOptions(window) {
@@ -75,6 +77,13 @@ var consoleLogger = {
 		var windows = Services.wm.getEnumerator(null);
 		while(windows.hasMoreElements())
 			closeOptions(windows.getNext());
+	},
+
+	listen: function(on) {
+		if(on)
+			Services.console.registerListener(this);
+		else
+			Services.console.unregisterListener(this);
 	},
 
 	observe: function(subject, topic, data) {
@@ -394,6 +403,8 @@ var prefs = {
 		else {
 			var val = this.getPref(pName);
 			this._cache[shortName] = val;
+			if(shortName == "enabled")
+				consoleLogger.listen(val);
 		}
 	},
 
