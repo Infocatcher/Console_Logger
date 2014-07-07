@@ -52,6 +52,7 @@ var consoleLoggerOptions = {
 			this.filter.setAttribute("type", "timed");
 		}
 
+		this.setGlobalEnabled();
 		this.setCompactMode();
 	},
 
@@ -292,6 +293,13 @@ var consoleLoggerOptions = {
 		else
 			toggler.removeAttribute("cl_intermediate");
 		toggler.setAttribute("disabled", hasEnabled === undefined);
+	},
+	setGlobalEnabled: function(enabled) {
+		if(enabled === undefined)
+			enabled = prefs.get("enabled");
+		else
+			prefs.set("enabled", enabled);
+		this.$("cl-enabled").checked = enabled;
 	},
 	setCompactMode: function(compact) {
 		if(compact === undefined)
