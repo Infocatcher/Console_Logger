@@ -26,7 +26,7 @@
 			ondblclick="if(event.button == 0) consoleLoggerOptions.updateFilter(1);" />
 		<textbox id="cl-filter" type="search" timeout="250" flex="1"
 			oncommand="consoleLoggerOptions.setFilter(this.value);" />
-		<checkbox id="cl-enabled" label="&cl.enabled;" oncommand="consoleLoggerOptions.setGlobalEnabled(this.checked);" />
+		<checkbox id="cl-enabled" label="&cl.enabled;" />
 	</hbox>
 	<richlistbox id="cl-list" seltype="multiple" flex="1" context="cl-mp-context"
 		onselect="consoleLoggerOptions.updateControls();"

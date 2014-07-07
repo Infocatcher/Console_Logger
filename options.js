@@ -52,7 +52,6 @@ var consoleLoggerOptions = {
 			this.filter.setAttribute("type", "timed");
 		}
 
-		this.setGlobalEnabled();
 		this.setCompactMode();
 	},
 
@@ -243,7 +242,8 @@ var consoleLoggerOptions = {
 		}, 15, this);
 	},
 	_checkUnsaved: function() {
-		this.applyBtn.disabled = this.optionsHash == this._savedOptions;
+		this.applyBtn.disabled = this.optionsHash == this._savedOptions
+			&& consoleLogger.enabled == this.enabled;
 	},
 
 	updateControls: function() {
@@ -294,11 +294,10 @@ var consoleLoggerOptions = {
 			toggler.removeAttribute("cl_intermediate");
 		toggler.setAttribute("disabled", hasEnabled === undefined);
 	},
-	setGlobalEnabled: function(enabled) {
-		if(enabled === undefined)
-			enabled = prefs.get("enabled");
-		else
-			prefs.set("enabled", enabled);
+	get enabled() {
+		return this.$("cl-enabled").checked;
+	},
+	set enabled(enabled) {
 		this.$("cl-enabled").checked = enabled;
 		if(enabled)
 			document.documentElement.removeAttribute("cl_disabled");
@@ -321,12 +320,14 @@ var consoleLoggerOptions = {
 
 	load: function() {
 		this.options = consoleLogger.options;
+		this.enabled = consoleLogger.enabled;
 		this.markAsSaved();
 		this.updateControls();
 		this.updateFilter();
 	},
 	save: function() {
 		consoleLogger.options = this.options;
+		consoleLogger.enabled = this.enabled;
 		this.markAsSaved();
 	},
 	add: function() {

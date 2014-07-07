@@ -43,7 +43,7 @@ var consoleLogger = {
 		this.initialized = true;
 
 		prefs.init();
-		if(prefs.get("enabled"))
+		if(this.enabled)
 			this.listen(true);
 		Services.obs.addObserver(this, "consoleLogger-exportScope", false);
 	},
@@ -55,7 +55,7 @@ var consoleLogger = {
 			return;
 		this.initialized = false;
 
-		if(prefs.get("enabled"))
+		if(this.enabled)
 			this.listen(false);
 		Services.obs.removeObserver(this, "consoleLogger-exportScope");
 		prefs.destroy();
@@ -79,6 +79,12 @@ var consoleLogger = {
 			closeOptions(windows.getNext());
 	},
 
+	get enabled() {
+		return prefs.get("enabled");
+	},
+	set enabled(enabled) {
+		return prefs.set("enabled", enabled);
+	},
 	listen: function(on) {
 		if(on)
 			Services.console.registerListener(this);
