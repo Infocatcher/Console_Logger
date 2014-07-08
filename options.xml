@@ -270,7 +270,7 @@
 							nameBox.removeAttribute("cl_invalidUsage");
 						if(tt.parentNode)
 							tt.hidePopup();
-					}, 1000);
+					}, 1500);
 				</body>
 			</method>
 		</implementation>
