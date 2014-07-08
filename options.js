@@ -151,7 +151,7 @@ var consoleLoggerOptions = {
 		var hasInvalid = false;
 		var names = ["name", "source", "message", "exclude"];
 		function validateName(name) {
-			return name ? "" : "Empty name";
+			return name ? "" : strings.emptyName;
 		}
 		function validatePattern(pattern) {
 			try {

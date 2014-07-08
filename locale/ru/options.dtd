@@ -16,3 +16,4 @@
 <!ENTITY cl.messagePattern "Шаблон сообщения:">
 <!ENTITY cl.excludePattern "Шаблон исключения:">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">
+<!ENTITY cl.emptyName "Пустое название">
