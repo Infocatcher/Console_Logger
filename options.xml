@@ -234,6 +234,14 @@
 			</method>
 			<field name="onlyASCII">"&cl.onlyASCII;"</field>
 			<method name="showTip">
+				<body>
+					// Wait for UI changes
+					setTimeout(function(_this, args) {
+						_this._showTip.apply(_this, args);
+					}, 0, this, arguments);
+				</body>
+			</method>
+			<method name="_showTip">
 				<parameter name="nameBox" />
 				<parameter name="message" />
 				<parameter name="highlight" />
