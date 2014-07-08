@@ -257,6 +257,10 @@
 					var bo = nameBox.boxObject;
 					var x = bo.screenX;
 					var y = bo.screenY + bo.height + 2;
+					var win = this.ownerDocument.defaultView;
+					var ttHeight = 28; // We don't know actual height of not yet displayed tooltip
+					x = Math.min(Math.max(x, win.screenX, 0), win.screenX + win.outerWidth);
+					y = Math.min(Math.max(y, win.screenY, 0), win.screenY + win.outerHeight - ttHeight);
 					if("openPopupAtScreen" in tt) // Firefox 3.0+
 						tt.openPopupAtScreen(x, y, false /*isContextMenu*/);
 					else
