@@ -114,10 +114,28 @@
 				</setter>
 			</property>
 			<method name="focus">
+				<parameter name="itemName" />
 				<body>
-					var nameField = this.getItem("name").inputField;
+					var nameField = this.getItem(itemName || "name").inputField;
 					nameField.focus();
 					nameField.select();
+				</body>
+			</method>
+			<method name="validateItem">
+				<parameter name="itemName" />
+				<parameter name="validator" />
+				<body>
+					var item = this.getItem(itemName);
+					var error = validator(item.value);
+					if(error) {
+						item.setAttribute("cl_invalidData", "true");
+						item.setAttribute("tooltiptext", error);
+					}
+					else {
+						item.removeAttribute("cl_invalidData");
+						item.removeAttribute("tooltiptext");
+					}
+					return !error;
 				</body>
 			</method>
 			<method name="setFilter">
@@ -227,7 +245,7 @@
 						document.documentElement.appendChild(tt);
 					}
 					if(highlight)
-						nameBox.setAttribute("cl_invalid", "true");
+						nameBox.setAttribute("cl_invalidUsage", "true");
 					var bo = nameBox.boxObject;
 					var x = bo.screenX;
 					var y = bo.screenY + bo.height + 2;
@@ -238,7 +256,7 @@
 					clearTimeout(this._hideNameTipTimer);
 					this._hideNameTipTimer = setTimeout(function() {
 						if(highlight)
-							nameBox.removeAttribute("cl_invalid");
+							nameBox.removeAttribute("cl_invalidUsage");
 						tt.hidePopup();
 					}, 1000);
 				</body>

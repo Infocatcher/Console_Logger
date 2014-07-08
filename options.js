@@ -147,6 +147,44 @@ var consoleLoggerOptions = {
 		}
 		return name;
 	},
+	validateFields: function() {
+		var hasInvalid = false;
+		var names = ["name", "source", "message", "exclude"];
+		function validateName(name) {
+			return name ? "" : "Empty name";
+		}
+		function validatePattern(pattern) {
+			try {
+				new RegExp(pattern);
+				return "";
+			}
+			catch(e) {
+				return "" + e;
+			}
+		}
+		Array.forEach(
+			this.list.getElementsByTagName("consoleloggeritem"),
+			function(cli) {
+				names.forEach(function(name) {
+					var validator = name == "name" ? validateName : validatePattern;
+					if(cli.validateItem(name, validator))
+						return;
+					if(!hasInvalid) {
+						this.list.ensureElementIsVisible(cli.parentNode);
+						cli.focus(name);
+					}
+					hasInvalid = true;
+				}, this);
+			},
+			this
+		);
+		return !hasInvalid;
+	},
+	validateFieldsAsync: function() {
+		setTimeout(function(_this) {
+			_this.validateFields();
+		}, 0, this);
+	},
 
 	exportHeader: "// Console Logger options\n",
 	exportedFields: ["enabled", "source", "message", "exclude"],
@@ -334,14 +372,18 @@ var consoleLoggerOptions = {
 		this.markAsSaved();
 		this.updateControls();
 		this.updateFilter();
+		this.validateFieldsAsync();
 	},
-	save: function() {
+	save: function(sync) {
+		if(!this.validateFields())
+			return false;
 		consoleLogger.options = this.options;
 		consoleLogger.enabled = this.enabled;
 		this.markAsSaved();
 		delay(function() {
 			Services.prefs.savePrefFile(null);
 		});
+		return true;
 	},
 	add: function() {
 		var rli = this.appendItem({

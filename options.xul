@@ -10,7 +10,7 @@
 	buttonlabelextra1="&cl.apply;"
 	onload="consoleLoggerOptions.init();"
 	onunload="consoleLoggerOptions.destroy();"
-	ondialogaccept="consoleLoggerOptions.save();"
+	ondialogaccept="return consoleLoggerOptions.save();"
 	ondialogextra1="consoleLoggerOptions.save();"
 	oncommand="consoleLoggerOptions.checkUnsaved();"
 	onchange="consoleLoggerOptions.checkUnsaved();"

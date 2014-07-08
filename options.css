@@ -32,7 +32,8 @@ textbox[cl_highlight] {
 	outline: 2px solid ThreeDShadow;
 	outline-offset: -2px;
 }
-textbox[cl_invalid] {
+textbox[cl_invalidData],
+textbox[cl_invalidUsage] {
 	outline: 2px solid #f66;
 	outline-offset: -2px;
 }
