@@ -103,7 +103,7 @@
 							var v = state[name];
 							if(name == "name" && !this.isValidName(v)) {
 								v = this.fixName(v);
-								this.showValidNameTip(elt);
+								this.showValidNameTip(elt, true);
 							}
 							elt.value = v;
 						}
@@ -213,9 +213,10 @@
 					return name.replace(/[^\x20-\x7e]+/g, "");
 				</body>
 			</method>
-			<field name="_hideNameTooltipTimer">0</field>
+			<field name="_hideNameTipTimer">0</field>
 			<method name="showValidNameTip">
 				<parameter name="nameBox" />
+				<parameter name="highlight" />
 				<body>
 					var tt = document.getElementById("cl-tt-validName");
 					if(!tt) {
@@ -225,6 +226,8 @@
 						tt.setAttribute("label", "&cl.onlyASCII;");
 						document.documentElement.appendChild(tt);
 					}
+					if(highlight)
+						nameBox.setAttribute("cl_invalid", "true");
 					var bo = nameBox.boxObject;
 					var x = bo.screenX;
 					var y = bo.screenY + bo.height + 2;
@@ -232,8 +235,10 @@
 						tt.openPopupAtScreen(x, y, false /*isContextMenu*/);
 					else
 						tt.showPopup(nameBox, x, y, "tooltip", null, null);
-					clearTimeout(this._hideNameTooltipTimer);
-					this._hideNameTooltipTimer = setTimeout(function() {
+					clearTimeout(this._hideNameTipTimer);
+					this._hideNameTipTimer = setTimeout(function() {
+						if(highlight)
+							nameBox.removeAttribute("cl_invalid");
 						tt.hidePopup();
 					}, 1000);
 				</body>
