@@ -103,7 +103,7 @@
 							var v = state[name];
 							if(name == "name" && !this.isValidName(v)) {
 								v = this.fixName(v);
-								this.showValidNameTip(elt, true);
+								this.showTip(elt, this.onlyASCII, true);
 							}
 							elt.value = v;
 						}
@@ -130,6 +130,7 @@
 					if(error) {
 						item.setAttribute("cl_invalidData", "true");
 						item.setAttribute("tooltiptext", error);
+						this.showTip(item, error);
 					}
 					else {
 						item.removeAttribute("cl_invalidData");
@@ -170,7 +171,7 @@
 						)
 							return;
 						event.preventDefault();
-						this.showValidNameTip(nameBox);
+						this.showTip(nameBox, this.onlyASCII);
 						return;
 					}
 					// Wait for changes (and don't call too often)
@@ -215,7 +216,7 @@
 						nameField.selectionStart = ss;
 						nameField.selectionEnd = se;
 					}
-					this.showValidNameTip(nameBox);
+					this.showTip(nameBox, this.onlyASCII);
 				]]>
 				</body>
 			</method>
@@ -231,19 +232,18 @@
 					return name.replace(/[^\x20-\x7e]+/g, "");
 				</body>
 			</method>
-			<field name="_hideNameTipTimer">0</field>
-			<method name="showValidNameTip">
+			<field name="onlyASCII">"&cl.onlyASCII;"</field>
+			<method name="showTip">
 				<parameter name="nameBox" />
+				<parameter name="message" />
 				<parameter name="highlight" />
 				<body>
-					var tt = document.getElementById("cl-tt-validName");
-					if(!tt) {
-						tt = document.createElement("tooltip");
-						tt.id = "cl-tt-validName";
-						tt.style.margin = 0;
-						tt.setAttribute("label", "&cl.onlyASCII;");
-						document.documentElement.appendChild(tt);
-					}
+					var tt = document.createElement("tooltip");
+					tt.className = "cl-tip";
+					tt.style.margin = 0;
+					tt.setAttribute("label", message);
+					tt.setAttribute("onpopuphidden", "this.parentNode.removeChild(this);");
+					document.documentElement.appendChild(tt);
 					if(highlight)
 						nameBox.setAttribute("cl_invalidUsage", "true");
 					var bo = nameBox.boxObject;
@@ -253,11 +253,11 @@
 						tt.openPopupAtScreen(x, y, false /*isContextMenu*/);
 					else
 						tt.showPopup(nameBox, x, y, "tooltip", null, null);
-					clearTimeout(this._hideNameTipTimer);
-					this._hideNameTipTimer = setTimeout(function() {
+					setTimeout(function() {
 						if(highlight)
 							nameBox.removeAttribute("cl_invalidUsage");
-						tt.hidePopup();
+						if(tt.parentNode)
+							tt.hidePopup();
 					}, 1000);
 				</body>
 			</method>
