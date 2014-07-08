@@ -99,8 +99,14 @@
 							continue;
 						if("checked" in elt)
 							elt.checked = state[name];
-						else
-							elt.value = state[name];
+						else {
+							var v = state[name];
+							if(name == "name" && !this.isValidName(v)) {
+								v = this.fixName(v);
+								this.showValidNameTip(elt);
+							}
+							elt.value = v;
+						}
 					}
 					if("locked" in state && state.locked)
 						this.getItem("name").disabled = true;
@@ -132,7 +138,7 @@
 				]]>
 				</body>
 			</method>
-			<field name="_fixNameTimer">0</field>
+			<field name="_checkNameTimer">0</field>
 			<method name="validateName">
 				<parameter name="event" />
 				<body>
@@ -150,20 +156,20 @@
 						return;
 					}
 					// Wait for changes (and don't call too often)
-					clearTimeout(this._fixNameTimer);
-					this._fixNameTimer = setTimeout(function(_this) {
-						_this.fixName(nameBox);
+					clearTimeout(this._checkNameTimer);
+					this._checkNameTimer = setTimeout(function(_this) {
+						_this.checkName(nameBox);
 					}, 0, this);
 				]]>
 				</body>
 			</method>
-			<method name="fixName">
+			<method name="checkName">
 				<parameter name="nameBox" />
 				<body>
 				<![CDATA[
 					var nameField = nameBox.inputField;
 					var curVal = nameField.value;
-					if(!/[^\x20-\x7e]/.test(curVal))
+					if(this.isValidName(curVal))
 						return;
 					try {
 						var editor = nameField
@@ -185,17 +191,26 @@
 					}
 					catch(e) {
 						Components.utils.reportError(e);
-						var fix = function(s) {
-							return s.replace(/[^\x20-\x7e]+/g, "");
-						};
-						var ss = fix(curVal.substr(0, nameField.selectionStart)).length;
-						var se = fix(curVal.substr(0, nameField.selectionEnd)).length;
-						nameField.value = fix(curVal);
+						var ss = this.fixName(curVal.substr(0, nameField.selectionStart)).length;
+						var se = this.fixName(curVal.substr(0, nameField.selectionEnd)).length;
+						nameField.value = this.fixName(curVal);
 						nameField.selectionStart = ss;
 						nameField.selectionEnd = se;
 					}
 					this.showValidNameTip(nameBox);
 				]]>
+				</body>
+			</method>
+			<method name="isValidName">
+				<parameter name="name" />
+				<body>
+					return !/[^\x20-\x7e]/.test(name);
+				</body>
+			</method>
+			<method name="fixName">
+				<parameter name="name" />
+				<body>
+					return name.replace(/[^\x20-\x7e]+/g, "");
 				</body>
 			</method>
 			<field name="_hideNameTooltipTimer">0</field>
