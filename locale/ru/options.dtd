@@ -7,6 +7,7 @@
 <!ENTITY cl.options "Настройки">
 <!ENTITY cl.compactMode "Компактный режим">
 <!ENTITY cl.reload "Перезагрузить">
+<!ENTITY cl.open "Открыть">
 <!ENTITY cl.copy "Копировать">
 <!ENTITY cl.paste "Вставить">
 <!ENTITY cl.enabled "Включено">

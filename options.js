@@ -264,6 +264,15 @@ var consoleLoggerOptions = {
 			.copyString(str, document);
 	},
 
+	openLogFile: function(name) {
+		var file = consoleLogger.getFile(name);
+		if(!file.exists())
+			return;
+		if("nsILocalFile" in Components.interfaces)
+			file instanceof Components.interfaces.nsILocalFile;
+		file.launch();
+	},
+
 	_savedOptions: null,
 	get optionsHash() {
 		var options = this.options;
@@ -439,6 +448,14 @@ var consoleLoggerOptions = {
 			var cli = rli.firstChild;
 			cli.enabled = enable;
 		});
+	},
+	open: function() {
+		this.selectedItems.forEach(function(rli) {
+			var cli = rli.firstChild;
+			var name = cli.name;
+			if(name)
+				this.openLogFile(name);
+		}, this);
 	},
 	copy: function() {
 		var options = { __proto__: null };
