@@ -172,6 +172,13 @@ var consoleLogger = {
 		var ms = d.getMilliseconds();
 		return d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
 	},
+	get br() {
+		delete this.br;
+		return this.br = Services.appinfo.OS == "WINNT" ? "\r\n" : "\n";
+	},
+	fixBr: function(s) {
+		return s.replace(/\r\n?|\n/g, this.br);
+	},
 
 	get sources() {
 		return this.loadPatterns().sources;
@@ -320,7 +327,7 @@ var consoleLogger = {
 				var converter = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
 					.createInstance(Components.interfaces.nsIConverterOutputStream);
 				converter.init(foStream, "UTF-8", 0, 0);
-				converter.writeString(data);
+				converter.writeString(this.fixBr(data));
 				converter.close(); // this closes foStream
 				done();
 			}
@@ -346,7 +353,7 @@ var consoleLogger = {
 			var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
 				.createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
 			converter.charset = "UTF-8";
-			var istream = converter.convertToInputStream(data);
+			var istream = converter.convertToInputStream(this.fixBr(data));
 			NetUtil.asyncCopy(istream, ostream, function(status) {
 				done(!Components.isSuccessCode(status) && "Status: " + _this.getErrorName(status));
 			});
@@ -364,7 +371,7 @@ var consoleLogger = {
 				var encoder = _this.textEncoder || (
 					_this.textEncoder = new (Components.utils.getGlobalForObject(OS)).TextEncoder()
 				);
-				var arr = encoder.encode(data);
+				var arr = encoder.encode(_this.fixBr(data));
 				osFile.write(arr).then(
 					function onSuccess(bytesCount) {
 						ensureClosed();
