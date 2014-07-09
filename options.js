@@ -258,10 +258,9 @@ var consoleLoggerOptions = {
 		return str;
 	},
 	copyString: function(str) {
-		str = str.replace(/\r\n?|\n/g, Services.appinfo.OS == "WINNT" ? "\r\n" : "\n");
 		Components.classes["@mozilla.org/widget/clipboardhelper;1"]
 			.getService(Components.interfaces.nsIClipboardHelper)
-			.copyString(str, document);
+			.copyString(consoleLogger.fixBr(str), document);
 	},
 
 	getLogFile: function(name) {
