@@ -524,6 +524,12 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	copy: function(all) {
+		this.clipboard = this.exportOptions(all);
+	},
+	paste: function(override) {
+		this.importOptions(this.clipboard, override);
+	},
+	exportOptions: function(all) {
 		var options = { __proto__: null };
 		var items = all
 			? this.list.children
@@ -536,10 +542,9 @@ var consoleLoggerOptions = {
 			//	return;
 			options[name] = item;
 		});
-		this.clipboard = options;
+		return options;
 	},
-	paste: function(override) {
-		var options = this.clipboard;
+	importOptions: function(options, override) {
 		for(var name in options) {
 			if(override) {
 				override = false;
