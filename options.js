@@ -85,9 +85,14 @@ var consoleLoggerOptions = {
 		return options;
 	},
 	set options(options) {
-		this.list.textContent = "";
+		var optionsArr = [];
 		for(var name in options)
-			this.appendItem(options[name]);
+			optionsArr.push(options[name]);
+		optionsArr.sort(function(a, b) {
+			return a.name > b.name ? 1 : -1; // Note: always not equal!
+		});
+		this.list.textContent = "";
+		optionsArr.forEach(this.appendItem, this);
 	},
 	get list() {
 		delete this.list;
