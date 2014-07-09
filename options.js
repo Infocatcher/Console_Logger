@@ -190,8 +190,13 @@ var consoleLoggerOptions = {
 	exportHeader: "// Console Logger options\n",
 	exportedFields: ["enabled", "source", "message", "exclude"],
 	get clipboard() {
-		var data = this.readFromClipboard()
-			.replace(/^\s*\/\/[^\n\r]+[\n\r]+/, "");
+		return this.parseOptions(this.readFromClipboard());
+	},
+	set clipboard(options) {
+		this.copyString(this.stringifyOptions(options));
+	},
+	parseOptions: function(data) {
+		data = data.replace(/^\s*\/\/[^\n\r]+[\n\r]+/, "");
 		if(data && data.charAt(0) == "{") try {
 			var options = JSON.parse(data);
 		}
@@ -199,10 +204,10 @@ var consoleLoggerOptions = {
 		}
 		return this.validateOptions(options);
 	},
-	set clipboard(options) {
+	stringifyOptions: function(options) {
 		this.cleanupOptions(options);
 		var data = JSON.stringify(options, null, "\t");
-		this.copyString(this.exportHeader + data);
+		return this.exportHeader + data;
 	},
 	validateOptions: function(options) {
 		if(!options || typeof options != "object")
