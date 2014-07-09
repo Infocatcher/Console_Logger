@@ -9,6 +9,7 @@
 <!ENTITY cl.reload "Reload">
 <!ENTITY cl.open "Open">
 <!ENTITY cl.copy "Copy">
+<!ENTITY cl.copyAll "Copy All">
 <!ENTITY cl.paste "Paste">
 <!ENTITY cl.enabled "Enabled">
 <!ENTITY cl.selectAll "Select All">

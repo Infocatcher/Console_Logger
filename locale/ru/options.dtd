@@ -9,6 +9,7 @@
 <!ENTITY cl.reload "Перезагрузить">
 <!ENTITY cl.open "Открыть">
 <!ENTITY cl.copy "Копировать">
+<!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">

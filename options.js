@@ -39,6 +39,7 @@ var consoleLoggerOptions = {
 		if(!this.canExport) {
 			this.$("cl-sep-opts-beforeCopy").setAttribute("hidden", "true");
 			this.$("cl-mi-opts-copy").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-copyAll").setAttribute("hidden", "true");
 			this.$("cl-mi-opts-paste").setAttribute("hidden", "true");
 			this.$("cl-sep-beforeCopy").setAttribute("hidden", "true");
 			this.$("cl-mi-copy").setAttribute("hidden", "true");
@@ -377,11 +378,12 @@ var consoleLoggerOptions = {
 		miReset.setAttribute("disabled", cantReset);
 		miRemove.setAttribute("hidden", hasLocked);
 		miReset.setAttribute("hidden", !hasLocked);
+		var isEmpty = !this.list.hasChildNodes();
 		if(this.canExport) {
 			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
+			this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
 		}
-		var isEmpty = !this.list.hasChildNodes();
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
 	},
@@ -514,9 +516,12 @@ var consoleLoggerOptions = {
 			this.openLogFile(cli.name);
 		}, this);
 	},
-	copy: function() {
+	copy: function(all) {
 		var options = { __proto__: null };
-		this.selectedItems.forEach(function(rli) {
+		var items = all
+			? this.list.children
+			: this.selectedItems;
+		items.forEach(function(rli) {
 			var cli = rli.firstChild;
 			var item = cli.state;
 			var name = item.name;

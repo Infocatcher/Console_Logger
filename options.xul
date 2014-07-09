@@ -51,6 +51,7 @@
 				<menuitem id="cl-mi-opts-reload" key="cl-key-reload" label="&cl.reload;" oncommand="consoleLoggerOptions.load();" />
 				<menuseparator id="cl-sep-opts-beforeCopy" />
 				<menuitem id="cl-mi-opts-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
+				<menuitem id="cl-mi-opts-copyAll" key="cl-key-copyAll" label="&cl.copyAll;" oncommand="consoleLoggerOptions.copy(true);" />
 				<menuitem id="cl-mi-opts-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
 			</menupopup>
 		</button>
@@ -80,6 +81,7 @@
 		<key id="cl-key-copy" key="C" modifiers="accel,shift" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy2" key="C" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy3" keycode="VK_INSERT" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
+		<key id="cl-key-copyAll" key="C" modifiers="accel,alt" oncommand="consoleLoggerOptions.copy(true);" />
 		<key id="cl-key-paste" key="V" modifiers="accel,shift" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-paste2" key="V" modifiers="accel" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-paste3" keycode="VK_INSERT" modifiers="shift" oncommand="consoleLoggerOptions.paste();" />
