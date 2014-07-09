@@ -275,9 +275,56 @@ var consoleLoggerOptions = {
 		var file = this.getLogFile(name);
 		if(!file)
 			return;
+		var viewerFile = this.getRelativeFile(prefs.get("options.logViewer"));
+		if(viewerFile) try {
+			var args = prefs.get("options.logViewerArgs", "")
+				.replace(/%F/g, file.path)
+				.split(/[\r\n]+/);
+			var process = Components.classes["@mozilla.org/process/util;1"]
+				.createInstance(Components.interfaces.nsIProcess);
+			process.init(viewerFile);
+			var run  = process.runw || process.run;
+			run.call(process, false, args, args.length);
+			return;
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
 		if("nsILocalFile" in Components.interfaces)
 			file instanceof Components.interfaces.nsILocalFile;
 		file.launch();
+	},
+	get env() {
+		delete this.env;
+		return this.env = Components.classes["@mozilla.org/process/environment;1"]
+			.getService(Components.interfaces.nsIEnvironment);
+	},
+	getRelativeFile: function(path) {
+		if(!path)
+			return null;
+		var _this = this;
+		var absPath = path.replace(/%([^%]+)%/g, function(s, alias) {
+			try {
+				return Services.dirsvc.get(alias, Components.interfaces.nsIFile).path;
+			}
+			catch(e) {
+			}
+			if(_this.env.exists(alias))
+				return _this.env.get(alias);
+			return s;
+		});
+		var file = Components.classes["@mozilla.org/file/local;1"]
+			.createInstance(Components.interfaces.nsIFile);
+		try {
+			file.initWithPath(absPath);
+			if(file.exists())
+				return file;
+			throw new Error("Log viewer not found:\n" + path + "\n=> " + absPath);
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
+		return null;
 	},
 
 	_savedOptions: null,

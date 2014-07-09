@@ -11,5 +11,9 @@ pref("extensions.consoleLogger.patterns.Private_Tab.exclude", "^Only internal co
 
 pref("extensions.consoleLogger.enabled", true);
 pref("extensions.consoleLogger.options.compact", false);
+pref("extensions.consoleLogger.options.logViewer", ""); // Path to external viewer
+// Supported browser (%ProfD%) and environment variables (%ProgramFiles%, %PROFD%)
+pref("extensions.consoleLogger.options.logViewerArgs", "%F"); // Command line arguments for external viewer
+// %F - path to *.log file
 
 pref("extensions.consoleLogger.debug", false);
