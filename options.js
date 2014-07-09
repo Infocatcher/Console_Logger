@@ -41,6 +41,7 @@ var consoleLoggerOptions = {
 			this.$("cl-mi-opts-copy").setAttribute("hidden", "true");
 			this.$("cl-mi-opts-copyAll").setAttribute("hidden", "true");
 			this.$("cl-mi-opts-paste").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-pasteOvr").setAttribute("hidden", "true");
 			this.$("cl-sep-beforeCopy").setAttribute("hidden", "true");
 			this.$("cl-mi-copy").setAttribute("hidden", "true");
 			this.$("cl-mi-paste").setAttribute("hidden", "true");
@@ -397,6 +398,7 @@ var consoleLoggerOptions = {
 			var cantPaste = !this.clipboard;
 			this.$("cl-mi-paste").setAttribute("disabled", cantPaste);
 			this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
+			this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		}
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
 		this.$("cl-mi-selectAll").setAttribute("disabled", !this.list.hasChildNodes());
@@ -536,9 +538,19 @@ var consoleLoggerOptions = {
 		});
 		this.clipboard = options;
 	},
-	paste: function() {
+	paste: function(override) {
 		var options = this.clipboard;
 		for(var name in options) {
+			if(override) {
+				override = false;
+				// Remove all
+				this.list.textContent = "";
+				// And restore not imported items from default branch
+				var defaultOptions = consoleLogger.defaultOptions;
+				for(var name2 in defaultOptions)
+					if(!(name2 in options))
+						this.appendItem(defaultOptions[name2]);
+			}
 			var item = options[name];
 			item.name = this.getUniqueName(name);
 			this.appendItem(item);

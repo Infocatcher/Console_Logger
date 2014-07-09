@@ -53,6 +53,7 @@
 				<menuitem id="cl-mi-opts-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
 				<menuitem id="cl-mi-opts-copyAll" key="cl-key-copyAll" label="&cl.copyAll;" oncommand="consoleLoggerOptions.copy(true);" />
 				<menuitem id="cl-mi-opts-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
+				<menuitem id="cl-mi-opts-pasteOvr" key="cl-key-pasteOvr" label="&cl.pasteOvr;" oncommand="consoleLoggerOptions.paste(true);" />
 			</menupopup>
 		</button>
 	</hbox>
@@ -85,6 +86,7 @@
 		<key id="cl-key-paste" key="V" modifiers="accel,shift" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-paste2" key="V" modifiers="accel" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-paste3" keycode="VK_INSERT" modifiers="shift" oncommand="consoleLoggerOptions.paste();" />
+		<key id="cl-key-pasteOvr" key="V" modifiers="accel,alt" oncommand="consoleLoggerOptions.paste(true);" />
 		<key id="cl-key-selectAll" key="A" modifiers="accel,shift" oncommand="consoleLoggerOptions.list.selectAll();" />
 		<key id="cl-key-selectAll2" key="A" modifiers="accel" oncommand="consoleLoggerOptions.list.selectAll();" />
 		<key id="cl-key-search" key="F" modifiers="accel" oncommand="consoleLoggerOptions.filter.focus();" />
