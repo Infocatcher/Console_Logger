@@ -264,9 +264,17 @@ var consoleLoggerOptions = {
 			.copyString(str, document);
 	},
 
-	openLogFile: function(name) {
+	getLogFile: function(name) {
+		if(!name)
+			return null;
 		var file = consoleLogger.getFile(name);
 		if(!file.exists())
+			return null;
+		return file;
+	},
+	openLogFile: function(name) {
+		var file = this.getLogFile(name);
+		if(!file)
 			return;
 		if("nsILocalFile" in Components.interfaces)
 			file instanceof Components.interfaces.nsILocalFile;
@@ -350,6 +358,11 @@ var consoleLoggerOptions = {
 		else
 			toggler.removeAttribute("cl_intermediate");
 		toggler.setAttribute("disabled", hasEnabled === undefined);
+		var logFileExists = this.selectedItems.some(function(rli) {
+			var cli = rli.firstChild;
+			return this.getLogFile(cli.name);
+		}, this);
+		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 	},
 	get enabled() {
 		return this.$("cl-enabled").checked;
@@ -452,9 +465,7 @@ var consoleLoggerOptions = {
 	open: function() {
 		this.selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
-			var name = cli.name;
-			if(name)
-				this.openLogFile(name);
+			this.openLogFile(cli.name);
 		}, this);
 	},
 	copy: function() {
