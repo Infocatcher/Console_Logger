@@ -12,6 +12,10 @@
 <!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">
 <!ENTITY cl.pasteOvr "Вставить взамен">
+<!ENTITY cl.export "Экспортировать…">
+<!ENTITY cl.exportAll "Экспортировать всё…">
+<!ENTITY cl.import "Импортировать…">
+<!ENTITY cl.importOvr "Импортировать взамен…">
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
 <!ENTITY cl.name "Название:">

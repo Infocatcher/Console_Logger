@@ -37,6 +37,11 @@ var consoleLoggerOptions = {
 
 		this.canExport = "JSON" in window; // Firefox 3.5+
 		if(!this.canExport) {
+			this.$("cl-sep-opts-beforeExport").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-export").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-exportAll").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-import").setAttribute("hidden", "true");
+			this.$("cl-mi-opts-importOvr").setAttribute("hidden", "true");
 			this.$("cl-sep-opts-beforeCopy").setAttribute("hidden", "true");
 			this.$("cl-mi-opts-copy").setAttribute("hidden", "true");
 			this.$("cl-mi-opts-copyAll").setAttribute("hidden", "true");
@@ -253,6 +258,8 @@ var consoleLoggerOptions = {
 		return options;
 	},
 	importOptions: function(options, override) {
+		if(!options)
+			return;
 		for(var name in options) {
 			if(override) {
 				override = false;
@@ -268,6 +275,7 @@ var consoleLoggerOptions = {
 			item.name = this.getUniqueName(name);
 			this.appendItem(item);
 		}
+		this.checkUnsaved();
 		this.updateFilter();
 	},
 	readFromClipboard: function() {
@@ -306,6 +314,53 @@ var consoleLoggerOptions = {
 		Components.classes["@mozilla.org/widget/clipboardhelper;1"]
 			.getService(Components.interfaces.nsIClipboardHelper)
 			.copyString(consoleLogger.fixBr(str), document);
+	},
+	fp: Components.interfaces.nsIFilePicker,
+	pickOptionsFile: function(mode, callback, context) {
+		var fp = Components.classes["@mozilla.org/filepicker;1"]
+			.createInstance(Components.interfaces.nsIFilePicker);
+		fp.defaultString = "console_logger_options.json";
+		fp.defaultExtension = "json";
+		fp.appendFilter("Console Logger Options", "console_logger_options*.json");
+		fp.appendFilter("JSON Files", "*.json");
+		fp.appendFilters(fp.filterAll);
+		//fp.displayDirectory = this.backupsDir;
+		var title = mode == fp.modeSave
+			? "Console Logger: Export Options to File"
+			: "Console Logger: Import Options from File"
+		fp.init(window, title, mode);
+		function done(result) {
+			if(result == fp.returnCancel)
+				return;
+			var file = fp.file;
+			if(mode == fp.modeSave && file.exists())
+				file.remove(true);
+			callback.call(context, file);
+		}
+		if("open" in fp)
+			fp.open({ done: done });
+		else
+			done(fp.show());
+	},
+	readFromFile: function(file, callback, context) {
+		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
+		OS.File.read(file.path).then(
+			function onSuccess(arr) {
+				var decoder = new TextDecoder();
+				var data = decoder.decode(arr);
+				callback.call(context, data);
+			},
+			Components.utils.reportError
+		).then(null, Components.utils.reportError);
+	},
+	writeToFile: function(file, data) {
+		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
+		var encoder = new TextEncoder();
+		var arr = encoder.encode(data);
+		var options = { tmpPath: file.path + ".tmp" };
+		OS.File.writeAtomic(file.path, arr, options)
+			.then(null, Components.utils.reportError)
+			.then(null, Components.utils.reportError);
 	},
 
 	getLogFile: function(name) {
@@ -427,6 +482,8 @@ var consoleLoggerOptions = {
 			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
+			this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
+			this.$("cl-mi-opts-exportAll").setAttribute("disabled", isEmpty);
 		}
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
@@ -566,6 +623,21 @@ var consoleLoggerOptions = {
 	},
 	paste: function(override) {
 		this.importOptions(this.clipboard, override);
+	},
+	exportToFile: function(all) {
+		this.pickOptionsFile(this.fp.modeSave, function(file) {
+			var options = this.exportOptions(all);
+			var data = this.stringifyOptions(options);
+			this.writeToFile(file, data);
+		}, this);
+	},
+	importFromFile: function(override) {
+		this.pickOptionsFile(this.fp.modeOpen, function(file) {
+			this.readFromFile(file, function(data) {
+				var options = this.parseOptions(data);
+				this.importOptions(options, override);
+			}, this);
+		}, this);
 	},
 	setFilter: function(filter) {
 		filter = filter
