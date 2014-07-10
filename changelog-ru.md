@@ -11,6 +11,7 @@
 `*` Теперь корректно работает, если \*.log файл был удален.<br>
 `x` Исправлено отключение \*.message шаблонов.<br>
 `+` Добавлена поддержка Firefox 1.5+, Thunderbird 1.5+ и SeaMonkey 2.0+.<br>
+`+` Добавлен интерфейс настроек (<a href="https://github.com/Infocatcher/Console_Logger/issues/3">#3</a>).<br>
 
 ##### 0.1.0pre2 (2014-01-29)
 `x` Исправлена обработка настроек <em>.enabled</em> = <em>false</em>.<br>

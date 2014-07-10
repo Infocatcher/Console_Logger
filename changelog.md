@@ -11,6 +11,7 @@
 `*` Now works correctly, if \*.log file was removed.<br>
 `x` Correctly disable \*.message patterns.<br>
 `+` Added support for Firefox 1.5+, Thunderbird 1.5+ and SeaMonkey 2.0+.<br>
+`+` Added GUI for options (<a href="https://github.com/Infocatcher/Console_Logger/issues/3">#3</a>).<br>
 
 ##### 0.1.0pre2 (2014-01-29)
 `x` Correctly handle <em>.enabled</em> = <em>false</em> preference.<br>
