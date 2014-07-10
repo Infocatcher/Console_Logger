@@ -82,9 +82,11 @@
 	</menupopup>
 	<keyset>
 		<key id="cl-key-add" keycode="VK_INSERT" oncommand="consoleLoggerOptions.add();" />
-		<key id="cl-key-add2" keycode="VK_F7" oncommand="consoleLoggerOptions.add();" />
+		<key id="cl-key-add2" keycode="VK_INSERT" modifiers="alt" oncommand="consoleLoggerOptions.add();" />
+		<key id="cl-key-add3" keycode="VK_F7" oncommand="consoleLoggerOptions.add();" />
 		<key id="cl-key-remove" keycode="VK_DELETE" oncommand="consoleLoggerOptions.reset();" />
-		<key id="cl-key-remove2" keycode="VK_F8" oncommand="consoleLoggerOptions.reset();" />
+		<key id="cl-key-remove2" keycode="VK_DELETE" modifiers="alt" oncommand="consoleLoggerOptions.reset();" />
+		<key id="cl-key-remove3" keycode="VK_F8" oncommand="consoleLoggerOptions.reset();" />
 		<key id="cl-key-toggle" key="E" modifiers="accel" oncommand="consoleLoggerOptions.toggle();" />
 		<key id="cl-key-toggle2" key=" " oncommand="consoleLoggerOptions.toggle();" />
 		<key id="cl-key-open" key="O" modifiers="accel" oncommand="consoleLoggerOptions.open();" />
