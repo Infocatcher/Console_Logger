@@ -319,13 +319,15 @@ var consoleLoggerOptions = {
 	pickOptionsFile: function(mode, callback, context) {
 		var fp = Components.classes["@mozilla.org/filepicker;1"]
 			.createInstance(Components.interfaces.nsIFilePicker);
-		fp.defaultString = "console_logger_options.json";
+		var modeSave = mode == fp.modeSave;
+		var ts = modeSave ? new Date().toLocaleFormat("_%Y-%m-%d_%H-%M") : "";
+		fp.defaultString = "console_logger_options" + ts + ".json";
 		fp.defaultExtension = "json";
 		fp.appendFilter("Console Logger Options", "console_logger_options*.json");
 		fp.appendFilter("JSON Files", "*.json");
 		fp.appendFilters(fp.filterAll);
 		//fp.displayDirectory = this.backupsDir;
-		var title = mode == fp.modeSave
+		var title = modeSave
 			? "Console Logger: Export Options to File"
 			: "Console Logger: Import Options from File"
 		fp.init(window, title, mode);
@@ -333,7 +335,7 @@ var consoleLoggerOptions = {
 			if(result == fp.returnCancel)
 				return;
 			var file = fp.file;
-			if(mode == fp.modeSave && file.exists())
+			if(modeSave && file.exists())
 				file.remove(true);
 			callback.call(context, file);
 		}
