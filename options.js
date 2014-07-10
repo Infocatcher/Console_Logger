@@ -237,6 +237,39 @@ var consoleLoggerOptions = {
 		}
 		return options;
 	},
+	exportOptions: function(all) {
+		var options = { __proto__: null };
+		var items = all
+			? this.list.children
+			: this.selectedItems;
+		items.forEach(function(rli) {
+			var cli = rli.firstChild;
+			var item = cli.state;
+			var name = item.name;
+			//if(!name)
+			//	return;
+			options[name] = item;
+		});
+		return options;
+	},
+	importOptions: function(options, override) {
+		for(var name in options) {
+			if(override) {
+				override = false;
+				// Remove all
+				this.list.textContent = "";
+				// And restore not imported items from default branch
+				var defaultOptions = consoleLogger.defaultOptions;
+				for(var name2 in defaultOptions)
+					if(!(name2 in options))
+						this.appendItem(defaultOptions[name2]);
+			}
+			var item = options[name];
+			item.name = this.getUniqueName(name);
+			this.appendItem(item);
+		}
+		this.updateFilter();
+	},
 	readFromClipboard: function() {
 		// Based on readFromClipboard() function from
 		// chrome://browser/content/browser.js in Firefox 30
@@ -533,39 +566,6 @@ var consoleLoggerOptions = {
 	},
 	paste: function(override) {
 		this.importOptions(this.clipboard, override);
-	},
-	exportOptions: function(all) {
-		var options = { __proto__: null };
-		var items = all
-			? this.list.children
-			: this.selectedItems;
-		items.forEach(function(rli) {
-			var cli = rli.firstChild;
-			var item = cli.state;
-			var name = item.name;
-			//if(!name)
-			//	return;
-			options[name] = item;
-		});
-		return options;
-	},
-	importOptions: function(options, override) {
-		for(var name in options) {
-			if(override) {
-				override = false;
-				// Remove all
-				this.list.textContent = "";
-				// And restore not imported items from default branch
-				var defaultOptions = consoleLogger.defaultOptions;
-				for(var name2 in defaultOptions)
-					if(!(name2 in options))
-						this.appendItem(defaultOptions[name2]);
-			}
-			var item = options[name];
-			item.name = this.getUniqueName(name);
-			this.appendItem(item);
-		}
-		this.updateFilter();
 	},
 	setFilter: function(filter) {
 		filter = filter
