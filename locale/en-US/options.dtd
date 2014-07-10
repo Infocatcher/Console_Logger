@@ -16,6 +16,10 @@
 <!ENTITY cl.exportAll "Export All…">
 <!ENTITY cl.import "Import…">
 <!ENTITY cl.importOvr "Import and Overwrite…">
+<!ENTITY cl.exportTitle "Console Logger: Export Options to File">
+<!ENTITY cl.importTitle "Console Logger: Import Options from File">
+<!ENTITY cl.optionsFiles "Console Logger Options">
+<!ENTITY cl.jsonFiles "JSON Files">
 <!ENTITY cl.enabled "Enabled">
 <!ENTITY cl.selectAll "Select All">
 <!ENTITY cl.name "Name:">

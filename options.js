@@ -323,13 +323,11 @@ var consoleLoggerOptions = {
 		var ts = modeSave ? new Date().toLocaleFormat("_%Y-%m-%d_%H-%M") : "";
 		fp.defaultString = "console_logger_options" + ts + ".json";
 		fp.defaultExtension = "json";
-		fp.appendFilter("Console Logger Options", "console_logger_options*.json");
-		fp.appendFilter("JSON Files", "*.json");
+		fp.appendFilter(strings.optionsFiles, "console_logger_options*.json");
+		fp.appendFilter(strings.jsonFiles, "*.json");
 		fp.appendFilters(fp.filterAll);
 		//fp.displayDirectory = this.backupsDir;
-		var title = modeSave
-			? "Console Logger: Export Options to File"
-			: "Console Logger: Import Options from File"
+		var title = modeSave ? strings.exportTitle : strings.importTitle;
 		fp.init(window, title, mode);
 		function done(result) {
 			if(result == fp.returnCancel)

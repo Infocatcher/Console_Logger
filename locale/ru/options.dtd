@@ -16,6 +16,10 @@
 <!ENTITY cl.exportAll "Экспортировать всё…">
 <!ENTITY cl.import "Импортировать…">
 <!ENTITY cl.importOvr "Импортировать взамен…">
+<!ENTITY cl.exportTitle "Console Logger: экспорт настроек в файл">
+<!ENTITY cl.importTitle "Console Logger: импорт настроек из файла">
+<!ENTITY cl.optionsFiles "Настройки Console Logger">
+<!ENTITY cl.jsonFiles "JSON файлы">
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
 <!ENTITY cl.name "Название:">
