@@ -37,22 +37,6 @@ var consoleLoggerOptions = {
 			}
 		}
 
-		this.canExport = "JSON" in window; // Firefox 3.5+
-		if(!this.canExport) {
-			this.$("cl-sep-opts-beforeExport").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-export").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-exportAll").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-import").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-importOvr").setAttribute("hidden", "true");
-			this.$("cl-sep-opts-beforeCopy").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-copy").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-copyAll").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-paste").setAttribute("hidden", "true");
-			this.$("cl-mi-opts-pasteOvr").setAttribute("hidden", "true");
-			this.$("cl-sep-beforeCopy").setAttribute("hidden", "true");
-			this.$("cl-mi-copy").setAttribute("hidden", "true");
-			this.$("cl-mi-paste").setAttribute("hidden", "true");
-		}
 		if(!("selectAll" in this.list)) { // Only single selection in Firefox 2.0 and older
 			this.$("cl-sep-beforeSelectAll").setAttribute("hidden", "true");
 			this.$("cl-mi-selectAll").setAttribute("hidden", "true");
@@ -458,17 +442,7 @@ var consoleLoggerOptions = {
 
 	_savedOptions: null,
 	get optionsHash() {
-		var options = this.options;
-		if(!("JSON" in window)) {
-			var data = [];
-			for(var name in options) {
-				var item = options[name];
-				for(var p in item)
-					data.push(p + ":" + item[p]);
-			}
-			return data.join("\n");
-		}
-		return JSON.stringify(options);
+		return JSON.stringify(this.options);
 	},
 	markAsSaved: function() {
 		this._savedOptions = this.optionsHash;
@@ -507,23 +481,19 @@ var consoleLoggerOptions = {
 		miRemove.setAttribute("hidden", hasLocked);
 		miReset.setAttribute("hidden", !hasLocked);
 		var isEmpty = !this.list.hasChildNodes();
-		if(this.canExport) {
-			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
-			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
-			this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
-			this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
-			this.$("cl-mi-opts-exportAll").setAttribute("disabled", isEmpty);
-		}
+		this.$("cl-mi-copy").setAttribute("disabled", cantReset);
+		this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
+		this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
+		this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
+		this.$("cl-mi-opts-exportAll").setAttribute("disabled", isEmpty);
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
 	},
 	updateContextMenu: function() {
-		if(this.canExport) {
-			var cantPaste = !this.clipboard;
-			this.$("cl-mi-paste").setAttribute("disabled", cantPaste);
-			this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
-			this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
-		}
+		var cantPaste = !this.clipboard;
+		this.$("cl-mi-paste").setAttribute("disabled", cantPaste);
+		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
+		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
 		this.$("cl-mi-selectAll").setAttribute("disabled", !this.list.hasChildNodes());
 		var toggler = this.$("cl-mi-toggle");
