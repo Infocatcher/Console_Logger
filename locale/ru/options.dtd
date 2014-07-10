@@ -11,11 +11,11 @@
 <!ENTITY cl.copy "Копировать">
 <!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">
-<!ENTITY cl.pasteOvr "Вставить взамен">
-<!ENTITY cl.export "Экспортировать…">
-<!ENTITY cl.exportAll "Экспортировать всё…">
-<!ENTITY cl.import "Импортировать…">
-<!ENTITY cl.importOvr "Импортировать взамен…">
+<!ENTITY cl.pasteOvr "Вставить и заменить">
+<!ENTITY cl.export "Экспортировать в файл…">
+<!ENTITY cl.exportAll "Экспортировать всё в файл…">
+<!ENTITY cl.import "Импортировать из файла…">
+<!ENTITY cl.importOvr "Импортировать из файла и заменить…">
 <!ENTITY cl.exportTitle "Console Logger: экспорт настроек в файл">
 <!ENTITY cl.importTitle "Console Logger: импорт настроек из файла">
 <!ENTITY cl.optionsFiles "Настройки Console Logger">

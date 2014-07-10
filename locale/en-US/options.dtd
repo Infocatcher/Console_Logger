@@ -12,10 +12,10 @@
 <!ENTITY cl.copyAll "Copy All">
 <!ENTITY cl.paste "Paste">
 <!ENTITY cl.pasteOvr "Paste and Overwrite">
-<!ENTITY cl.export "Export…">
-<!ENTITY cl.exportAll "Export All…">
-<!ENTITY cl.import "Import…">
-<!ENTITY cl.importOvr "Import and Overwrite…">
+<!ENTITY cl.export "Export to File…">
+<!ENTITY cl.exportAll "Export All to File…">
+<!ENTITY cl.import "Import from File…">
+<!ENTITY cl.importOvr "Import from File and Overwrite…">
 <!ENTITY cl.exportTitle "Console Logger: Export Options to File">
 <!ENTITY cl.importTitle "Console Logger: Import Options from File">
 <!ENTITY cl.optionsFiles "Console Logger Options">
