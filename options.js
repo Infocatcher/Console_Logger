@@ -218,7 +218,7 @@ var consoleLoggerOptions = {
 	stringifyOptions: function(options) {
 		this.cleanupOptions(options);
 		var data = JSON.stringify(options, null, "\t");
-		return this.exportHeader + data;
+		return consoleLogger.fixBr(this.exportHeader + data);
 	},
 	validateOptions: function(options) {
 		if(!options || typeof options != "object")
@@ -313,7 +313,7 @@ var consoleLoggerOptions = {
 	copyString: function(str) {
 		Components.classes["@mozilla.org/widget/clipboardhelper;1"]
 			.getService(Components.interfaces.nsIClipboardHelper)
-			.copyString(consoleLogger.fixBr(str), document);
+			.copyString(str, document);
 	},
 	fp: Components.interfaces.nsIFilePicker,
 	pickOptionsFile: function(mode, callback, context) {
