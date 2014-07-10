@@ -1,6 +1,6 @@
 var consoleLoggerGlobal;
 var consoleLoggerOptions = {
-	exports: ["consoleLogger", "Services", "prefs", "delay"],
+	exports: ["consoleLogger", "Services", "prefs", "delay", "platformVersion"],
 	init: function() {
 		//Services.obs
 		Components.classes["@mozilla.org/observer-service;1"]
@@ -343,6 +343,20 @@ var consoleLoggerOptions = {
 			done(fp.show());
 	},
 	readFromFile: function(file, callback, context) {
+		if(platformVersion < 20) {
+			var data = "";
+			var fiStream = Components.classes["@mozilla.org/network/file-input-stream;1"]
+				.createInstance(Components.interfaces.nsIFileInputStream);
+			var ciStream = Components.classes["@mozilla.org/intl/converter-input-stream;1"]
+				.createInstance(Components.interfaces.nsIConverterInputStream);
+			fiStream.init(file, -1, 0, 0);
+			ciStream.init(fiStream, "UTF-8", 0, 0);
+			for(var read, str = {}; read = ciStream.readString(0xffffffff, str); )
+				data += str.value;
+			ciStream.close(); // this closes fiStream
+			callback.call(context, data);
+			return;
+		}
 		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
 		OS.File.read(file.path).then(
 			function onSuccess(arr) {
@@ -354,6 +368,23 @@ var consoleLoggerOptions = {
 		).then(null, Components.utils.reportError);
 	},
 	writeToFile: function(file, data) {
+		if(platformVersion < 20) {
+			var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+				.createInstance(Components.interfaces.nsIFileOutputStream);
+			foStream.init(
+				file,
+				0x02 | 0x08 | 0x20,
+				0x02 /*PR_WRONLY*/ | 0x08 /*PR_CREATE_FILE*/ | 0x20 /*PR_TRUNCATE*/,
+				parseInt("0644", 8),
+				0
+			);
+			var coStream = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+				.createInstance(Components.interfaces.nsIConverterOutputStream);
+			coStream.init(foStream, "UTF-8", 0, 0);
+			coStream.writeString(data);
+			coStream.close(); // this closes foStream
+			return;
+		}
 		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
 		var encoder = new TextEncoder();
 		var arr = encoder.encode(data);
