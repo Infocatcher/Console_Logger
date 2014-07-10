@@ -9,6 +9,8 @@ var consoleLoggerOptions = {
 		this.exports.forEach(function(prop) {
 			window[prop] = consoleLoggerGlobal[prop];
 		}, this);
+		if(!("JSON" in window))
+			Services.scriptloader.loadSubScript("chrome://consolelogger/content/json.js", window);
 		this.setupUI();
 		this.load();
 	},
