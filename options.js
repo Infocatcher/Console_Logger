@@ -330,12 +330,8 @@ var consoleLoggerOptions = {
 		var title = modeSave ? strings.exportTitle : strings.importTitle;
 		fp.init(window, title, mode);
 		function done(result) {
-			if(result == fp.returnCancel)
-				return;
-			var file = fp.file;
-			if(modeSave && file.exists())
-				file.remove(true);
-			callback.call(context, file);
+			if(result != fp.returnCancel)
+				callback.call(context, fp.file);
 		}
 		if("open" in fp)
 			fp.open({ done: done });
