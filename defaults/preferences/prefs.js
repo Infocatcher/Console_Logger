@@ -1,8 +1,9 @@
 // Usage:
-// extensions.consoleLogger.patterns.%someName%         - pattern for new RegExp(..., "i"), checks for nsIScriptError.sourceName
-// extensions.consoleLogger.patterns.%someName%.enabled - (optional) to disable
-// extensions.consoleLogger.patterns.%someName%.message - (optional) pattern for new RegExp(..., ""), checks for nsIConsoleMessage.message
-// extensions.consoleLogger.patterns.%someName%.exclude - (optional) exclusions, checks for nsIScriptError.errorMessage
+// extensions.consoleLogger.patterns.%someName%         - (string) pattern for nsIScriptError.sourceName
+// extensions.consoleLogger.patterns.%someName%.enabled - (boolean, optional) to disable
+// extensions.consoleLogger.patterns.%someName%.message - (string, optional) pattern for nsIConsoleMessage.message
+// extensions.consoleLogger.patterns.%someName%.exclude - (string, optional) exclusions, checks for message text (nsIScriptError.errorMessage or nsIConsoleMessage.message)
+// Note: we use new RegExp(..., "i") for all patterns
 // Output: %browser_profile%/consoleLogger_%someName%.log
 pref("extensions.consoleLogger.patterns.Private_Tab", "/privateTab@infocatcher|://privatetab/");
 pref("extensions.consoleLogger.patterns.Private_Tab.enabled", true);
