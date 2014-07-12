@@ -78,9 +78,8 @@ var consoleLoggerOptions = {
 			function(cli) {
 				var item = cli.state;
 				var name = item.name;
-				if(!name)
-					return;
-				options[name] = item;
+				if(name)
+					options[name] = item;
 			}
 		);
 		return options;
@@ -246,10 +245,7 @@ var consoleLoggerOptions = {
 		items.forEach(function(rli) {
 			var cli = rli.firstChild;
 			var item = cli.state;
-			var name = item.name;
-			//if(!name)
-			//	return;
-			options[name] = item;
+			options[item.name] = item; // Note: exported all items, even without name
 		});
 		return options;
 	},
