@@ -344,8 +344,6 @@ var consoleLogger = {
 			var NetUtil = this.NetUtil || (
 				this.NetUtil = Components.utils["import"]("resource://gre/modules/NetUtil.jsm").NetUtil
 			);
-			//if(!file.exists())
-			//	file.create(file.NORMAL_FILE_TYPE, FileUtils.PERMS_FILE);
 			var ostream = FileUtils.openFileOutputStream(
 				file,
 				FileUtils.MODE_WRONLY | FileUtils.MODE_CREATE | FileUtils.MODE_APPEND
