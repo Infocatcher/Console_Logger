@@ -43,6 +43,16 @@ var consoleLoggerOptions = {
 		}
 		if(!("timeout" in this.filter)) { // Firefox 3.0 and older
 			this.filter.setAttribute("type", "timed");
+			this.filter.onkeypress = function(e) {
+				if(
+					e.keyCode == e.DOM_VK_ESCAPE
+					&& !this.disabled && !this.readOnly && this.value
+				) {
+					e.preventDefault();
+					this.value = "";
+					this._fireCommand(this);
+				}
+			};
 		}
 
 		// Align: show global "enabled" checkbox right above other ones
