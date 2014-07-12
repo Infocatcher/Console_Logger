@@ -324,11 +324,11 @@ var consoleLogger = {
 					parseInt("0644", 8),
 					0
 				);
-				var converter = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+				var coStream = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
 					.createInstance(Components.interfaces.nsIConverterOutputStream);
-				converter.init(foStream, "UTF-8", 0, 0);
-				converter.writeString(this.fixBr(data));
-				converter.close(); // this closes foStream
+				coStream.init(foStream, "UTF-8", 0, 0);
+				coStream.writeString(this.fixBr(data));
+				coStream.close(); // this closes foStream
 				done();
 			}
 			catch(e) {
