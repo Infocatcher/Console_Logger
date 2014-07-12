@@ -262,7 +262,7 @@ var consoleLogger = {
 			var item = options[name];
 			if(!item.enabled)
 				continue;
-			makePattern(messages, name, item, "message", "");
+			makePattern(messages, name, item, "message", "i");
 			makePattern(sources,  name, item, "source",  "i");
 			makePattern(excludes, name, item, "exclude", "i");
 		}
