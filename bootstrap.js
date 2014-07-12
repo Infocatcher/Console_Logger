@@ -310,8 +310,9 @@ var consoleLogger = {
 			err && Components.utils.reportError(LOG_PREFIX + "Can't write to " + file.path + ", error:\n" + err);
 			_this._writeInProgress = false;
 			var next = _this._writeQueue.shift();
-			if(next)
-				_this.writeToFile.apply(_this, next);
+			if(next) delay(function() {
+				this.writeToFile.apply(this, next);
+			}, _this);
 		}
 
 		if(platformVersion < 7) {
