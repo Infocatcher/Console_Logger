@@ -260,7 +260,7 @@ var consoleLogger = {
 		var options = this.options;
 		for(var name in options) {
 			var item = options[name];
-			if("enabled" in item && !item.enabled)
+			if(!item.enabled)
 				continue;
 			makePattern(messages, name, item, "message", "");
 			makePattern(sources,  name, item, "source",  "i");
