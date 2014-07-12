@@ -62,30 +62,6 @@ const Services = {
 	}
 };
 
-// Based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Compatibility
-if(!Function.prototype.bind) {
-	Function.prototype.bind = function(oThis) {
-		if(typeof this !== "function") {
-			// closest thing possible to the ECMAScript 5 internal IsCallable function
-			throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-		}
-		var aArgs = Array.slice(arguments, 1),
-			fToBind = this,
-			fNOP = function() {},
-			fBound = function() {
-				return fToBind.apply(
-					this instanceof fNOP && oThis
-						? this
-						: oThis,
-					aArgs.concat(Array.slice(arguments))
-				);
-			};
-		fNOP.prototype = this.prototype;
-		fBound.prototype = new fNOP();
-		return fBound;
-	};
-}
-
 // https://developer.mozilla.org/en/Extensions/Bootstrapped_extensions#Reason_constants
 const APP_STARTUP     = 1;
 const APP_SHUTDOWN    = 2;

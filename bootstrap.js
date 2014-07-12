@@ -305,15 +305,15 @@ var consoleLogger = {
 		}
 		this._writeInProgress = true;
 
-		var done = function(err) {
-			err && Components.utils.reportError(LOG_PREFIX + "Can't write to " + file.path + ", error:\n" + err);
-			this._writeInProgress = false;
-			var next = this._writeQueue.shift();
-			if(next)
-				this.writeToFile.apply(this, next);
-		}.bind(this);
-
 		var _this = this;
+		function done(err) {
+			err && Components.utils.reportError(LOG_PREFIX + "Can't write to " + file.path + ", error:\n" + err);
+			_this._writeInProgress = false;
+			var next = _this._writeQueue.shift();
+			if(next)
+				_this.writeToFile.apply(_this, next);
+		}
+
 		if(platformVersion < 7) {
 			try {
 				var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
