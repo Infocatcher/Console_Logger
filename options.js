@@ -471,23 +471,25 @@ var consoleLoggerOptions = {
 		}, this);
 		var cantReset = selectedItems.length == 0;
 		var cantRemove = cantReset || hasLocked;
+		var isEmpty = !this.list.hasChildNodes();
 		this.$("cl-deck-reset").selectedIndex = hasLocked ? 1 : 0;
 		this.$("cl-btn-remove").disabled = cantRemove;
 		this.$("cl-btn-reset").disabled = cantReset;
-		var miRemove = this.$("cl-mi-remove");
-		var miReset = this.$("cl-mi-reset");
-		miRemove.setAttribute("disabled", cantRemove);
-		miReset.setAttribute("disabled", cantReset);
-		miRemove.setAttribute("hidden", hasLocked);
-		miReset.setAttribute("hidden", !hasLocked);
-		var isEmpty = !this.list.hasChildNodes();
-		this.$("cl-mi-copy").setAttribute("disabled", cantReset);
-		this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
-		this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
-		this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
-		this.$("cl-mi-opts-exportAll").setAttribute("disabled", isEmpty);
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
+		delay(function() {
+			var miRemove = this.$("cl-mi-remove");
+			var miReset = this.$("cl-mi-reset");
+			miRemove.setAttribute("disabled", cantRemove);
+			miReset.setAttribute("disabled", cantReset);
+			miRemove.setAttribute("hidden", hasLocked);
+			miReset.setAttribute("hidden", !hasLocked);
+			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
+			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
+			this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
+			this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
+			this.$("cl-mi-opts-exportAll").setAttribute("disabled", isEmpty);
+		}, this);
 	},
 	updateContextMenu: function() {
 		var cantPaste = !this.clipboard;
