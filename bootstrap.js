@@ -62,12 +62,30 @@ var consoleLogger = {
 
 		var isUpdate = reason == ADDON_UPGRADE || reason == ADDON_DOWNGRADE;
 		function closeOptions(window) {
-			if(window.location.href.substr(0, 23) == "chrome://consolelogger/") {
+			var loc = window.location.href;
+			if(loc.substr(0, 23) == "chrome://consolelogger/") {
 				if(!isUpdate)
 					window.close();
 				else {
-					window.setTimeout(function(w) {
-						w.location.reload(true);
+					window.location.replace("about:blank");
+					window.stop();
+					var stopWait = Date.now() + 3e3;
+					window.setTimeout(function reload(w) {
+						try { // Trick: wait for chrome package registration
+							var locale = Components.classes["@mozilla.org/chrome/chrome-registry;1"]
+								.getService(Components.interfaces.nsIXULChromeRegistry)
+								.getSelectedLocale("consolelogger");
+							if(/^\w/.test(locale)) {
+								w.location.replace(loc);
+								return;
+							}
+						}
+						catch(e) {
+						}
+						if(Date.now() > stopWait)
+							w.close();
+						else
+							w.setTimeout(reload, 10, w);
 					}, 50, window);
 				}
 				return;
