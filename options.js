@@ -553,6 +553,8 @@ var consoleLoggerOptions = {
 	},
 	setOpenInTab: function(inTab) {
 		prefs.set("options.openInTab", inTab);
+		top.openDialog("chrome://consolelogger/content/optionsOpener.xul", "", "chrome,all,modal");
+		window.close();
 	},
 
 	load: function() {
