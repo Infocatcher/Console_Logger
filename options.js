@@ -571,8 +571,9 @@ var consoleLoggerOptions = {
 		consoleLogger.options = this.options;
 		consoleLogger.enabled = this.enabled;
 		this.markAsSaved();
+		var prefs = Services.prefs; // Will be removed from window!
 		delay(function() {
-			Services.prefs.savePrefFile(null);
+			prefs.savePrefFile(null);
 		});
 		return true;
 	},
