@@ -59,6 +59,11 @@ const Services = {
 		delete this.clipboard;
 		return this.clipboard = Components.classes["@mozilla.org/widget/clipboard;1"]
 			.getService(Components.interfaces.nsIClipboard);
+	},
+	get prompt() {
+		delete this.prompt;
+		return this.prompt = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+			.getService(Components.interfaces.nsIPromptService);
 	}
 };
 

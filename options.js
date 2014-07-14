@@ -552,6 +552,20 @@ var consoleLoggerOptions = {
 		this.setCompactMode(!prefs.get("options.compact"));
 	},
 	setOpenInTab: function(inTab) {
+		if(!this.applyBtn.disabled) {
+			var ps = Services.prompt;
+			if(
+				ps.confirmEx(
+					window,
+					document.title,
+					strings.saveChanges,
+					ps.BUTTON_POS_0 * ps.BUTTON_TITLE_SAVE + ps.BUTTON_POS_1 * ps.BUTTON_TITLE_CANCEL,
+					"", "", "", null, {}
+				) == 1
+			)
+				return;
+			this.save();
+		}
 		prefs.set("options.openInTab", inTab);
 		top.openDialog("chrome://consolelogger/content/optionsOpener.xul", "", "chrome,all,modal");
 		window.close();

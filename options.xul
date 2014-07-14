@@ -26,7 +26,8 @@
 			exportTitle:  "&cl.exportTitle;",
 			importTitle:  "&cl.importTitle;",
 			optionsFiles: "&cl.optionsFiles;",
-			jsonFiles:    "&cl.jsonFiles;"
+			jsonFiles:    "&cl.jsonFiles;",
+			saveChanges:  "&cl.saveChanges;"
 		};
 	</script>
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
