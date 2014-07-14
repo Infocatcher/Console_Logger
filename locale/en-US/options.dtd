@@ -6,6 +6,7 @@
 <!ENTITY cl.reset "Reset">
 <!ENTITY cl.options "Options">
 <!ENTITY cl.compactMode "Compact Mode">
+<!ENTITY cl.openInTab "Open in Tab">
 <!ENTITY cl.reload "Reload">
 <!ENTITY cl.open "Open">
 <!ENTITY cl.copy "Copy">

@@ -503,6 +503,7 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
+		this.$("cl-mi-opts-openInTab").setAttribute("checked", prefs.get("options.openInTab"));
 		this.$("cl-mi-selectAll").setAttribute("disabled", !this.list.hasChildNodes());
 		var toggler = this.$("cl-mi-toggle");
 		var hasEnabled = this.enabledInSelection;
@@ -543,6 +544,9 @@ var consoleLoggerOptions = {
 	},
 	toggleCompactMode: function() {
 		this.setCompactMode(!prefs.get("options.compact"));
+	},
+	setOpenInTab: function(inTab) {
+		prefs.set("options.openInTab", inTab);
 	},
 
 	load: function() {

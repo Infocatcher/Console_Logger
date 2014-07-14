@@ -6,6 +6,7 @@
 <!ENTITY cl.reset "Сбросить">
 <!ENTITY cl.options "Настройки">
 <!ENTITY cl.compactMode "Компактный режим">
+<!ENTITY cl.openInTab "Открывать во вкладке">
 <!ENTITY cl.reload "Перезагрузить">
 <!ENTITY cl.open "Открыть">
 <!ENTITY cl.copy "Копировать">
