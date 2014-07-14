@@ -3,28 +3,81 @@
 	id="consoleLoggerOptionsOpener"
 	windowtype="consoleLogger:optionsOpener">
 	<script type="application/javascript">
-	// Hack to open options in not modal window
+	<![CDATA[
+	// Hack to open options in not modal window (or tab)
+	var optionsURL = "chrome://consolelogger/content/options.xul";
 	Components.classes["@mozilla.org/observer-service;1"]
 		.getService(Components.interfaces.nsIObserverService)
 		.notifyObservers(window, "consoleLogger-exportScope", "consoleLoggerGlobal");
 	var Services = consoleLoggerGlobal.Services;
-	var w = Services.wm.getMostRecentWindow("consoleLogger:options");
-	if(w) {
-		var wo = window.opener || w;
-		wo.setTimeout(function(w) {
-			w.focus();
-		}, 0, w);
-	}
-	else {
+	var prefs = consoleLoggerGlobal.prefs;
+
+	var openInTab = prefs.get("options.openInTab");
+	if(!openInTab || !openOptionsInTab())
+		openOptionsInWindow();
+	consoleLoggerGlobal = Services = prefs = null;
+	window.close();
+
+	function openOptionsInWindow() {
+		var w = Services.wm.getMostRecentWindow("consoleLogger:options");
+		if(w) {
+			var wo = window.opener || w;
+			wo.setTimeout(function(w) {
+				w.focus();
+			}, 0, w);
+			return;
+		}
 		Services.ww.openWindow(
 			window.opener,
-			"chrome://consolelogger/content/options.xul",
+			optionsURL,
 			"_blank",
 			"chrome,all,toolbar,centerscreen,resizable,dialog=0",
 			null
 		);
 	}
-	consoleLoggerGlobal = Services = null;
-	window.close();
+	function openOptionsInTab() {
+		function isBrowserWindow(win) {
+			return "gBrowser" in win
+				&& win.gBrowser
+				&& win.gBrowser.browsers
+				&& win.gBrowser.tabContainer;
+		}
+		function switchToTab(win, url) {
+			if(!isBrowserWindow(win))
+				return false;
+			var browsers = win.gBrowser.browsers;
+			for(var i = 0, l = browsers.length; i < l; ++i) {
+				var browser = browsers[i];
+				if(browser.currentURI.spec == url) {
+					win.gBrowser.tabContainer.selectedIndex = i;
+					browser.contentWindow.focus();
+					return true;
+				}
+			}
+			return false;
+		}
+		// Note: in SeaMonkey private windows doesn't have windowtype
+		var ws = Services.wm.getEnumerator(null);
+		while(ws.hasMoreElements())
+			if(switchToTab(ws.getNext(), optionsURL))
+				return true;
+		var browserWindow = Services.wm.getMostRecentWindow("navigator:browser");
+		if(!browserWindow || !isBrowserWindow(browserWindow))
+			return false;
+		var gBrowser = browserWindow.gBrowser;
+		if(
+			!gBrowser.webProgress.isLoadingDocument && (
+				"isBlankPageURL" in browserWindow
+					? browserWindow.isBlankPageURL(gBrowser.currentURI.spec)
+					: gBrowser.currentURI.spec == "about:blank"
+			)
+		)
+			browserWindow.loadURI(optionsURL);
+		else
+			gBrowser.selectedTab = gBrowser.addTab(optionsURL);
+		browserWindow.content.focus();
+		return true;
+	}
+	]]>
 	</script>
 </window>

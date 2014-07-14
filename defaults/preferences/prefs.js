@@ -11,6 +11,7 @@ pref("extensions.consoleLogger.patterns.Private_Tab.message", /*"^\\[Private Tab
 pref("extensions.consoleLogger.patterns.Private_Tab.exclude", "^Only internal code is allowed to set the usePrivateBrowsing attribute");
 
 pref("extensions.consoleLogger.enabled", true);
+pref("extensions.consoleLogger.options.openInTab", false);
 pref("extensions.consoleLogger.options.compact", false);
 pref("extensions.consoleLogger.options.logViewer", ""); // Path to external viewer
 // Supported browser (%ProfD%) and environment variables (%ProgramFiles%, %PROFD%)
