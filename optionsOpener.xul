@@ -25,15 +25,21 @@
 			wo.setTimeout(function(w) {
 				w.focus();
 			}, 0, w);
+			wo.setTimeout(function(w) { // Ensure focused
+				w.focus();
+			}, 100, w);
 			return;
 		}
-		Services.ww.openWindow(
+		w = Services.ww.openWindow(
 			window.opener,
 			optionsURL,
 			"_blank",
 			"chrome,all,toolbar,centerscreen,resizable,dialog=0",
 			null
 		);
+		w.setTimeout(function(w) { // Ensure focused
+			w.focus();
+		}, 0, w);
 	}
 	function openOptionsInTab() {
 		function isBrowserWindow(win) {
