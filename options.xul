@@ -31,7 +31,7 @@
 		};
 	</script>
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
-	<html:link xmlns:html="http://www.w3.org/1999/xhtml" rel="shortcut icon" href="chrome://consolelogger/content/icon16.png" />
+	<html:link xmlns:html="http://www.w3.org/1999/xhtml" rel="shortcut icon" href="chrome://consolelogger/content/icon16.png" style="display: none;" />
 	<hbox id="cl-filterBox" align="center">
 		<label id="cl-filterLabel" control="cl-filter" value="&cl.filter;"
 			ondblclick="if(event.button == 0) consoleLoggerOptions.updateFilter(1);" />
