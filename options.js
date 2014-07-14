@@ -66,6 +66,12 @@ var consoleLoggerOptions = {
 			+ "px";
 
 		this.setCompactMode();
+
+		delay(function() {
+			var browserWindow = Services.wm.getMostRecentWindow("navigator:browser");
+			if(!browserWindow)
+				this.$("cl-mi-opts-openInTab").setAttribute("hidden", "true");
+		}, this);
 	},
 
 	$: function(id) {
