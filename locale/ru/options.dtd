@@ -1,4 +1,5 @@
-<!ENTITY cl.optionsTitle "Console Logger: Настройки">
+<!ENTITY cl.selfName "Console Logger">
+<!ENTITY cl.optionsTitle "&cl.selfName;: Настройки">
 <!ENTITY cl.apply "Применить">
 <!ENTITY cl.filter "Фильтр:">
 <!ENTITY cl.add "Добавить">
@@ -18,10 +19,10 @@
 <!ENTITY cl.exportAll "Экспортировать всё в файл…">
 <!ENTITY cl.import "Импортировать из файла…">
 <!ENTITY cl.importOvr "Импортировать из файла и заменить…">
-<!ENTITY cl.exportTitle "Console Logger: экспорт настроек в файл">
-<!ENTITY cl.importTitle "Console Logger: импорт настроек из файла">
-<!ENTITY cl.errorTitle "Console Logger: Ошибка!">
-<!ENTITY cl.optionsFiles "Настройки Console Logger">
+<!ENTITY cl.exportTitle "&cl.selfName;: Экспорт настроек в файл">
+<!ENTITY cl.importTitle "&cl.selfName;: Импорт настроек из файла">
+<!ENTITY cl.errorTitle "&cl.selfName;: Ошибка!">
+<!ENTITY cl.optionsFiles "Настройки &cl.selfName;">
 <!ENTITY cl.jsonFiles "JSON файлы">
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">

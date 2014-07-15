@@ -1,4 +1,5 @@
-<!ENTITY cl.optionsTitle "Console Logger: Options">
+<!ENTITY cl.selfName "Console Logger">
+<!ENTITY cl.optionsTitle "&cl.selfName;: Options">
 <!ENTITY cl.apply "Apply">
 <!ENTITY cl.filter "Filter:">
 <!ENTITY cl.add "Add">
@@ -18,10 +19,10 @@
 <!ENTITY cl.exportAll "Export All to File…">
 <!ENTITY cl.import "Import from File…">
 <!ENTITY cl.importOvr "Import from File and Overwrite…">
-<!ENTITY cl.exportTitle "Console Logger: Export Options to File">
-<!ENTITY cl.importTitle "Console Logger: Import Options from File">
-<!ENTITY cl.errorTitle "Console Logger: Error!">
-<!ENTITY cl.optionsFiles "Console Logger Options">
+<!ENTITY cl.exportTitle "&cl.selfName;: Export Options to File">
+<!ENTITY cl.importTitle "&cl.selfName;: Import Options from File">
+<!ENTITY cl.errorTitle "&cl.selfName;: Error!">
+<!ENTITY cl.optionsFiles "&cl.selfName; Options">
 <!ENTITY cl.jsonFiles "JSON Files">
 <!ENTITY cl.enabled "Enabled">
 <!ENTITY cl.selectAll "Select All">
