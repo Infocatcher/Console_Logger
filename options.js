@@ -394,7 +394,7 @@ var consoleLoggerOptions = {
 	},
 	onError: function(error) {
 		Components.utils.reportError(error);
-		Services.prompt.alert(window, "Console Logger: Error!", error);
+		Services.prompt.alert(window, strings.errorTitle, error);
 	},
 
 	getLogFile: function(name) {

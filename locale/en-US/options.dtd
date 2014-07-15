@@ -20,6 +20,7 @@
 <!ENTITY cl.importOvr "Import from File and Overwrite…">
 <!ENTITY cl.exportTitle "Console Logger: Export Options to File">
 <!ENTITY cl.importTitle "Console Logger: Import Options from File">
+<!ENTITY cl.errorTitle "Console Logger: Error!">
 <!ENTITY cl.optionsFiles "Console Logger Options">
 <!ENTITY cl.jsonFiles "JSON Files">
 <!ENTITY cl.enabled "Enabled">

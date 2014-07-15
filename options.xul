@@ -25,6 +25,7 @@
 			emptyName:    "&cl.emptyName;",
 			exportTitle:  "&cl.exportTitle;",
 			importTitle:  "&cl.importTitle;",
+			errorTitle:   "&cl.errorTitle;",
 			optionsFiles: "&cl.optionsFiles;",
 			jsonFiles:    "&cl.jsonFiles;",
 			saveChanges:  "&cl.saveChanges;"
