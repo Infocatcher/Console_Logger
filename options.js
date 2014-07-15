@@ -393,15 +393,23 @@ var consoleLoggerOptions = {
 			.then(null, this.onError);
 	},
 	onError: function(error) {
-		if(error && Object.prototype.toString.call(error) != "[object Error]") {
-			var caller = Components.stack.caller;
-			error = new Error(
-				error.message || error,
-				error.fileName || error.filename || caller.filename,
-				error.lineNumber || error.lineno || caller.lineNumber
-			);
-		}
 		Components.utils.reportError(error);
+		if(error && !error.fileName && !error.filename && !error.lineNumber) {
+			// Looks like useless error-like object, will try to report something more useful
+			var caller = Components.stack.caller;
+			var scriptErr = Components.classes["@mozilla.org/scripterror;1"]
+				.createInstance(Components.interfaces.nsIScriptError);
+			scriptErr.init(
+				consoleLoggerGlobal.LOG_PREFIX + (error.message || error),
+				error.fileName || error.filename || caller.filename,
+				null,
+				error.lineNumber || error.lineno || caller.lineNumber,
+				error.columnNumber || 0,
+				scriptErr.errorFlag,
+				null
+			);
+			Services.console.logMessage(scriptErr);
+		}
 		Services.prompt.alert(window, strings.errorTitle, error);
 	},
 
