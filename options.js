@@ -393,6 +393,14 @@ var consoleLoggerOptions = {
 			.then(null, this.onError);
 	},
 	onError: function(error) {
+		if(error && Object.prototype.toString.call(error) != "[object Error]") {
+			var caller = Components.stack.caller;
+			error = new Error(
+				error.message || error,
+				error.fileName || error.filename || caller.filename,
+				error.lineNumber || error.lineno || caller.lineNumber
+			);
+		}
 		Components.utils.reportError(error);
 		Services.prompt.alert(window, strings.errorTitle, error);
 	},
