@@ -358,25 +358,30 @@ var consoleLoggerOptions = {
 				var data = decoder.decode(arr);
 				callback.call(context, data);
 			},
-			Components.utils.reportError
-		).then(null, Components.utils.reportError);
+			this.onError
+		).then(null, this.onError);
 	},
 	writeToFile: function(file, data) {
 		if(platformVersion < 20) {
-			var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
-				.createInstance(Components.interfaces.nsIFileOutputStream);
-			foStream.init(
-				file,
-				0x02 | 0x08 | 0x20,
-				0x02 /*PR_WRONLY*/ | 0x08 /*PR_CREATE_FILE*/ | 0x20 /*PR_TRUNCATE*/,
-				parseInt("0644", 8),
-				0
-			);
-			var coStream = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
-				.createInstance(Components.interfaces.nsIConverterOutputStream);
-			coStream.init(foStream, "UTF-8", 0, 0);
-			coStream.writeString(data);
-			coStream.close(); // this closes foStream
+			try {
+				var foStream = Components.classes["@mozilla.org/network/file-output-stream;1"]
+					.createInstance(Components.interfaces.nsIFileOutputStream);
+				foStream.init(
+					file,
+					0x02 | 0x08 | 0x20,
+					0x02 /*PR_WRONLY*/ | 0x08 /*PR_CREATE_FILE*/ | 0x20 /*PR_TRUNCATE*/,
+					parseInt("0644", 8),
+					0
+				);
+				var coStream = Components.classes["@mozilla.org/intl/converter-output-stream;1"]
+					.createInstance(Components.interfaces.nsIConverterOutputStream);
+				coStream.init(foStream, "UTF-8", 0, 0);
+				coStream.writeString(data);
+				coStream.close(); // this closes foStream
+			}
+			catch(e) {
+				this.onError(e);
+			}
 			return;
 		}
 		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
@@ -384,8 +389,12 @@ var consoleLoggerOptions = {
 		var arr = encoder.encode(data);
 		var options = { tmpPath: file.path + ".tmp" };
 		OS.File.writeAtomic(file.path, arr, options)
-			.then(null, Components.utils.reportError)
-			.then(null, Components.utils.reportError);
+			.then(null, this.onError)
+			.then(null, this.onError);
+	},
+	onError: function(error) {
+		Components.utils.reportError(error);
+		Services.prompt.alert(window, "Console Logger: Error!", error);
 	},
 
 	getLogFile: function(name) {
