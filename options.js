@@ -338,17 +338,22 @@ var consoleLoggerOptions = {
 	},
 	readFromFile: function(file, callback, context) {
 		if(platformVersion < 20) {
-			var data = "";
-			var fiStream = Components.classes["@mozilla.org/network/file-input-stream;1"]
-				.createInstance(Components.interfaces.nsIFileInputStream);
-			var ciStream = Components.classes["@mozilla.org/intl/converter-input-stream;1"]
-				.createInstance(Components.interfaces.nsIConverterInputStream);
-			fiStream.init(file, -1, 0, 0);
-			ciStream.init(fiStream, "UTF-8", 0, 0);
-			for(var read, str = {}; read = ciStream.readString(0xffffffff, str); )
-				data += str.value;
-			ciStream.close(); // this closes fiStream
-			callback.call(context, data);
+			try {
+				var data = "";
+				var fiStream = Components.classes["@mozilla.org/network/file-input-stream;1"]
+					.createInstance(Components.interfaces.nsIFileInputStream);
+				var ciStream = Components.classes["@mozilla.org/intl/converter-input-stream;1"]
+					.createInstance(Components.interfaces.nsIConverterInputStream);
+				fiStream.init(file, -1, 0, 0);
+				ciStream.init(fiStream, "UTF-8", 0, 0);
+				for(var read, str = {}; read = ciStream.readString(0xffffffff, str); )
+					data += str.value;
+				ciStream.close(); // this closes fiStream
+				callback.call(context, data);
+			}
+			catch(e) {
+				this.onError(e);
+			}
 			return;
 		}
 		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
