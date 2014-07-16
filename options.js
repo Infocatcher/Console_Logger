@@ -540,7 +540,10 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
 		this.$("cl-mi-opts-openInTab").setAttribute("checked", prefs.get("options.openInTab"));
-		this.$("cl-mi-selectAll").setAttribute("disabled", !this.list.hasChildNodes());
+		var cantSelectAll = !this.list.hasChildNodes() || this.list.children.every(function(rli) {
+			return rli.hasAttribute("selected");
+		});
+		this.$("cl-mi-selectAll").setAttribute("disabled", cantSelectAll);
 		var toggler = this.$("cl-mi-toggle");
 		var hasEnabled = this.enabledInSelection;
 		if(hasEnabled)
