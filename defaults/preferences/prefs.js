@@ -15,6 +15,9 @@ pref("extensions.consoleLogger.options.openInTab", false);
 pref("extensions.consoleLogger.options.compact", false);
 pref("extensions.consoleLogger.options.logViewer", ""); // Path to external viewer
 // Supported browser (%ProfD%) and environment variables (%ProgramFiles%, %PROFD%)
+// See http://mxr.mozilla.org/mozilla-central/source/xpcom/io/nsDirectoryServiceDefs.h
+// and http://mxr.mozilla.org/mozilla-central/source/xpcom/io/nsAppDirectoryServiceDefs.h
+// Also supported special %cl_ProfDrv% for profile drive (root directory for browser profile)
 pref("extensions.consoleLogger.options.logViewerArgs", "%F"); // Command line arguments for external viewer
 // %F - path to *.log file
 pref("extensions.consoleLogger.options.exportDirectory", "");
