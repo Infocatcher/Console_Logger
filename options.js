@@ -213,10 +213,11 @@ var consoleLoggerOptions = {
 		data = data.replace(/^\s*\/\/[^\n\r]+[\n\r]+/, "");
 		if(data && data.charAt(0) == "{") try {
 			var options = JSON.parse(data);
+			return this.validateOptions(options);
 		}
 		catch(e) {
 		}
-		return this.validateOptions(options);
+		return null;
 	},
 	stringifyOptions: function(options) {
 		this.cleanupOptions(options);
