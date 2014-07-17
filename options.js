@@ -476,7 +476,7 @@ var consoleLoggerOptions = {
 			return s;
 		});
 		var file = Components.classes["@mozilla.org/file/local;1"]
-			.createInstance(Components.interfaces.nsIFile);
+			.createInstance(Components.interfaces.nsILocalFile || Components.interfaces.nsIFile);
 		try {
 			file.initWithPath(absPath);
 			if(file.exists())
