@@ -26,12 +26,34 @@ function startup(params, reason) {
 			: new Error().fileName
 				.replace(/^.* -> /, "")
 				.replace(/[^\/]+$/, "");
+		delay(function() {
+			var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
+				.getService(Components.interfaces.nsIStyleSheetService);
+			var cssStr = '\
+				/* Console Logger: hide options button (chrome://... link doesn\'t work) */\n\
+				@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");\n\
+				@-moz-document url("about:addons"),\n\
+					url("chrome://mozapps/content/extensions/extensions.xul") {\n\
+					.addon-control.preferences {\n\
+						display: none !important;\n\
+					}\n\
+				}';
+			var cssURI = Services.io.newURI("data:text/css," + encodeURIComponent(cssStr), null, null);
+			if(!sss.sheetRegistered(cssURI, sss.USER_SHEET))
+				sss.loadAndRegisterSheet(cssURI, sss.USER_SHEET);
+			global.unloadAddonManagerFix = function() {
+				if(sss.sheetRegistered(cssURI, sss.USER_SHEET))
+					sss.unregisterSheet(cssURI, sss.USER_SHEET);
+			};
+		});
 	}
 	consoleLogger.init(reason);
 }
 function shutdown(params, reason) {
 	if(platformVersion < 10 && "addBootstrappedManifestLocation" in Components.manager)
 		Components.manager.removeBootstrappedManifestLocation(params.installPath);
+	if("unloadAddonManagerFix" in global)
+		global.unloadAddonManagerFix();
 	consoleLogger.destroy(reason);
 }
 
