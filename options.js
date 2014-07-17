@@ -385,6 +385,9 @@ var consoleLoggerOptions = {
 		return file && file.isDirectory() && file;
 	},
 	set exportDir(dir) {
+		var savedDir = this.exportDir;
+		if(savedDir && dir.equals(savedDir))
+			return; // May be manually changed to use some custom alias, don't override!
 		var path = dir.path;
 		var curDrv = this.getRelativeFile("%cl_ProfDrv%").path;
 		if(path.substr(0, curDrv.length) == curDrv)
