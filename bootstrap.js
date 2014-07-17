@@ -20,7 +20,7 @@ function startup(params, reason) {
 	platformVersion = parseFloat(Services.appinfo.platformVersion);
 	if(platformVersion < 10 && "addBootstrappedManifestLocation" in Components.manager)
 		Components.manager.addBootstrappedManifestLocation(params.installPath);
-	if(platformVersion < 8) {
+	if(platformVersion >= 2 && platformVersion < 8) {
 		rootURI = params && params.resourceURI
 			? params.resourceURI.spec
 			: new Error().fileName
