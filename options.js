@@ -332,12 +332,17 @@ var consoleLoggerOptions = {
 		fp.appendFilter(strings.optionsFiles, "console_logger_options*.json");
 		fp.appendFilter(strings.jsonFiles, "*.json");
 		fp.appendFilters(fp.filterAll);
-		//fp.displayDirectory = this.backupsDir;
+		var exportDir = this.exportDir;
+		if(exportDir)
+			fp.displayDirectory = exportDir;
 		var title = modeSave ? strings.exportTitle : strings.importTitle;
 		fp.init(window, title, mode);
+		var _this = this;
 		function done(result) {
-			if(result != fp.returnCancel)
+			if(result != fp.returnCancel) {
+				_this.exportDir = fp.file.parent;
 				callback.call(context, fp.file);
+			}
 		}
 		if("open" in fp)
 			fp.open({ done: done });
@@ -373,6 +378,18 @@ var consoleLoggerOptions = {
 			},
 			this.onError
 		).then(null, this.onError);
+	},
+	get exportDir() {
+		var path = prefs.get("options.exportDirectory");
+		var file = path && this.getRelativeFile(path);
+		return file && file.isDirectory() && file;
+	},
+	set exportDir(dir) {
+		var path = dir.path;
+		var curDrv = this.getRelativeFile("%cl_ProfDrv%").path;
+		if(path.substr(0, curDrv.length) == curDrv)
+			path = "%cl_ProfDrv%" + path.substr(curDrv.length);
+		prefs.set("options.exportDirectory", path);
 	},
 	writeToFile: function(file, data) {
 		if(platformVersion < 20) {

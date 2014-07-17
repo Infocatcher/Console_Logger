@@ -17,5 +17,6 @@ pref("extensions.consoleLogger.options.logViewer", ""); // Path to external view
 // Supported browser (%ProfD%) and environment variables (%ProgramFiles%, %PROFD%)
 pref("extensions.consoleLogger.options.logViewerArgs", "%F"); // Command line arguments for external viewer
 // %F - path to *.log file
+pref("extensions.consoleLogger.options.exportDirectory", "");
 
 pref("extensions.consoleLogger.debug", false);
