@@ -467,6 +467,8 @@ var consoleLoggerOptions = {
 			return null;
 		var _this = this;
 		var absPath = path.replace(/%([^%]+)%/g, function(s, alias) {
+			if(alias == "cl_ProfDrv")
+				return _this.getFileRoot(Services.dirsvc.get("ProfD", Components.interfaces.nsIFile)).path;
 			try {
 				return Services.dirsvc.get(alias, Components.interfaces.nsIFile).path;
 			}
@@ -488,6 +490,19 @@ var consoleLoggerOptions = {
 			Components.utils.reportError(e);
 		}
 		return null;
+	},
+	getFileRoot: function(file) {
+		var root;
+		try {
+			for(var tmp = file; tmp = tmp.parent; )
+				root = tmp;
+		}
+		catch(e) {
+			// Firefox 1.5 and 2.0 says:
+			// Component returned failure code: 0x80520001 (NS_ERROR_FILE_UNRECOGNIZED_PATH) [nsIFile.parent]
+			// for root directories
+		}
+		return root;
 	},
 
 	_savedOptions: null,
