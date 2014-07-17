@@ -202,6 +202,7 @@ var consoleLoggerOptions = {
 
 	exportHeader: "// Console Logger options\n",
 	exportedFields: ["enabled", "source", "message", "exclude"],
+	requiredFields: ["source", "message"],
 	get clipboard() {
 		return this.parseOptions(this.readFromClipboard());
 	},
@@ -229,9 +230,14 @@ var consoleLoggerOptions = {
 			var item = options[name];
 			if(!item || typeof item != "object")
 				return null;
-			for(var p in item)
-				if(this.exportedFields.indexOf(p) == -1)
-					return null;
+			// Forward compatibility: check only for required fields and ignore not yet known properties
+			// (will be ignored in consoleLoggerItem.state setter)
+			if(
+				!this.requiredFields.every(function(p) {
+					return p in item;
+				})
+			)
+				return null;
 		}
 		return options;
 	},
