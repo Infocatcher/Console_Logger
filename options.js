@@ -614,7 +614,12 @@ var consoleLoggerOptions = {
 		toggler.setAttribute("disabled", hasEnabled === undefined);
 		var logFileExists = this.selectedItems.some(function(rli) {
 			var cli = rli.firstChild;
-			return this.getLogFile(cli.name);
+			var hasLogFile = !!this.getLogFile(cli.name);
+			setTimeout(function() { // User may remove *.log file manually...
+				if(cli.canOpen() != hasLogFile)
+					cli.canOpen(hasLogFile);
+			}, 0);
+			return hasLogFile;
 		}, this);
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 	},

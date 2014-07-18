@@ -285,6 +285,8 @@
 				<parameter name="canOpen" />
 				<body>
 					var btn = this.getItem("open");
+					if(canOpen === undefined)
+						return !btn.disabled;
 					btn.disabled = !canOpen;
 					if(canOpen)
 						++this._changes;
