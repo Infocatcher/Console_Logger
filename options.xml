@@ -16,6 +16,8 @@
 						<xul:label value="&cl.name;" />
 						<xul:hbox align="center">
 							<xul:textbox anonid="name" flex="1" />
+							<xul:button anonid="open" class="cl-small" label="Log"
+								oncommand="document.getBindingParent(this).open();" />
 							<xul:checkbox anonid="enabled" class="cl-enabled" label="&cl.enabled;" />
 						</xul:hbox>
 					</xul:row>
@@ -271,6 +273,11 @@
 						if(tt.parentNode)
 							tt.hidePopup();
 					}, 1500);
+				</body>
+			</method>
+			<method name="open">
+				<body>
+					consoleLoggerOptions.open();
 				</body>
 			</method>
 		</implementation>
