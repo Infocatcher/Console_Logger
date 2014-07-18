@@ -30,5 +30,7 @@
 <!ENTITY cl.sourcePattern "Source pattern:">
 <!ENTITY cl.messagePattern "Message pattern:">
 <!ENTITY cl.excludePattern "Exclude pattern:">
+<!ENTITY cl.log "Log">
+<!ENTITY cl.logs "Log ($S)">
 <!ENTITY cl.onlyASCII "Allowed only ASCII characters!">
 <!ENTITY cl.emptyName "Empty name">
