@@ -159,7 +159,9 @@ var consoleLoggerOptions = {
 		if(state) {
 			cli.state = state;
 			setTimeout(function(_this) { // Pseudo async
-				cli.canOpen(_this.getLogFile(state.name));
+				_this.logFileExists(state.name, function(exists) {
+					cli.canOpen(exists);
+				});
 			}, 0, this);
 		}
 		return rli;
@@ -490,6 +492,20 @@ var consoleLoggerOptions = {
 		if("nsILocalFile" in Components.interfaces)
 			file instanceof Components.interfaces.nsILocalFile;
 		file.launch();
+	},
+	logFileExists: function(name, callback, context) {
+		var file = consoleLogger.getFile(name);
+		if(platformVersion < 19) {
+			callback.call(context, file.exists());
+			return;
+		}
+		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
+		OS.File.exists(file.path).then(
+			function onSuccess(exists) {
+				callback.call(context, exists);
+			},
+			this.onError
+		);
 	},
 	get env() {
 		delete this.env;
