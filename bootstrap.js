@@ -177,6 +177,7 @@ var consoleLogger = {
 			+ msg.message
 			+ "\n\n"
 		);
+		this.notifyUpdatedLog(key);
 	},
 	writeMessage: function(msg, key) {
 		if("nsIScriptError2" in Components.interfaces)
@@ -198,12 +199,18 @@ var consoleLogger = {
 			+ (msg.sourceLine ? "\n" + msg.sourceLine : "")
 			+ "\n\n"
 		);
+		this.notifyUpdatedLog(key);
 	},
 	writeDebugMessage: function(msg) {
 		this.writeToFile(
 			this.getFile(FILE_NAME_DEBUG, FILE_NAME_DEBUG),
 			this.getTimestamp() + " " + msg + "\n"
 		);
+	},
+	notifyUpdatedLog: function(key) {
+		delay(function() {
+			Services.obs.notifyObservers(null, "consoleLogger-logUpdated", key);
+		});
 	},
 	getTimestamp: function(msg) {
 		var d = msg && msg.timeStamp

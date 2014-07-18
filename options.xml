@@ -280,11 +280,18 @@
 					consoleLoggerOptions.open();
 				</body>
 			</method>
+			<field name="_changes">0</field>
 			<method name="canOpen">
 				<parameter name="canOpen" />
 				<body>
 					var btn = this.getItem("open");
 					btn.disabled = !canOpen;
+					if(canOpen)
+						++this._changes;
+					else
+						this._changes = 0;
+					var label = this._changes > 1 ? "Log (" + this._changes + ")" : "Log";
+					btn.setAttribute("label", label);
 				</body>
 			</method>
 		</implementation>

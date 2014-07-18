@@ -13,8 +13,10 @@ var consoleLoggerOptions = {
 			Services.scriptloader.loadSubScript("chrome://consolelogger/content/json.js", window);
 		this.setupUI();
 		this.load();
+		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
 	},
 	destroy: function() {
+		Services.obs.removeObserver(this, "consoleLogger-logUpdated");
 		consoleLoggerGlobal = null;
 		this.exports.forEach(function(prop) {
 			window[prop] = null;
@@ -73,6 +75,16 @@ var consoleLoggerOptions = {
 			if(!browserWindow)
 				this.$("cl-mi-opts-openInTab").setAttribute("hidden", "true");
 		}, this);
+	},
+
+	observe: function(subject, topic, data) {
+		if(topic == "consoleLogger-logUpdated") {
+			var name = data;
+			var hasLog = !!this.getLogFile(name);
+			this.getItemsByName(name).forEach(function(cli) {
+				cli.canOpen(hasLog);
+			});
+		}
 	},
 
 	$: function(id) {
