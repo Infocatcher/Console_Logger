@@ -85,7 +85,7 @@ var consoleLoggerOptions = {
 	observe: function(subject, topic, data) {
 		if(topic == "consoleLogger-logUpdated") {
 			this.getItemsByName(data).forEach(function(cli) {
-				cli.canOpen(true);
+				cli.markAsUpdated();
 			});
 		}
 	},
@@ -165,7 +165,7 @@ var consoleLoggerOptions = {
 			cli.state = state;
 			setTimeout(function(_this) { // Pseudo async
 				_this.logFileExists(state.name, function(exists) {
-					cli.canOpen(exists);
+					cli.canOpen = exists;
 				});
 			}, 0, this);
 		}
@@ -634,8 +634,8 @@ var consoleLoggerOptions = {
 			var cli = rli.firstChild;
 			var hasLogFile = !!this.getLogFile(cli.name);
 			setTimeout(function() { // User may remove *.log file manually...
-				if(cli.canOpen() != hasLogFile)
-					cli.canOpen(hasLogFile);
+				if(cli.canOpen != hasLogFile)
+					cli.canOpen = hasLogFile;
 			}, 0);
 			return hasLogFile;
 		}, this);
@@ -796,7 +796,7 @@ var consoleLoggerOptions = {
 			}
 			try {
 				file.remove(false);
-				cli.canOpen(false);
+				cli.canOpen = false;
 			}
 			catch(e) {
 				this.onError(e);

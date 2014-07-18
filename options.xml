@@ -82,6 +82,9 @@
 			<property name="locked"
 				onget="return this.getItem('name').disabled;"
 				onset="this.getItem('name').disabled = val;" />
+			<property name="canOpen"
+				onget="return !this.getItem('open').disabled;"
+				onset="this.getItem('open').disabled = !val; if(!val) this.markAsRead();" />
 			<property name="state">
 				<getter>
 					var state = { __proto__: null };
@@ -281,29 +284,28 @@
 				</body>
 			</method>
 			<field name="_changes">0</field>
-			<method name="canOpen">
-				<parameter name="canOpen" />
+			<method name="markAsUpdated">
 				<body>
-					var btn = this.getItem("open");
-					if(canOpen === undefined)
-						return !btn.disabled;
-					btn.disabled = !canOpen;
-					if(canOpen)
-						++this._changes;
-					else
-						this._changes = 0;
-					var label = this._changes > 1
-						? "&cl.logs;".replace("$S", this._changes - 1)
-						: "&cl.log;";
-					btn.setAttribute("label", label);
+					if(!this._changes)
+						this.canOpen = true;
+					++this._changes;
+					this.updateChangesCounter();
 				</body>
 			</method>
 			<method name="markAsRead">
 				<body>
 					if(this._changes) {
 						this._changes = 0;
-						this.canOpen(true);
+						this.updateChangesCounter();
 					}
+				</body>
+			</method>
+			<method name="updateChangesCounter">
+				<body>
+					var label = this._changes > 0
+						? "&cl.logs;".replace("$S", this._changes)
+						: "&cl.log;";
+					this.getItem("open").setAttribute("label", label);
 				</body>
 			</method>
 		</implementation>
