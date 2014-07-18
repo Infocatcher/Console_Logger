@@ -126,14 +126,18 @@ var consoleLogger = {
 		return prefs.set("enabled", enabled);
 	},
 	listen: function(on) {
-		if(on)
+		if(on) {
 			Services.console.registerListener(this);
-		else
+			Services.obs.addObserver(this, "console-api-log-event", false);
+		}
+		else {
 			Services.console.unregisterListener(this);
+			Services.obs.removeObserver(this, "console-api-log-event");
+		}
 	},
 
 	observe: function(subject, topic, data) {
-		if(!topic) {
+		if(!topic || topic == "console-api-log-event") {
 			delay(function() {
 				this.handleConsoleMessage(subject);
 			}, this);
@@ -168,6 +172,20 @@ var consoleLogger = {
 				}
 			}
 		}
+		else {
+			// See sendConsoleAPIMessage() in resource://gre/modules/devtools/Console.jsm
+			msg = msg.wrappedJSObject || msg;
+			var msgSource = msg.filename;
+			var patterns = this.sources;
+			for(var key in patterns) {
+				if(patterns[key].test(msgSource)) {
+					var msgText = Array.map(msg.arguments || [], String).join("\n");
+					if(!this.exclude(msgText, key))
+						this.writeObjectMessage(msg, msgText, key);
+					break;
+				}
+			}
+		}
 	},
 
 	writeStringMessage: function(msg, key) {
@@ -198,6 +216,18 @@ var consoleLogger = {
 			+ msg.sourceName + line + "\n"
 			+ msg.errorMessage
 			+ (msg.sourceLine ? "\n" + msg.sourceLine : "")
+			+ "\n\n"
+		);
+		this.notifyUpdatedLog(key);
+	},
+	writeObjectMessage: function(msg, msgText, key) {
+		var timestamp = this.getTimestamp(msg);
+		var line = ":" + msg.lineNumber + (msg.columnNumber ? ":" + msg.columnNumber : "");
+		this.writeToFile(
+			this.getFile(key),
+			timestamp + " [Console.jsm, " + (msg.level || "unknown") + "]" + ":\n"
+			+ msg.filename + line + "\n"
+			+ msgText
 			+ "\n\n"
 		);
 		this.notifyUpdatedLog(key);
