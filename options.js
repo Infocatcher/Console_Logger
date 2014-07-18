@@ -755,6 +755,7 @@ var consoleLoggerOptions = {
 		this.selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
 			this.openLogFile(cli.name);
+			cli.markAsRead();
 		}, this);
 	},
 	copy: function(all) {

@@ -294,6 +294,14 @@
 					btn.setAttribute("label", label);
 				</body>
 			</method>
+			<method name="markAsRead">
+				<body>
+					if(this._changes) {
+						this._changes = 0;
+						this.canOpen(true);
+					}
+				</body>
+			</method>
 		</implementation>
 	</binding>
 </bindings>
