@@ -1,4 +1,8 @@
 var consoleLoggerGlobal;
+this.__defineGetter__("OS", function() {
+	delete this.OS;
+	return this.OS = consoleLoggerGlobal.OS;
+});
 var consoleLoggerOptions = {
 	exports: ["consoleLogger", "Services", "prefs", "delay", "platformVersion"],
 	init: function() {
@@ -21,6 +25,7 @@ var consoleLoggerOptions = {
 		this.exports.forEach(function(prop) {
 			window[prop] = null;
 		}, this);
+		delete window.OS;
 	},
 	setupUI: function() {
 		var root = document.documentElement;
@@ -385,7 +390,6 @@ var consoleLoggerOptions = {
 			}
 			return;
 		}
-		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
 		OS.File.read(file.path).then(
 			function onSuccess(arr) {
 				var decoder = new TextDecoder();
@@ -433,7 +437,6 @@ var consoleLoggerOptions = {
 			}
 			return;
 		}
-		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
 		var encoder = new TextEncoder();
 		var arr = encoder.encode(data);
 		var options = { tmpPath: file.path + ".tmp" };
@@ -499,7 +502,6 @@ var consoleLoggerOptions = {
 			callback.call(context, file.exists());
 			return;
 		}
-		var OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
 		OS.File.exists(file.path).then(
 			function onSuccess(exists) {
 				callback.call(context, exists);
