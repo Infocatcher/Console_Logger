@@ -491,15 +491,6 @@ var consoleLoggerOptions = {
 			file instanceof Components.interfaces.nsILocalFile;
 		file.launch();
 	},
-	removeLogFile: function(name) {
-		var file = this.getLogFile(name);
-		if(file) try {
-			file.remove(false);
-		}
-		catch(e) {
-			this.onError(e);
-		}
-	},
 	get env() {
 		delete this.env;
 		return this.env = Components.classes["@mozilla.org/process/environment;1"]
@@ -774,16 +765,25 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	clear: function() {
-		var selectedItems = this.selectedItems;
-		if(
-			selectedItems.length
-			&& !Services.prompt.confirm(window, strings.selfName, strings.removeLogs)
-		)
-			return;
-		selectedItems.forEach(function(rli) {
+		var confirmed = false;
+		this.selectedItems.every(function(rli) {
 			var cli = rli.firstChild;
-			this.removeLogFile(cli.name);
-			cli.canOpen(false);
+			var file = this.getLogFile(cli.name);
+			if(!file)
+				return true;
+			if(!confirmed) {
+				confirmed = Services.prompt.confirm(window, strings.selfName, strings.removeLogs);
+				if(!confirmed)
+					return false;
+			}
+			try {
+				file.remove(false);
+				cli.canOpen(false);
+			}
+			catch(e) {
+				this.onError(e);
+			}
+			return true;
 		}, this);
 	},
 	copy: function(all) {
