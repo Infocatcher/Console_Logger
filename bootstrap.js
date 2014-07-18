@@ -144,8 +144,19 @@ var consoleLogger = {
 		}
 	},
 	handleConsoleMessage: function(msg) {
-		if(!(msg instanceof Components.interfaces.nsIScriptError)) {
-			if(msg instanceof Components.interfaces.nsIConsoleMessage) {
+		if(msg instanceof Components.interfaces.nsIConsoleMessage) {
+			if(msg instanceof Components.interfaces.nsIScriptError) {
+				var msgSource = msg.sourceName;
+				var patterns = this.sources;
+				for(var key in patterns) {
+					if(patterns[key].test(msgSource)) {
+						if(!this.exclude(msg.errorMessage, key))
+							this.writeMessage(msg, key);
+						break;
+					}
+				}
+			}
+			else {
 				var msgText = msg.message;
 				var patterns = this.messages;
 				for(var key in patterns) {
@@ -155,16 +166,6 @@ var consoleLogger = {
 						break;
 					}
 				}
-			}
-			return;
-		}
-		var msgSource = msg.sourceName;
-		var patterns = this.sources;
-		for(var key in patterns) {
-			if(patterns[key].test(msgSource)) {
-				if(!this.exclude(msg.errorMessage, key))
-					this.writeMessage(msg, key);
-				break;
 			}
 		}
 	},
