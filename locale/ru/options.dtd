@@ -12,6 +12,7 @@
 <!ENTITY cl.reload "Перезагрузить">
 <!ENTITY cl.open "Открыть">
 <!ENTITY cl.clear "Очистить">
+<!ENTITY cl.removeLogs "Удалить все логи?">
 <!ENTITY cl.copy "Копировать">
 <!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">

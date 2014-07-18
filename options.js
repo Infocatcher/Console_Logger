@@ -774,7 +774,13 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	clear: function() {
-		this.selectedItems.forEach(function(rli) {
+		var selectedItems = this.selectedItems;
+		if(
+			selectedItems.length
+			&& !Services.prompt.confirm(window, strings.selfName, strings.removeLogs)
+		)
+			return;
+		selectedItems.forEach(function(rli) {
 			var cli = rli.firstChild;
 			this.removeLogFile(cli.name);
 			cli.canOpen(false);
