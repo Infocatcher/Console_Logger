@@ -146,8 +146,12 @@ var consoleLoggerOptions = {
 		cli.setAttribute("flex", "1");
 		rli.appendChild(cli);
 		this.list.appendChild(rli);
-		if(state)
+		if(state) {
 			cli.state = state;
+			setTimeout(function(_this) { // Pseudo async
+				cli.canOpen(_this.getLogFile(state.name));
+			}, 0, this);
+		}
 		return rli;
 	},
 	getUniqueName: function(baseName) {

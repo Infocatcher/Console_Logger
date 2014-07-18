@@ -16,7 +16,7 @@
 						<xul:label value="&cl.name;" />
 						<xul:hbox align="center">
 							<xul:textbox anonid="name" flex="1" />
-							<xul:button anonid="open" class="cl-small" label="Log"
+							<xul:button anonid="open" class="cl-small" disabled="true" label="Log"
 								oncommand="document.getBindingParent(this).open();" />
 							<xul:checkbox anonid="enabled" class="cl-enabled" label="&cl.enabled;" />
 						</xul:hbox>
@@ -278,6 +278,13 @@
 			<method name="open">
 				<body>
 					consoleLoggerOptions.open();
+				</body>
+			</method>
+			<method name="canOpen">
+				<parameter name="canOpen" />
+				<body>
+					var btn = this.getItem("open");
+					btn.disabled = !canOpen;
 				</body>
 			</method>
 		</implementation>
