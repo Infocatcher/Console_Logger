@@ -11,6 +11,7 @@
 <!ENTITY cl.saveChanges "Сохранить изменения?">
 <!ENTITY cl.reload "Перезагрузить">
 <!ENTITY cl.open "Открыть">
+<!ENTITY cl.clear "Очистить">
 <!ENTITY cl.copy "Копировать">
 <!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">

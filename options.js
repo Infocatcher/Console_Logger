@@ -491,6 +491,15 @@ var consoleLoggerOptions = {
 			file instanceof Components.interfaces.nsILocalFile;
 		file.launch();
 	},
+	removeLogFile: function(name) {
+		var file = this.getLogFile(name);
+		if(file) try {
+			file.remove(false);
+		}
+		catch(e) {
+			this.onError(e);
+		}
+	},
 	get env() {
 		delete this.env;
 		return this.env = Components.classes["@mozilla.org/process/environment;1"]
@@ -622,6 +631,7 @@ var consoleLoggerOptions = {
 			return hasLogFile;
 		}, this);
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
+		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
 	},
 	get enabled() {
 		return this.$("cl-enabled").checked;
@@ -761,6 +771,13 @@ var consoleLoggerOptions = {
 			var cli = rli.firstChild;
 			this.openLogFile(cli.name);
 			cli.markAsRead();
+		}, this);
+	},
+	clear: function() {
+		this.selectedItems.forEach(function(rli) {
+			var cli = rli.firstChild;
+			this.removeLogFile(cli.name);
+			cli.canOpen(false);
 		}, this);
 	},
 	copy: function(all) {

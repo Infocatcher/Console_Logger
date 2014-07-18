@@ -79,6 +79,7 @@
 		<menuitem id="cl-mi-toggle" type="checkbox" key="cl-key-toggle" label="&cl.enabled;" oncommand="consoleLoggerOptions.toggle();" />
 		<menuseparator id="cl-sep-beforeOpen" />
 		<menuitem id="cl-mi-open" key="cl-key-open" label="&cl.open;" oncommand="consoleLoggerOptions.open();" />
+		<menuitem id="cl-mi-clear" label="&cl.clear;" oncommand="consoleLoggerOptions.clear();" />
 		<menuseparator id="cl-sep-beforeCopy" />
 		<menuitem id="cl-mi-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
 		<menuitem id="cl-mi-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
