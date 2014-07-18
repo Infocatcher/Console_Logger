@@ -79,10 +79,8 @@ var consoleLoggerOptions = {
 
 	observe: function(subject, topic, data) {
 		if(topic == "consoleLogger-logUpdated") {
-			var name = data;
-			var hasLog = !!this.getLogFile(name);
-			this.getItemsByName(name).forEach(function(cli) {
-				cli.canOpen(hasLog);
+			this.getItemsByName(data).forEach(function(cli) {
+				cli.canOpen(true);
 			});
 		}
 	},
