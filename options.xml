@@ -293,7 +293,7 @@
 					else
 						this._changes = 0;
 					var label = this._changes > 1
-						? "&cl.logs;".replace("$S", this._changes)
+						? "&cl.logs;".replace("$S", this._changes - 1)
 						: "&cl.log;";
 					btn.setAttribute("label", label);
 				</body>
