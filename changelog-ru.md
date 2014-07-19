@@ -12,6 +12,7 @@
 `x` Исправлено отключение \*.message шаблонов.<br>
 `+` Добавлена поддержка Firefox 1.5+, Thunderbird 1.5+ и SeaMonkey 2.0+.<br>
 `+` Добавлен интерфейс настроек (<a href="https://github.com/Infocatcher/Console_Logger/issues/3">#3</a>).<br>
+`+` Добавлена иконка для страницы управления дополнениями (из набора <a href="http://www.fatcow.com/free-icons">Farm-fresh</a>).<br>
 `+` Добавлена поддержка сообщений, отправленных через <a href="https://developer.mozilla.org/en-US/docs/Tools/Browser_Console#Messages_from_add-ons">Console.jsm</a> (<a href="https://github.com/Infocatcher/Console_Logger/issues/17">#17</a>).<br>
 
 ##### 0.1.0pre2 (2014-01-29)
