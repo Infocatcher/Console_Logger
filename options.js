@@ -84,9 +84,11 @@ var consoleLoggerOptions = {
 
 	observe: function(subject, topic, data) {
 		if(topic == "consoleLogger-logUpdated") {
-			this.getItemsByName(data).forEach(function(cli) {
-				cli.markAsUpdated();
-			});
+			this.timer(function() {
+				this.getItemsByName(data).forEach(function(cli) {
+					cli.markAsUpdated();
+				});
+			}, this);
 		}
 	},
 
