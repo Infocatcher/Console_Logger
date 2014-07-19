@@ -75,7 +75,7 @@ var consoleLoggerOptions = {
 
 		this.setCompactMode();
 
-		delay(function() {
+		this.timer(function() {
 			var browserWindow = Services.wm.getMostRecentWindow("navigator:browser");
 			if(!browserWindow)
 				this.$("cl-mi-opts-openInTab").setAttribute("hidden", "true");
@@ -597,7 +597,7 @@ var consoleLoggerOptions = {
 		this.$("cl-btn-reset").disabled = cantReset;
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
-		delay(function() {
+		this.timer(function() {
 			var miRemove = this.$("cl-mi-remove");
 			var miReset = this.$("cl-mi-reset");
 			miRemove.setAttribute("disabled", cantRemove);
