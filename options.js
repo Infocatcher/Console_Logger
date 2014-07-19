@@ -93,6 +93,11 @@ var consoleLoggerOptions = {
 	$: function(id) {
 		return document.getElementById(id);
 	},
+	timer: function(fn, context, delay) {
+		return setTimeout(function() {
+			fn.call(context);
+		}, delay || 0);
+	},
 	get options() {
 		var options = { __proto__: null };
 		Array.forEach(
@@ -163,11 +168,11 @@ var consoleLoggerOptions = {
 		this.list.appendChild(rli);
 		if(state) {
 			cli.state = state;
-			setTimeout(function(_this) { // Pseudo async
-				_this.logFileExists(state.name, function(exists) {
+			this.timer(function() { // Pseudo async
+				this.logFileExists(state.name, function(exists) {
 					cli.canOpen = exists;
 				});
-			}, 0, this);
+			}, this);
 		}
 		return rli;
 	},
@@ -216,9 +221,7 @@ var consoleLoggerOptions = {
 		return !hasInvalid;
 	},
 	validateFieldsAsync: function() {
-		setTimeout(function(_this) {
-			_this.validateFields();
-		}, 0, this);
+		this.timer(this.validateFields, this);
 	},
 
 	exportHeader: "// Console Logger options\n",
@@ -568,9 +571,7 @@ var consoleLoggerOptions = {
 	_checkUnsavedTimer: 0,
 	checkUnsaved: function() {
 		clearTimeout(this._checkUnsavedTimer);
-		this._checkUnsavedTimer = setTimeout(function(_this) {
-			_this._checkUnsaved();
-		}, 15, this);
+		this._checkUnsavedTimer = this.timer(this._checkUnsaved, this, 15);
 	},
 	_checkUnsaved: function() {
 		this.applyBtn.disabled = this.optionsHash == this._savedOptions
