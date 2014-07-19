@@ -778,8 +778,9 @@ var consoleLoggerOptions = {
 			cli.enabled = enable;
 		});
 	},
-	open: function() {
-		this.selectedItems.forEach(function(rli) {
+	open: function(cli) {
+		var items = cli ? [cli.parentNode] : this.selectedItems;
+		items.forEach(function(rli) {
 			var cli = rli.firstChild;
 			this.openLogFile(cli.name);
 			cli.markAsRead();

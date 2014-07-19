@@ -280,7 +280,7 @@
 			</method>
 			<method name="open">
 				<body>
-					consoleLoggerOptions.open();
+					consoleLoggerOptions.open(this);
 				</body>
 			</method>
 			<field name="_changes">0</field>
