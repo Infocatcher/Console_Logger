@@ -566,10 +566,14 @@ var consoleLoggerOptions = {
 	get optionsHash() {
 		return JSON.stringify(this.options);
 	},
+	_modified: false,
 	get modified() {
-		return !this.applyBtn.disabled;
+		return this._modified;
 	},
 	set modified(modified) {
+		if(modified == this._modified)
+			return;
+		this._modified = modified;
 		this.applyBtn.disabled = !modified;
 		var baseTitle = this._baseTitle || (this._baseTitle = document.title);
 		document.title = (modified ? "* " : "") + baseTitle;
