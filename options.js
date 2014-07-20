@@ -31,6 +31,7 @@ var consoleLoggerOptions = {
 		var root = document.documentElement;
 		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
+		applyBtn.disabled = true;
 		// Insert Apply button between OK and Cancel
 		var okBtn = root.getButton("accept");
 		var cancelBtn = root.getButton("cancel");
