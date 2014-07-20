@@ -566,9 +566,15 @@ var consoleLoggerOptions = {
 	get optionsHash() {
 		return JSON.stringify(this.options);
 	},
+	get modified() {
+		return !this.applyBtn.disabled;
+	},
+	set modified(modified) {
+		this.applyBtn.disabled = !modified;
+	},
 	markAsSaved: function() {
 		this._savedOptions = this.optionsHash;
-		this.applyBtn.disabled = true;
+		this.modified = false;
 	},
 	_checkUnsavedTimer: 0,
 	checkUnsaved: function() {
@@ -576,8 +582,8 @@ var consoleLoggerOptions = {
 		this._checkUnsavedTimer = this.timer(this._checkUnsaved, this, 15);
 	},
 	_checkUnsaved: function() {
-		this.applyBtn.disabled = this.optionsHash == this._savedOptions
-			&& consoleLogger.enabled == this.enabled;
+		this.modified = this.optionsHash != this._savedOptions
+			|| consoleLogger.enabled != this.enabled;
 	},
 
 	updateControls: function() {
@@ -670,7 +676,7 @@ var consoleLoggerOptions = {
 	},
 	setOpenInTab: function(inTab) {
 		var alreadyHere = inTab != window instanceof Components.interfaces.nsIDOMChromeWindow;
-		if(!alreadyHere && !this.applyBtn.disabled) {
+		if(!alreadyHere && this.modified) {
 			var ps = Services.prompt;
 			if(
 				ps.confirmEx(
