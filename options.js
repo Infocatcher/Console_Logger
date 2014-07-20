@@ -571,6 +571,8 @@ var consoleLoggerOptions = {
 	},
 	set modified(modified) {
 		this.applyBtn.disabled = !modified;
+		var baseTitle = this._baseTitle || (this._baseTitle = document.title);
+		document.title = (modified ? "* " : "") + baseTitle;
 	},
 	markAsSaved: function() {
 		this._savedOptions = this.optionsHash;
