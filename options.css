@@ -27,6 +27,9 @@ consoleloggeritem {
 	padding: 0 !important;
 	border: 0 !important;
 }
+.cl-old:not([disabled]) {
+	color: grayText;
+}
 
 #cl-filter[type="search"][cl-notFound] {
 	-moz-box-shadow: 0 0 0 1em #f66 inset;

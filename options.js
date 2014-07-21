@@ -177,8 +177,10 @@ var consoleLoggerOptions = {
 		if(state) {
 			cli.state = state;
 			this.timer(function() { // Pseudo async
-				this.logFileExists(state.name, function(exists) {
+				var name = state.name;
+				this.logFileExists(name, function(exists) {
 					cli.canOpen = exists;
+					cli.isOldChanges = !(name in consoleLogger._changedInSession);
 				});
 			}, this);
 		}

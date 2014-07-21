@@ -85,6 +85,9 @@
 			<property name="canOpen"
 				onget="return !this.getItem('open').disabled;"
 				onset="this.getItem('open').disabled = !val; if(!val) this.markAsRead();" />
+			<property name="isOldChanges"
+				onget="return /(?:^|\s)cl-old(?:\s|$)/.test(this.getItem('open').className);"
+				onset="this.getItem('open').className = val ? 'cl-small cl-old' : 'cl-small';" />
 			<property name="state">
 				<getter>
 					var state = { __proto__: null };
@@ -286,8 +289,10 @@
 			<field name="_changes">0</field>
 			<method name="markAsUpdated">
 				<body>
-					if(!this._changes)
+					if(!this._changes) {
 						this.canOpen = true;
+						this.isOldChanges = false;
+					}
 					++this._changes;
 					this.updateChangesCounter();
 				</body>

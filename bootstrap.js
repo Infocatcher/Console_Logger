@@ -239,6 +239,7 @@ var consoleLogger = {
 		);
 	},
 	notifyUpdatedLog: function(key) {
+		this._changedInSession[key] = true;
 		delay(function() {
 			Services.obs.notifyObservers(null, "consoleLogger-logUpdated", key);
 		});
@@ -361,6 +362,7 @@ var consoleLogger = {
 	},
 
 	_files: { __proto__: null },
+	_changedInSession: { __proto__: null },
 	getFile: function(key, name) {
 		var files = this._files;
 		if(key in files)
