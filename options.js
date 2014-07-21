@@ -700,19 +700,7 @@ var consoleLoggerOptions = {
 		prefs.set("options.openInTab", inTab);
 		if(alreadyHere)
 			return;
-		var top = window.top;
-		try {
-			top = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-				.getInterface(Components.interfaces.nsIWebNavigation)
-				.QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-				.rootTreeItem
-				.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-				.getInterface(Components.interfaces.nsIDOMWindow);
-		}
-		catch(e) {
-			Components.utils.reportError(e);
-		}
-		top.openDialog("chrome://consolelogger/content/optionsOpener.xul", "", "chrome,all,modal");
+		consoleLogger.openOptions();
 		window.close();
 	},
 
