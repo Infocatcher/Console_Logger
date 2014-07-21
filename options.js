@@ -132,7 +132,7 @@ var consoleLoggerOptions = {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
 		return selectedItems.filter(function(elt) {
-			return elt.parentNode;
+			return elt.parentNode && !elt.collapsed;
 		});
 	},
 	get enabledInSelection() {
