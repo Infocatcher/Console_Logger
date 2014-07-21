@@ -11,7 +11,8 @@
 consoleloggeritem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 }
-#cl-list[cl_compact] > richlistitem:not([selected]) .cl-row-detail {
+#cl-list[cl_compact] > richlistitem:not([selected]) .cl-row-detail,
+#cl-list[cl_compact] > richlistitem:not([current]) .cl-row-detail {
 	overflow: hidden;
 	height: 0;
 	visibility: hidden; /* Hide from Tab/Shift+Tab */
