@@ -567,6 +567,10 @@ var consoleLoggerOptions = {
 	get optionsHash() {
 		return JSON.stringify(this.options);
 	},
+	get baseTitle() {
+		delete this.baseTitle;
+		return this.baseTitle = document.title;
+	},
 	_modified: false,
 	get modified() {
 		return this._modified;
@@ -576,8 +580,7 @@ var consoleLoggerOptions = {
 			return;
 		this._modified = modified;
 		this.applyBtn.disabled = !modified;
-		var baseTitle = this._baseTitle || (this._baseTitle = document.title);
-		document.title = (modified ? "* " : "") + baseTitle;
+		document.title = (modified ? "* " : "") + this.baseTitle;
 	},
 	markAsSaved: function() {
 		this._savedOptions = this.optionsHash;
@@ -688,7 +691,7 @@ var consoleLoggerOptions = {
 			if(
 				ps.confirmEx(
 					window,
-					document.title,
+					this.baseTitle,
 					strings.saveChanges,
 					ps.BUTTON_POS_0 * ps.BUTTON_TITLE_SAVE + ps.BUTTON_POS_1 * ps.BUTTON_TITLE_CANCEL,
 					"", "", "", null, {}
