@@ -131,8 +131,13 @@ var consoleLoggerOptions = {
 	get selectedItems() {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
-		return selectedItems.filter(function(elt) {
-			return elt.parentNode && !elt.collapsed;
+		return selectedItems.filter(function(rli) {
+			return rli.parentNode && !rli.collapsed;
+		});
+	},
+	get visibleItems() {
+		return this.list.children.filter(function(rli) {
+			return !rli.collapsed;
 		});
 	},
 	get enabledInSelection() {
@@ -634,8 +639,8 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
 		this.$("cl-mi-opts-openInTab").setAttribute("checked", prefs.get("options.openInTab"));
-		var cantSelectAll = !this.list.hasChildNodes() || this.list.children.every(function(rli) {
-			return rli.hasAttribute("selected");
+		var cantSelectAll = !this.visibleItems.some(function(rli) {
+			return !rli.hasAttribute("selected");
 		});
 		this.$("cl-mi-selectAll").setAttribute("disabled", cantSelectAll);
 		var toggler = this.$("cl-mi-toggle");
