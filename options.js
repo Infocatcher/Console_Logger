@@ -848,10 +848,10 @@ var consoleLoggerOptions = {
 		Array.forEach(
 			this.list.getElementsByTagName("consoleloggeritem"),
 			function(cli) {
-				if(!cli.setFilter(matcher) && matcher)
-					cli.parentNode.setAttribute("collapsed", "true");
-				else
-					cli.parentNode.removeAttribute("collapsed"), found = true;
+				var matched = cli.setFilter(matcher);
+				cli.parentNode.collapsed = !matched && matcher;
+				if(matched)
+					found = true;
 			}
 		);
 		if(!found && matcher)
