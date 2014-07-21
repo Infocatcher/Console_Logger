@@ -465,6 +465,77 @@ var consoleLogger = {
 			if(Cr[errName] == code)
 				return errName;
 		return "" + code;
+	},
+
+	optionsURL: "chrome://consolelogger/content/options.xul",
+	openOptions: function() {
+		var w = prefs.get("options.openInTab") && this.openOptionsInTab();
+		return w || this.openOptionsInWindow();
+	},
+	openOptionsInWindow: function() {
+		var w = Services.wm.getMostRecentWindow("consoleLogger:options");
+		if(w) {
+			w.focus();
+			return w;
+		}
+		var aw = Services.ww.activeWindow;
+		if(aw && aw.location.href == "chrome://consolelogger/content/optionsOpener.xul")
+			aw = aw.opener;
+		return Services.ww.openWindow(
+			aw,
+			this.optionsURL,
+			"_blank",
+			"chrome,all,toolbar,centerscreen,resizable,dialog=0",
+			null
+		);
+	},
+	openOptionsInTab: function() {
+		var optionsURL = this.optionsURL;
+		function isBrowserWindow(win) {
+			return "gBrowser" in win
+				&& win.gBrowser
+				&& win.gBrowser.browsers
+				&& win.gBrowser.tabContainer;
+		}
+		function switchToTab(win, url) {
+			if(!isBrowserWindow(win))
+				return null;
+			var browsers = win.gBrowser.browsers;
+			for(var i = 0, l = browsers.length; i < l; ++i) {
+				var browser = browsers[i];
+				if(browser.currentURI.spec == url) {
+					win.gBrowser.tabContainer.selectedIndex = i;
+					var content = browser.contentWindow;
+					content.focus();
+					return content;
+				}
+			}
+			return null;
+		}
+		// Note: in SeaMonkey private windows doesn't have windowtype
+		var ws = Services.wm.getEnumerator(null);
+		while(ws.hasMoreElements()) {
+			var content = switchToTab(ws.getNext(), optionsURL);
+			if(content)
+				return content;
+		}
+		var browserWindow = Services.wm.getMostRecentWindow("navigator:browser");
+		if(!browserWindow || !isBrowserWindow(browserWindow))
+			return null;
+		var gBrowser = browserWindow.gBrowser;
+		if(
+			!gBrowser.webProgress.isLoadingDocument && (
+				"isBlankPageURL" in browserWindow
+					? browserWindow.isBlankPageURL(gBrowser.currentURI.spec)
+					: gBrowser.currentURI.spec == "about:blank"
+			)
+		)
+			browserWindow.loadURI(optionsURL);
+		else
+			gBrowser.selectedTab = gBrowser.addTab(optionsURL);
+		var content = browserWindow.content;
+		content.focus();
+		return content;
 	}
 };
 
