@@ -27,8 +27,8 @@ consoleloggeritem {
 	padding: 0 !important;
 	border: 0 !important;
 }
-.cl-old:not([disabled]) {
-	color: grayText;
+.cl-old:not([disabled]) > .button-box {
+	opacity: 0.6;
 }
 
 #cl-filter[type="search"][cl-notFound] {
