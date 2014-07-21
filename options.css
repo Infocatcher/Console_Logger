@@ -14,6 +14,7 @@ consoleloggeritem {
 #cl-list[cl_compact] > richlistitem:not([selected]) .cl-row-detail {
 	overflow: hidden;
 	height: 0;
+	visibility: hidden; /* Hide from Tab/Shift+Tab */
 }
 #consoleLoggerOptions[cl_disabled] #cl-list > richlistitem .cl-enabled {
 	opacity: 0.68;
