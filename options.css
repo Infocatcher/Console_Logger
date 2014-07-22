@@ -27,6 +27,9 @@ consoleloggeritem {
 	padding: 0 !important;
 	border: 0 !important;
 }
+.cl-small > .button-box {
+	padding: 0 2px !important;
+}
 .cl-old:not([disabled]) > .button-box {
 	opacity: 0.6;
 }
