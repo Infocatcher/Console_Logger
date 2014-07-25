@@ -9,9 +9,6 @@
 	border-bottom: 1px solid ThreeDLightShadow;
 }
 richlistitem {
-	-moz-binding: url("chrome://consolelogger/content/options.xml#richlistitem");
-}
-consoleloggeritem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 }
 #cl-list[cl_compact] > richlistitem:not([selected]) .cl-row-detail,

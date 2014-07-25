@@ -104,7 +104,7 @@ var consoleLoggerOptions = {
 	get options() {
 		var options = { __proto__: null };
 		Array.forEach(
-			this.list.getElementsByTagName("consoleloggeritem"),
+			this.list.getElementsByTagName("richlistitem"),
 			function(cli) {
 				var item = cli.state;
 				var name = item.name;
@@ -131,13 +131,13 @@ var consoleLoggerOptions = {
 	get selectedItems() {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
-		return selectedItems.filter(function(rli) {
-			return rli.parentNode && !rli.collapsed;
+		return selectedItems.filter(function(cli) {
+			return cli.parentNode && !cli.collapsed;
 		});
 	},
 	get visibleItems() {
-		return this.list.children.filter(function(rli) {
-			return !rli.collapsed;
+		return this.list.children.filter(function(cli) {
+			return !cli.collapsed;
 		});
 	},
 	get enabledInSelection() {
@@ -146,8 +146,7 @@ var consoleLoggerOptions = {
 			return undefined;
 		var hasEnabled = false;
 		var allEnabled = true;
-		selectedItems.some(function(rli) {
-			var cli = rli.firstChild;
+		selectedItems.some(function(cli) {
 			if(cli.enabled)
 				hasEnabled = true;
 			else
@@ -162,18 +161,15 @@ var consoleLoggerOptions = {
 	},
 	getItemsByName: function(name) {
 		return Array.filter(
-			this.list.getElementsByTagName("consoleloggeritem"),
+			this.list.getElementsByTagName("richlistitem"),
 			function(cli) {
 				return cli.name == name;
 			}
 		);
 	},
 	appendItem: function(state) {
-		var rli = document.createElement("richlistitem");
-		var cli = document.createElement("consoleloggeritem");
-		cli.setAttribute("flex", "1");
-		rli.appendChild(cli);
-		this.list.appendChild(rli);
+		var cli = document.createElement("richlistitem");
+		this.list.appendChild(cli);
 		if(state) {
 			cli.state = state;
 			this.timer(function() { // Pseudo async
@@ -184,7 +180,7 @@ var consoleLoggerOptions = {
 				});
 			}, this);
 		}
-		return rli;
+		return cli;
 	},
 	getUniqueName: function(baseName) {
 		var options = this.options;
@@ -213,14 +209,14 @@ var consoleLoggerOptions = {
 			}
 		}
 		Array.forEach(
-			this.list.getElementsByTagName("consoleloggeritem"),
+			this.list.getElementsByTagName("richlistitem"),
 			function(cli) {
 				names.forEach(function(name) {
 					var validator = name == "name" ? validateName : validatePattern;
 					if(cli.validateItem(name, validator))
 						return;
 					if(!hasInvalid) {
-						this.list.ensureElementIsVisible(cli.parentNode);
+						this.list.ensureElementIsVisible(cli);
 						cli.focus(name);
 					}
 					hasInvalid = true;
@@ -290,8 +286,7 @@ var consoleLoggerOptions = {
 		var items = all
 			? this.list.children
 			: this.selectedItems;
-		items.forEach(function(rli) {
-			var cli = rli.firstChild;
+		items.forEach(function(cli) {
 			var item = cli.state;
 			options[item.name] = item; // Note: exported all items, even without name
 		});
@@ -605,11 +600,10 @@ var consoleLoggerOptions = {
 
 	updateControls: function() {
 		var selectedItems = this.selectedItems;
-		var hasLocked = selectedItems.some(function(rli) {
-			var cli = rli.firstChild;
+		var hasLocked = selectedItems.some(function(cli) {
 			return cli.locked
 				&& !this.getItemsByName(cli.name).some(function(cli) {
-					return selectedItems.indexOf(cli.parentNode) == -1;
+					return selectedItems.indexOf(cli) == -1;
 				});
 		}, this);
 		var cantReset = selectedItems.length == 0;
@@ -641,8 +635,8 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
 		this.$("cl-mi-opts-openInTab").setAttribute("checked", prefs.get("options.openInTab"));
-		var cantSelectAll = !this.visibleItems.some(function(rli) {
-			return !rli.hasAttribute("selected");
+		var cantSelectAll = !this.visibleItems.some(function(cli) {
+			return !cli.hasAttribute("selected");
 		});
 		this.$("cl-mi-selectAll").setAttribute("disabled", cantSelectAll);
 		var toggler = this.$("cl-mi-toggle");
@@ -656,8 +650,7 @@ var consoleLoggerOptions = {
 		else
 			toggler.removeAttribute("cl_intermediate");
 		toggler.setAttribute("disabled", hasEnabled === undefined);
-		var logFileExists = this.selectedItems.some(function(rli) {
-			var cli = rli.firstChild;
+		var logFileExists = this.selectedItems.some(function(cli) {
 			var hasLogFile = !!this.getLogFile(cli.name);
 			setTimeout(function() { // User may remove *.log file manually...
 				if(cli.canOpen != hasLogFile)
@@ -735,13 +728,13 @@ var consoleLoggerOptions = {
 		return true;
 	},
 	add: function() {
-		var rli = this.appendItem({
+		var cli = this.appendItem({
 			name: this.getUniqueName(),
 			enabled: true
 		});
-		rli.firstChild.focus();
-		this.list.selectedItem = rli;
-		this.list.ensureElementIsVisible(rli);
+		cli.focus();
+		this.list.selectedItem = cli;
+		this.list.ensureElementIsVisible(cli);
 		this.checkUnsaved();
 		this.updateFilter();
 	},
@@ -749,8 +742,7 @@ var consoleLoggerOptions = {
 		var defaultOptions = consoleLogger.defaultOptions;
 		var moveSelection = true;
 		var origItems = Array.slice(this.list.children);
-		this.selectedItems.forEach(function(rli) {
-			var cli = rli.firstChild;
+		this.selectedItems.forEach(function(cli) {
 			var name = cli.name;
 			if(
 				name in defaultOptions
@@ -758,14 +750,14 @@ var consoleLoggerOptions = {
 			)
 				cli.state = defaultOptions[name], moveSelection = false;
 			else
-				rli.parentNode.removeChild(rli);
+				cli.parentNode.removeChild(cli);
 		}, this);
 		if(moveSelection) {
 			// Select nearest not removed item
 			var newSelectedItem, nearestItem, foundRemoved;
 			for(var i = origItems.length - 1; i >= 0; --i) {
-				var rli = origItems[i];
-				if(!rli.parentNode) {
+				var cli = origItems[i];
+				if(!cli.parentNode) {
 					foundRemoved = true;
 					if(nearestItem) {
 						newSelectedItem = nearestItem;
@@ -773,7 +765,7 @@ var consoleLoggerOptions = {
 					}
 				}
 				else if(!foundRemoved || !nearestItem) {
-					nearestItem = rli;
+					nearestItem = cli;
 				}
 			}
 			this.list.selectedItem = newSelectedItem || this.list.lastChild;
@@ -784,23 +776,20 @@ var consoleLoggerOptions = {
 	},
 	toggle: function() {
 		var enable = this.enabledInSelection < 1;
-		this.selectedItems.forEach(function(rli) {
-			var cli = rli.firstChild;
+		this.selectedItems.forEach(function(cli) {
 			cli.enabled = enable;
 		});
 	},
 	open: function(cli) {
-		var items = cli ? [cli.parentNode] : this.selectedItems;
-		items.forEach(function(rli) {
-			var cli = rli.firstChild;
+		var items = cli ? [cli] : this.selectedItems;
+		items.forEach(function(cli) {
 			this.openLogFile(cli.name);
 			cli.markAsRead();
 		}, this);
 	},
 	clear: function() {
 		var confirmed = false;
-		this.selectedItems.every(function(rli) {
-			var cli = rli.firstChild;
+		this.selectedItems.every(function(cli) {
 			var file = this.getLogFile(cli.name);
 			if(!file)
 				return true;
@@ -853,10 +842,10 @@ var consoleLoggerOptions = {
 		};
 		var found = false;
 		Array.forEach(
-			this.list.getElementsByTagName("consoleloggeritem"),
+			this.list.getElementsByTagName("richlistitem"),
 			function(cli) {
 				var matched = cli.setFilter(matcher);
-				cli.parentNode.collapsed = !matched && matcher;
+				cli.collapsed = !matched && matcher;
 				if(matched)
 					found = true;
 			}

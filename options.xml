@@ -3,14 +3,7 @@
 <bindings id="consoleLogger-bindings"
 	xmlns="http://www.mozilla.org/xbl"
 	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<binding id="richlistitem" extends="chrome://global/content/bindings/richlistbox.xml#richlistitem">
-		<implementation>
-			<property name="searchLabel"
-				onget="return this.firstChild.name;"
-				onset="this.firstChild.name = val;" />
-		</implementation>
-	</binding>
-	<binding id="consoleLoggerItem">
+	<binding id="consoleLoggerItem" extends="chrome://global/content/bindings/richlistbox.xml#richlistitem">
 		<content>
 			<children />
 			<xul:grid flex="1">
@@ -95,6 +88,9 @@
 			<property name="isOldChanges"
 				onget="return /(?:^|\s)cl-old(?:\s|$)/.test(this.getItem('open').className);"
 				onset="this.getItem('open').className = val ? 'cl-small cl-old' : 'cl-small';" />
+			<property name="searchLabel"
+				onget="return this.name;"
+				onset="this.name = val;" />
 			<property name="state">
 				<getter>
 					var state = { __proto__: null };
