@@ -217,7 +217,7 @@ var consoleLoggerOptions = {
 						return;
 					if(!hasInvalid) {
 						this.list.ensureElementIsVisible(cli);
-						cli.focus(name);
+						cli.focusItem(name);
 					}
 					hasInvalid = true;
 				}, this);
@@ -732,7 +732,7 @@ var consoleLoggerOptions = {
 			name: this.getUniqueName(),
 			enabled: true
 		});
-		cli.focus();
+		cli.focusItem();
 		this.list.selectedItem = cli;
 		this.list.ensureElementIsVisible(cli);
 		this.checkUnsaved();

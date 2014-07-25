@@ -124,7 +124,7 @@
 				]]>
 				</setter>
 			</property>
-			<method name="focus">
+			<method name="focusItem">
 				<parameter name="itemName" />
 				<body>
 					var nameField = this.getItem(itemName || "name").inputField;
