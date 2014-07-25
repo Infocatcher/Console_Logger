@@ -103,15 +103,12 @@ var consoleLoggerOptions = {
 	},
 	get options() {
 		var options = { __proto__: null };
-		Array.forEach(
-			this.list.getElementsByTagName("richlistitem"),
-			function(cli) {
-				var item = cli.state;
-				var name = item.name;
-				if(name)
-					options[name] = item;
-			}
-		);
+		this.list.children.forEach(function(cli) {
+			var item = cli.state;
+			var name = item.name;
+			if(name)
+				options[name] = item;
+		});
 		return options;
 	},
 	set options(options) {
@@ -160,12 +157,9 @@ var consoleLoggerOptions = {
 		return this.filter = this.$("cl-filter");
 	},
 	getItemsByName: function(name) {
-		return Array.filter(
-			this.list.getElementsByTagName("richlistitem"),
-			function(cli) {
-				return cli.name == name;
-			}
-		);
+		return this.list.children.filter(function(cli) {
+			return cli.name == name;
+		});
 	},
 	appendItem: function(state) {
 		var cli = document.createElement("richlistitem");
@@ -208,22 +202,18 @@ var consoleLoggerOptions = {
 				return "" + e;
 			}
 		}
-		Array.forEach(
-			this.list.getElementsByTagName("richlistitem"),
-			function(cli) {
-				names.forEach(function(name) {
-					var validator = name == "name" ? validateName : validatePattern;
-					if(cli.validateItem(name, validator))
-						return;
-					if(!hasInvalid) {
-						this.list.ensureElementIsVisible(cli);
-						cli.focusItem(name);
-					}
-					hasInvalid = true;
-				}, this);
-			},
-			this
-		);
+		this.list.children.forEach(function(cli) {
+			names.forEach(function(name) {
+				var validator = name == "name" ? validateName : validatePattern;
+				if(cli.validateItem(name, validator))
+					return;
+				if(!hasInvalid) {
+					this.list.ensureElementIsVisible(cli);
+					cli.focusItem(name);
+				}
+				hasInvalid = true;
+			}, this);
+		}, this);
 		return !hasInvalid;
 	},
 	validateFieldsAsync: function() {
@@ -841,15 +831,12 @@ var consoleLoggerOptions = {
 			});
 		};
 		var found = false;
-		Array.forEach(
-			this.list.getElementsByTagName("richlistitem"),
-			function(cli) {
-				var matched = cli.setFilter(matcher);
-				cli.collapsed = !matched && matcher;
-				if(matched)
-					found = true;
-			}
-		);
+		this.list.children.forEach(function(cli) {
+			var matched = cli.setFilter(matcher);
+			cli.collapsed = !matched && matcher;
+			if(matched)
+				found = true;
+		});
 		if(!found && matcher)
 			this.filter.setAttribute("cl-notFound", "true");
 		else
