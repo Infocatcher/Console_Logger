@@ -103,7 +103,7 @@ var consoleLoggerOptions = {
 	},
 	get options() {
 		var options = { __proto__: null };
-		this.list.children.forEach(function(cli) {
+		this.items.forEach(function(cli) {
 			var item = cli.state;
 			var name = item.name;
 			if(name)
@@ -125,6 +125,9 @@ var consoleLoggerOptions = {
 		delete this.list;
 		return this.list = this.$("cl-list");
 	},
+	get items() {
+		return this.list.children;
+	},
 	get selectedItems() {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
@@ -133,7 +136,7 @@ var consoleLoggerOptions = {
 		});
 	},
 	get visibleItems() {
-		return this.list.children.filter(function(cli) {
+		return this.items.filter(function(cli) {
 			return !cli.collapsed;
 		});
 	},
@@ -157,7 +160,7 @@ var consoleLoggerOptions = {
 		return this.filter = this.$("cl-filter");
 	},
 	getItemsByName: function(name) {
-		return this.list.children.filter(function(cli) {
+		return this.items.filter(function(cli) {
 			return cli.name == name;
 		});
 	},
@@ -202,7 +205,7 @@ var consoleLoggerOptions = {
 				return "" + e;
 			}
 		}
-		this.list.children.forEach(function(cli) {
+		this.items.forEach(function(cli) {
 			names.forEach(function(name) {
 				var validator = name == "name" ? validateName : validatePattern;
 				if(cli.validateItem(name, validator))
@@ -274,7 +277,7 @@ var consoleLoggerOptions = {
 	exportOptions: function(all) {
 		var options = { __proto__: null };
 		var items = all
-			? this.list.children
+			? this.items
 			: this.selectedItems;
 		items.forEach(function(cli) {
 			var item = cli.state;
@@ -731,7 +734,7 @@ var consoleLoggerOptions = {
 	reset: function() {
 		var defaultOptions = consoleLogger.defaultOptions;
 		var moveSelection = true;
-		var origItems = Array.slice(this.list.children);
+		var origItems = Array.slice(this.items);
 		this.selectedItems.forEach(function(cli) {
 			var name = cli.name;
 			if(
@@ -831,7 +834,7 @@ var consoleLoggerOptions = {
 			});
 		};
 		var found = false;
-		this.list.children.forEach(function(cli) {
+		this.items.forEach(function(cli) {
 			var matched = cli.setFilter(matcher);
 			cli.collapsed = !matched && matcher;
 			if(matched)
