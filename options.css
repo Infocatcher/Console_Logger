@@ -8,6 +8,9 @@
 #cl-list > richlistitem {
 	border-bottom: 1px solid ThreeDLightShadow;
 }
+richlistitem {
+	-moz-binding: url("chrome://consolelogger/content/options.xml#richlistitem");
+}
 consoleloggeritem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 }
