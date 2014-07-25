@@ -6,10 +6,8 @@
 	margin: 2px;
 }
 #cl-list > richlistitem {
-	border-bottom: 1px solid ThreeDLightShadow;
-}
-richlistitem {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
+	border-bottom: 1px solid ThreeDLightShadow;
 }
 #cl-list[cl_compact] > richlistitem:not([selected]) .cl-row-detail,
 #cl-list[cl_compact] > richlistitem:not([current]) .cl-row-detail {
