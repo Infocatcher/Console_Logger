@@ -46,7 +46,7 @@ var consoleLoggerOptions = {
 		}
 
 		if(!("selectAll" in this.list)) { // Only single selection in Firefox 2.0 and older
-			// Note: looks like documentation is wrong, but it's safe to keep this check here
+			// Note: works, if installed Console2 extension
 			this.$("cl-sep-beforeSelectAll").setAttribute("hidden", "true");
 			this.$("cl-mi-selectAll").setAttribute("hidden", "true");
 		}
