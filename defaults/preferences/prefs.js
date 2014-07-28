@@ -5,6 +5,16 @@
 // extensions.consoleLogger.patterns.%someName%.exclude - (string, optional) exclusions, checks for message text (nsIScriptError.errorMessage or nsIConsoleMessage.message)
 // Note: we use new RegExp(..., "i") for all patterns
 // Output: %browser_profile%/consoleLogger_%someName%.log
+
+// Handling of various message types:
+// 1) errors and warnings (nsIScriptError)
+//    => check source URI for "source" patterns
+// 2) simple messages (nsIConsoleMessage), doesn't have source URI
+//    => check message text for "message" patterns
+// 3) anything from Console.jsm
+//    => check source URI for "source" patterns
+// And then check message text for "exclude" patterns
+
 pref("extensions.consoleLogger.patterns.Private_Tab", "/privateTab@infocatcher|://privatetab/");
 pref("extensions.consoleLogger.patterns.Private_Tab.enabled", true);
 pref("extensions.consoleLogger.patterns.Private_Tab.message", /*"^\\[Private Tab\\]"*/ "");
