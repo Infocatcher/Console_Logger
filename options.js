@@ -155,6 +155,11 @@ var consoleLoggerOptions = {
 		});
 		return allEnabled ? 1 : hasEnabled ? -1 : 0;
 	},
+	focusItem: function(cli) {
+		cli.focusItem();
+		this.list.selectedItem = cli;
+		this.list.ensureElementIsVisible(cli);
+	},
 	get filter() {
 		delete this.filter;
 		return this.filter = this.$("cl-filter");
@@ -288,9 +293,11 @@ var consoleLoggerOptions = {
 	importOptions: function(options, override) {
 		if(!options)
 			return;
+		var cliFirst;
+		var overrided = false;
 		for(var name in options) {
-			if(override) {
-				override = false;
+			if(override && !overrided) {
+				overrided = true;
 				// Remove all
 				this.list.textContent = "";
 				// And restore not imported items from default branch
@@ -301,7 +308,15 @@ var consoleLoggerOptions = {
 			}
 			var item = options[name];
 			item.name = this.getUniqueName(name);
-			this.appendItem(item);
+			var cli = this.appendItem(item);
+			if(!cliFirst)
+				cliFirst = cli;
+		}
+		if(!override && cliFirst) {
+			this.list.ensureElementIsVisible(cli);
+			this.focusItem(cliFirst);
+			if("selectItemRange" in this.list)
+				this.list.selectItemRange(cliFirst, cli);
 		}
 		this.checkUnsaved();
 		this.updateFilter();
@@ -725,9 +740,7 @@ var consoleLoggerOptions = {
 			name: this.getUniqueName(),
 			enabled: true
 		});
-		cli.focusItem();
-		this.list.selectedItem = cli;
-		this.list.ensureElementIsVisible(cli);
+		this.focusItem(cli);
 		this.checkUnsaved();
 		this.updateFilter();
 	},
