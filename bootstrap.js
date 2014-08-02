@@ -200,7 +200,7 @@ var consoleLogger = {
 	},
 	writeMessage: function(msg, key) {
 		if("nsIScriptError2" in Components.interfaces)
-			msg instanceof (Components.interfaces.nsIScriptError2);
+			msg instanceof Components.interfaces.nsIScriptError2;
 		var timestamp = this.getTimestamp(msg);
 		var details = [msg.category || "unknown"];
 		var flags = msg.flags;
