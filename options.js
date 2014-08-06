@@ -359,14 +359,21 @@ var consoleLoggerOptions = {
 			.copyString(str, document);
 	},
 	fp: Components.interfaces.nsIFilePicker,
-	pickOptionsFile: function(mode, callback, context) {
+	pickOptionsFile: function(mode, callback, context, name) {
 		var fp = Components.classes["@mozilla.org/filepicker;1"]
 			.createInstance(Components.interfaces.nsIFilePicker);
 		var modeSave = mode == fp.modeSave;
-		var ts = modeSave ? new Date().toLocaleFormat("_%Y-%m-%d_%H-%M") : "";
-		fp.defaultString = "console_logger_options" + ts + ".json";
+		var fileName = "consoleLogger";
+		if(modeSave) {
+			fileName += name
+				? "_" + consoleLogger.safeFileName(name)
+					.replace(/\s/g, "_")
+				: "_options";
+			fileName += new Date().toLocaleFormat("_%Y-%m-%d_%H-%M");
+		}
+		fp.defaultString = fileName + ".json";
 		fp.defaultExtension = "json";
-		fp.appendFilter(strings.optionsFiles, "console_logger_options*.json");
+		fp.appendFilter(strings.optionsFiles, "consoleLogger*.json");
 		fp.appendFilter(strings.jsonFiles, "*.json");
 		fp.appendFilters(fp.filterAll);
 		var exportDir = this.exportDir;
@@ -821,11 +828,18 @@ var consoleLoggerOptions = {
 		this.importOptions(this.clipboard, override);
 	},
 	exportToFile: function(all) {
+		var options = this.exportOptions(all);
+		var count = 0;
+		for(var singleName in options) {
+			if(++count > 1) {
+				singleName = "";
+				break;
+			}
+		}
 		this.pickOptionsFile(this.fp.modeSave, function(file) {
-			var options = this.exportOptions(all);
 			var data = this.stringifyOptions(options);
 			this.writeToFile(file, data);
-		}, this);
+		}, this, singleName);
 	},
 	importFromFile: function(override) {
 		this.pickOptionsFile(this.fp.modeOpen, function(file) {
