@@ -839,7 +839,7 @@ var consoleLoggerOptions = {
 		this.pickOptionsFile(this.fp.modeSave, function(file) {
 			var data = this.stringifyOptions(options);
 			this.writeToFile(file, data);
-		}, this, singleName);
+		}, this, singleName || all && "all_options");
 	},
 	importFromFile: function(override) {
 		this.pickOptionsFile(this.fp.modeOpen, function(file) {
