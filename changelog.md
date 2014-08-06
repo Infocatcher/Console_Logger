@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.2.0pre (2014-08-06)
 `*` Now used <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API to write logs with better performance (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
 `*` Slightly improved performance: now console notifications are handled after small delay to not hang browser (<a href="https://github.com/Infocatcher/Console_Logger/issues/2">#2</a>).<br>
 `*` Now works correctly, if \*.log file was removed.<br>
