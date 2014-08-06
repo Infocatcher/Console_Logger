@@ -15,11 +15,6 @@
 //    => check source URI for "source" patterns
 // And then check message text for "exclude" patterns
 
-pref("extensions.consoleLogger.patterns.Private_Tab", "/privateTab@infocatcher|://privatetab/");
-pref("extensions.consoleLogger.patterns.Private_Tab.enabled", true);
-pref("extensions.consoleLogger.patterns.Private_Tab.message", /*"^\\[Private Tab\\]"*/ "");
-pref("extensions.consoleLogger.patterns.Private_Tab.exclude", "^Only internal code is allowed to set the usePrivateBrowsing attribute");
-
 pref("extensions.consoleLogger.enabled", true);
 pref("extensions.consoleLogger.options.openInTab", false);
 pref("extensions.consoleLogger.options.compact", false);
