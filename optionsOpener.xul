@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	id="consoleLoggerOptionsOpener"
-	windowtype="consoleLogger:optionsOpener"
-	width="0" height="0">
+	windowtype="consoleLogger:optionsOpener">
 	<script type="application/javascript">
 	// Hack to open options in not modal window (or tab)
+	window.resizeTo(0, 0);
 	Components.classes["@mozilla.org/observer-service;1"]
 		.getService(Components.interfaces.nsIObserverService)
 		.notifyObservers(window, "consoleLogger-exportScope", "consoleLoggerGlobal");
