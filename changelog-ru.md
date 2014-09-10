@@ -6,6 +6,8 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
+`x` Исправлено скрытие специального окна, открывающего настройки в немодальном окне.<br>
+
 ##### 0.2.0pre (2014-08-06)
 `*` Теперь используется <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API для записи логов с лучшей производительностью (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
 `*` Немного улучшена производительность: теперь уведомления о сообщениях в консоли обрабатываются после небольшой задержки, чтобы не блокировать браузер (<a href="https://github.com/Infocatcher/Console_Logger/issues/2">#2</a>).<br>
