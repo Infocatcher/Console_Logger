@@ -7,6 +7,7 @@
 
 ##### master/HEAD
 `x` Исправлено скрытие специального окна, открывающего настройки в немодальном окне.<br>
+`+` Окно настроек: добавлено переключение полноэкранного режима по нажатию F11.<br>
 
 ##### 0.2.0pre (2014-08-06)
 `*` Теперь используется <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API для записи логов с лучшей производительностью (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
