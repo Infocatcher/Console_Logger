@@ -13,8 +13,11 @@ var consoleLoggerOptions = {
 		this.exports.forEach(function(prop) {
 			window[prop] = consoleLoggerGlobal[prop];
 		}, this);
-		if(!("JSON" in window))
-			Services.scriptloader.loadSubScript("chrome://consolelogger/content/json.js", window);
+		if(!("JSON" in window)) {
+			var scope = {}; // Note: we can't load directly into content window
+			Services.scriptloader.loadSubScript("chrome://consolelogger/content/json.js", scope);
+			window.JSON = scope.JSON;
+		}
 		this.setupUI();
 		this.load();
 		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
