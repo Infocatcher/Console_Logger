@@ -8,6 +8,7 @@
 ##### master/HEAD
 `x` Fixed hiding of special window that open options in non-modal window.<br>
 `+` Options window: added F11 hotkey to toggle full screen mode.<br>
+`x` Fixed options in tab in Firefox 3.0 and older.<br>
 
 ##### 0.2.0pre (2014-08-06)
 `*` Now used <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API to write logs with better performance (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
