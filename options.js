@@ -35,6 +35,7 @@ var consoleLoggerOptions = {
 		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
 		applyBtn.disabled = true;
+		this.placeButtonsPanel(prefs.get("options.singleButtonsPanel"));
 		// Insert Apply button between OK and Cancel
 		var okBtn = root.getButton("accept");
 		var cancelBtn = root.getButton("cancel");
@@ -84,6 +85,34 @@ var consoleLoggerOptions = {
 			if(!browserWindow)
 				this.$("cl-mi-opts-openInTab").setAttribute("hidden", "true");
 		}, this);
+	},
+	singleButtonsPanel: false,
+	placeButtonsPanel: function(singlePanel) {
+		if(singlePanel == this.singleButtonsPanel)
+			return;
+		this.singleButtonsPanel = singlePanel;
+
+		var btnsPanel = this.$("cl-buttonsPanel");
+		if(singlePanel) {
+			var btnBox = this.applyBtn.parentNode;
+			btnBox.insertBefore(btnsPanel, btnBox.firstChild);
+			for(var spacer = btnsPanel.nextSibling; spacer; spacer = spacer.nextSibling) {
+				if(spacer.localName == "spacer") {
+					spacer.setAttribute("flex", "1");
+					break;
+				}
+			}
+		}
+		else {
+			var list = this.list;
+			list.parentNode.insertBefore(btnsPanel, list.nextSibling);
+		}
+		Array.forEach(
+			btnsPanel.getElementsByTagName("button"),
+			function(btn) {
+				btn.className = singlePanel ? "dialog-button" : "";
+			}
+		);
 	},
 
 	observe: function(subject, topic, data) {
