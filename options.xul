@@ -56,6 +56,8 @@
 			<menupopup id="cl-mp-options" position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
 				<menuitem id="cl-mi-opts-compact" key="cl-key-toggleCompact" type="checkbox" label="&cl.compactMode;"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
+				<menuitem id="cl-mi-opts-singleButtonsPanel" type="checkbox" label="&cl.singleButtonsPanel;"
+					oncommand="consoleLoggerOptions.placeButtonsPanel(this.getAttribute('checked') == 'true');" />
 				<menuitem id="cl-mi-opts-openInTab" type="checkbox" label="&cl.openInTab;"
 					oncommand="consoleLoggerOptions.setOpenInTab(this.getAttribute('checked') == 'true');" />
 				<menuseparator id="cl-sep-opts-beforeReload" />

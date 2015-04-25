@@ -7,6 +7,7 @@
 <!ENTITY cl.reset "Reset">
 <!ENTITY cl.options "Options">
 <!ENTITY cl.compactMode "Compact Mode">
+<!ENTITY cl.singleButtonsPanel "Single Buttons Panel">
 <!ENTITY cl.openInTab "Open in Tab">
 <!ENTITY cl.saveChanges "Save changes?">
 <!ENTITY cl.reload "Reload">

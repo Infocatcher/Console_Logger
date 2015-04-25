@@ -35,7 +35,7 @@ var consoleLoggerOptions = {
 		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
 		applyBtn.disabled = true;
-		this.placeButtonsPanel(prefs.get("options.singleButtonsPanel"));
+		this.placeButtonsPanel();
 		// Insert Apply button between OK and Cancel
 		var okBtn = root.getButton("accept");
 		var cancelBtn = root.getButton("cancel");
@@ -88,6 +88,10 @@ var consoleLoggerOptions = {
 	},
 	singleButtonsPanel: false,
 	placeButtonsPanel: function(singlePanel) {
+		if(singlePanel === undefined)
+			singlePanel = prefs.get("options.singleButtonsPanel");
+		else
+			prefs.set("options.singleButtonsPanel", singlePanel);
 		if(singlePanel == this.singleButtonsPanel)
 			return;
 		this.singleButtonsPanel = singlePanel;
@@ -681,6 +685,7 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
+		this.$("cl-mi-opts-singleButtonsPanel").setAttribute("checked", prefs.get("options.singleButtonsPanel"));
 		this.$("cl-mi-opts-openInTab").setAttribute("checked", prefs.get("options.openInTab"));
 		var cantSelectAll = !this.visibleItems.some(function(cli) {
 			return !cli.hasAttribute("selected");
