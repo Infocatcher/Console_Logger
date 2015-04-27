@@ -15,7 +15,7 @@
 	height: 0;
 	visibility: hidden; /* Hide from Tab/Shift+Tab */
 }
-#consoleLoggerOptions[cl_disabled] #cl-list > richlistitem .cl-enabled {
+#consoleLoggerOptions[cl_disabled] #cl-list .cl-enabled {
 	opacity: 0.68;
 }
 .cl-small,
