@@ -5,12 +5,12 @@
 #cl-list {
 	margin: 2px;
 }
-#cl-list > richlistitem {
+.cl-list-item {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 	border-bottom: 1px solid ThreeDLightShadow;
 }
-#cl-list[cl_compact] > richlistitem:not([selected]) .cl-row-detail,
-#cl-list[cl_compact] > richlistitem:not([current]) .cl-row-detail {
+#cl-list[cl_compact] > .cl-list-item:not([selected]) .cl-row-detail,
+#cl-list[cl_compact] > .cl-list-item:not([current]) .cl-row-detail {
 	overflow: hidden;
 	height: 0;
 	visibility: hidden; /* Hide from Tab/Shift+Tab */

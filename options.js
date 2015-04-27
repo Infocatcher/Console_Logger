@@ -207,6 +207,7 @@ var consoleLoggerOptions = {
 	},
 	appendItem: function(state) {
 		var cli = document.createElement("richlistitem");
+		cli.className = "cl-list-item";
 		this.list.appendChild(cli);
 		if(state) {
 			cli.state = state;
