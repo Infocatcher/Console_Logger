@@ -37,7 +37,7 @@
 	box-shadow: 0 0 0 1em #f66 inset;
 	color: white;
 }
-#cl-filter[type="timed"][cl-notFound] {
+#cl-filter[type="timed"][cl-notFound] { /* Firefox 3.0 and older */
 	outline: 2px solid #f66;
 	outline-offset: -2px;
 }
