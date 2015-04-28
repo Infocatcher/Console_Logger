@@ -97,8 +97,15 @@ var consoleLoggerOptions = {
 		this.singleButtonsPanel = singlePanel;
 
 		var btnsPanel = this.$("cl-buttonsPanel");
+		Array.forEach(
+			btnsPanel.getElementsByTagName("button"),
+			function(btn) {
+				btn.className = singlePanel ? "dialog-button" : "";
+			}
+		);
 		if(singlePanel) {
 			var btnBox = this.applyBtn.parentNode;
+			var w = btnBox.boxObject.width;
 			btnBox.insertBefore(btnsPanel, btnBox.firstChild);
 			for(var spacer = btnsPanel.nextSibling; spacer; spacer = spacer.nextSibling) {
 				if(spacer.localName == "spacer") {
@@ -106,17 +113,14 @@ var consoleLoggerOptions = {
 					break;
 				}
 			}
+			var ovr = btnBox.boxObject.width - w;
+			if(ovr > 0)
+				window.resizeBy(ovr, 0);
 		}
 		else {
 			var list = this.list;
 			list.parentNode.insertBefore(btnsPanel, list.nextSibling);
 		}
-		Array.forEach(
-			btnsPanel.getElementsByTagName("button"),
-			function(btn) {
-				btn.className = singlePanel ? "dialog-button" : "";
-			}
-		);
 	},
 
 	observe: function(subject, topic, data) {
