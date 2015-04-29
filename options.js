@@ -88,7 +88,8 @@ var consoleLoggerOptions = {
 	},
 	singleButtonsPanel: false,
 	placeButtonsPanel: function(singlePanel) {
-		if(singlePanel === undefined)
+		var isStartup = singlePanel === undefined;
+		if(isStartup)
 			singlePanel = prefs.get("options.singleButtonsPanel");
 		else
 			prefs.set("options.singleButtonsPanel", singlePanel);
@@ -114,7 +115,7 @@ var consoleLoggerOptions = {
 				}
 			}
 			var ovr = btnBox.boxObject.width - w;
-			if(ovr > 0)
+			if(ovr > 0 && !isStartup)
 				window.resizeBy(ovr, 0);
 		}
 		else {
