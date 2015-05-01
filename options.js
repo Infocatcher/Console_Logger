@@ -89,12 +89,6 @@ var consoleLoggerOptions = {
 		setTimeout(function(_this) {
 			_this.setKeysDesc();
 		}, 0, this);
-
-		this.timer(function() {
-			var browserWindow = Services.wm.getMostRecentWindow("navigator:browser");
-			if(!browserWindow)
-				this.$("cl-mi-opts-openInTab").setAttribute("hidden", "true");
-		}, this);
 	},
 	singleButtonsBar: false,
 	placeButtonsBar: function(singleBar) {
@@ -737,7 +731,11 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
 		this.$("cl-mi-opts-singleButtonsBar").setAttribute("checked", prefs.get("options.singleButtonsBar"));
-		this.$("cl-mi-opts-openInTab").setAttribute("checked", prefs.get("options.openInTab"));
+		var openInTab = this.$("cl-mi-opts-openInTab");
+		openInTab.setAttribute("checked", prefs.get("options.openInTab"));
+		setTimeout(function() {
+			openInTab.setAttribute("disabled", !Services.wm.getMostRecentWindow("navigator:browser"));
+		}, 0);
 		var cantSelectAll = !this.visibleItems.some(function(cli) {
 			return !cli.hasAttribute("selected");
 		});
