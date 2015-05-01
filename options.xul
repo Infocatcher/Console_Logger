@@ -122,5 +122,7 @@
 		<key id="cl-key-reload2" key="R" modifiers="accel" oncommand="consoleLoggerOptions.load();" />
 		<key id="cl-key-fullScreen" keycode="VK_F11"
 			oncommand="if('fullScreen' in window) fullScreen = !fullScreen; // Firefox 3.0+" />
+		<key id="cl-key-optionsMenu" key="O" modifiers="accel,shift"
+			oncommand="document.getElementById('cl-btn-options').open = true;" />
 	</keyset>
 </dialog>
