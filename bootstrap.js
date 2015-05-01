@@ -504,8 +504,8 @@ var consoleLogger = {
 
 	optionsURL: "chrome://consolelogger/content/options.xul",
 	openOptions: function() {
-		var w = prefs.get("options.openInTab") && this.openOptionsInTab();
-		return w || this.openOptionsInWindow();
+		return prefs.get("options.openInTab") && this.openOptionsInTab()
+			|| this.openOptionsInWindow();
 	},
 	openOptionsInWindow: function() {
 		var w = Services.wm.getMostRecentWindow("consoleLogger:options");
