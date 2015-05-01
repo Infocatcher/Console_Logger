@@ -22,12 +22,12 @@ var consoleLoggerOptions = {
 		this.load();
 		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
 		if(!prefs.get("options.openInTab"))
-			consoleLogger.setSessionState(consoleLogger.optionsOpened, true);
+			consoleLogger.setSessionState("optionsOpened", true);
 	},
 	destroy: function() {
 		Services.obs.removeObserver(this, "consoleLogger-logUpdated");
 		if(!consoleLogger.isShutdown)
-			consoleLogger.setSessionState(consoleLogger.optionsOpened, false);
+			consoleLogger.setSessionState("optionsOpened", false);
 		consoleLoggerGlobal = null;
 		this.exports.forEach(function(prop) {
 			window[prop] = null;

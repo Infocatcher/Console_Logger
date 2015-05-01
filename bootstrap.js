@@ -570,7 +570,6 @@ var consoleLogger = {
 		return content;
 	},
 
-	optionsOpened: "optionsOpened",
 	ssPrefix: "consoleLogger:",
 	get ss() {
 		var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
@@ -611,7 +610,7 @@ var consoleLogger = {
 		return ss.getGlobalValue(this.ssPrefix + key);
 	},
 	restoreOptions: function() {
-		if(this.getSessionState(this.optionsOpened))
+		if(this.getSessionState("optionsOpened"))
 			this.openOptions();
 	}
 };
