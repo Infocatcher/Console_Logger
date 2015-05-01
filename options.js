@@ -39,7 +39,7 @@ var consoleLoggerOptions = {
 		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
 		applyBtn.disabled = true;
-		this.placeButtonsPanel();
+		this.placeButtonsBar();
 		// Insert Apply button between OK and Cancel
 		var okBtn = root.getButton("accept");
 		var cancelBtn = root.getButton("cancel");
@@ -90,25 +90,25 @@ var consoleLoggerOptions = {
 				this.$("cl-mi-opts-openInTab").setAttribute("hidden", "true");
 		}, this);
 	},
-	singleButtonsPanel: false,
-	placeButtonsPanel: function(singlePanel) {
-		var isStartup = singlePanel === undefined;
+	singleButtonsBar: false,
+	placeButtonsBar: function(singleBar) {
+		var isStartup = singleBar === undefined;
 		if(isStartup)
-			singlePanel = prefs.get("options.singleButtonsPanel");
+			singleBar = prefs.get("options.singleButtonsBar");
 		else
-			prefs.set("options.singleButtonsPanel", singlePanel);
-		if(singlePanel == this.singleButtonsPanel)
+			prefs.set("options.singleButtonsBar", singleBar);
+		if(singleBar == this.singleButtonsBar)
 			return;
-		this.singleButtonsPanel = singlePanel;
+		this.singleButtonsBar = singleBar;
 
 		var btnsPanel = this.$("cl-buttonsPanel");
 		Array.forEach(
 			btnsPanel.getElementsByTagName("button"),
 			function(btn) {
-				btn.className = singlePanel ? "dialog-button" : "";
+				btn.className = singleBar ? "dialog-button" : "";
 			}
 		);
-		if(singlePanel) {
+		if(singleBar) {
 			var btnBox = this.applyBtn.parentNode;
 			var w = btnBox.boxObject.width;
 			btnBox.insertBefore(btnsPanel, btnBox.firstChild);
@@ -695,7 +695,7 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
-		this.$("cl-mi-opts-singleButtonsPanel").setAttribute("checked", prefs.get("options.singleButtonsPanel"));
+		this.$("cl-mi-opts-singleButtonsBar").setAttribute("checked", prefs.get("options.singleButtonsBar"));
 		this.$("cl-mi-opts-openInTab").setAttribute("checked", prefs.get("options.openInTab"));
 		var cantSelectAll = !this.visibleItems.some(function(cli) {
 			return !cli.hasAttribute("selected");

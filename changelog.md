@@ -9,7 +9,7 @@
 `x` Fixed hiding of special window that open options in non-modal window.<br>
 `+` Options window: added F11 hotkey to toggle full screen mode.<br>
 `x` Fixed options in tab in Firefox 3.0 and older.<br>
-`+` Options window: added ability to use single panel for all buttons (<a href="https://github.com/Infocatcher/Console_Logger/issues/18">#18</a>).<br>
+`+` Options window: added ability to use single toolbar for all buttons (<a href="https://github.com/Infocatcher/Console_Logger/issues/18">#18</a>).<br>
 `+` Options window: save and restore opened state between browser restarts (<a href="https://github.com/Infocatcher/Console_Logger/issues/19">#19</a>).<br>
 
 ##### 0.2.0pre (2014-08-06)
