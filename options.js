@@ -38,6 +38,7 @@ var consoleLoggerOptions = {
 		var root = document.documentElement;
 		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
+		applyBtn.setAttribute("cl_key", "cl-key-save");
 		applyBtn.disabled = true;
 		this.placeButtonsBar();
 		// Insert Apply button between OK and Cancel
@@ -84,6 +85,10 @@ var consoleLoggerOptions = {
 
 		this.setCompactMode();
 
+		setTimeout(function(_this) {
+			_this.setKeysDesc();
+		}, 0, this);
+
 		this.timer(function() {
 			var browserWindow = Services.wm.getMostRecentWindow("navigator:browser");
 			if(!browserWindow)
@@ -126,6 +131,41 @@ var consoleLoggerOptions = {
 			var list = this.list;
 			list.parentNode.insertBefore(btnsPanel, list.nextSibling);
 		}
+	},
+	setKeysDesc: function() {
+		var nodes = Array.concat(
+			Array.slice(document.getElementsByAttribute("cl_key", "*")),
+			Array.slice(this.applyBtn.parentNode.getElementsByAttribute("cl_key", "*"))
+		);
+		//~ hack: show fake hidden popup with <menuitem key="keyId" /> to get descriptions
+		var mp = document.documentElement.appendChild(document.createElement("menupopup"));
+		mp.style.visibility = "collapse";
+		nodes.forEach(function(node) {
+			var keyId = node.getAttribute("cl_key");
+			if(!keyId)
+				return;
+			var mi = document.createElement("menuitem");
+			mi.__node = node;
+			mi.setAttribute("key", keyId);
+			mp.appendChild(mi);
+		});
+		mp._onpopupshown = function() {
+			Array.forEach(
+				this.childNodes,
+				function(mi) {
+					var keyDesk = mi.getAttribute("acceltext");
+					if(!keyDesk)
+						return;
+					var node = mi.__node;
+					node.tooltipText = node.tooltipText
+						? node.tooltipText + " (" + keyDesk + ")"
+						: keyDesk;
+				}
+			);
+			this.parentNode.removeChild(this);
+		};
+		mp.setAttribute("onpopupshown", "this._onpopupshown();");
+		mp["openPopup" in mp ? "openPopup" : "showPopup"]();
 	},
 
 	observe: function(subject, topic, data) {

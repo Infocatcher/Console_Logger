@@ -47,12 +47,12 @@
 		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
 		onclick="if(event.target.localName == 'richlistitem' &amp;&amp; event.button == 1) consoleLoggerOptions.reset();" />
 	<hbox id="cl-buttonsPanel" align="center" pack="center">
-		<button id="cl-btn-add" icon="add" label="&cl.add;" oncommand="consoleLoggerOptions.add();" />
-		<deck id="cl-deck-reset" oncommand="consoleLoggerOptions.reset();">
+		<button id="cl-btn-add" cl_key="cl-key-add" icon="add" label="&cl.add;" oncommand="consoleLoggerOptions.add();" />
+		<deck id="cl-deck-reset" cl_key="cl-key-remove" oncommand="consoleLoggerOptions.reset();">
 			<button id="cl-btn-remove" icon="remove" label="&cl.remove;" />
 			<button id="cl-btn-reset" icon="remove" label="&cl.reset;" />
 		</deck>
-		<button id="cl-btn-options" label="&cl.options;" type="menu">
+		<button id="cl-btn-options" cl_key="cl-key-optionsMenu" label="&cl.options;" type="menu">
 			<menupopup id="cl-mp-options" position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
 				<menuitem id="cl-mi-opts-compact" key="cl-key-toggleCompact" type="checkbox" label="&cl.compactMode;"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
