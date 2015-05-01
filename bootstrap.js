@@ -168,7 +168,10 @@ var consoleLogger = {
 		}
 		else if(topic == "consoleLogger-exportScope") {
 			var out = subject.wrappedJSObject || subject;
-			out[data] = global;
+			if(data)
+				out[data] = global;
+			else
+				out.consoleLogger = this;
 		}
 		else if(
 			topic == "sessionstore-windows-restored"

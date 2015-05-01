@@ -7,8 +7,8 @@
 	window.resizeTo(0, 0);
 	Components.classes["@mozilla.org/observer-service;1"]
 		.getService(Components.interfaces.nsIObserverService)
-		.notifyObservers(window, "consoleLogger-exportScope", "consoleLoggerGlobal");
-	var w = consoleLoggerGlobal.consoleLogger.openOptions();
+		.notifyObservers(window, "consoleLogger-exportScope", null);
+	var w = consoleLogger.openOptions();
 	// Ensure focused
 	var wo = window.opener || w;
 	wo.setTimeout(function(w) {
@@ -17,7 +17,7 @@
 	wo.setTimeout(function(w) {
 		w.focus();
 	}, 100, w);
-	consoleLoggerGlobal = null;
+	consoleLogger = null;
 	window.close();
 	</script>
 </window>
