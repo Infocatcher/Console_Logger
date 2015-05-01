@@ -9,7 +9,7 @@ var obs = "Services" in window && Services.obs
 		.getService(Components.interfaces.nsIObserverService);
 var scope = {};
 scope.wrappedJSObject = scope;
-obs.notifyObservers(scope, "consoleLogger-exportScope", "global");
-scope.global.consoleLogger.openOptions();
+obs.notifyObservers(scope, "consoleLogger-exportScope", null);
+scope.consoleLogger.openOptions();
 ```
 Icon: chrome://consolelogger/content/icon16.png
