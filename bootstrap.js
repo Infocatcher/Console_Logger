@@ -59,6 +59,7 @@ function shutdown(params, reason) {
 
 var consoleLogger = {
 	initialized: false,
+	isShutdown: false,
 	init: function(reason) {
 		if(this.initialized)
 			return;
@@ -68,10 +69,14 @@ var consoleLogger = {
 		if(this.enabled)
 			this.listen(true);
 		Services.obs.addObserver(this, "consoleLogger-exportScope", false);
+		Services.obs.addObserver(this, "sessionstore-windows-restored", false);
+		Services.obs.addObserver(this, "sessionstore-browser-state-restored", false);
 	},
 	destroy: function(reason) {
-		if(reason == APP_SHUTDOWN)
+		if(reason == APP_SHUTDOWN) {
+			this.isShutdown = true;
 			return;
+		}
 
 		if(!this.initialized)
 			return;
@@ -80,6 +85,8 @@ var consoleLogger = {
 		if(this.enabled)
 			this.listen(false);
 		Services.obs.removeObserver(this, "consoleLogger-exportScope");
+		Services.obs.removeObserver(this, "sessionstore-windows-restored");
+		Services.obs.removeObserver(this, "sessionstore-browser-state-restored");
 		prefs.destroy();
 
 		var isUpdate = reason == ADDON_UPGRADE || reason == ADDON_DOWNGRADE;
@@ -145,6 +152,13 @@ var consoleLogger = {
 		else if(topic == "consoleLogger-exportScope") {
 			var out = subject.wrappedJSObject || subject;
 			out[data] = global;
+		}
+		else if(
+			topic == "sessionstore-windows-restored"
+			|| topic == "sessionstore-browser-state-restored"
+		) {
+			if(this.getSessionState(this.optionsOpened))
+				this.openOptions();
 		}
 	},
 	handleConsoleMessage: function(msg) {
@@ -538,6 +552,34 @@ var consoleLogger = {
 		var content = browserWindow.content;
 		content.focus();
 		return content;
+	},
+
+	optionsOpened: "consoleLogger:optionsOpened",
+	get ss() {
+		delete this.ss;
+		return this.ss = (
+			Components.classes["@mozilla.org/browser/sessionstore;1"]
+			|| Components.classes["@mozilla.org/suite/sessionstore;1"]
+		).getService(Components.interfaces.nsISessionStore);
+	},
+	setSessionState: function(key, val) {
+		var ss = this.ss;
+		if(!("setGlobalValue" in ss))
+			return;
+		if(val) {
+			if(val === true)
+				val = 1;
+			ss.setGlobalValue(key, "" + val);
+		}
+		else {
+			ss.deleteGlobalValue(key);
+		}
+	},
+	getSessionState: function(key, defaultVal) {
+		var ss = this.ss;
+		if("getGlobalValue" in ss)
+			return ss.getGlobalValue(key);
+		return defaultVal;
 	}
 };
 
