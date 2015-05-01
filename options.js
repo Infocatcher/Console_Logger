@@ -21,7 +21,7 @@ var consoleLoggerOptions = {
 		this.setupUI();
 		this.load();
 		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
-		if(!prefs.get("options.openInTab"))
+		if(this.isWindow)
 			consoleLogger.setSessionState("optionsOpened", true);
 	},
 	destroy: function() {
@@ -746,8 +746,12 @@ var consoleLoggerOptions = {
 	toggleCompactMode: function() {
 		this.setCompactMode(!prefs.get("options.compact"));
 	},
+	get isWindow() {
+		delete this.isWindow;
+		return this.isWindow = window instanceof Components.interfaces.nsIDOMChromeWindow;
+	},
 	setOpenInTab: function(inTab) {
-		var alreadyHere = inTab != window instanceof Components.interfaces.nsIDOMChromeWindow;
+		var alreadyHere = inTab != this.isWindow;
 		if(!alreadyHere && this.modified) {
 			var ps = Services.prompt;
 			if(
