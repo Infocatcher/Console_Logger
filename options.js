@@ -754,17 +754,19 @@ var consoleLoggerOptions = {
 		var alreadyHere = inTab != this.isWindow;
 		if(!alreadyHere && this.modified) {
 			var ps = Services.prompt;
-			if(
-				ps.confirmEx(
-					window,
-					this.baseTitle,
-					strings.saveChanges,
-					ps.BUTTON_POS_0 * ps.BUTTON_TITLE_SAVE + ps.BUTTON_POS_1 * ps.BUTTON_TITLE_CANCEL,
-					"", "", "", null, {}
-				) == 1
-			)
+			var btn = ps.confirmEx(
+				window,
+				this.baseTitle,
+				strings.saveChanges,
+				ps.BUTTON_POS_0 * ps.BUTTON_TITLE_SAVE
+					+ ps.BUTTON_POS_1 * ps.BUTTON_TITLE_CANCEL
+					+ ps.BUTTON_POS_2 * ps.BUTTON_TITLE_DONT_SAVE,
+				"", "", "", null, {}
+			);
+			if(btn == 1)
 				return;
-			this.save();
+			if(btn == 0)
+				this.save();
 		}
 		prefs.set("options.openInTab", inTab);
 		if(alreadyHere)
