@@ -118,6 +118,7 @@
 		<key id="cl-key-search" key="F" modifiers="accel" oncommand="consoleLoggerOptions.filter.focus();" />
 		<key id="cl-key-toggleCompact" key="M" modifiers="accel" oncommand="consoleLoggerOptions.toggleCompactMode();" />
 		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
+		<key id="cl-key-accept" keycode="VK_RETURN" modifiers="control" oncommand="document.documentElement.acceptDialog();" />
 		<key id="cl-key-reload" keycode="VK_F5" oncommand="consoleLoggerOptions.load();" />
 		<key id="cl-key-reload2" key="R" modifiers="accel" oncommand="consoleLoggerOptions.load();" />
 		<key id="cl-key-fullScreen" keycode="VK_F11"

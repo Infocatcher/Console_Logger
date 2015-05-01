@@ -41,8 +41,9 @@ var consoleLoggerOptions = {
 		applyBtn.setAttribute("cl_key", "cl-key-save");
 		applyBtn.disabled = true;
 		this.placeButtonsBar();
-		// Insert Apply button between OK and Cancel
 		var okBtn = root.getButton("accept");
+		okBtn.setAttribute("cl_key", "cl-key-accept");
+		// Insert Apply button between OK and Cancel
 		var cancelBtn = root.getButton("cancel");
 		var btnBox = okBtn.parentNode;
 		for(var node = btnBox.firstChild; node; node = node.nextSibling) {
