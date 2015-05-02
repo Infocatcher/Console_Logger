@@ -12,4 +12,5 @@ scope.wrappedJSObject = scope;
 obs.notifyObservers(scope, "consoleLogger-exportScope", null);
 scope.consoleLogger.openOptions();
 ```
-Icon: chrome://consolelogger/content/icon16.png
+Also you can use `consoleLogger.openOptionsInWindow()` and `consoleLogger.openOptionsInTab()`
+<br>Icon: `chrome://consolelogger/content/icon16.png`
