@@ -198,12 +198,15 @@ var consoleLoggerOptions = {
 		optionsArr.sort(function(a, b) {
 			return a.name > b.name ? 1 : -1; // Note: always not equal!
 		});
-		this.list.textContent = "";
+		this.clearList();
 		optionsArr.forEach(this.appendItem, this);
 	},
 	get list() {
 		delete this.list;
 		return this.list = this.$("cl-list");
+	},
+	clearList: function() {
+		this.list.textContent = "";
 	},
 	get items() {
 		return this.list.children;
@@ -380,7 +383,7 @@ var consoleLoggerOptions = {
 			if(override && !overrided) {
 				overrided = true;
 				// Remove all
-				this.list.textContent = "";
+				this.clearList();
 				// And restore not imported items from default branch
 				var defaultOptions = consoleLogger.defaultOptions;
 				for(var name2 in defaultOptions)
