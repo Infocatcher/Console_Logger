@@ -574,6 +574,7 @@ var consoleLogger = {
 	},
 
 	ssPrefix: "consoleLogger:",
+	ssPref: "session.",
 	get ss() {
 		var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
 			|| Components.classes["@mozilla.org/suite/sessionstore;1"]
@@ -589,9 +590,9 @@ var consoleLogger = {
 		var ss = this.ss;
 		if(!this.canUseSessions) {
 			if(val)
-				prefs.set(key, val);
+				prefs.set(this.ssPref + key, val);
 			else {
-				var pref = prefs.ns + key;
+				var pref = prefs.ns + this.ssPref + key;
 				if(Services.prefs.prefHasUserValue(pref))
 					Services.prefs.clearUserPref(pref);
 			}
@@ -609,7 +610,7 @@ var consoleLogger = {
 	getSessionState: function(key) {
 		var ss = this.ss;
 		if(!this.canUseSessions)
-			return prefs.get(key);
+			return prefs.get(this.ssPref + key);
 		return ss.getGlobalValue(this.ssPrefix + key);
 	},
 	restoreOptions: function() {
