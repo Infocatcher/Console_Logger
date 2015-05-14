@@ -82,7 +82,7 @@ var consoleLogger = {
 				handleEvent: function(e) {
 					e.currentTarget.removeEventListener("load", this, false);
 					Services.obs.removeObserver(this, "domwindowopened");
-					delay(this.context.restoreOptions, this.context);
+					delay(this.context.mayRestoreOptions, this.context);
 				}
 			}, "domwindowopened", false);
 		}
@@ -177,7 +177,7 @@ var consoleLogger = {
 			topic == "sessionstore-windows-restored"
 			|| topic == "sessionstore-browser-state-restored"
 		) {
-			this.restoreOptions();
+			this.mayRestoreOptions();
 		}
 	},
 	handleConsoleMessage: function(msg) {
@@ -613,8 +613,8 @@ var consoleLogger = {
 			return prefs.get(this.ssPref + key);
 		return ss.getGlobalValue(this.ssPrefix + key);
 	},
-	restoreOptions: function() {
-		if(this.getSessionState("optionsOpened"))
+	mayRestoreOptions: function() {
+		if(prefs.get("options.restoreWindow") && this.getSessionState("optionsOpened"))
 			this.openOptions();
 	}
 };

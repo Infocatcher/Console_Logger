@@ -21,7 +21,7 @@ var consoleLoggerOptions = {
 		this.setupUI();
 		this.load();
 		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
-		if(this.isWindow)
+		if(this.isWindow && prefs.get("options.restoreWindow"))
 			consoleLogger.setSessionState("optionsOpened", true);
 	},
 	destroy: function() {
