@@ -720,6 +720,8 @@ var consoleLoggerOptions = {
 			miReset.setAttribute("disabled", cantReset);
 			miRemove.setAttribute("hidden", hasLocked);
 			miReset.setAttribute("hidden", !hasLocked);
+			this.$("cl-mi-cut").setAttribute("disabled", cantReset);
+			this.$("cl-mi-opts-cut").setAttribute("disabled", cantReset);
 			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
@@ -921,6 +923,10 @@ var consoleLoggerOptions = {
 	},
 	paste: function(override) {
 		this.importOptions(this.clipboard, override);
+	},
+	cut: function() {
+		this.copy();
+		this.reset();
 	},
 	exportToFile: function(all) {
 		var options = this.exportOptions(all);

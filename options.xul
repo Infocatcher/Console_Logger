@@ -68,6 +68,7 @@
 				<menuitem id="cl-mi-opts-import" key="cl-key-import" label="&cl.import;" oncommand="consoleLoggerOptions.importFromFile();" />
 				<menuitem id="cl-mi-opts-importOvr" key="cl-key-importOvr" label="&cl.importOvr;" oncommand="consoleLoggerOptions.importFromFile(true);" />
 				<menuseparator id="cl-sep-opts-beforeCopy" />
+				<menuitem id="cl-mi-opts-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
 				<menuitem id="cl-mi-opts-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
 				<menuitem id="cl-mi-opts-copyAll" key="cl-key-copyAll" label="&cl.copyAll;" oncommand="consoleLoggerOptions.copy(true);" />
 				<menuitem id="cl-mi-opts-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
@@ -85,6 +86,7 @@
 		<menuitem id="cl-mi-open" key="cl-key-open" label="&cl.open;" oncommand="consoleLoggerOptions.open();" />
 		<menuitem id="cl-mi-clear" key="cl-key-clear" label="&cl.clear;" oncommand="consoleLoggerOptions.clear();" />
 		<menuseparator id="cl-sep-beforeCopy" />
+		<menuitem id="cl-mi-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
 		<menuitem id="cl-mi-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
 		<menuitem id="cl-mi-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
 		<menuseparator id="cl-sep-beforeSelectAll" />
@@ -101,6 +103,7 @@
 		<key id="cl-key-toggle2" key=" " oncommand="consoleLoggerOptions.toggle();" />
 		<key id="cl-key-open" key="O" modifiers="accel" oncommand="consoleLoggerOptions.open();" />
 		<key id="cl-key-clear" key="W" modifiers="accel" oncommand="consoleLoggerOptions.clear();" />
+		<key id="cl-key-cut" key="X" modifiers="accel,shift" oncommand="consoleLoggerOptions.cut();" />
 		<key id="cl-key-copy" key="C" modifiers="accel,shift" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy2" key="C" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy3" keycode="VK_INSERT" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
