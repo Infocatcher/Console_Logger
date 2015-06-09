@@ -11,6 +11,7 @@
 `x` Fixed options in tab in Firefox 3.0 and older.<br>
 `+` Options window: added ability to use single toolbar for all buttons (<a href="https://github.com/Infocatcher/Console_Logger/issues/18">#18</a>).<br>
 `+` Options window: save and restore opened state between browser restarts (<a href="https://github.com/Infocatcher/Console_Logger/issues/19">#19</a>).<br>
+`+` Options window: show hotkeys in button's tooltips (<a href="https://github.com/Infocatcher/Console_Logger/issues/20">#20</a>).<br>
 
 ##### 0.2.0pre (2014-08-06)
 `*` Now used <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API to write logs with better performance (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
