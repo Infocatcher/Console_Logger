@@ -34,7 +34,7 @@ function startup(params, reason) {
 				@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");\n\
 				@-moz-document url("about:addons"),\n\
 					url("chrome://mozapps/content/extensions/extensions.xul") {\n\
-					.addon-control.preferences {\n\
+					.addon[value="consoleLogger@infocatcher"] .addon-control.preferences {\n\
 						display: none !important;\n\
 					}\n\
 				}';
