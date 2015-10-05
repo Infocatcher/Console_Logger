@@ -1,9 +1,18 @@
 // Usage:
-// extensions.consoleLogger.patterns.%someName%         - (string) pattern for nsIScriptError.sourceName
-// extensions.consoleLogger.patterns.%someName%.enabled - (boolean, optional) to disable
-// extensions.consoleLogger.patterns.%someName%.message - (string, optional) pattern for nsIConsoleMessage.message
-// extensions.consoleLogger.patterns.%someName%.exclude - (string, optional) exclusions, checks for message text (nsIScriptError.errorMessage or nsIConsoleMessage.message)
-// Note: we use new RegExp(..., "i") for all patterns
+// %someName% - "Name" field in GUI.
+// extensions.consoleLogger.patterns.%someName%
+//   "Source pattern"
+//   (string) pattern for nsIScriptError.sourceName
+// extensions.consoleLogger.patterns.%someName%.enabled
+//   "Enabled"
+//   (boolean, optional) to disable
+// extensions.consoleLogger.patterns.%someName%.message
+//   "Message pattern"
+//   (string, optional) pattern for nsIConsoleMessage.message
+// extensions.consoleLogger.patterns.%someName%.exclude
+//   "Exclude pattern"
+//   (string, optional) exclusions, checks for message text (nsIScriptError.errorMessage or nsIConsoleMessage.message)
+// Note: used case insensitive regular expressions for all patterns, internally this is new RegExp(..., "i")
 // Output: %browser_profile%/consoleLogger_%someName%.log
 
 // Handling of various message types:
@@ -11,7 +20,7 @@
 //    => check source URI for "source" patterns
 // 2) simple messages (nsIConsoleMessage), doesn't have source URI
 //    => check message text for "message" patterns
-// 3) anything from Console.jsm
+// 3) anything from resource://gre/modules/devtools/Console.jsm
 //    => check source URI for "source" patterns
 // And then check message text for "exclude" patterns
 
