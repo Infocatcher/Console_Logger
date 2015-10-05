@@ -540,7 +540,7 @@ var consoleLogger = {
 				var browser = browsers[i];
 				if(browser.currentURI.spec == url) {
 					win.gBrowser.tabContainer.selectedIndex = i;
-					var content = browser.contentWindow;
+					var content = browser.contentWindow; // e10s note: our tab shouldn't be remote
 					content.focus();
 					return content;
 				}
@@ -568,7 +568,7 @@ var consoleLogger = {
 			browserWindow.loadURI(optionsURL);
 		else
 			gBrowser.selectedTab = gBrowser.addTab(optionsURL);
-		var content = browserWindow.content;
+		var content = browserWindow.content || gBrowser.contentWindow;
 		content.focus();
 		return content;
 	},
