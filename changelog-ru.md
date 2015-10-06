@@ -13,6 +13,7 @@
 `+` Окно настроек: добавлено сохранение и восстановление состояния между перезапусками браузера (<a href="https://github.com/Infocatcher/Console_Logger/issues/19">#19</a>).<br>
 `+` Окно настроек: добавлено отображение сочетаний клавиш во всплывающих подсказках кнопок (<a href="https://github.com/Infocatcher/Console_Logger/issues/20">#20</a>).<br>
 `+` Окно настроек: добавлена возможность вырезания выделенных элементов (<a href="https://github.com/Infocatcher/Console_Logger/issues/21">#21</a>).<br>
+`*` Улучшена совместимость с мультипроцессным режимом (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Console_Logger/issues/22">#22</a>).<br>
 
 ##### 0.2.0pre (2014-08-06)
 `*` Теперь используется <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API для записи логов с лучшей производительностью (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>

@@ -13,6 +13,7 @@
 `+` Options window: save and restore opened state between browser restarts (<a href="https://github.com/Infocatcher/Console_Logger/issues/19">#19</a>).<br>
 `+` Options window: show hotkeys in button's tooltips (<a href="https://github.com/Infocatcher/Console_Logger/issues/20">#20</a>).<br>
 `+` Options window: added ability to cut selected items (<a href="https://github.com/Infocatcher/Console_Logger/issues/21">#21</a>).<br>
+`*` Improved compatibility with multi-process mode (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Console_Logger/issues/22">#22</a>).<br>
 
 ##### 0.2.0pre (2014-08-06)
 `*` Now used <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API to write logs with better performance (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
