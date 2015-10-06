@@ -6,6 +6,7 @@
 		<em:id>consoleLogger@infocatcher</em:id>
 		<em:type>2</em:type>
 		<em:bootstrap>true</em:bootstrap>
+		<em:multiprocessCompatible>true</em:multiprocessCompatible>
 		<em:name>Console Logger</em:name>
 		<em:version>0.2.0pre</em:version>
 		<em:description>Adds ability to write certain console messages to log files</em:description>
