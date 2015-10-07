@@ -2,13 +2,13 @@
 // %someName% - "Name" field in GUI.
 // extensions.consoleLogger.patterns.%someName%
 //   "Source pattern"
-//   (string) pattern for nsIScriptError.sourceName
+//   (string) pattern for source URI (nsIScriptError.sourceName)
 // extensions.consoleLogger.patterns.%someName%.enabled
 //   "Enabled"
 //   (boolean, optional) to disable
 // extensions.consoleLogger.patterns.%someName%.message
 //   "Message pattern"
-//   (string, optional) pattern for nsIConsoleMessage.message
+//   (string, optional) pattern for simple messages without source URI (nsIConsoleMessage.message)
 // extensions.consoleLogger.patterns.%someName%.exclude
 //   "Exclude pattern"
 //   (string, optional) exclusions, checks for message text (nsIScriptError.errorMessage or nsIConsoleMessage.message)
