@@ -126,6 +126,14 @@
 		<key id="cl-key-accept" keycode="VK_RETURN" modifiers="control" oncommand="document.documentElement.acceptDialog();" />
 		<key id="cl-key-reload" keycode="VK_F5" oncommand="consoleLoggerOptions.load();" />
 		<key id="cl-key-reload2" key="R" modifiers="accel" oncommand="consoleLoggerOptions.load();" />
+		<key id="cl-key-maximizeWindow" keycode="VK_F10"
+			oncommand="
+				if('fullScreen' in window &amp;&amp; fullScreen)
+					fullScreen = false;
+				else if(windowState == STATE_MAXIMIZED)
+					restore();
+				else
+					maximize();" />
 		<key id="cl-key-fullScreen" keycode="VK_F11"
 			oncommand="if('fullScreen' in window) fullScreen = !fullScreen; // Firefox 3.0+" />
 		<key id="cl-key-optionsMenu" key="O" modifiers="accel,shift"
