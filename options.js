@@ -214,7 +214,8 @@ var consoleLoggerOptions = {
 	get selectedItems() {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
-		return selectedItems.filter(function(cli) {
+		// Note: we have NodeList in Firefox 45+
+		return Array.filter(selectedItems, function(cli) {
 			return cli.parentNode && !cli.collapsed;
 		});
 	},
