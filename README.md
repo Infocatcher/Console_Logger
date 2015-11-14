@@ -1,7 +1,8 @@
 ﻿This is extension for Gecko-based applications (Firefox, Thunderbird, SeaMonkey), for developers and testers.
-<br>Adds ability to write certain console messages to log files, see <a href="defaults/preferences/prefs.js#files">defaults/preferences/prefs.js</a> for details.
+<br>Adds ability to write certain console messages to log files, see <a href="defaults/preferences/prefs.js#files">defaults/preferences/prefs.js</a> for technical details.
 
 <hr>
+#### Examples
 Options example for <a href="https://github.com/Infocatcher/Private_Tab">Private Tab</a> extension:
 ```js
 // Console Logger options
@@ -23,7 +24,8 @@ Options example for <a href="https://github.com/Infocatcher/Private_Tab">Private
 (use Options – Paste to import)
 
 <hr>
-Also you can use <a href="https://addons.mozilla.org/addon/custom-buttons/">Custom Buttons</a> or something similar to open options from toolbar button.
+#### API
+You can use <a href="https://addons.mozilla.org/addon/custom-buttons/">Custom Buttons</a> or something similar to open options from toolbar button.
 <br>Code:
 ```js
 var obs = "Services" in window && Services.obs
