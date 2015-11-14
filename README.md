@@ -1,5 +1,27 @@
 ﻿This is extension for Gecko-based applications (Firefox, Thunderbird, SeaMonkey), for developers and testers.
 <br>Adds ability to write certain console messages to log files, see <a href="defaults/preferences/prefs.js#files">defaults/preferences/prefs.js</a> for details.
+
+<hr>
+Options example for <a href="https://github.com/Infocatcher/Private_Tab">Private Tab</a> extension:
+```js
+// Console Logger options
+{
+	"Private_Tab": {
+		"enabled": true,
+		"source": "^chrome://privatetab/|/privateTab@infocatcher",
+		"message": "",
+		"exclude": "^unsafe CPOW usage|^Only internal code is allowed to set the usePrivateBrowsing attribute"
+	},
+	"Private_Tab_messages": {
+		"enabled": false,
+		"source": "",
+		"message": "^\\[Private Tab\\]",
+		"exclude": ""
+	}
+}
+```
+(use Options – Paste to import)
+
 <hr>
 Also you can use <a href="https://addons.mozilla.org/addon/custom-buttons/">Custom Buttons</a> or something similar to open options from toolbar button.
 <br>Code:
