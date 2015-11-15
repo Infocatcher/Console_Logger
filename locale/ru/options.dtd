@@ -19,10 +19,10 @@
 <!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">
 <!ENTITY cl.pasteOvr "Вставить и заменить">
-<!ENTITY cl.export "Экспортировать в файл…">
+<!ENTITY cl.exportSel "Экспортировать выбранное в файл…">
 <!ENTITY cl.exportAll "Экспортировать всё в файл…">
-<!ENTITY cl.import "Импортировать из файла…">
-<!ENTITY cl.importOvr "Импортировать из файла и заменить…">
+<!ENTITY cl.importAdd "Импортировать из файла: добавить…">
+<!ENTITY cl.importOvr "Импортировать из файла: заменить…">
 <!ENTITY cl.exportTitle "&cl.selfName;: Экспорт настроек в файл">
 <!ENTITY cl.importTitle "&cl.selfName;: Импорт настроек из файла">
 <!ENTITY cl.errorTitle "&cl.selfName;: Ошибка!">

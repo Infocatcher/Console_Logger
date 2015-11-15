@@ -18,11 +18,11 @@
 <!ENTITY cl.copy "Copy">
 <!ENTITY cl.copyAll "Copy All">
 <!ENTITY cl.paste "Paste">
-<!ENTITY cl.pasteOvr "Paste and Overwrite">
-<!ENTITY cl.export "Export to File…">
+<!ENTITY cl.pasteOvr "Paste and Replace">
+<!ENTITY cl.exportSel "Export Selected to File…">
 <!ENTITY cl.exportAll "Export All to File…">
-<!ENTITY cl.import "Import from File…">
-<!ENTITY cl.importOvr "Import from File and Overwrite…">
+<!ENTITY cl.importAdd "Import from File: Append…">
+<!ENTITY cl.importOvr "Import from File: Replace…">
 <!ENTITY cl.exportTitle "&cl.selfName;: Export Options to File">
 <!ENTITY cl.importTitle "&cl.selfName;: Import Options from File">
 <!ENTITY cl.errorTitle "&cl.selfName;: Error!">

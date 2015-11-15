@@ -63,9 +63,9 @@
 				<menuseparator id="cl-sep-opts-beforeReload" />
 				<menuitem id="cl-mi-opts-reload" key="cl-key-reload" label="&cl.reload;" oncommand="consoleLoggerOptions.load();" />
 				<menuseparator id="cl-sep-opts-beforeExport" />
-				<menuitem id="cl-mi-opts-export" key="cl-key-export" label="&cl.export;" oncommand="consoleLoggerOptions.exportToFile();" />
+				<menuitem id="cl-mi-opts-export" key="cl-key-export" label="&cl.exportSel;" oncommand="consoleLoggerOptions.exportToFile();" />
 				<menuitem id="cl-mi-opts-exportAll" key="cl-key-exportAll" label="&cl.exportAll;" oncommand="consoleLoggerOptions.exportToFile(true);" />
-				<menuitem id="cl-mi-opts-import" key="cl-key-import" label="&cl.import;" oncommand="consoleLoggerOptions.importFromFile();" />
+				<menuitem id="cl-mi-opts-import" key="cl-key-import" label="&cl.importAdd;" oncommand="consoleLoggerOptions.importFromFile();" />
 				<menuitem id="cl-mi-opts-importOvr" key="cl-key-importOvr" label="&cl.importOvr;" oncommand="consoleLoggerOptions.importFromFile(true);" />
 				<menuseparator id="cl-sep-opts-beforeCopy" />
 				<menuitem id="cl-mi-opts-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
