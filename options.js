@@ -21,11 +21,13 @@ var consoleLoggerOptions = {
 		this.setupUI();
 		this.load();
 		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
+		Services.prefs.addObserver(prefs.ns + "options.", this, false);
 		if(this.isWindow && prefs.get("options.restoreWindow"))
 			consoleLogger.setSessionState("optionsOpened", true);
 	},
 	destroy: function() {
 		Services.obs.removeObserver(this, "consoleLogger-logUpdated");
+		Services.prefs.removeObserver(prefs.ns + "options.", this);
 		if(!consoleLogger.isShutdown)
 			consoleLogger.setSessionState("optionsOpened", false);
 		consoleLoggerGlobal = null;
@@ -40,7 +42,7 @@ var consoleLoggerOptions = {
 		applyBtn.setAttribute("icon", "apply");
 		applyBtn.setAttribute("cl_key", "cl-key-save");
 		applyBtn.disabled = true;
-		this.placeButtonsBar();
+		this.updateUIFromPrefs();
 		var okBtn = root.getButton("accept");
 		okBtn.setAttribute("cl_key", "cl-key-accept");
 		// Insert Apply button between OK and Cancel
@@ -84,11 +86,13 @@ var consoleLoggerOptions = {
 			+ parseFloat(cs["padding" + right])
 			+ "px";
 
-		this.setCompactMode();
-
 		setTimeout(function(_this) {
 			_this.setKeysDesc();
 		}, 0, this);
+	},
+	updateUIFromPrefs: function() {
+		this.placeButtonsBar();
+		this.setCompactMode();
 	},
 	singleButtonsBar: false,
 	placeButtonsBar: function(singleBar) {
@@ -170,6 +174,11 @@ var consoleLoggerOptions = {
 					cli.markAsUpdated();
 				});
 			}, this);
+		}
+		else if(topic == "nsPref:changed") {
+			setTimeout(function(_this) { // Wait for observer from bootstrap.js
+				_this.updateUIFromPrefs();
+			}, 0, this);
 		}
 	},
 
