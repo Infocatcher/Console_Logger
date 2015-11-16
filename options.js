@@ -787,6 +787,10 @@ var consoleLoggerOptions = {
 			this.list.setAttribute("cl_compact", "true");
 		else
 			this.list.removeAttribute("cl_compact");
+		if(compact && prefs.get("options.compact.clickToSelect"))
+			this.list.setAttribute("cl_clickToSelect", "true");
+		else
+			this.list.removeAttribute("cl_clickToSelect");
 	},
 	toggleCompactMode: function() {
 		this.setCompactMode(!prefs.get("options.compact"));
