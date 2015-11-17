@@ -328,9 +328,12 @@
 
 				event.stopPropagation();
 				var _this = this;
+				var trg = event.target;
 				var win = this.ownerDocument.defaultView;
 				win.addEventListener("mouseup", function onMouseUp(e) {
 					win.removeEventListener(e.type, onMouseUp, true);
+					if(e.target != trg)
+						return;
 					// Like "mousedown" handler from chrome://global/content/bindings/listbox.xml#listitem
 					if(!_this.selected)
 						control.selectItem(_this);
