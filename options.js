@@ -86,9 +86,7 @@ var consoleLoggerOptions = {
 			+ parseFloat(cs["padding" + right])
 			+ "px";
 
-		setTimeout(function(_this) {
-			_this.setKeysDesc();
-		}, 0, this);
+		this.timer(this.setKeysDesc, this);
 	},
 	updateUIFromPrefs: function() {
 		this.placeButtonsBar();
@@ -176,9 +174,7 @@ var consoleLoggerOptions = {
 			}, this);
 		}
 		else if(topic == "nsPref:changed") {
-			setTimeout(function(_this) { // Wait for observer from bootstrap.js
-				_this.updateUIFromPrefs();
-			}, 0, this);
+			this.timer(this.updateUIFromPrefs, this); // Wait for observer from bootstrap.js
 		}
 	},
 
