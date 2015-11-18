@@ -4,6 +4,7 @@ this.__defineGetter__("OS", function() {
 	return this.OS = consoleLoggerGlobal.OS;
 });
 var consoleLoggerOptions = {
+	cl: null,
 	exports: ["consoleLogger", "Services", "prefs", "delay", "platformVersion"],
 	init: function() {
 		//Services.obs
@@ -13,6 +14,7 @@ var consoleLoggerOptions = {
 		this.exports.forEach(function(prop) {
 			window[prop] = consoleLoggerGlobal[prop];
 		}, this);
+		this.cl = consoleLogger;
 		if(!("JSON" in window)) {
 			var scope = {}; // Note: we can't load directly into content window
 			Services.scriptloader.loadSubScript("chrome://consolelogger/content/json.js", scope);
@@ -23,17 +25,18 @@ var consoleLoggerOptions = {
 		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
 		Services.prefs.addObserver(prefs.ns + "options.", this, false);
 		if(this.isWindow && prefs.get("options.restoreWindow"))
-			consoleLogger.setSessionState("optionsOpened", true);
+			this.cl.setSessionState("optionsOpened", true);
 	},
 	destroy: function() {
 		Services.obs.removeObserver(this, "consoleLogger-logUpdated");
 		Services.prefs.removeObserver(prefs.ns + "options.", this);
-		if(!consoleLogger.isShutdown)
-			consoleLogger.setSessionState("optionsOpened", false);
+		if(!this.cl.isShutdown)
+			this.cl.setSessionState("optionsOpened", false);
 		consoleLoggerGlobal = null;
 		this.exports.forEach(function(prop) {
 			window[prop] = null;
 		}, this);
+		this.cl = null;
 		delete window.OS;
 	},
 	setupUI: function() {
@@ -268,8 +271,8 @@ var consoleLoggerOptions = {
 				var name = state.name;
 				this.logFileExists(name, function(exists) {
 					cli.canOpen = exists;
-					cli.isOldChanges = !(name in consoleLogger._changedInSession);
-				});
+					cli.isOldChanges = !(name in this.cl._changedInSession);
+				}, this);
 			}, this);
 		}
 		return cli;
@@ -340,7 +343,7 @@ var consoleLoggerOptions = {
 	stringifyOptions: function(options) {
 		this.cleanupOptions(options);
 		var data = JSON.stringify(options, null, "\t");
-		return consoleLogger.fixBr(this.exportHeader + data);
+		return this.cl.fixBr(this.exportHeader + data);
 	},
 	validateOptions: function(options) {
 		if(!options || typeof options != "object")
@@ -391,7 +394,7 @@ var consoleLoggerOptions = {
 				// Remove all
 				this.clearList();
 				// And restore not imported items from default branch
-				var defaultOptions = consoleLogger.defaultOptions;
+				var defaultOptions = this.cl.defaultOptions;
 				for(var name2 in defaultOptions)
 					if(!(name2 in options))
 						this.appendItem(defaultOptions[name2]);
@@ -456,7 +459,7 @@ var consoleLoggerOptions = {
 		var fileName = "consoleLogger";
 		if(modeSave) {
 			fileName += name
-				? "_" + consoleLogger.safeFileName(name)
+				? "_" + this.cl.safeFileName(name)
 					.replace(/\s/g, "_")
 				: "_options";
 			fileName += new Date().toLocaleFormat("_%Y-%m-%d_%H-%M");
@@ -581,7 +584,7 @@ var consoleLoggerOptions = {
 	getLogFile: function(name) {
 		if(!name)
 			return null;
-		var file = consoleLogger.getFile(name);
+		var file = this.cl.getFile(name);
 		if(!file.exists())
 			return null;
 		return file;
@@ -610,7 +613,7 @@ var consoleLoggerOptions = {
 		file.launch();
 	},
 	logFileExists: function(name, callback, context) {
-		var file = consoleLogger.getFile(name);
+		var file = this.cl.getFile(name);
 		if(platformVersion < 19) {
 			callback.call(context, file.exists());
 			return;
@@ -700,7 +703,7 @@ var consoleLoggerOptions = {
 	},
 	_checkUnsaved: function() {
 		this.modified = this.optionsHash != this._savedOptions
-			|| consoleLogger.enabled != this.enabled;
+			|| this.cl.enabled != this.enabled;
 	},
 
 	updateControls: function() {
@@ -825,13 +828,13 @@ var consoleLoggerOptions = {
 		prefs.set("options.openInTab", inTab);
 		if(alreadyHere)
 			return;
-		consoleLogger.openOptions();
+		this.cl.openOptions();
 		window.close();
 	},
 
 	load: function() {
-		this.options = consoleLogger.options;
-		this.enabled = consoleLogger.enabled;
+		this.options = this.cl.options;
+		this.enabled = this.cl.enabled;
 		this.markAsSaved();
 		this.updateControls();
 		this.updateFilter();
@@ -840,8 +843,8 @@ var consoleLoggerOptions = {
 	save: function(sync) {
 		if(!this.validateFields())
 			return false;
-		consoleLogger.options = this.options;
-		consoleLogger.enabled = this.enabled;
+		this.cl.options = this.options;
+		this.cl.enabled = this.enabled;
 		this.markAsSaved();
 		var prefs = Services.prefs; // Will be removed from window!
 		delay(function() {
@@ -859,7 +862,7 @@ var consoleLoggerOptions = {
 		this.updateFilter();
 	},
 	reset: function() {
-		var defaultOptions = consoleLogger.defaultOptions;
+		var defaultOptions = this.cl.defaultOptions;
 		var moveSelection = true;
 		var origItems = Array.slice(this.items);
 		this.selectedItems.forEach(function(cli) {
