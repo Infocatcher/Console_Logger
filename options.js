@@ -291,8 +291,15 @@ var consoleLoggerOptions = {
 	validateFields: function() {
 		var hasInvalid = false;
 		var names = ["name", "source", "message", "exclude"];
+		var items = this.items;
 		function validateName(name) {
-			return name ? "" : strings.emptyName;
+			if(!name)
+				return strings.emptyName;
+			var cnt = 0;
+			for(var i = 0, l = items.length; i < l; ++i)
+				if(items[i].name == name && ++cnt > 1)
+					return strings.nameUsed;
+			return "";
 		}
 		function validatePattern(pattern) {
 			try {
@@ -303,7 +310,7 @@ var consoleLoggerOptions = {
 				return "" + e;
 			}
 		}
-		this.items.forEach(function(cli) {
+		items.forEach(function(cli) {
 			names.forEach(function(name) {
 				var validator = name == "name" ? validateName : validatePattern;
 				if(cli.validateItem(name, validator))

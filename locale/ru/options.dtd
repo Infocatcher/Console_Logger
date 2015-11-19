@@ -38,3 +38,4 @@
 <!ENTITY cl.logs "Лог ($S)">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">
 <!ENTITY cl.emptyName "Пустое название">
+<!ENTITY cl.nameUsed "Название уже используется">

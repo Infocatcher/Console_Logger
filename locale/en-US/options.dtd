@@ -38,3 +38,4 @@
 <!ENTITY cl.logs "Log ($S)">
 <!ENTITY cl.onlyASCII "Allowed only ASCII characters!">
 <!ENTITY cl.emptyName "Empty name">
+<!ENTITY cl.nameUsed "Name already used">
