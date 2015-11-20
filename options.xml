@@ -98,7 +98,7 @@
 						var elt = this.getItem(name);
 						state[name] = "checked" in elt ? elt.checked : elt.value;
 					}, this);
-					state.locked = this.getItem("name").disabled;
+					state.locked = this.locked;
 					return state;
 				</getter>
 				<setter>
@@ -119,8 +119,7 @@
 							elt.value = v;
 						}
 					}
-					if("locked" in state && state.locked)
-						this.getItem("name").disabled = true;
+					this.locked = "locked" in state && state.locked;
 				]]>
 				</setter>
 			</property>
