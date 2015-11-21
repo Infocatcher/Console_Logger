@@ -316,10 +316,10 @@ var consoleLoggerOptions = {
 				if(cli.validateItem(name, validator))
 					return;
 				if(!hasInvalid) {
-					this.list.ensureElementIsVisible(cli);
+					hasInvalid = true;
 					cli.focusItem(name);
+					this.list.ensureElementIsVisible(cli);
 				}
-				hasInvalid = true;
 			}, this);
 		}, this);
 		return !hasInvalid;

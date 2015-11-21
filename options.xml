@@ -126,9 +126,9 @@
 			<method name="focusItem">
 				<parameter name="itemName" />
 				<body>
-					var nameField = this.getItem(itemName || "name").inputField;
-					nameField.focus();
-					nameField.select();
+					var field = this.getItem(itemName || "name").inputField;
+					field.focus();
+					field.select();
 				</body>
 			</method>
 			<method name="validateItem">
