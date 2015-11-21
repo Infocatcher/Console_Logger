@@ -46,7 +46,7 @@ var consoleLoggerOptions = {
 		applyBtn.setAttribute("cl_key", "cl-key-save");
 		applyBtn.disabled = true;
 		this.updateUIFromPrefs();
-		var okBtn = root.getButton("accept");
+		var okBtn = this.okBtn = root.getButton("accept");
 		okBtn.setAttribute("cl_key", "cl-key-accept");
 		// Insert Apply button between OK and Cancel
 		var cancelBtn = root.getButton("cancel");
@@ -322,6 +322,14 @@ var consoleLoggerOptions = {
 				}
 			}, this);
 		}, this);
+		if(hasInvalid) {
+			this.applyBtn.setAttribute("cl_error", "true");
+			this.okBtn.setAttribute("cl_error", "true");
+		}
+		else {
+			this.applyBtn.removeAttribute("cl_error");
+			this.okBtn.removeAttribute("cl_error");
+		}
 		return !hasInvalid;
 	},
 	validateFieldsAsync: function() {

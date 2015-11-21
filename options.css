@@ -49,7 +49,8 @@ textbox[cl_highlight] {
 	outline-offset: -2px;
 }
 textbox[cl_invalidData],
-textbox[cl_invalidUsage] {
+textbox[cl_invalidUsage],
+.dialog-button[cl_error] {
 	outline: 2px solid #f66;
 	outline-offset: -2px;
 }
