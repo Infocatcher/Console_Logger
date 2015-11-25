@@ -55,6 +55,6 @@ textbox[cl_invalidUsage],
 	outline-offset: -2px;
 }
 
-menuitem[checked="true"][cl_intermediate] .menu-iconic-left {
+menuitem[checked="true"][cl_intermediate] > .menu-iconic-left {
 	opacity: 0.42;
 }
