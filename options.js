@@ -390,7 +390,7 @@ var consoleLoggerOptions = {
 	exportOptions: function(all) {
 		var options = { __proto__: null };
 		var items = all
-			? this.items
+			? this.visibleItems
 			: this.selectedItems;
 		items.forEach(function(cli) {
 			var item = cli.state;
@@ -729,7 +729,7 @@ var consoleLoggerOptions = {
 					return selectedItems.indexOf(cli) == -1;
 				});
 		}, this);
-		var cantReset = selectedItems.length == 0;
+		var cantReset = !selectedItems.length;
 		var cantRemove = cantReset || hasLocked;
 		var isEmpty = !this.list.hasChildNodes();
 		this.$("cl-deck-reset").selectedIndex = hasLocked ? 1 : 0;
@@ -738,6 +738,7 @@ var consoleLoggerOptions = {
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
 		this.timer(function() {
+			var noVisible = isEmpty || !this.visibleItems.length;
 			var miRemove = this.$("cl-mi-remove");
 			var miReset = this.$("cl-mi-reset");
 			miRemove.setAttribute("disabled", cantRemove);
@@ -748,9 +749,9 @@ var consoleLoggerOptions = {
 			this.$("cl-mi-opts-cut").setAttribute("disabled", cantReset);
 			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
-			this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
+			this.$("cl-mi-opts-copyAll").setAttribute("disabled", noVisible);
 			this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
-			this.$("cl-mi-opts-exportAll").setAttribute("disabled", isEmpty);
+			this.$("cl-mi-opts-exportAll").setAttribute("disabled", noVisible);
 		}, this);
 	},
 	updateContextMenu: function() {
