@@ -1007,7 +1007,7 @@ var consoleLoggerOptions = {
 	updateFilter: function(notifyTimes) {
 		var filterBox = this.filter;
 		var filter = filterBox.value;
-		if(!filter)
+		if(/^\s*$/.test(filter))
 			return;
 		this.setFilter(filter);
 		if(notifyTimes === undefined)
