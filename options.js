@@ -1000,6 +1000,7 @@ var consoleLoggerOptions = {
 			this.filter.setAttribute("cl-notFound", "true");
 		else
 			this.filter.removeAttribute("cl-notFound");
+		this.timer(this.updateControls, this);
 	},
 	_notifyFilterTimer: 0,
 	updateFilter: function(notifyTimes) {
