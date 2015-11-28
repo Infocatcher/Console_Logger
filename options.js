@@ -959,13 +959,13 @@ var consoleLoggerOptions = {
 	},
 	exportToFile: function(all) {
 		var options = this.exportOptions(all);
-		var count = 0;
-		for(var singleName in options) {
-			if(++count > 1) {
-				singleName = "";
-				break;
-			}
-		}
+		var singleName = (function() {
+			var count = 0;
+			for(var name in options)
+				if(++count > 1)
+					return "";
+			return name.replace(/\s+/g, "_");
+		})();
 		this.pickOptionsFile(this.fp.modeSave, function(file) {
 			var data = this.stringifyOptions(options);
 			this.writeToFile(file, data);
