@@ -15,6 +15,9 @@
 `+` Окно настроек: добавлена возможность вырезания выделенных элементов (<a href="https://github.com/Infocatcher/Console_Logger/issues/21">#21</a>).<br>
 `*` Улучшена совместимость с мультипроцессным режимом (Electrolysis aka e10s) (<a href="https://github.com/Infocatcher/Console_Logger/issues/22">#22</a>).<br>
 `x` Окно настроек: исправлена обработка выбранных элементов в Firefox 45+.<br>
+`*` Окно настроек: улучшен компактный режим: элементы выделяются только после отпускания левой кнопки мыши (настройка <em>extensions.consoleLogger.options.compact.clickToSelect</em>).<br>
+`x` Окно настроек: добавлено предотвращение сохранения двух элементов с одинаковым именем.<br>
+`*` Окно настроек: «Экспортировать всё» экспортирует только выделенные элементы, если используется фильтр.<br>
 
 ##### 0.2.0pre (2014-08-06)
 `*` Теперь используется <a href="https://developer.mozilla.org/en-US/docs/JavaScript_OS.File">OS.File</a> API для записи логов с лучшей производительностью (Gecko 27+) (<a href="https://github.com/Infocatcher/Console_Logger/issues/1">#1</a>).<br>
