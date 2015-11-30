@@ -880,7 +880,7 @@ var consoleLoggerOptions = {
 	reset: function() {
 		var defaultOptions = this.cl.defaultOptions;
 		var moveSelection = true;
-		var origItems = Array.slice(this.items);
+		var origItems = this.visibleItems;
 		this.selectedItems.forEach(function(cli) {
 			var name = cli.name;
 			if(
@@ -907,7 +907,7 @@ var consoleLoggerOptions = {
 					nearestItem = cli;
 				}
 			}
-			this.list.selectedItem = newSelectedItem || this.list.lastChild;
+			this.list.selectedItem = newSelectedItem || nearestItem;
 		}
 		this.checkUnsaved();
 		this.updateControls();
