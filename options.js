@@ -675,7 +675,7 @@ var consoleLoggerOptions = {
 		return null;
 	},
 	getFileRoot: function(file) {
-		var root;
+		var root = file;
 		try {
 			for(var tmp = file; tmp = tmp.parent; )
 				root = tmp;
