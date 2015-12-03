@@ -339,7 +339,13 @@ var consoleLoggerOptions = {
 	},
 
 	exportHeader: "// Console Logger options\n",
-	exportedFields: ["enabled", "source", "message", "exclude"],
+	fields: {
+		enabled: "boolean",
+		source:  "string",
+		message: "string",
+		exclude: "string",
+		__proto__: null
+	},
 	requiredFields: ["source", "message"],
 	get clipboard() {
 		return this.parseOptions(this.readFromClipboard());
@@ -377,6 +383,10 @@ var consoleLoggerOptions = {
 				})
 			)
 				return null;
+			// Check type of each known field
+			for(var p in this.fields)
+				if(p in item && typeof item[p] != this.fields[p])
+					return null;
 		}
 		return options;
 	},
@@ -384,7 +394,7 @@ var consoleLoggerOptions = {
 		for(var name in options) {
 			var item = options[name];
 			for(var p in item)
-				if(this.exportedFields.indexOf(p) == -1)
+				if(!(p in this.fields))
 					delete item[p];
 		}
 		return options;
