@@ -115,7 +115,7 @@ var consoleLoggerOptions = {
 		);
 		if(singleBar) {
 			var btnBox = this.applyBtn.parentNode;
-			var w = btnBox.boxObject.width;
+			var w = !isStartup && btnBox.boxObject.width;
 			btnBox.insertBefore(btnsPanel, btnBox.firstChild);
 			for(var spacer = btnsPanel.nextSibling; spacer; spacer = spacer.nextSibling) {
 				if(spacer.localName == "spacer") {
@@ -123,9 +123,11 @@ var consoleLoggerOptions = {
 					break;
 				}
 			}
-			var ovr = btnBox.boxObject.width - w;
-			if(ovr > 0 && !isStartup)
-				window.resizeBy(ovr, 0);
+			if(!isStartup) {
+				var ovr = btnBox.boxObject.width - w;
+				if(ovr > 0)
+					window.resizeBy(ovr, 0);
+			}
 		}
 		else {
 			var list = this.list;
