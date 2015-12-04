@@ -31,9 +31,14 @@
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
 <!ENTITY cl.name "Название:">
+<!ENTITY cl.nameTip "Имя настройки, только ASCII символы">
 <!ENTITY cl.sourcePattern "Шаблон источника:">
+<!ENTITY cl.sourcePatternTip "Проверяет URI источника ошибок и предупреждений&cl.regExpTip;">
 <!ENTITY cl.messagePattern "Шаблон сообщения:">
+<!ENTITY cl.messagePatternTip "Проверяет текст сообщения, только для простых сообщений&cl.regExpTip;">
 <!ENTITY cl.excludePattern "Шаблон исключения:">
+<!ENTITY cl.excludePatternTip "Проверяет текст сообщения (и исключает при совпадении), для всех сообщений, ошибок и предупреждений&cl.regExpTip;">
+<!ENTITY cl.regExpTip " (регулярное выражение, без учёта регистра)">
 <!ENTITY cl.log "Лог">
 <!ENTITY cl.logs "Лог ($S)">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">

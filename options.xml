@@ -13,7 +13,7 @@
 				</xul:columns>
 				<xul:rows>
 					<xul:row align="center" class="cl-row-main">
-						<xul:label value="&cl.name;" />
+						<xul:label value="&cl.name;" tooltiptext="&cl.nameTip;" />
 						<xul:hbox align="center">
 							<xul:textbox anonid="name" flex="1" />
 							<xul:button anonid="open" class="cl-small" disabled="true" label="&cl.log;"
@@ -22,15 +22,15 @@
 						</xul:hbox>
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label value="&cl.sourcePattern;" />
+						<xul:label value="&cl.sourcePattern;" tooltiptext="&cl.sourcePatternTip;" />
 						<xul:textbox anonid="source" flex="1" />
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label value="&cl.messagePattern;" />
+						<xul:label value="&cl.messagePattern;" tooltiptext="&cl.messagePatternTip;" />
 						<xul:textbox anonid="message" flex="1" />
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label value="&cl.excludePattern;" />
+						<xul:label value="&cl.excludePattern;" tooltiptext="&cl.excludePatternTip;" />
 						<xul:textbox anonid="exclude" flex="1" />
 					</xul:row>
 				</xul:rows>
