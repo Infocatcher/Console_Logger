@@ -18,10 +18,10 @@
 #consoleLoggerOptions[cl_disabled] #cl-list .cl-enabled {
 	opacity: 0.68;
 }
-.cl-list-item[cl_disabled] textbox {
+.cl-list-item[cl_disabled] .cl-textbox {
 	color: grayText;
 }
-.cl-list-item[cl_disabled] row > label {
+.cl-list-item[cl_disabled] .cl-label {
 	opacity: 0.68;
 }
 button.cl-small {
