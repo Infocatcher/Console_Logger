@@ -18,7 +18,8 @@
 							<xul:textbox anonid="name" flex="1" />
 							<xul:button anonid="open" class="cl-small" disabled="true" label="&cl.log;"
 								oncommand="document.getBindingParent(this).open();" />
-							<xul:checkbox anonid="enabled" class="cl-enabled" label="&cl.enabled;" />
+							<xul:checkbox anonid="enabled" class="cl-enabled" label="&cl.enabled;"
+								oncommand="document.getBindingParent(this).updateState();" />
 						</xul:hbox>
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
@@ -78,7 +79,7 @@
 				onset="this.getItem('name').value = val;" />
 			<property name="enabled"
 				onget="return this.getItem('enabled').checked;"
-				onset="this.getItem('enabled').checked = val;" />
+				onset="this.getItem('enabled').checked = val; this.updateState();" />
 			<property name="locked"
 				onget="return this.getItem('name').disabled;"
 				onset="this.getItem('name').disabled = val;" />
@@ -120,9 +121,18 @@
 						}
 					}
 					this.locked = "locked" in state && state.locked;
+					this.updateState();
 				]]>
 				</setter>
 			</property>
+			<method name="updateState">
+				<body>
+					if(this.enabled)
+						this.removeAttribute("cl_disabled");
+					else
+						this.setAttribute("cl_disabled", "true");
+				</body>
+			</method>
 			<method name="focusItem">
 				<parameter name="itemName" />
 				<body>
