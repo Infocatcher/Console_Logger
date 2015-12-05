@@ -31,7 +31,7 @@
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
 <!ENTITY cl.name "Название:">
-<!ENTITY cl.nameTip "Имя настройки, только ASCII символы">
+<!ENTITY cl.nameTip "Имя настройки (и имя лог-файла), только ASCII символы">
 <!ENTITY cl.sourcePattern "Шаблон источника:">
 <!ENTITY cl.sourcePatternTip "Проверяет URI источника ошибок и предупреждений&cl.regExpTip;">
 <!ENTITY cl.messagePattern "Шаблон сообщения:">
