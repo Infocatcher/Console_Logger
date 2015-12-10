@@ -24,9 +24,6 @@
 .cl-list-item[cl_disabled] .cl-label {
 	opacity: 0.68;
 }
-button.cl-small {
-	min-width: 4.8em;
-}
 .cl-small,
 .cl-small > .button-box,
 .cl-small > .button-box > .button-text {
