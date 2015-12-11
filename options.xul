@@ -123,6 +123,7 @@
 		<key id="cl-key-importOvr" key="I" modifiers="accel,alt" oncommand="consoleLoggerOptions.importFromFile(true);" />
 		<key id="cl-key-selectAll" key="A" modifiers="accel,shift" oncommand="consoleLoggerOptions.list.selectAll();" />
 		<key id="cl-key-selectAll2" key="A" modifiers="accel" oncommand="consoleLoggerOptions.list.selectAll();" />
+		<key id="cl-key-invertSelection" key="*" modifiers="control" oncommand="consoleLoggerOptions.list.invertSelection();" />
 		<key id="cl-key-search" key="F" modifiers="accel" oncommand="consoleLoggerOptions.filter.focus();" />
 		<key id="cl-key-toggleCompact" key="M" modifiers="accel" oncommand="consoleLoggerOptions.toggleCompactMode();" />
 		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
