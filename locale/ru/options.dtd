@@ -30,6 +30,7 @@
 <!ENTITY cl.jsonFiles "JSON файлы">
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
+<!ENTITY cl.invertSelection "Инвертировать выделение">
 <!ENTITY cl.name "Название:">
 <!ENTITY cl.nameTip "Имя настройки (и имя лог-файла), только ASCII символы">
 <!ENTITY cl.sourcePattern "Шаблон источника:">

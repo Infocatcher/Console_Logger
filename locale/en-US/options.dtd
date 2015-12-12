@@ -30,6 +30,7 @@
 <!ENTITY cl.jsonFiles "JSON Files">
 <!ENTITY cl.enabled "Enabled">
 <!ENTITY cl.selectAll "Select All">
+<!ENTITY cl.invertSelection "Invert Selection">
 <!ENTITY cl.name "Name:">
 <!ENTITY cl.nameTip "Preference name (and name of log file), only ASCII characters">
 <!ENTITY cl.sourcePattern "Source pattern:">

@@ -92,6 +92,7 @@
 		<menuitem id="cl-mi-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
 		<menuseparator id="cl-sep-beforeSelectAll" />
 		<menuitem id="cl-mi-selectAll" key="cl-key-selectAll" label="&cl.selectAll;" oncommand="consoleLoggerOptions.list.selectAll();" />
+		<menuitem id="cl-mi-invertSelection" key="cl-key-invertSelection" label="&cl.invertSelection;" oncommand="consoleLoggerOptions.list.invertSelection();" />
 	</menupopup>
 	<keyset>
 		<key id="cl-key-add" keycode="VK_INSERT" oncommand="consoleLoggerOptions.add();" />
