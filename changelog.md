@@ -19,6 +19,7 @@
 `*` Options window: improved compact mode: select items only after releasing of left mouse button (<em>extensions.consoleLogger.options.compact.clickToSelect</em> preference).<br>
 `x` Options window: prevent saving of two items with the same name.<br>
 `*` Options window: “Export All” will export only visible items, if used filter.<br>
+`+` Options window: added menu item (and Ctrl+* hotkey) to invert selection.<br>
 `*` Options window: small UI enhancements.<br>
 
 ##### 0.2.0pre (2014-08-06)
