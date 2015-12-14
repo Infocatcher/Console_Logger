@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
 `+` Options window: added F11 hotkey to toggle full screen mode.<br>
 `x` Fixed options in tab in Firefox 3.0 and older.<br>
