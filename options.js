@@ -367,7 +367,7 @@ var consoleLoggerOptions = {
 	stringifyOptions: function(options) {
 		this.cleanupOptions(options);
 		var data = JSON.stringify(options, null, "\t");
-		return this.cl.fixBr(this.exportHeader + data);
+		return this.cl.io.fixBr(this.exportHeader + data);
 	},
 	validateOptions: function(options) {
 		if(!options || typeof options != "object")
@@ -487,7 +487,7 @@ var consoleLoggerOptions = {
 		var fileName = "consoleLogger";
 		if(modeSave) {
 			fileName += name
-				? "_" + this.cl.safeFileName(name)
+				? "_" + this.cl.io.safeFileName(name)
 					.replace(/\s/g, "_")
 				: "_options";
 			fileName += new Date().toLocaleFormat("_%Y-%m-%d_%H-%M");
@@ -612,7 +612,7 @@ var consoleLoggerOptions = {
 	getLogFile: function(name) {
 		if(!name)
 			return null;
-		var file = this.cl.getFile(name);
+		var file = this.cl.io.getFile(name);
 		if(!file.exists())
 			return null;
 		return file;
@@ -641,7 +641,7 @@ var consoleLoggerOptions = {
 		file.launch();
 	},
 	logFileExists: function(name, callback, context) {
-		var file = this.cl.getFile(name);
+		var file = this.cl.io.getFile(name);
 		if(platformVersion < 19) {
 			callback.call(context, file.exists());
 			return;

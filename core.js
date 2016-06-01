@@ -9,7 +9,7 @@ var consoleLoggerCore = {
 				for(var key in patterns) {
 					if(patterns[key].test(msgSource)) {
 						if(!this.exclude(msg.errorMessage, key))
-							this.cl.writeMessage(msg, key);
+							this.cl.io.writeMessage(msg, key);
 						break;
 					}
 				}
@@ -20,7 +20,7 @@ var consoleLoggerCore = {
 				for(var key in patterns) {
 					if(patterns[key].test(msgText)) {
 						if(!this.exclude(msgText, key))
-							this.cl.writeStringMessage(msg, key);
+							this.cl.io.writeStringMessage(msg, key);
 						break;
 					}
 				}
@@ -35,7 +35,7 @@ var consoleLoggerCore = {
 				if(patterns[key].test(msgSource)) {
 					var msgText = Array.map(msg.arguments || [], String).join("\n");
 					if(!this.exclude(msgText, key))
-						this.cl.writeObjectMessage(msg, msgText, key);
+						this.cl.io.writeObjectMessage(msg, msgText, key);
 					break;
 				}
 			}
