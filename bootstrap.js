@@ -84,16 +84,16 @@ var consoleLogger = {
 			Services.obs.addObserver(this, "sessionstore-windows-restored", false);
 			Services.obs.addObserver(this, "sessionstore-browser-state-restored", false);
 		}
-		else if(reason == APP_STARTUP) {
+		else if(reason == APP_STARTUP && prefs.get("options.restoreWindow")) {
 			Services.obs.addObserver({ // Wait for first opened window
-				context: this,
+				cl: this,
 				observe: function(subject, topic, data) {
 					subject.addEventListener("load", this, false);
 				},
 				handleEvent: function(e) {
 					e.currentTarget.removeEventListener("load", this, false);
 					Services.obs.removeObserver(this, "domwindowopened");
-					delay(this.context.mayRestoreOptions, this.context);
+					delay(this.cl.mayRestoreOptions, this.cl);
 				}
 			}, "domwindowopened", false);
 		}
