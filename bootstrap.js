@@ -216,31 +216,23 @@ var consoleLogger = {
 		return this.canUseSessions = this.ss && "setGlobalValue" in this.ss; // Firefox 28+
 	},
 	setSessionState: function(key, val) {
-		var ss = this.ss;
 		if(!this.canUseSessions) {
+			var pn = this.ssPref + key;
 			if(val)
-				prefs.set(this.ssPref + key, val);
-			else {
-				var pref = prefs.ns + this.ssPref + key;
-				if(Services.prefs.prefHasUserValue(pref))
-					Services.prefs.clearUserPref(pref);
-			}
+				prefs.set(pn, val);
+			else if(Services.prefs.prefHasUserValue(prefs.ns + pn))
+				Services.prefs.clearUserPref(prefs.ns + pn);
 			return;
 		}
-		if(val) {
-			if(val === true)
-				val = 1;
-			ss.setGlobalValue(this.ssPrefix + key, "" + val);
-		}
-		else {
-			ss.deleteGlobalValue(this.ssPrefix + key);
-		}
+		if(val)
+			this.ss.setGlobalValue(this.ssPrefix + key, "" + (val === true ? 1 : val));
+		else
+			this.ss.deleteGlobalValue(this.ssPrefix + key);
 	},
 	getSessionState: function(key) {
-		var ss = this.ss;
 		if(!this.canUseSessions)
 			return prefs.get(this.ssPref + key);
-		return ss.getGlobalValue(this.ssPrefix + key);
+		return this.ss.getGlobalValue(this.ssPrefix + key);
 	},
 	mayRestoreOptions: function() {
 		if(prefs.get("options.restoreWindow") && this.getSessionState("optionsOpened"))
