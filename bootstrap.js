@@ -117,6 +117,11 @@ var consoleLogger = {
 		}
 		prefs.destroy();
 
+		if("consoleLoggerCore" in global)
+			this.core.cl = null;
+		if("consoleLoggerIO" in global)
+			this.io.cl = null;
+
 		var isUpdate = reason == ADDON_UPGRADE || reason == ADDON_DOWNGRADE;
 		function closeOptions(window) {
 			var loc = window.location.href;
