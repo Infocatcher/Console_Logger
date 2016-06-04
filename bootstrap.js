@@ -125,34 +125,34 @@ var consoleLogger = {
 		var isUpdate = reason == ADDON_UPGRADE || reason == ADDON_DOWNGRADE;
 		function closeOptions(window) {
 			var loc = window.location.href;
-			if(loc.substr(0, 23) == "chrome://consolelogger/") {
-				if(!isUpdate)
-					window.close();
-				else {
-					window.location.replace("about:blank");
-					window.stop();
-					var stopWait = Date.now() + 3e3;
-					window.setTimeout(function reload(w) {
-						try { // Trick: wait for chrome package registration
-							var locale = Components.classes["@mozilla.org/chrome/chrome-registry;1"]
-								.getService(Components.interfaces.nsIXULChromeRegistry)
-								.getSelectedLocale("consolelogger");
-							if(/^\w/.test(locale)) {
-								w.location.replace(loc);
-								return;
-							}
-						}
-						catch(e) {
-						}
-						if(Date.now() > stopWait)
-							w.close();
-						else
-							w.setTimeout(reload, 10, w);
-					}, 50, window);
-				}
+			if(loc.substr(0, 23) != "chrome://consolelogger/") {
+				Array.slice(window.frames).forEach(closeOptions);
 				return;
 			}
-			Array.slice(window.frames).forEach(closeOptions);
+			if(!isUpdate) {
+				window.close();
+				return;
+			}
+			window.location.replace("about:blank");
+			window.stop();
+			var stopWait = Date.now() + 3e3;
+			window.setTimeout(function reload(w) {
+				try { // Trick: wait for chrome package registration
+					var locale = Components.classes["@mozilla.org/chrome/chrome-registry;1"]
+						.getService(Components.interfaces.nsIXULChromeRegistry)
+						.getSelectedLocale("consolelogger");
+					if(/^\w/.test(locale)) {
+						w.location.replace(loc);
+						return;
+					}
+				}
+				catch(e) {
+				}
+				if(Date.now() > stopWait)
+					w.close();
+				else
+					w.setTimeout(reload, 10, w);
+			}, 50, window);
 		};
 		var windows = Services.wm.getEnumerator(null);
 		while(windows.hasMoreElements())
