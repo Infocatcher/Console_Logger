@@ -6,6 +6,8 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`*` Improved performance: now used separate files with lazy loading (<a href="https://github.com/Infocatcher/Console_Logger/issues/23">#23</a>).<br>
+
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
 `+` Options window: added F11 hotkey to toggle full screen mode.<br>
