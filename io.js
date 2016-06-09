@@ -73,11 +73,15 @@ var consoleLoggerIO = {
 	},
 
 	_files: { __proto__: null },
+	get profileDir() {
+		delete this.profileDir;
+		return this.profileDir = Services.dirsvc.get("ProfD", Components.interfaces.nsIFile);
+	},
 	getFile: function(key, name) {
 		var files = this._files;
 		if(key in files)
 			return files[key];
-		var file = Services.dirsvc.get("ProfD", Components.interfaces.nsIFile);
+		var file = this.profileDir.clone();
 		file.append(name || FILE_NAME_PREFIX + this.safeFileName(key) + ".log");
 		return files[key] = file;
 	},
