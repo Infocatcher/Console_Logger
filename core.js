@@ -107,9 +107,12 @@ var consoleLoggerCore = {
 		prefs.resetBranch(prefs.ns + "patterns." + name);
 	},
 	loadPatterns: function() {
-		var messages = { __proto__: null };
-		var sources  = { __proto__: null };
-		var excludes = { __proto__: null };
+		delete this.messages;
+		delete this.sources;
+		delete this.excludes;
+		var messages = this.messages = { __proto__: null };
+		var sources  = this.sources  = { __proto__: null };
+		var excludes = this.excludes = { __proto__: null };
 		function makePattern(out, name, item, type, flags) {
 			if(item[type]) try {
 				out[name] = new RegExp(item[type], flags);
@@ -128,14 +131,7 @@ var consoleLoggerCore = {
 			makePattern(sources,  name, item, "source",  "i");
 			makePattern(excludes, name, item, "exclude", "i");
 		}
-		delete this.messages;
-		delete this.sources;
-		delete this.excludes;
-		return {
-			messages: (this.messages = messages),
-			sources:  (this.sources  = sources),
-			excludes: (this.excludes = excludes)
-		};
+		return this;
 	},
 	exclude: function(msgText, key) {
 		var patterns = this.excludes;
