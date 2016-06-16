@@ -3,13 +3,12 @@ var consoleLoggerIO = {
 
 	writeStringMessage: function(msg, key) {
 		var timestamp = this.getTimestamp(msg);
-		this.writeToFile(
-			this.getFile(key),
+		this.writeToLogFile(
+			key,
 			timestamp + " [message]" + ":\n"
 			+ msg.message
 			+ "\n\n"
 		);
-		this.notifyUpdatedLog(key);
 	},
 	writeMessage: function(msg, key) {
 		if("nsIScriptError2" in Components.interfaces)
@@ -23,33 +22,35 @@ var consoleLoggerIO = {
 				details.push(flag);
 		});
 		var line = ":" + msg.lineNumber + (msg.columnNumber ? ":" + msg.columnNumber : "");
-		this.writeToFile(
-			this.getFile(key),
+		this.writeToLogFile(
+			key,
 			timestamp + " [" + details.join(", ") + "]" + ":\n"
 			+ msg.sourceName + line + "\n"
 			+ msg.errorMessage
 			+ (msg.sourceLine ? "\n" + msg.sourceLine : "")
 			+ "\n\n"
 		);
-		this.notifyUpdatedLog(key);
 	},
 	writeObjectMessage: function(msg, msgText, key) {
 		var timestamp = this.getTimestamp(msg);
 		var line = ":" + msg.lineNumber + (msg.columnNumber ? ":" + msg.columnNumber : "");
-		this.writeToFile(
-			this.getFile(key),
+		this.writeToLogFile(
+			key,
 			timestamp + " [Console.jsm, " + (msg.level || "unknown") + "]" + ":\n"
 			+ msg.filename + line + "\n"
 			+ msgText
 			+ "\n\n"
 		);
-		this.notifyUpdatedLog(key);
 	},
 	writeDebugMessage: function(msg) {
 		this.writeToFile(
 			this.getFile(FILE_NAME_DEBUG, FILE_NAME_DEBUG),
 			this.getTimestamp() + " " + msg + "\n"
 		);
+	},
+	writeToLogFile: function(key, data) {
+		this.writeToFile(this.getFile(key), data);
+		this.notifyUpdatedLog(key);
 	},
 	notifyUpdatedLog: function(key) {
 		this.cl._changedInSession[key] = true;
