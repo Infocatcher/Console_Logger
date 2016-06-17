@@ -664,7 +664,7 @@ var consoleLoggerOptions = {
 		var _this = this;
 		var absPath = path.replace(/%([^%]+)%/g, function(s, alias) {
 			if(alias == "cl_ProfDrv")
-				return _this.getFileRoot(this.cl.io.profileDir).path;
+				return _this.getFileRoot(_this.cl.io.profileDir).path;
 			try {
 				return Services.dirsvc.get(alias, Components.interfaces.nsIFile).path;
 			}
