@@ -678,12 +678,13 @@ var consoleLoggerOptions = {
 			.createInstance(Components.interfaces.nsILocalFile || Components.interfaces.nsIFile);
 		try {
 			file.initWithPath(absPath);
-			if(file.exists())
-				return file;
-			throw new Error("Log viewer not found:\n" + path + "\n=> " + absPath);
+			if(!file.exists())
+				throw 0;
+			return file;
 		}
 		catch(e) {
-			Components.utils.reportError(e);
+			Components.utils.reportError("Console Logger: log viewer not found:\n" + path + "\n=> " + absPath);
+			e && Components.utils.reportError(e);
 		}
 		return null;
 	},
