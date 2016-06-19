@@ -663,16 +663,7 @@ var consoleLoggerOptions = {
 			return null;
 		var _this = this;
 		var absPath = path.replace(/%([^%]+)%/g, function(s, alias) {
-			if(alias == "cl_ProfDrv")
-				return _this.getFileRoot(_this.cl.io.profileDir).path;
-			try {
-				return Services.dirsvc.get(alias, Components.interfaces.nsIFile).path;
-			}
-			catch(e) {
-			}
-			if(_this.env.exists(alias))
-				return _this.env.get(alias);
-			return s;
+			return _this.expandAlias(alias) || s;
 		});
 		var file = Components.classes["@mozilla.org/file/local;1"]
 			.createInstance(Components.interfaces.nsILocalFile || Components.interfaces.nsIFile);
@@ -687,6 +678,18 @@ var consoleLoggerOptions = {
 			e && Components.utils.reportError(e);
 		}
 		return null;
+	},
+	expandAlias: function(alias) {
+		if(alias == "cl_ProfDrv")
+			return this.getFileRoot(this.cl.io.profileDir).path;
+		try {
+			return Services.dirsvc.get(alias, Components.interfaces.nsIFile).path;
+		}
+		catch(e) {
+		}
+		if(this.env.exists(alias))
+			return this.env.get(alias);
+		return "";
 	},
 	getFileRoot: function(file) {
 		var root = file;
