@@ -814,6 +814,11 @@ var consoleLoggerOptions = {
 			return;
 		if(e.target == this.list)
 			this.add();
+		else if(e.target.localName == "richlistitem") {
+			var ln = e.originalTarget.localName;
+			if(ln != "div" && ln != "button" && ln != "checkbox")
+				this.open(e.target);
+		}
 	},
 	get enabled() {
 		return this.$("cl-enabled").checked;
