@@ -45,7 +45,7 @@
 	</hbox>
 	<richlistbox id="cl-list" seltype="multiple" flex="1" context="cl-mp-context"
 		onselect="consoleLoggerOptions.updateControls();"
-		ondblclick="if(event.target == this &amp;&amp; event.button == 0) consoleLoggerOptions.add();"
+		ondblclick="consoleLoggerOptions.onListDblClick(event);"
 		onclick="if(event.target.localName == 'richlistitem' &amp;&amp; event.button == 1) consoleLoggerOptions.reset();" />
 	<hbox id="cl-buttonsPanel" align="center" pack="center">
 		<button id="cl-btn-add" cl_key="cl-key-add" icon="add" label="&cl.add;" oncommand="consoleLoggerOptions.add();" />

@@ -809,6 +809,12 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
 	},
+	onListDblClick: function(e) {
+		if(e.button != 0)
+			return;
+		if(e.target == this.list)
+			this.add();
+	},
 	get enabled() {
 		return this.$("cl-enabled").checked;
 	},
