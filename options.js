@@ -816,7 +816,10 @@ var consoleLoggerOptions = {
 			this.add();
 		else if(e.target.localName == "richlistitem") {
 			var ln = e.originalTarget.localName;
-			if(ln != "div" && ln != "button" && ln != "checkbox")
+			if(
+				ln != "div" && ln != "button" && ln != "checkbox"
+				&& prefs.get("options.doubleClickToOpen")
+			)
 				this.open(e.target);
 		}
 	},
