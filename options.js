@@ -484,7 +484,8 @@ var consoleLoggerOptions = {
 		var fp = Components.classes["@mozilla.org/filepicker;1"]
 			.createInstance(this.fp);
 		var modeSave = mode == fp.modeSave;
-		var fileName = "consoleLogger";
+		var baseName = "consoleLogger";
+		var fileName = baseName;
 		if(modeSave) {
 			fileName += name
 				? "_" + this.cl.io.safeFileName(name)
@@ -494,7 +495,7 @@ var consoleLoggerOptions = {
 		}
 		fp.defaultString = fileName + ".json";
 		fp.defaultExtension = "json";
-		fp.appendFilter(strings.optionsFiles, "consoleLogger*.json");
+		fp.appendFilter(strings.optionsFiles, baseName + "*.json");
 		fp.appendFilter(strings.jsonFiles, "*.json");
 		fp.appendFilters(fp.filterAll);
 		var exportDir = this.exportDir;
