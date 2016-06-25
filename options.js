@@ -482,7 +482,7 @@ var consoleLoggerOptions = {
 	fp: Components.interfaces.nsIFilePicker,
 	pickOptionsFile: function(mode, callback, context, name) {
 		var fp = Components.classes["@mozilla.org/filepicker;1"]
-			.createInstance(Components.interfaces.nsIFilePicker);
+			.createInstance(this.fp);
 		var modeSave = mode == fp.modeSave;
 		var fileName = "consoleLogger";
 		if(modeSave) {
