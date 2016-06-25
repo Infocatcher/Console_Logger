@@ -27,7 +27,7 @@
 <!ENTITY cl.importTitle "&cl.selfName;: Импорт настроек из файла">
 <!ENTITY cl.errorTitle "&cl.selfName;: Ошибка!">
 <!ENTITY cl.optionsFiles "Настройки &cl.selfName;">
-<!ENTITY cl.jsonFiles "JSON файлы">
+<!ENTITY cl.jsonFiles "JSON-файлы">
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
 <!ENTITY cl.invertSelection "Инвертировать выделение">
