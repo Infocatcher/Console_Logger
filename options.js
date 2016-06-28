@@ -90,7 +90,7 @@ var consoleLoggerOptions = {
 			+ parseFloat(cs["padding" + right])
 			+ "px";
 
-		this.timer(this.setKeysDesc, this);
+		delay(this.setKeysDesc, this);
 	},
 	updateUIFromPrefs: function() {
 		this.placeButtonsBar();
@@ -173,14 +173,14 @@ var consoleLoggerOptions = {
 
 	observe: function(subject, topic, data) {
 		if(topic == "consoleLogger-logUpdated") {
-			this.timer(function() {
+			delay(function() {
 				this.getItemsByName(data).forEach(function(cli) {
 					cli.markAsUpdated();
 				});
 			}, this);
 		}
 		else if(topic == "nsPref:changed") {
-			this.timer(this.updateUIFromPrefs, this); // Wait for observer from bootstrap.js
+			delay(this.updateUIFromPrefs, this); // Wait for observer from bootstrap.js
 		}
 	},
 
@@ -270,7 +270,7 @@ var consoleLoggerOptions = {
 		this.list.appendChild(cli);
 		if(state) {
 			cli.state = state;
-			this.timer(function() { // Pseudo async
+			delay(function() { // Pseudo async
 				var name = state.name;
 				this.logFileExists(name, function(exists) {
 					cli.canOpen = exists;
@@ -336,7 +336,7 @@ var consoleLoggerOptions = {
 		return !hasInvalid;
 	},
 	validateFieldsAsync: function() {
-		this.timer(this.validateFields, this);
+		delay(this.validateFields, this);
 	},
 
 	exportHeader: "// Console Logger options\n",
@@ -755,7 +755,7 @@ var consoleLoggerOptions = {
 		this.$("cl-btn-reset").disabled = cantReset;
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
-		this.timer(function() {
+		delay(function() {
 			var noVisible = isEmpty || !this.visibleItems.length;
 			var miRemove = this.$("cl-mi-remove");
 			var miReset = this.$("cl-mi-reset");
@@ -1033,7 +1033,7 @@ var consoleLoggerOptions = {
 			this.filter.setAttribute("cl-notFound", "true");
 		else
 			this.filter.removeAttribute("cl-notFound");
-		this.timer(this.updateControls, this);
+		delay(this.updateControls, this);
 	},
 	_notifyFilterTimer: 0,
 	updateFilter: function(notifyTimes) {
