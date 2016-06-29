@@ -187,11 +187,6 @@ var consoleLoggerOptions = {
 	$: function(id) {
 		return document.getElementById(id);
 	},
-	timer: function(fn, context, delay) {
-		return setTimeout(function() {
-			fn.call(context);
-		}, delay || 0);
-	},
 	get options() {
 		var options = { __proto__: null };
 		this.items.forEach(function(cli) {
@@ -732,7 +727,9 @@ var consoleLoggerOptions = {
 	_checkUnsavedTimer: 0,
 	checkUnsaved: function() {
 		clearTimeout(this._checkUnsavedTimer);
-		this._checkUnsavedTimer = this.timer(this._checkUnsaved, this, 15);
+		this._checkUnsavedTimer = setTimeout(function(_this) {
+			_this._checkUnsaved();
+		}, 15, this);
 	},
 	_checkUnsaved: function() {
 		this.modified = this.optionsHash != this._savedOptions
