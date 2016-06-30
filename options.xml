@@ -272,8 +272,7 @@
 					tt.setAttribute("label", message);
 					tt.setAttribute("onpopuphidden", "this.parentNode.removeChild(this);");
 					document.documentElement.appendChild(tt);
-					if(highlight)
-						nameBox.setAttribute("cl_invalidUsage", "true");
+					highlight && nameBox.setAttribute("cl_invalidUsage", "true");
 					var bo = nameBox.boxObject;
 					var x = bo.screenX;
 					var y = bo.screenY + bo.height + 2;
@@ -286,10 +285,8 @@
 					else
 						tt.showPopup(nameBox, x, y, "tooltip", null, null);
 					setTimeout(function() {
-						if(highlight)
-							nameBox.removeAttribute("cl_invalidUsage");
-						if(tt.parentNode)
-							tt.hidePopup();
+						highlight && nameBox.removeAttribute("cl_invalidUsage");
+						tt.parentNode && tt.hidePopup();
 					}, 1500);
 				</body>
 			</method>
