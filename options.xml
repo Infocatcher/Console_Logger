@@ -266,6 +266,7 @@
 				<parameter name="message" />
 				<parameter name="highlight" />
 				<body>
+				<![CDATA[
 					var tt = document.createElement("tooltip");
 					tt.className = "cl-tip";
 					tt.style.margin = 0;
@@ -288,6 +289,7 @@
 						highlight && nameBox.removeAttribute("cl_invalidUsage");
 						tt.parentNode && tt.hidePopup();
 					}, 1500);
+				]]>
 				</body>
 			</method>
 			<method name="open">
