@@ -25,6 +25,8 @@
 			selfName:     "&cl.selfName;",
 			emptyName:    "&cl.emptyName;",
 			nameUsed:     "&cl.nameUsed;",
+			dateTipTmpl:  "&cl.dateTipTmpl;",
+			day:          "&cl.day;",
 			exportTitle:  "&cl.exportTitle;",
 			importTitle:  "&cl.importTitle;",
 			errorTitle:   "&cl.errorTitle;",

@@ -42,6 +42,8 @@
 <!ENTITY cl.regExpTip " (regular expression, case insensitive)">
 <!ENTITY cl.log "Log">
 <!ENTITY cl.logs "Log ($S)">
+<!ENTITY cl.dateTipTmpl "$ago ago, \n$date">
+<!ENTITY cl.day "d">
 <!ENTITY cl.onlyASCII "Allowed only ASCII characters!">
 <!ENTITY cl.emptyName "Empty name">
 <!ENTITY cl.nameUsed "Name already used">

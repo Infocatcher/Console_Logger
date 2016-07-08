@@ -42,6 +42,8 @@
 <!ENTITY cl.regExpTip " (регулярное выражение, без учёта регистра)">
 <!ENTITY cl.log "Лог">
 <!ENTITY cl.logs "Лог ($S)">
+<!ENTITY cl.dateTipTmpl "$ago назад, \n$date">
+<!ENTITY cl.day "д">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">
 <!ENTITY cl.emptyName "Пустое название">
 <!ENTITY cl.nameUsed "Название уже используется">

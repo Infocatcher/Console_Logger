@@ -676,8 +676,8 @@ var consoleLoggerOptions = {
 			.toLocaleFormat("%H:%M")
 			.replace(/^0/, "");
 		if(d)
-			ts = d + "d" + " " + ts;
-		return "$ago ago, \n$date"
+			ts = d + strings.day + " " + ts;
+		return strings.dateTipTmpl
 			.replace("$ago", ts)
 			.replace("$date", date.toLocaleString());
 	},
