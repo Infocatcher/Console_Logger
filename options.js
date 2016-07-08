@@ -649,6 +649,28 @@ var consoleLoggerOptions = {
 			this.onError
 		);
 	},
+	getLogFileTip: function(name, callback, context) {
+		this.getLogFileDate(name, function(date) {
+			var tip = date ? new Date(date).toLocaleString() : "";
+			callback.call(context, tip);
+		}, this);
+	},
+	getLogFileDate: function(name, callback, context) {
+		var file = this.cl.io.getFile(name);
+		if(platformVersion < 19) {
+			callback.call(context, file.exists() && file.lastModifiedTime);
+			return;
+		}
+		OS.File.stat(file.path).then(
+			function onSuccess(info) {
+				callback.call(context, info.lastModificationDate);
+			},
+			function onFailure(reason) {
+				if(!(reason instanceof OS.File.Error && reason.becauseNoSuchFile))
+					this.onError(reason);
+			}.bind(this)
+		);
+	},
 	get env() {
 		delete this.env;
 		return this.env = Components.classes["@mozilla.org/process/environment;1"]

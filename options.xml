@@ -17,7 +17,12 @@
 						<xul:hbox align="center">
 							<xul:textbox anonid="name" class="cl-textbox" flex="1" />
 							<xul:button anonid="open" class="cl-small" disabled="true" label="&cl.log;"
-								oncommand="document.getBindingParent(this).open();" />
+								oncommand="document.getBindingParent(this).open();"
+								onmouseover="
+									if(!this.disabled)
+										document.getBindingParent(this).updateLogTip();
+									this.setAttribute('onmouseover', '// Force remove');
+									this.removeAttribute('onmouseover');" />
 							<xul:checkbox anonid="enabled" class="cl-enabled" label="&cl.enabled;"
 								oncommand="document.getBindingParent(this).updateState();" />
 						</xul:hbox>
@@ -297,6 +302,22 @@
 					consoleLoggerOptions.open(this);
 				</body>
 			</method>
+			<method name="updateLogTip">
+				<body>
+					consoleLoggerOptions.getLogFileTip(this.name, function(tip) {
+						this.getItem("open").tooltipText = tip;
+					}, this);
+				</body>
+			</method>
+			<field name="_updateLogTipTimer">0</field>
+			<method name="updateLogTipDelayed">
+				<body>
+					clearTimeout(this._updateLogTipTimer);
+					this._updateLogTipTimer = setTimeout(function(_this) {
+						_this.updateLogTip();
+					}, 200, this);
+				</body>
+			</method>
 			<field name="_changes">0</field>
 			<method name="markAsUpdated">
 				<body>
@@ -306,6 +327,7 @@
 					}
 					++this._changes;
 					this.updateChangesCounter();
+					this.updateLogTipDelayed();
 				</body>
 			</method>
 			<method name="markAsRead">
