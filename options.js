@@ -829,11 +829,15 @@ var consoleLoggerOptions = {
 			toggler.removeAttribute("cl_intermediate");
 		toggler.setAttribute("disabled", hasEnabled === undefined);
 		var logFileExists = this.selectedItems.some(function(cli) {
-			var hasLogFile = !!this.getLogFile(cli.name);
-			setTimeout(function() { // User may remove *.log file manually...
-				if(cli.canOpen != hasLogFile)
-					cli.canOpen = hasLogFile;
-			}, 0);
+			var hasLogFile = cli.canOpen; // Take fast check
+			delay(function() { // And check for real state after small delay
+				this.logFileExists(cli.name, function(exists) {
+					if(exists == canOpen)
+						return;
+					cli.canOpen = exists;
+					this.updateContextMenu(); // Just re-update
+				}, this);
+			}, this);
 			return hasLogFile;
 		}, this);
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
