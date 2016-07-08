@@ -649,12 +649,6 @@ var consoleLoggerOptions = {
 			this.onError
 		);
 	},
-	getLogFileTip: function(name, callback, context) {
-		this.getLogFileDate(name, function(date) {
-			var tip = date ? new Date(date).toLocaleString() : "";
-			callback.call(context, tip);
-		}, this);
-	},
 	getLogFileDate: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
 		if(platformVersion < 19) {
@@ -670,6 +664,22 @@ var consoleLoggerOptions = {
 					this.onError(reason);
 			}.bind(this)
 		);
+	},
+	formatDate: function(date) {
+		if(!date)
+			return "";
+		date = new Date(date);
+		var dt = Math.round(Math.max(0, Date.now() - date)/1000);
+		var d = Math.floor(dt/24/3600);
+		dt -= d*24*3600;
+		var ts = new Date((dt + new Date(dt).getTimezoneOffset()*60)*1000)
+			.toLocaleFormat("%H:%M")
+			.replace(/^0/, "");
+		if(d)
+			ts = d + "d" + " " + ts;
+		return "$ago ago, \n$date"
+			.replace("$ago", ts)
+			.replace("$date", date.toLocaleString());
 	},
 	get env() {
 		delete this.env;

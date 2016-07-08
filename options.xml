@@ -18,11 +18,7 @@
 							<xul:textbox anonid="name" class="cl-textbox" flex="1" />
 							<xul:button anonid="open" class="cl-small" disabled="true" label="&cl.log;"
 								oncommand="document.getBindingParent(this).open();"
-								onmouseover="
-									if(!this.disabled)
-										document.getBindingParent(this).updateLogTip();
-									this.setAttribute('onmouseover', '// Force remove');
-									this.removeAttribute('onmouseover');" />
+								onmouseover="if(!this.disabled) document.getBindingParent(this).updateLogTip();" />
 							<xul:checkbox anonid="enabled" class="cl-enabled" label="&cl.enabled;"
 								oncommand="document.getBindingParent(this).updateState();" />
 						</xul:hbox>
@@ -303,18 +299,37 @@
 				</body>
 			</method>
 			<method name="updateLogTip">
+				<parameter name="force" />
 				<body>
-					consoleLoggerOptions.getLogFileTip(this.name, function(tip) {
-						this.getItem("open").tooltipText = tip;
-					}, this);
+				<![CDATA[
+					var date = !force && this._logDate || 0;
+					if(date) // Will use cached value
+						this.setLogTip(date);
+					else {
+						consoleLoggerOptions.getLogFileDate(this.name, function(date) {
+							this._logDate = date;
+							this.setLogTip(date);
+						}, this);
+					}
+				]]>
+				</body>
+			</method>
+			<method name="setLogTip">
+				<parameter name="date" />
+				<body>
+					var tip = consoleLoggerOptions.formatDate(date);
+					var btn = this.getItem("open");
+					if(btn.tooltipText != tip)
+						btn.tooltipText = tip;
 				</body>
 			</method>
 			<field name="_updateLogTipTimer">0</field>
 			<method name="updateLogTipDelayed">
+				<parameter name="force" />
 				<body>
 					clearTimeout(this._updateLogTipTimer);
 					this._updateLogTipTimer = setTimeout(function(_this) {
-						_this.updateLogTip();
+						_this.updateLogTip(force);
 					}, 200, this);
 				</body>
 			</method>
@@ -327,7 +342,7 @@
 					}
 					++this._changes;
 					this.updateChangesCounter();
-					this.updateLogTipDelayed();
+					this.updateLogTipDelayed(true);
 				</body>
 			</method>
 			<method name="markAsRead">
