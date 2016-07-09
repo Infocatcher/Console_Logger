@@ -643,7 +643,7 @@ var consoleLoggerOptions = {
 				callback.call(context, exists);
 			},
 			this.onError
-		);
+		).then(null, this.onError);
 	},
 	getLogFileDate: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
@@ -659,7 +659,7 @@ var consoleLoggerOptions = {
 				if(!(reason instanceof OS.File.Error && reason.becauseNoSuchFile))
 					this.onError(reason);
 			}.bind(this)
-		);
+		).then(null, this.onError);
 	},
 	formatDate: function(date) {
 		if(!date)
