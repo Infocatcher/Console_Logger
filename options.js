@@ -606,12 +606,8 @@ var consoleLoggerOptions = {
 	},
 
 	getLogFile: function(name) {
-		if(!name)
-			return null;
-		var file = this.cl.io.getFile(name);
-		if(!file.exists())
-			return null;
-		return file;
+		var file = name && this.cl.io.getFile(name);
+		return file && file.exists() ? file : null;
 	},
 	openLogFile: function(name) {
 		var file = this.getLogFile(name);
