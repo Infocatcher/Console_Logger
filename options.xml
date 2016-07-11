@@ -66,6 +66,7 @@
 						this.validateName(event);
 				</body>
 			</method>
+			<field name="clo">consoleLoggerOptions</field>
 			<field name="params">["name", "enabled", "source", "message", "exclude"]</field>
 			<method name="getItem">
 				<parameter name="anonId" />
@@ -295,7 +296,7 @@
 			</method>
 			<method name="open">
 				<body>
-					consoleLoggerOptions.open(this);
+					this.clo.open(this);
 				</body>
 			</method>
 			<method name="updateLogTip">
@@ -306,7 +307,7 @@
 					if(date) // Will use cached value
 						this.setLogTip(date);
 					else {
-						consoleLoggerOptions.getLogFileDate(this.name, function(date) {
+						this.clo.getLogFileDate(this.name, function(date) {
 							this._logDate = date;
 							this.setLogTip(date);
 						}, this);
@@ -317,7 +318,7 @@
 			<method name="setLogTip">
 				<parameter name="date" />
 				<body>
-					var tip = consoleLoggerOptions.formatDate(date);
+					var tip = this.clo.formatDate(date);
 					var btn = this.getItem("open");
 					if(btn.tooltipText != tip)
 						btn.tooltipText = tip;
