@@ -647,7 +647,7 @@ var consoleLoggerOptions = {
 	},
 	getLogFileDate: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
-		if(platformVersion < 19) {
+		if(platformVersion < 24) {
 			callback.call(context, file.exists() && file.lastModifiedTime);
 			return;
 		}
