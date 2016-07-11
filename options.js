@@ -828,7 +828,7 @@ var consoleLoggerOptions = {
 			var hasLogFile = cli.canOpen; // Take fast check
 			delay(function() { // And check for real state after small delay
 				this.logFileExists(cli.name, function(exists) {
-					if(exists == canOpen)
+					if(exists == hasLogFile)
 						return;
 					cli.canOpen = exists;
 					this.updateContextMenu(); // Just re-update
