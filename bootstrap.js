@@ -356,13 +356,13 @@ var prefs = {
 	}
 };
 
-function delay(callback, context) {
+function delay(callback, context, args) {
 	if(platformVersion <= 1.8) { // Firefox 2 and older
-		delay = function(callback, context) {
+		delay = function(callback, context, args) {
 			var timer = Components.classes["@mozilla.org/timer;1"]
 				.createInstance(Components.interfaces.nsITimer);
 			timer.init({observe: function(subject, topic, data) {
-				callback.call(context);
+				callback.apply(context, args);
 			}}, 0, timer.TYPE_ONE_SHOT);
 		};
 		delay.apply(this, arguments);
@@ -370,10 +370,10 @@ function delay(callback, context) {
 	}
 	var tm = Services.tm;
 	var DISPATCH_NORMAL = Components.interfaces.nsIThread.DISPATCH_NORMAL;
-	delay = function(callback, context) {
+	delay = function(callback, context, args) {
 		// Note: dispatch(function() { ... }) works only in Firefox 4+
 		tm.mainThread.dispatch({run: function() {
-			callback.call(context);
+			callback.apply(context, args);
 		}}, DISPATCH_NORMAL);
 	}
 	delay.apply(this, arguments);

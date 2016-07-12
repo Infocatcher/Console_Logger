@@ -265,12 +265,10 @@ var consoleLoggerOptions = {
 		this.list.appendChild(cli);
 		if(state) {
 			cli.state = state;
-			delay(function() { // Pseudo async
-				var name = state.name;
-				this.logFileExists(name, function(exists) {
-					cli.canOpen = exists;
-					cli.isOldChanges = !(name in this.cl._changedInSession);
-				}, this);
+			var name = state.name;
+			this.logFileExists(name, function(exists) {
+				cli.canOpen = exists;
+				cli.isOldChanges = !(name in this.cl._changedInSession);
 			}, this);
 		}
 		return cli;
@@ -632,7 +630,10 @@ var consoleLoggerOptions = {
 			file instanceof Components.interfaces.nsILocalFile;
 		file.launch();
 	},
-	logFileExists: function(name, callback, context) {
+	logFileExists: function() {
+		delay(this._logFileExists, this, arguments);
+	},
+	_logFileExists: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
 		if(platformVersion < 19) {
 			callback.call(context, file.exists());
@@ -645,7 +646,10 @@ var consoleLoggerOptions = {
 			this.onError
 		).then(null, this.onError);
 	},
-	getLogFileDate: function(name, callback, context) {
+	getLogFileDate: function() {
+		delay(this._getLogFileDate, this, arguments);
+	},
+	_getLogFileDate: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
 		if(platformVersion < 24) {
 			callback.call(context, file.exists() && file.lastModifiedTime);
@@ -826,13 +830,11 @@ var consoleLoggerOptions = {
 		toggler.setAttribute("disabled", hasEnabled === undefined);
 		var logFileExists = this.selectedItems.some(function(cli) {
 			var hasLogFile = cli.canOpen; // Take fast check
-			delay(function() { // And check for real state after small delay
-				this.logFileExists(cli.name, function(exists) {
-					if(exists == hasLogFile)
-						return;
-					cli.canOpen = exists;
-					this.updateContextMenu(); // Just re-update
-				}, this);
+			this.logFileExists(cli.name, function(exists) { // And take async check for real state
+				if(exists == hasLogFile)
+					return;
+				cli.canOpen = exists;
+				this.updateContextMenu(); // Just re-update
 			}, this);
 			return hasLogFile;
 		}, this);
