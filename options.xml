@@ -91,9 +91,7 @@
 			<property name="isOldChanges"
 				onget="return /(?:^|\s)cl-old(?:\s|$)/.test(this.getItem('open').className);"
 				onset="this.getItem('open').className = val ? 'cl-small cl-old' : 'cl-small';" />
-			<property name="searchLabel"
-				onget="return this.name;"
-				onset="this.name = val;" />
+			<property name="searchLabel" readonly="true" onget="return this.name;" />
 			<property name="state">
 				<getter>
 					var state = { __proto__: null };
