@@ -299,11 +299,10 @@
 					this.clo.open(this);
 				</body>
 			</method>
+			<field name="_logDate">0</field>
 			<method name="updateLogTip">
-				<parameter name="force" />
 				<body>
-				<![CDATA[
-					var date = !force && this._logDate || 0;
+					var date = this._logDate;
 					if(date) // Will use cached value
 						this.setLogTip(date);
 					else {
@@ -312,7 +311,6 @@
 							this.setLogTip(date);
 						}, this);
 					}
-				]]>
 				</body>
 			</method>
 			<method name="setLogTip">
@@ -324,16 +322,6 @@
 						btn.tooltipText = tip;
 				</body>
 			</method>
-			<field name="_updateLogTipTimer">0</field>
-			<method name="updateLogTipDelayed">
-				<parameter name="force" />
-				<body>
-					clearTimeout(this._updateLogTipTimer);
-					this._updateLogTipTimer = setTimeout(function(_this) {
-						_this.updateLogTip(force);
-					}, 200, this);
-				</body>
-			</method>
 			<field name="_changes">0</field>
 			<method name="markAsUpdated">
 				<body>
@@ -343,7 +331,7 @@
 					}
 					++this._changes;
 					this.updateChangesCounter();
-					this.updateLogTipDelayed(true);
+					this._logDate = 0;
 				</body>
 			</method>
 			<method name="markAsRead">
