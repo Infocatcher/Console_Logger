@@ -85,12 +85,26 @@
 			<property name="locked"
 				onget="return this.getItem('name').disabled;"
 				onset="this.getItem('name').disabled = val;" />
-			<property name="canOpen"
-				onget="return !this.getItem('open').disabled;"
-				onset="this.getItem('open').disabled = !val; if(!val) this.markAsRead();" />
-			<property name="isOldChanges"
-				onget="return /(?:^|\s)cl-old(?:\s|$)/.test(this.getItem('open').className);"
-				onset="this.getItem('open').className = val ? 'cl-small cl-old' : 'cl-small';" />
+			<property name="canOpen">
+				<getter>
+					return !this.getItem("open").disabled;
+				</getter>
+				<setter>
+					this.getItem("open").disabled = !val;
+					this.setAttribute("cl_canOpen", !!val);
+					if(!val)
+						this.markAsRead();
+				</setter>
+			</property>
+			<property name="isOldChanges">
+				<getter>
+					return /(?:^|\s)cl-old(?:\s|$)/.test(this.getItem("open").className);
+				</getter>
+				<setter>
+					this.getItem("open").className = val ? "cl-small cl-old" : "cl-small";
+					this.setAttribute("cl_isOldChanges", !!val);
+				</setter>
+			</property>
 			<property name="searchLabel" readonly="true" onget="return this.name;" />
 			<property name="state">
 				<getter>
@@ -342,9 +356,11 @@
 			</method>
 			<method name="updateChangesCounter">
 				<body>
-					var label = this._changes > 0
+					var hasNew = this._changes > 0;
+					var label = hasNew
 						? "&cl.logs;".replace("$S", this._changes)
 						: "&cl.log;";
+					this.setAttribute("cl_hasNewChanges", hasNew);
 					this.getItem("open").setAttribute("label", label);
 				</body>
 			</method>
