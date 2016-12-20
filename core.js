@@ -33,7 +33,7 @@ var consoleLoggerCore = {
 			var patterns = this.sources;
 			for(var key in patterns) {
 				if(patterns[key].test(msgSource)) {
-					var msgText = Array.map(msg.arguments || [], String).join("\n");
+					var msgText = Array.prototype.map.call(msg.arguments || [], String).join("\n");
 					if(!this.exclude(msgText, key))
 						this.cl.io.writeObjectMessage(msg, msgText, key);
 					break;

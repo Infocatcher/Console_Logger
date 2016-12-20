@@ -126,7 +126,7 @@ var consoleLogger = {
 		function closeOptions(window) {
 			var loc = window.location.href;
 			if(loc.substr(0, 23) != "chrome://consolelogger/") {
-				Array.slice(window.frames).forEach(closeOptions);
+				Array.prototype.slice.call(window.frames).forEach(closeOptions);
 				return;
 			}
 			if(!isUpdate) {

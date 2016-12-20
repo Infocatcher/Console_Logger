@@ -108,7 +108,7 @@ var consoleLoggerOptions = {
 		this.singleButtonsBar = singleBar;
 
 		var btnsPanel = this.$("cl-buttonsPanel");
-		Array.forEach(
+		Array.prototype.forEach.call(
 			btnsPanel.getElementsByTagName("button"),
 			function(btn) {
 				btn.className = singleBar ? "dialog-button" : "";
@@ -136,9 +136,9 @@ var consoleLoggerOptions = {
 		}
 	},
 	setKeysDesc: function() {
-		var nodes = Array.concat(
-			Array.slice(document.getElementsByAttribute("cl_key", "*")),
-			Array.slice(this.applyBtn.parentNode.getElementsByAttribute("cl_key", "*"))
+		var nodes = Array.prototype.concat.call(
+			Array.prototype.slice.call(document.getElementsByAttribute("cl_key", "*")),
+			Array.prototype.slice.call(this.applyBtn.parentNode.getElementsByAttribute("cl_key", "*"))
 		);
 		//~ hack: show fake hidden popup with <menuitem key="keyId" /> to get descriptions
 		var mp = document.documentElement.appendChild(document.createElement("menupopup"));
@@ -153,7 +153,7 @@ var consoleLoggerOptions = {
 			mp.appendChild(mi);
 		});
 		mp._onpopupshown = function() {
-			Array.forEach(
+			Array.prototype.forEach.call(
 				this.childNodes,
 				function(mi) {
 					var keyDesk = mi.getAttribute("acceltext");
@@ -221,7 +221,7 @@ var consoleLoggerOptions = {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
 		// Note: we have NodeList in Firefox 45+
-		return Array.filter(selectedItems, function(cli) {
+		return Array.prototype.filter.call(selectedItems, function(cli) {
 			return cli.parentNode && !cli.collapsed;
 		});
 	},
