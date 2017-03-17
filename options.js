@@ -609,8 +609,12 @@ var consoleLoggerOptions = {
 	},
 	openLogFile: function(name) {
 		var file = this.getLogFile(name);
-		if(!file)
+		if(!file) {
+			this.getItemsByName(name).forEach(function(cli) {
+				cli.canOpen = false;
+			});
 			return;
+		}
 		var viewerFile = this.getRelativeFile(prefs.get("options.logViewer"));
 		if(viewerFile) try {
 			var args = prefs.get("options.logViewerArgs", "")
@@ -993,8 +997,10 @@ var consoleLoggerOptions = {
 		var confirmed = false;
 		this.selectedItems.every(function(cli) {
 			var file = this.getLogFile(cli.name);
-			if(!file)
+			if(!file) {
+				cli.canOpen = false;
 				return true;
+			}
 			if(!confirmed) {
 				confirmed = Services.prompt.confirm(window, strings.selfName, strings.removeLogs);
 				if(!confirmed)
