@@ -484,7 +484,18 @@ var consoleLoggerOptions = {
 				? "_" + this.cl.io.safeFileName(name)
 					.replace(/\s/g, "_")
 				: "_options";
-			fileName += new Date().toLocaleFormat("_%Y-%m-%d_%H-%M");
+			var d = new Date();
+			if("toISOString" in d) { // Firefox 3.5+
+				// toISOString() uses zero UTC offset, trick to use locale offset
+				d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+				fileName += "_" + d.toISOString() // Example: 2017-01-02T03:04:05.006Z
+					.replace(/:\d+\.\d+Z$/, "")
+					.replace("T", "_")
+					.replace(":", "-"); // 2017-01-02_03-04
+			}
+			else {
+				fileName += d.toLocaleFormat("_%Y-%m-%d_%H-%M");
+			}
 		}
 		fp.defaultString = fileName + ".json";
 		fp.defaultExtension = "json";
@@ -674,13 +685,13 @@ var consoleLoggerOptions = {
 			return "";
 		date = new Date(date);
 		var dt = Math.round(Math.max(0, Date.now() - date)/1000);
-		var d = Math.floor(dt/24/3600);
-		dt -= d*24*3600;
-		var ts = new Date((dt + new Date(dt).getTimezoneOffset()*60)*1000)
-			.toLocaleFormat("%H:%M")
-			.replace(/^0/, "");
-		if(d)
-			ts = d + strings.day + " " + ts;
+		var days = Math.floor(dt/24/3600);
+		dt -= days*24*3600;
+		var d = new Date((dt + new Date(dt).getTimezoneOffset()*60)*1000);
+		var m = d.getMinutes();
+		var ts = d.getHours() + ":" + (m > 9 ? m : "0" + m);
+		if(days)
+			ts = days + strings.day + " " + ts;
 		return strings.dateTipTmpl
 			.replace("$ago", ts)
 			.replace("$date", date.toLocaleString());

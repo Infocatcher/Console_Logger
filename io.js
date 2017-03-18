@@ -62,8 +62,19 @@ var consoleLoggerIO = {
 		var d = msg && msg.timeStamp
 			? new Date(msg.timeStamp)
 			: new Date();
-		var ms = d.getMilliseconds();
-		return d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
+		if("toISOString" in d) { // Firefox 3.5+
+			// toISOString() uses zero UTC offset, trick to use locale offset
+			d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+			var iso = d.toISOString();
+			return d.toISOString() // Example: 2017-01-02T03:04:05.006Z
+				.replace("T", " ")
+				.replace(".", ":")
+				.replace("Z", "");
+		}
+		else {
+			var ms = d.getMilliseconds();
+			return d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
+		}
 	},
 	get br() {
 		delete this.br;
