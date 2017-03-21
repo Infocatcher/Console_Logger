@@ -65,7 +65,6 @@ var consoleLoggerIO = {
 		if("toISOString" in d) { // Firefox 3.5+
 			// toISOString() uses zero UTC offset, trick to use locale offset
 			d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-			var iso = d.toISOString();
 			return d.toISOString() // Example: 2017-01-02T03:04:05.006Z
 				.replace("T", " ")
 				.replace(".", ":")
