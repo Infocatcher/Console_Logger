@@ -64,6 +64,11 @@ const Services = {
 		delete this.prompt;
 		return this.prompt = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 			.getService(Components.interfaces.nsIPromptService);
+	},
+	get io() {
+		delete this.io;
+		return this.io = Components.classes["@mozilla.org/network/io-service;1"]
+			.getService(Components.interfaces.nsIIOService2);
 	}
 };
 

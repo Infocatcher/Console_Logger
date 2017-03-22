@@ -626,7 +626,14 @@ var consoleLoggerOptions = {
 			});
 			return;
 		}
-		var viewerFile = this.getRelativeFile(prefs.get("options.logViewer"));
+		var viewer = prefs.get("options.logViewer");
+		if(viewer == "viewSource") {
+			var fileURL = Services.io.newFileURI(file).spec;
+			var args = platformVersion >= 42 ? { URL: fileURL } : fileURL;
+			openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", args);
+			return;
+		}
+		var viewerFile = this.getRelativeFile(viewer);
 		if(viewerFile) try {
 			var args = prefs.get("options.logViewerArgs", "")
 				.replace(/%F/g, file.path)
