@@ -629,8 +629,17 @@ var consoleLoggerOptions = {
 		var viewer = prefs.get("options.logViewer");
 		if(viewer == "viewSource") {
 			var fileURL = Services.io.newFileURI(file).spec;
-			var args = platformVersion >= 42 ? { URL: fileURL } : fileURL;
-			openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", args);
+			if(platformVersion >= 42) { // Note: ability to specify charset was removed
+				openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", {
+					URL: fileURL
+				});
+			}
+			else {
+				openDialog(
+					"chrome://global/content/viewSource.xul", "_blank", "all,dialog=no",
+					fileURL, "charset=UTF-8", null, null, true
+				);
+			}
 			return;
 		}
 		var viewerFile = this.getRelativeFile(viewer);
