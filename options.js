@@ -1021,26 +1021,38 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	clear: function() {
-		var confirmed = false;
-		this.selectedItems.every(function(cli) {
+		var items = this.selectedItems.map(function(cli) {
 			var file = this.getLogFile(cli.name);
-			if(!file) {
-				cli.canOpen = false;
-				return true;
-			}
-			if(!confirmed) {
-				confirmed = Services.prompt.confirm(window, strings.selfName, strings.removeLogs);
-				if(!confirmed)
-					return false;
-			}
+			if(!file)
+				return cli.canOpen = false;
+			return {
+				cli:  cli,
+				file: file
+			};
+		}, this).filter(function(item) {
+			return item;
+		});
+
+		var count = items.length;
+		if(!count)
+			return;
+		var maxNames = 10;
+		var names = items.map(function(item, i) {
+			return (i + 1) + ") " + item.cli.name;
+		});
+		if(count > maxNames)
+			names.splice(maxNames - 2, count - maxNames + 1, "\u2026" /* "..." */);
+		if(!Services.prompt.confirm(window, strings.selfName, strings.removeLogs + "\n" + names.join("\n")))
+			return;
+
+		items.forEach(function(item) {
 			try {
-				file.remove(false);
-				cli.canOpen = false;
+				item.file.remove(false);
+				item.cli.canOpen = false;
 			}
 			catch(e) {
 				this.onError(e);
 			}
-			return true;
 		}, this);
 	},
 	copy: function(all) {
