@@ -220,9 +220,12 @@ var consoleLoggerOptions = {
 	get selectedItems() {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
+		var items = this.items;
 		// Note: we have NodeList in Firefox 45+
 		return Array.prototype.filter.call(selectedItems, function(cli) {
 			return cli.parentNode && !cli.collapsed;
+		}).sort(function(cli1, cli2) { // Force convert to visible order
+			return items.indexOf(cli1) - items.indexOf(cli2);
 		});
 	},
 	get visibleItems() {
