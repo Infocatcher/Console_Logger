@@ -76,6 +76,7 @@
 					);
 				</body>
 			</method>
+			<field name="originalName">undefined</field>
 			<property name="name"
 				onget="return this.getItem('name').value;"
 				onset="this.getItem('name').value = val;" />
@@ -114,6 +115,7 @@
 						state[name] = "checked" in elt ? elt.checked : elt.value;
 					}, this);
 					state.locked = this.locked;
+					state.originalName = this.originalName;
 					return state;
 				</getter>
 				<setter>
@@ -135,6 +137,7 @@
 						}
 					}
 					this.locked = "locked" in state && state.locked;
+					this.originalName = state.originalName || undefined;
 					this.updateState();
 				]]>
 				</setter>

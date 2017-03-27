@@ -186,6 +186,17 @@ var consoleLoggerIO = {
 			onFailure
 		).then(null, onFailure);
 	},
+	renameFileAsync: function(oldKey, newKey) {
+		delay(function() {
+			this.renameFile(oldKey, newKey);
+		}, this);
+	},
+	renameFile: function(oldKey, newKey) {
+		var oldFile = this.getFile(oldKey);
+		var newFile = this.getFile(newKey);
+		if(oldFile.exists() && !newFile.exists())
+			oldFile.renameTo(null, newFile.leafName);
+	},
 
 	getErrorName: function(code) {
 		var Cr = Components.results;

@@ -958,6 +958,9 @@ var consoleLoggerOptions = {
 			return false;
 		this.cl.options = this.options;
 		this.cl.enabled = this.enabled;
+		this.items.forEach(function(cli) {
+			cli.originalName = cli.name;
+		});
 		this.markAsSaved();
 		var prefs = Services.prefs; // Will be removed from window!
 		delay(function() {

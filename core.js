@@ -64,6 +64,8 @@ var consoleLoggerCore = {
 			prefs.setPref(ns + name + ".message", item.message);
 			prefs.setPref(ns + name + ".exclude", item.exclude);
 			prefs.setPref(ns + name + ".enabled", item.enabled);
+			if(item.originalName && name != item.originalName)
+				this.cl.io.renameFileAsync(item.originalName, name);
 		}
 		prefs.lockObserver = false;
 		this.loadPatterns();
@@ -91,6 +93,7 @@ var consoleLoggerCore = {
 				var item = items[name] || (
 					items[name] = {
 						name: name,
+						originalName: name,
 						enabled: true,
 						source: "",
 						message: "",
