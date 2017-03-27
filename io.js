@@ -194,8 +194,16 @@ var consoleLoggerIO = {
 	renameFile: function(oldKey, newKey) {
 		var oldFile = this.getFile(oldKey);
 		var newFile = this.getFile(newKey);
-		if(oldFile.exists() && !newFile.exists())
-			oldFile.renameTo(null, newFile.leafName);
+		if(platformVersion < 20) {
+			if(oldFile.exists() && !newFile.exists())
+				oldFile.renameTo(null, newFile.leafName);
+			return;
+		}
+		OS.File.move(oldFile.path, newFile.path, { noOverwrite: true })
+			.then(null, function onFailure(reason) {
+				if(!(reason instanceof OS.File.Error && (reason.becauseNoSuchFile || reason.becauseExists)))
+					Components.utils.reportError(reason);
+			});
 	},
 
 	getErrorName: function(code) {
