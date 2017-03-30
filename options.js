@@ -632,17 +632,26 @@ var consoleLoggerOptions = {
 		var viewer = prefs.get("options.logViewer");
 		if(viewer == "viewSource") {
 			var fileURL = Services.io.newFileURI(file).spec;
-			if(platformVersion >= 42) { // Note: ability to specify charset was removed
-				openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", {
+			var vsWin = platformVersion >= 42 // Note: ability to specify charset was removed
+				? openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", {
 					URL: fileURL
-				});
-			}
-			else {
-				openDialog(
+				})
+				: openDialog(
 					"chrome://global/content/viewSource.xul", "_blank", "all,dialog=no",
 					fileURL, "charset=UTF-8", null, null, true
 				);
-			}
+			vsWin.addEventListener("load", function onLoad() {
+				vsWin.removeEventListener("load", onLoad, false);
+				var stopTime = Date.now() + 1000;
+				vsWin.setTimeout(function wait() {
+					var cw = vsWin.gBrowser.contentWindow;
+					var y = cw.scrollMaxY;
+					if(!y && Date.now() < stopTime)
+						vsWin.setTimeout(wait, 15);
+					else
+						cw.scrollTo(0, y);
+				}, 15);
+			}, false);
 			return;
 		}
 		var viewerFile = this.getRelativeFile(viewer);
