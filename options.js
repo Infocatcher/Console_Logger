@@ -642,6 +642,16 @@ var consoleLoggerOptions = {
 				);
 			vsWin.addEventListener("load", function onLoad() {
 				vsWin.removeEventListener("load", onLoad, false);
+				if("viewSourceChrome" in vsWin) try {
+					var fake = document.createElement("menuitem");
+					fake.setAttribute("charset", "UTF-8");
+					vsWin.viewSourceChrome.onSetCharacterSet({
+						target: fake
+					});
+				}
+				catch(e) {
+					Components.utils.reportError(e);
+				}
 				var stopTime = Date.now() + 1000;
 				vsWin.setTimeout(function wait() {
 					var cw = vsWin.gBrowser.contentWindow;
