@@ -804,6 +804,9 @@ var consoleLoggerOptions = {
 		this._modified = modified;
 		this.applyBtn.disabled = !modified;
 		document.title = (modified ? "* " : "") + this.baseTitle;
+		// Looks like we reverted to (correct) saved state, will re-validate to remove warnings
+		if(!modified && this.applyBtn.hasAttribute("cl_error"))
+			this.validateFieldsAsync();
 	},
 	markAsSaved: function() {
 		this._savedOptions = this.optionsHash;
