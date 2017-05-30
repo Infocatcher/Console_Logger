@@ -70,10 +70,8 @@ var consoleLoggerIO = {
 				.replace(".", ":")
 				.replace("Z", "");
 		}
-		else {
-			var ms = d.getMilliseconds();
-			return d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
-		}
+		var ms = d.getMilliseconds();
+		return d.toLocaleFormat("%Y-%m-%d %H:%M:%S:") + "000".substr(String(ms).length) + ms;
 	},
 	get br() {
 		delete this.br;
