@@ -170,10 +170,7 @@ var consoleLoggerIO = {
 						.then(done, onFailure)
 						.then(null, onFailure);
 				};
-				var encoder = _this.textEncoder || (
-					_this.textEncoder = new (Components.utils.getGlobalForObject(OS)).TextEncoder()
-				);
-				var arr = encoder.encode(_this.fixBr(data));
+				var arr = textEncoder.encode(_this.fixBr(data));
 				osFile.write(arr).then(
 					function onSuccess(bytesCount) {
 						ensureClosed();

@@ -9,7 +9,13 @@ if(!("Services" in this))
 	Components.utils["import"]("resource://gre/modules/Services.jsm");
 this.__defineGetter__("OS", function() {
 	delete this.OS;
-	return Components.utils["import"]("resource://gre/modules/osfile.jsm").OS;
+	var g = Components.utils["import"]("resource://gre/modules/osfile.jsm");
+	this.TextEncoder = g.TextEncoder;
+	return OS;
+});
+this.__defineGetter__("textEncoder", function() {
+	delete this.textEncoder;
+	return this.textEncoder = this.OS && new this.TextEncoder();
 });
 
 function install(params, reason) {
