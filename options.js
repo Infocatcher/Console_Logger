@@ -65,6 +65,7 @@ var consoleLoggerOptions = {
 			this.$("cl-sep-beforeSelectAll").setAttribute("hidden", "true");
 			this.$("cl-mi-selectAll").setAttribute("hidden", "true");
 			this.$("cl-mi-invertSelection").setAttribute("hidden", "true");
+			this.list.setAttribute("seltype", "single");
 		}
 		if(!("timeout" in this.filter)) { // Firefox 3.0 and older
 			this.filter.setAttribute("type", "timed");
