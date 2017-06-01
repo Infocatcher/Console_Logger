@@ -622,12 +622,11 @@ var consoleLoggerOptions = {
 		var file = name && this.cl.io.getFile(name);
 		return file && file.exists() ? file : null;
 	},
-	openLogFile: function(name) {
+	openLogFile: function(cli) {
+		var name = cli.name;
 		var file = this.getLogFile(name);
 		if(!file) {
-			this.getItemsByName(name).forEach(function(cli) {
-				cli.canOpen = false;
-			});
+			cli.canOpen = false;
 			return;
 		}
 		var viewer = prefs.get("options.logViewer");
@@ -1045,7 +1044,7 @@ var consoleLoggerOptions = {
 	open: function(cli) {
 		var items = cli ? [cli] : this.selectedItems;
 		items.forEach(function(cli) {
-			this.openLogFile(cli.name);
+			this.openLogFile(cli);
 			cli.markAsRead();
 		}, this);
 	},
