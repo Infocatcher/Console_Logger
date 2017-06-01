@@ -629,6 +629,8 @@ var consoleLoggerOptions = {
 			cli.canOpen = false;
 			return;
 		}
+		if(!cli.canOpen)
+			cli.canOpen = true;
 		var viewer = prefs.get("options.logViewer");
 		if(viewer == "viewSource") {
 			var fileURL = Services.io.newFileURI(file).spec;
