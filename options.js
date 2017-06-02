@@ -775,17 +775,13 @@ var consoleLoggerOptions = {
 		return "";
 	},
 	getFileRoot: function(file) {
-		var root = file;
 		try {
 			for(var tmp = file; tmp = tmp.parent; )
-				root = tmp;
+				file = tmp;
 		}
-		catch(e) {
-			// Firefox 1.5 and 2.0 says:
-			// Component returned failure code: 0x80520001 (NS_ERROR_FILE_UNRECOGNIZED_PATH) [nsIFile.parent]
-			// for root directories
+		catch(e) { // Firefox 1.5 and 2.0 throws for root directories
 		}
-		return root;
+		return file;
 	},
 
 	_savedOptions: null,
