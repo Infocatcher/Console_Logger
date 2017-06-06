@@ -278,11 +278,11 @@ var consoleLoggerOptions = {
 		return cli;
 	},
 	getUniqueName: function(baseName) {
+		if(!baseName)
+			baseName = "Extension";
 		var options = this.options;
 		for(var n = 1; ; ++n) {
-			var name = baseName
-				? n == 1 ? baseName : baseName + "#" + n
-				: "Extension" + n;
+			var name = n == 1 ? baseName : baseName + "#" + n;
 			if(!(name in options))
 				break;
 		}
