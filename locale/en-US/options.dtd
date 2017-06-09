@@ -9,6 +9,10 @@
 <!ENTITY cl.compactMode "Compact Mode">
 <!ENTITY cl.singleButtonsToolbar "Single Buttons Toolbar">
 <!ENTITY cl.openInTab "Open in Tab">
+<!ENTITY cl.logViewer "Log viewer">
+<!ENTITY cl.logViewerDefault "Default program for *.log">
+<!ENTITY cl.logViewerViewSource "View source window">
+<!ENTITY cl.logViewerExtProg "External program…">
 <!ENTITY cl.saveChanges "Save changes?">
 <!ENTITY cl.reload "Reload">
 <!ENTITY cl.openLog "Open Log File">

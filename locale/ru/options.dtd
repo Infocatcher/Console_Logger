@@ -9,6 +9,10 @@
 <!ENTITY cl.compactMode "Компактный режим">
 <!ENTITY cl.singleButtonsToolbar "Единая панель кнопок">
 <!ENTITY cl.openInTab "Открывать во вкладке">
+<!ENTITY cl.logViewer "Просмотрщик логов">
+<!ENTITY cl.logViewerDefault "Программа по умолчанию для *.log">
+<!ENTITY cl.logViewerViewSource "Окно просмотра исходного кода">
+<!ENTITY cl.logViewerExtProg "Внешняя программа…">
 <!ENTITY cl.saveChanges "Сохранить изменения?">
 <!ENTITY cl.reload "Перезагрузить">
 <!ENTITY cl.openLog "Открыть лог-файл">
