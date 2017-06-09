@@ -2,6 +2,7 @@
 <br>Adds ability to write certain console messages to log files, see <a href="defaults/preferences/prefs.js#files">defaults/preferences/prefs.js</a> for technical details.
 
 <hr>
+
 #### Examples
 Options example for <a href="https://github.com/Infocatcher/Private_Tab">Private Tab</a> extension:
 ```js
@@ -24,6 +25,7 @@ Options example for <a href="https://github.com/Infocatcher/Private_Tab">Private
 (use Options – Paste to import)
 
 <hr>
+
 #### API
 You can use <a href="https://addons.mozilla.org/addon/custom-buttons/">Custom Buttons</a> or something similar to open options from toolbar button.
 <br>Code:
