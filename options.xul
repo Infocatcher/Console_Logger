@@ -56,7 +56,8 @@
 			<button id="cl-btn-reset" icon="remove" label="&cl.reset;" />
 		</deck>
 		<button id="cl-btn-options" cl_key="cl-key-optionsMenu" label="&cl.options;" type="menu">
-			<menupopup id="cl-mp-options" position="before_start" onpopupshowing="consoleLoggerOptions.updateContextMenu();">
+			<menupopup id="cl-mp-options" position="before_start"
+				onpopupshowing="if(event.target == this) consoleLoggerOptions.updateContextMenu();">
 				<menuitem id="cl-mi-opts-compact" key="cl-key-toggleCompact" type="checkbox" label="&cl.compactMode;"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
 				<menuitem id="cl-mi-opts-singleButtonsBar" type="checkbox" label="&cl.singleButtonsToolbar;"
@@ -64,7 +65,7 @@
 				<menuitem id="cl-mi-opts-openInTab" type="checkbox" label="&cl.openInTab;"
 					oncommand="consoleLoggerOptions.setOpenInTab(this.getAttribute('checked') == 'true');" />
 				<menu id="cl-mn-opts-logViewer" label="&cl.logViewer;">
-					<menupopup>
+					<menupopup onpopupshowing="consoleLoggerOptions.updateLogViewerMenu();">
 						<menuitem id="cl-mi-opts-logViewer-default" type="radio" label="&cl.logViewerDefault;" />
 						<menuitem id="cl-mi-opts-logViewer-viewSource" type="radio" label="&cl.logViewerViewSource;" />
 						<menuitem id="cl-mi-opts-logViewer-extApp" type="radio" label="&cl.logViewerExtProg;" />

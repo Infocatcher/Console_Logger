@@ -895,6 +895,15 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
 	},
+	updateLogViewerMenu: function() {
+		var viewer = prefs.get("options.logViewer");
+		this.$("cl-mi-opts-logViewer-default").setAttribute("checked", viewer == "");
+		this.$("cl-mi-opts-logViewer-viewSource").setAttribute("checked", viewer == "viewSource");
+		var useExtProg = viewer && viewer != "viewSource";
+		var miExtApp = this.$("cl-mi-opts-logViewer-extApp");
+		miExtApp.setAttribute("checked", useExtProg);
+		miExtApp.tooltipText = useExtProg ? viewer : "";
+	},
 	onListDblClick: function(e) {
 		if(e.button != 0)
 			return;
