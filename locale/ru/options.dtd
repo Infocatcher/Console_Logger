@@ -10,10 +10,10 @@
 <!ENTITY cl.singleButtonsToolbar "Единая панель кнопок">
 <!ENTITY cl.openInTab "Открывать во вкладке">
 <!ENTITY cl.logViewer "Просмотрщик логов">
-<!ENTITY cl.logViewerDefault "Программа по умолчанию для *.log">
+<!ENTITY cl.logViewerDefault "Приложение по умолчанию для *.log">
 <!ENTITY cl.logViewerViewSource "Окно просмотра исходного кода">
-<!ENTITY cl.logViewerExtProg "Внешняя программа…">
-<!ENTITY cl.logViewerChoose "Выберите программу просмотра лог-файлов:">
+<!ENTITY cl.logViewerExtApp "Внешнее приложение…">
+<!ENTITY cl.logViewerChoose "Выберите приложение для просмотра лог-файлов:">
 <!ENTITY cl.saveChanges "Сохранить изменения?">
 <!ENTITY cl.reload "Перезагрузить">
 <!ENTITY cl.openLog "Открыть лог-файл">

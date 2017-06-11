@@ -70,7 +70,7 @@
 						oncommand="consoleLoggerOptions.setLogViewer(event);">
 						<menuitem id="cl-mi-opts-logViewer-default" type="radio" label="&cl.logViewerDefault;" />
 						<menuitem id="cl-mi-opts-logViewer-viewSource" type="radio" label="&cl.logViewerViewSource;" />
-						<menuitem id="cl-mi-opts-logViewer-extApp" type="radio" label="&cl.logViewerExtProg;" />
+						<menuitem id="cl-mi-opts-logViewer-extApp" type="radio" label="&cl.logViewerExtApp;" />
 					</menupopup>
 				</menu>
 				<menuseparator id="cl-sep-opts-beforeReload" />

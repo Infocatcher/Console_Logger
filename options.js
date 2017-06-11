@@ -899,10 +899,10 @@ var consoleLoggerOptions = {
 		var viewer = prefs.get("options.logViewer");
 		this.$("cl-mi-opts-logViewer-default").setAttribute("checked", viewer == "");
 		this.$("cl-mi-opts-logViewer-viewSource").setAttribute("checked", viewer == "viewSource");
-		var useExtProg = viewer && viewer != "viewSource";
+		var useExtApp = viewer && viewer != "viewSource";
 		var miExtApp = this.$("cl-mi-opts-logViewer-extApp");
-		miExtApp.setAttribute("checked", useExtProg);
-		miExtApp.tooltipText = useExtProg ? viewer : "";
+		miExtApp.setAttribute("checked", useExtApp);
+		miExtApp.tooltipText = useExtApp ? viewer : "";
 	},
 	setLogViewer: function(e) {
 		var mi = e.target;
