@@ -904,6 +904,32 @@ var consoleLoggerOptions = {
 		miExtApp.setAttribute("checked", useExtProg);
 		miExtApp.tooltipText = useExtProg ? viewer : "";
 	},
+	setLogViewer: function(e) {
+		var mi = e.target;
+		var id = mi.id.replace("cl-mi-opts-logViewer-", "");
+		function setViewer(viewer) {
+			prefs.set("options.logViewer", viewer);
+		}
+		if(id == "default")
+			setViewer("");
+		else if(id == "viewSource")
+			setViewer("viewSource");
+		else if(id == "extApp") {
+			var fp = Components.classes["@mozilla.org/filepicker;1"]
+				.createInstance(this.fp);
+			fp.appendFilters(fp.filterApps);
+			fp.appendFilters(fp.filterAll);
+			fp.init(window, strings.viewerChoose, fp.modeOpen);
+			var done = function(result) {
+				if(result != fp.returnCancel)
+					setViewer(fp.file.path);
+			}
+			if("open" in fp)
+				fp.open({ done: done });
+			else
+				done(fp.show());
+		}
+	},
 	onListDblClick: function(e) {
 		if(e.button != 0)
 			return;

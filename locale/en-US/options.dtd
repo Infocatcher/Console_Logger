@@ -13,6 +13,7 @@
 <!ENTITY cl.logViewerDefault "Default program for *.log">
 <!ENTITY cl.logViewerViewSource "View source window">
 <!ENTITY cl.logViewerExtProg "External program…">
+<!ENTITY cl.logViewerChoose "Choose program to view log files:">
 <!ENTITY cl.saveChanges "Save changes?">
 <!ENTITY cl.reload "Reload">
 <!ENTITY cl.openLog "Open Log File">

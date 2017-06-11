@@ -33,7 +33,8 @@
 			optionsFiles: "&cl.optionsFiles;",
 			jsonFiles:    "&cl.jsonFiles;",
 			saveChanges:  "&cl.saveChanges;",
-			removeLogs:   "&cl.removeLogs;"
+			removeLogs:   "&cl.removeLogs;",
+			viewerChoose: "&cl.logViewerChoose;"
 		};
 	</script>
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
@@ -65,7 +66,8 @@
 				<menuitem id="cl-mi-opts-openInTab" type="checkbox" label="&cl.openInTab;"
 					oncommand="consoleLoggerOptions.setOpenInTab(this.getAttribute('checked') == 'true');" />
 				<menu id="cl-mn-opts-logViewer" label="&cl.logViewer;">
-					<menupopup onpopupshowing="consoleLoggerOptions.updateLogViewerMenu();">
+					<menupopup onpopupshowing="consoleLoggerOptions.updateLogViewerMenu();"
+						oncommand="consoleLoggerOptions.setLogViewer(event);">
 						<menuitem id="cl-mi-opts-logViewer-default" type="radio" label="&cl.logViewerDefault;" />
 						<menuitem id="cl-mi-opts-logViewer-viewSource" type="radio" label="&cl.logViewerViewSource;" />
 						<menuitem id="cl-mi-opts-logViewer-extApp" type="radio" label="&cl.logViewerExtProg;" />
