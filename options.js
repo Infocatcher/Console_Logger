@@ -923,7 +923,7 @@ var consoleLoggerOptions = {
 			var done = function(result) {
 				if(result != fp.returnCancel)
 					setViewer(fp.file.path);
-			}
+			};
 			if("open" in fp)
 				fp.open({ done: done });
 			else
