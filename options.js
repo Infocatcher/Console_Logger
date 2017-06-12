@@ -561,11 +561,13 @@ var consoleLoggerOptions = {
 		var savedDir = this.exportDir;
 		if(savedDir && dir.equals(savedDir))
 			return; // May be manually changed to use some custom alias, don't override!
-		var path = dir.path;
+		prefs.set("options.exportDirectory", this.tryMakeRelativePath(dir.path));
+	},
+	tryMakeRelativePath: function(path) {
 		var curDrv = this.getRelativeFile("%cl_ProfDrv%").path;
 		if(path.substr(0, curDrv.length) == curDrv)
 			path = "%cl_ProfDrv%" + path.substr(curDrv.length);
-		prefs.set("options.exportDirectory", path);
+		return path;
 	},
 	writeToFile: function(file, data) {
 		if(platformVersion < 20) {
@@ -920,9 +922,10 @@ var consoleLoggerOptions = {
 			fp.appendFilters(fp.filterApps);
 			fp.appendFilters(fp.filterAll);
 			fp.init(window, strings.viewerChoose, fp.modeOpen);
+			var _this = this;
 			var done = function(result) {
 				if(result != fp.returnCancel)
-					setViewer(fp.file.path);
+					setViewer(_this.tryMakeRelativePath(fp.file.path));
 			};
 			if("open" in fp)
 				fp.open({ done: done });
