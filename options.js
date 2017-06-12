@@ -564,7 +564,7 @@ var consoleLoggerOptions = {
 		prefs.set("options.exportDirectory", this.tryMakeRelativePath(dir.path));
 	},
 	tryMakeRelativePath: function(path) {
-		var curDrv = this.getRelativeFile("%cl_ProfDrv%").path;
+		var curDrv = this.expandAlias("cl_ProfDrv");
 		if(path.substr(0, curDrv.length) == curDrv)
 			path = "%cl_ProfDrv%" + path.substr(curDrv.length);
 		return path;
