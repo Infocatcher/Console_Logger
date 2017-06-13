@@ -746,10 +746,7 @@ var consoleLoggerOptions = {
 	getRelativeFile: function(path) {
 		if(!path)
 			return null;
-		var _this = this;
-		var absPath = path.replace(/%([^%]+)%/g, function(s, alias) {
-			return _this.expandAlias(alias) || s;
-		});
+		var absPath = this.expandVariables(path);
 		var file = Components.classes["@mozilla.org/file/local;1"]
 			.createInstance(Components.interfaces.nsILocalFile || Components.interfaces.nsIFile);
 		try {
@@ -763,6 +760,12 @@ var consoleLoggerOptions = {
 			e && Components.utils.reportError(e);
 		}
 		return null;
+	},
+	expandVariables: function(s) {
+		var _this = this;
+		return s.replace(/%([^%]+)%/g, function(s, alias) {
+			return _this.expandAlias(alias) || s;
+		});
 	},
 	expandAlias: function(alias) {
 		if(alias == "cl_ProfDrv")
