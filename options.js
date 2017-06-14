@@ -770,11 +770,8 @@ var consoleLoggerOptions = {
 	expandAlias: function(alias) {
 		if(alias == "cl_ProfDrv")
 			return this.getFileRoot(this.cl.io.profileDir).path;
-		try {
+		if(Services.dirsvc.has(alias))
 			return Services.dirsvc.get(alias, Components.interfaces.nsIFile).path;
-		}
-		catch(e) {
-		}
 		if(this.env.exists(alias))
 			return this.env.get(alias);
 		return "";
