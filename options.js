@@ -738,11 +738,6 @@ var consoleLoggerOptions = {
 			.replace("$ago", ts)
 			.replace("$date", date.toLocaleString());
 	},
-	get env() {
-		delete this.env;
-		return this.env = Components.classes["@mozilla.org/process/environment;1"]
-			.getService(Components.interfaces.nsIEnvironment);
-	},
 	getRelativeFile: function(path) {
 		if(!path)
 			return null;
@@ -766,6 +761,11 @@ var consoleLoggerOptions = {
 		return s.replace(/%([^%]+)%/g, function(s, alias) {
 			return _this.expandAlias(alias) || s;
 		});
+	},
+	get env() {
+		delete this.env;
+		return this.env = Components.classes["@mozilla.org/process/environment;1"]
+			.getService(Components.interfaces.nsIEnvironment);
 	},
 	expandAlias: function(alias) {
 		if(alias == "cl_ProfDrv")
