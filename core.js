@@ -2,31 +2,7 @@ var consoleLoggerCore = {
 	cl: consoleLogger,
 
 	handleConsoleMessage: function(msg) {
-		if(msg instanceof Components.interfaces.nsIConsoleMessage) {
-			if(msg instanceof Components.interfaces.nsIScriptError) {
-				var msgSource = msg.sourceName;
-				var patterns = this.sources;
-				for(var key in patterns) {
-					if(patterns[key].test(msgSource)) {
-						if(!this.exclude(msg.errorMessage, key))
-							this.cl.io.writeMessage(msg, key);
-						break;
-					}
-				}
-			}
-			else {
-				var msgText = msg.message;
-				var patterns = this.messages;
-				for(var key in patterns) {
-					if(patterns[key].test(msgText)) {
-						if(!this.exclude(msgText, key))
-							this.cl.io.writeStringMessage(msg, key);
-						break;
-					}
-				}
-			}
-		}
-		else {
+		if(!(msg instanceof Components.interfaces.nsIConsoleMessage)) {
 			// See sendConsoleAPIMessage() in resource://gre/modules/devtools/Console.jsm
 			msg = msg.wrappedJSObject || msg;
 			var msgSource = msg.filename;
@@ -36,6 +12,28 @@ var consoleLoggerCore = {
 					var msgText = Array.prototype.map.call(msg.arguments || [], String).join("\n");
 					if(!this.exclude(msgText, key))
 						this.cl.io.writeObjectMessage(msg, msgText, key);
+					break;
+				}
+			}
+		}
+		else if(msg instanceof Components.interfaces.nsIScriptError) {
+			var msgSource = msg.sourceName;
+			var patterns = this.sources;
+			for(var key in patterns) {
+				if(patterns[key].test(msgSource)) {
+					if(!this.exclude(msg.errorMessage, key))
+						this.cl.io.writeMessage(msg, key);
+					break;
+				}
+			}
+		}
+		else {
+			var msgText = msg.message;
+			var patterns = this.messages;
+			for(var key in patterns) {
+				if(patterns[key].test(msgText)) {
+					if(!this.exclude(msgText, key))
+						this.cl.io.writeStringMessage(msg, key);
 					break;
 				}
 			}
