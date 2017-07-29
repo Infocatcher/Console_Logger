@@ -23,7 +23,11 @@ function install(params, reason) {
 function uninstall(params, reason) {
 }
 function startup(params, reason) {
-	platformVersion = parseFloat(Services.appinfo.platformVersion);
+	platformVersion = parseFloat(
+		Services.appinfo.name == "Pale Moon"
+			? Services.appinfo.version
+			: Services.appinfo.platformVersion
+	);
 	if(platformVersion < 10 && "addBootstrappedManifestLocation" in Components.manager)
 		Components.manager.addBootstrappedManifestLocation(params.installPath);
 	if(platformVersion >= 2 && platformVersion < 8) {
