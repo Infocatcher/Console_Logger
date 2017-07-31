@@ -13,6 +13,7 @@
 `x` Fixed compatibility with future Firefox versions: don't use deprecated `Date.prototype.toLocaleFormat()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=818634">bug 818634</a>).<br>
 `+` Options window: added ability to use built-in view source window to open logs (<em>extensions.consoleLogger.options.logViewer</em> = "viewSource" preference).<br>
 `+` Options window: rename log file from UI.<br>
+`x` Correctly handle Pale Moon version to not hide accidentally options in Add-ons Manager.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
