@@ -2,10 +2,9 @@ var consoleLoggerIO = {
 	cl: consoleLogger,
 
 	writeStringMessage: function(msg, key) {
-		var timestamp = this.getTimestamp(msg);
 		this.writeToLogFile(
 			key,
-			timestamp + " [message]" + ":\n"
+			this.getDateInfo(msg) + " [message]" + ":\n"
 			+ msg.message
 			+ "\n\n"
 		);
@@ -13,7 +12,6 @@ var consoleLoggerIO = {
 	writeMessage: function(msg, key) {
 		if("nsIScriptError2" in Components.interfaces)
 			msg instanceof Components.interfaces.nsIScriptError2;
-		var timestamp = this.getTimestamp(msg);
 		var details = [msg.category || "unknown"];
 		var flags = msg.flags;
 		var flagConsts = ["warning", "exception", "strict"];
@@ -24,7 +22,7 @@ var consoleLoggerIO = {
 		var line = ":" + msg.lineNumber + (msg.columnNumber ? ":" + msg.columnNumber : "");
 		this.writeToLogFile(
 			key,
-			timestamp + " [" + details.join(", ") + "]" + ":\n"
+			this.getDateInfo(msg) + " [" + details.join(", ") + "]" + ":\n"
 			+ msg.sourceName + line + "\n"
 			+ msg.errorMessage
 			+ (msg.sourceLine ? "\n" + msg.sourceLine : "")
@@ -32,11 +30,10 @@ var consoleLoggerIO = {
 		);
 	},
 	writeObjectMessage: function(msg, msgText, key) {
-		var timestamp = this.getTimestamp(msg);
 		var line = ":" + msg.lineNumber + (msg.columnNumber ? ":" + msg.columnNumber : "");
 		this.writeToLogFile(
 			key,
-			timestamp + " [Console.jsm, " + (msg.level || "unknown") + "]" + ":\n"
+			this.getDateInfo(msg) + " [Console.jsm, " + (msg.level || "unknown") + "]" + ":\n"
 			+ msg.filename + line + "\n"
 			+ msgText
 			+ "\n\n"
@@ -45,7 +42,7 @@ var consoleLoggerIO = {
 	writeDebugMessage: function(msg) {
 		this.writeToFile(
 			this.getFile(FILE_NAME_DEBUG, FILE_NAME_DEBUG),
-			this.getTimestamp() + " " + msg + "\n"
+			this.getDateInfo() + " " + msg + "\n"
 		);
 	},
 	writeToLogFile: function(key, data) {
@@ -57,6 +54,13 @@ var consoleLoggerIO = {
 		delay(function() {
 			Services.obs.notifyObservers(null, "consoleLogger-logUpdated", key);
 		});
+	},
+	get app() {
+		delete this.app;
+		return this.app = Services.appinfo.name + " " + Services.appinfo.version;
+	},
+	getDateInfo: function(msg) {
+		return this.getTimestamp(msg) + " " + this.app;
 	},
 	getTimestamp: function(msg) {
 		var d = msg && msg.timeStamp
