@@ -1,4 +1,6 @@
 content consolelogger ./
 
+override chrome://consolelogger/content/options.xul chrome://consolelogger/content/optionsWindow.xul
+
 locale consolelogger en-US locale/en-US/
 locale consolelogger ru    locale/ru/
