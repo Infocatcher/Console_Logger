@@ -13,7 +13,13 @@
 		<em:creator>Infocatcher</em:creator>
 		<em:contributor>Icon: from Farm-fresh icon set (http://www.fatcow.com/free-icons)</em:contributor>
 		<em:optionsURL>chrome://consolelogger/content/optionsOpener.xul</em:optionsURL>
-		<!--<em:optionsType>1</em:optionsType>-->
+		<!--
+		<em:optionsType>1</em:optionsType>
+		Trick to install in Firefox 58+:
+		1) don't use blocklisted optionsType
+		2) don't use options.xul file (causes tracking as AddonManager.OPTIONS_TYPE_INLINE)
+		3) use chrome.manifest override to use options.xul
+		-->
 		<em:iconURL>chrome://consolelogger/content/icon.png</em:iconURL>
 		<em:updateURL>http://infocatcher.ucoz.net/ext/fx/console_logger/update.rdf</em:updateURL>
 		<em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDLgtEbrhCdZetIAanFNvkT441WwBgXcg1Zzlo5s5
