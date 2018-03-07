@@ -9,13 +9,12 @@ if(!("Services" in this))
 	Components.utils["import"]("resource://gre/modules/Services.jsm");
 this.__defineGetter__("OS", function() {
 	delete this.OS;
-	var g = Components.utils["import"]("resource://gre/modules/osfile.jsm");
-	this.TextEncoder = g.TextEncoder;
-	return OS;
+	return this.OS = Components.utils["import"]("resource://gre/modules/osfile.jsm", {}).OS;
 });
 this.__defineGetter__("textEncoder", function() {
+	// Global object was changed in Firefox 57+ https://bugzilla.mozilla.org/show_bug.cgi?id=1186409
 	delete this.textEncoder;
-	return this.textEncoder = this.OS && new this.TextEncoder();
+	return this.textEncoder = new (Components.utils.getGlobalForObject(OS)).TextEncoder();
 });
 
 function install(params, reason) {
