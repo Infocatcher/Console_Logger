@@ -29,6 +29,8 @@ var consoleLoggerCore = {
 		}
 		else {
 			var msgText = msg.message;
+			if(!msgText) // Empty message, looks like console was cleared
+				return;
 			var patterns = this.messages;
 			for(var key in patterns) {
 				if(patterns[key].test(msgText)) {
