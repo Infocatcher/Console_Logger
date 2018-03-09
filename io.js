@@ -40,10 +40,7 @@ var consoleLoggerIO = {
 		);
 	},
 	writeDebugMessage: function(msg) {
-		this.writeToFile(
-			this.getFile(FILE_NAME_DEBUG, FILE_NAME_DEBUG),
-			this.getDateInfo() + " " + msg + "\n"
-		);
+		this.writeToFile(this.debugFile, this.getDateInfo() + " " + msg + "\n");
 	},
 	writeToLogFile: function(key, data) {
 		this.writeToFile(this.getFile(key), data);
@@ -90,13 +87,20 @@ var consoleLoggerIO = {
 		delete this.profileDir;
 		return this.profileDir = Services.dirsvc.get("ProfD", Components.interfaces.nsIFile);
 	},
-	getFile: function(key, name) {
+	_getFile(name) {
+		var file = this.profileDir.clone();
+		file.append(name);
+		return file;
+	},
+	get debugFile() {
+		delete this.debugFile;
+		return this.debugFile = this._getFile("consoleLogger-debug.log");
+	},
+	getFile: function(key) {
 		var files = this._files;
 		if(key in files)
 			return files[key];
-		var file = this.profileDir.clone();
-		file.append(name || FILE_NAME_PREFIX + this.safeFileName(key) + ".log");
-		return files[key] = file;
+		return files[key] = this._getFile(FILE_NAME_PREFIX + this.safeFileName(key) + ".log");
 	},
 	safeFileName: function(s) {
 		// From Session Manager extension,
