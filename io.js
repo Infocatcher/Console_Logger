@@ -197,6 +197,7 @@ var consoleLoggerIO = {
 	renameFile: function(oldKey, newKey) {
 		var oldFile = this.getFile(oldKey);
 		var newFile = this.getFile(newKey);
+		delete this._files[oldKey];
 		if(platformVersion < 20) {
 			if(oldFile.exists() && !newFile.exists())
 				oldFile.renameTo(null, newFile.leafName);
