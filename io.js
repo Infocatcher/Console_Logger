@@ -94,7 +94,7 @@ var consoleLoggerIO = {
 	},
 	get debugFile() {
 		delete this.debugFile;
-		return this.debugFile = this._getFile("consoleLogger-debug.log");
+		return this.debugFile = this._getFile(FILE_NAME_DEBUG);
 	},
 	getFile: function(key) {
 		var files = this._files;
