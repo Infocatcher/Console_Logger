@@ -219,11 +219,20 @@ var consoleLogger = {
 	ssPrefix: "consoleLogger:",
 	ssPref: "session.",
 	get ss() {
-		var ss = Components.classes["@mozilla.org/browser/sessionstore;1"]
-			|| Components.classes["@mozilla.org/suite/sessionstore;1"]
-			|| null;
 		delete this.ss;
-		return this.ss = ss && ss.getService(Components.interfaces.nsISessionStore);
+		if(!("nsISessionStore" in Components.interfaces)) {
+			try { // Firefox 61+, https://bugzilla.mozilla.org/show_bug.cgi?id=1450559
+				return this.ss = Components.utils.import("resource:///modules/sessionstore/SessionStore.jsm", {})
+					.SessionStore;
+			}
+			catch(e) {
+			}
+			return this.ss = null;
+		}
+		return this.ss = (
+			Components.classes["@mozilla.org/browser/sessionstore;1"]
+			|| Components.classes["@mozilla.org/suite/sessionstore;1"]
+		).getService(Components.interfaces.nsISessionStore);
 	},
 	get canUseSessions() {
 		delete this.canUseSessions;
