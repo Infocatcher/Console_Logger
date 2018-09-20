@@ -636,6 +636,15 @@ var consoleLoggerOptions = {
 		var viewer = prefs.get("options.logViewer");
 		if(viewer == "viewSource") {
 			var fileURL = Services.io.newFileURI(file).spec;
+			if(platformVersion >= 60 && Services.appinfo.name == "Firefox") {
+				// https://bugzilla.mozilla.org/show_bug.cgi?id=1418403
+				openDialog(
+					"chrome://browser/content/browser.xul", "_blank",
+					"chrome,menubar=0,toolbar=0,location=1,personalbar=0,status=0,dialog=0,resizable",
+					"view-source:" + fileURL
+				);
+				return;
+			}
 			var vsWin = platformVersion >= 42 // Note: ability to specify charset was removed
 				? openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", {
 					URL: fileURL
