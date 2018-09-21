@@ -638,11 +638,23 @@ var consoleLoggerOptions = {
 			var fileURL = Services.io.newFileURI(file).spec;
 			if(platformVersion >= 60 && Services.appinfo.name == "Firefox") {
 				// https://bugzilla.mozilla.org/show_bug.cgi?id=1418403
-				openDialog(
+				var brWin = openDialog(
 					"chrome://browser/content/browser.xul", "_blank",
 					"chrome,menubar=0,toolbar=0,location=1,personalbar=0,status=0,dialog=0,resizable",
 					"view-source:" + fileURL
 				);
+				brWin.addEventListener("load", function onLoad() {
+					brWin.removeEventListener("load", onLoad, false);
+					var stopTime = Date.now() + 2000;
+					brWin.setTimeout(function wait() {
+						var sb = brWin.gBrowser.selectedBrowser;
+						var isLoading = sb && sb.webProgress && sb.webProgress.isLoadingDocument;
+						if(isLoading && Date.now() < stopTime)
+							brWin.setTimeout(wait, 15);
+						else
+							brWin.goDoCommand("cmd_scrollBottom");
+					}, 30);
+				}, false);
 				return;
 			}
 			var vsWin = platformVersion >= 42 // Note: ability to specify charset was removed
