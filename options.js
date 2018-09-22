@@ -635,58 +635,7 @@ var consoleLoggerOptions = {
 			cli.canOpen = true;
 		var viewer = prefs.get("options.logViewer");
 		if(viewer == "viewSource") {
-			var fileURL = Services.io.newFileURI(file).spec;
-			if(platformVersion >= 60 && Services.appinfo.name == "Firefox") {
-				// https://bugzilla.mozilla.org/show_bug.cgi?id=1418403
-				var brWin = openDialog(
-					"chrome://browser/content/browser.xul", "_blank",
-					"chrome,menubar=0,toolbar=0,location=1,personalbar=0,status=0,dialog=0,resizable",
-					"view-source:" + fileURL
-				);
-				brWin.addEventListener("load", function onLoad() {
-					brWin.removeEventListener("load", onLoad, false);
-					var stopTime = Date.now() + 2000;
-					brWin.setTimeout(function wait() {
-						var sb = brWin.gBrowser.selectedBrowser;
-						var isLoading = sb && sb.webProgress && sb.webProgress.isLoadingDocument;
-						if(isLoading && Date.now() < stopTime)
-							brWin.setTimeout(wait, 15);
-						else
-							brWin.goDoCommand("cmd_scrollBottom");
-					}, 30);
-				}, false);
-				return;
-			}
-			var vsWin = platformVersion >= 42 // Note: ability to specify charset was removed
-				? openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", {
-					URL: fileURL
-				})
-				: openDialog(
-					"chrome://global/content/viewSource.xul", "_blank", "all,dialog=no",
-					fileURL, "charset=UTF-8", null, null, true
-				);
-			vsWin.addEventListener("load", function onLoad() {
-				vsWin.removeEventListener("load", onLoad, false);
-				if("viewSourceChrome" in vsWin) try {
-					var fake = document.createElement("menuitem");
-					fake.setAttribute("charset", "UTF-8");
-					vsWin.viewSourceChrome.onSetCharacterSet({
-						target: fake
-					});
-				}
-				catch(e) {
-					Components.utils.reportError(e);
-				}
-				var stopTime = Date.now() + 1000;
-				vsWin.setTimeout(function wait() {
-					var cw = vsWin.gBrowser.contentWindow;
-					var y = cw.scrollMaxY;
-					if(!y && Date.now() < stopTime)
-						vsWin.setTimeout(wait, 15);
-					else
-						cw.scrollTo(0, y);
-				}, 15);
-			}, false);
+			this.openInViewSource(file);
 			return;
 		}
 		var viewerFile = this.getRelativeFile(viewer);
@@ -707,6 +656,60 @@ var consoleLoggerOptions = {
 		if("nsILocalFile" in Components.interfaces)
 			file instanceof Components.interfaces.nsILocalFile;
 		file.launch();
+	},
+	openInViewSource: function(file) {
+		var fileURL = Services.io.newFileURI(file).spec;
+		if(platformVersion >= 60 && Services.appinfo.name == "Firefox") {
+			// https://bugzilla.mozilla.org/show_bug.cgi?id=1418403
+			var brWin = openDialog(
+				"chrome://browser/content/browser.xul", "_blank",
+				"chrome,menubar=0,toolbar=0,location=1,personalbar=0,status=0,dialog=0,resizable",
+				"view-source:" + fileURL
+			);
+			brWin.addEventListener("load", function onLoad() {
+				brWin.removeEventListener("load", onLoad, false);
+				var stopTime = Date.now() + 2000;
+				brWin.setTimeout(function wait() {
+					var sb = brWin.gBrowser.selectedBrowser;
+					var isLoading = sb && sb.webProgress && sb.webProgress.isLoadingDocument;
+					if(isLoading && Date.now() < stopTime)
+						brWin.setTimeout(wait, 15);
+					else
+						brWin.goDoCommand("cmd_scrollBottom");
+				}, 30);
+			}, false);
+			return;
+		}
+		var vsWin = platformVersion >= 42 // Note: ability to specify charset was removed
+			? openDialog("chrome://global/content/viewSource.xul", "_blank", "all,dialog=no", {
+				URL: fileURL
+			})
+			: openDialog(
+				"chrome://global/content/viewSource.xul", "_blank", "all,dialog=no",
+				fileURL, "charset=UTF-8", null, null, true
+			);
+		vsWin.addEventListener("load", function onLoad() {
+			vsWin.removeEventListener("load", onLoad, false);
+			if("viewSourceChrome" in vsWin) try {
+				var fake = document.createElement("menuitem");
+				fake.setAttribute("charset", "UTF-8");
+				vsWin.viewSourceChrome.onSetCharacterSet({
+					target: fake
+				});
+			}
+			catch(e) {
+				Components.utils.reportError(e);
+			}
+			var stopTime = Date.now() + 1000;
+			vsWin.setTimeout(function wait() {
+				var cw = vsWin.gBrowser.contentWindow;
+				var y = cw.scrollMaxY;
+				if(!y && Date.now() < stopTime)
+					vsWin.setTimeout(wait, 15);
+				else
+					cw.scrollTo(0, y);
+			}, 15);
+		}, false);
 	},
 	logFileExists: function() {
 		delay(this._logFileExists, this, arguments);
