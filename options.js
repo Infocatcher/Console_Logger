@@ -32,11 +32,10 @@ var consoleLoggerOptions = {
 		Services.prefs.removeObserver(prefs.ns + "options.", this);
 		if(!this.cl.isShutdown)
 			this.cl.setSessionState("optionsOpened", false);
-		consoleLoggerGlobal = null;
 		this.exports.forEach(function(prop) {
 			window[prop] = null;
 		}, this);
-		this.cl = null;
+		consoleLoggerGlobal = this.cl = null;
 		delete window.OS;
 	},
 	setupUI: function() {
@@ -1109,17 +1108,14 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	clear: function() {
-		var items = this.selectedItems.map(function(cli) {
+		var items = [];
+		this.selectedItems.forEach(function(cli) {
 			var file = this.getLogFile(cli.name);
-			if(!file)
-				return cli.canOpen = false;
-			return {
-				cli:  cli,
-				file: file
-			};
-		}, this).filter(function(item) {
-			return item;
-		});
+			if(file)
+				items.push({ cli: cli, file: file });
+			else
+				cli.canOpen = false;
+		}, this);
 
 		var count = items.length;
 		if(!count)
