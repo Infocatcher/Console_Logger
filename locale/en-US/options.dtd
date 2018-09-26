@@ -18,7 +18,7 @@
 <!ENTITY cl.reload "Reload">
 <!ENTITY cl.openLog "Open Log File">
 <!ENTITY cl.removeLog "Remove Log File">
-<!ENTITY cl.removeLogs "Remove all logs?">
+<!ENTITY cl.removeLogs "Remove all log files?">
 <!ENTITY cl.cut "Cut">
 <!ENTITY cl.copy "Copy">
 <!ENTITY cl.copyAll "Copy All">
