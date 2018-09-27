@@ -1059,10 +1059,33 @@ var consoleLoggerOptions = {
 		this.updateFilter();
 	},
 	reset: function() {
+		var selectedItems = this.selectedItems;
+
+		var hasLogFiles = false;
+		var names = selectedItems.map(function(cli) {
+			var name = cli.name
+			if(!this.getLogFile(name))
+				return name;
+			hasLogFiles = true;
+			return name + " *";
+		}, this);
+		var removeLogs = { value: false };
+		//~ note: following not compatible with some languages
+		var ask = this.$("cl-deck-reset").selectedPanel.label + "?"
+			+ "\n" + names.join("\n");
+		if(
+			!Services.prompt[hasLogFiles ? "confirmCheck" : "confirm"](
+				window, strings.selfName, ask, strings.removeLogsAlso, removeLogs
+			)
+		)
+			return;
+		if(removeLogs.value)
+			this.clear(true);
+
 		var defaultOptions = this.cl.defaultOptions;
 		var moveSelection = true;
 		var origItems = this.visibleItems;
-		this.selectedItems.forEach(function(cli) {
+		selectedItems.forEach(function(cli) {
 			var name = cli.name;
 			if(
 				name in defaultOptions
@@ -1107,7 +1130,7 @@ var consoleLoggerOptions = {
 			cli.markAsRead();
 		}, this);
 	},
-	clear: function() {
+	clear: function(confirmed) {
 		var items = [];
 		this.selectedItems.forEach(function(cli) {
 			var file = this.getLogFile(cli.name);
@@ -1126,7 +1149,7 @@ var consoleLoggerOptions = {
 		});
 		if(count > maxNames)
 			names.splice(maxNames - 2, count - maxNames + 1, "\u2026" /* "..." */);
-		if(!Services.prompt.confirm(window, strings.selfName, strings.removeLogs + "\n" + names.join("\n")))
+		if(!confirmed && !Services.prompt.confirm(window, strings.selfName, strings.removeLogs + "\n" + names.join("\n")))
 			return;
 
 		items.forEach(function(item) {

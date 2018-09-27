@@ -34,6 +34,7 @@
 			jsonFiles:    "&cl.jsonFiles;",
 			saveChanges:  "&cl.saveChanges;",
 			removeLogs:   "&cl.removeLogs;",
+			removeLogsAlso: "&cl.removeLogsAlso;",
 			viewerChoose: "&cl.logViewerChoose;"
 		};
 	</script>

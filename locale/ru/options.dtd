@@ -19,6 +19,7 @@
 <!ENTITY cl.openLog "Открыть лог-файл">
 <!ENTITY cl.removeLog "Удалить лог-файл">
 <!ENTITY cl.removeLogs "Удалить все лог-файлы?">
+<!ENTITY cl.removeLogsAlso "Также удалить соответствующие лог-файлы (*)">
 <!ENTITY cl.cut "Вырезать">
 <!ENTITY cl.copy "Копировать">
 <!ENTITY cl.copyAll "Копировать всё">
