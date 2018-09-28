@@ -22,23 +22,23 @@
 	persist="width height screenX screenY sizemode">
 	<script type="application/javascript">
 		var strings = {
-			selfName:     "&cl.selfName;",
-			emptyName:    "&cl.emptyName;",
-			nameUsed:     "&cl.nameUsed;",
-			dateTipTmpl:  "&cl.dateTipTmpl;",
-			day:          "&cl.day;",
-			exportTitle:  "&cl.exportTitle;",
-			importTitle:  "&cl.importTitle;",
-			errorTitle:   "&cl.errorTitle;",
-			optionsFiles: "&cl.optionsFiles;",
-			jsonFiles:    "&cl.jsonFiles;",
-			saveChanges:  "&cl.saveChanges;",
-			removeLogs:   "&cl.removeLogs;",
+			selfName:       "&cl.selfName;",
+			emptyName:      "&cl.emptyName;",
+			nameUsed:       "&cl.nameUsed;",
+			dateTipTmpl:    "&cl.dateTipTmpl;",
+			day:            "&cl.day;",
+			exportTitle:    "&cl.exportTitle;",
+			importTitle:    "&cl.importTitle;",
+			errorTitle:     "&cl.errorTitle;",
+			optionsFiles:   "&cl.optionsFiles;",
+			jsonFiles:      "&cl.jsonFiles;",
+			saveChanges:    "&cl.saveChanges;",
+			removeLogs:     "&cl.removeLogs;",
 			removeLogsAlso: "&cl.removeLogsAlso;",
 			hasLog:         "&cl.hasLog;",
 			removeConfirm:  "&cl.removeConfirm;",
 			resetConfirm:   "&cl.resetConfirm;",
-			viewerChoose: "&cl.logViewerChoose;"
+			viewerChoose:   "&cl.logViewerChoose;"
 		};
 	</script>
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
