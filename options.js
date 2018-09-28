@@ -1062,17 +1062,19 @@ var consoleLoggerOptions = {
 		var selectedItems = this.selectedItems;
 
 		var hasLogFiles = false;
+		var logMark = "*";
 		var names = selectedItems.map(function(cli) {
 			var name = cli.name
 			if(!this.getLogFile(name))
 				return name;
 			hasLogFiles = true;
-			return name + " *";
+			return name + " " + logMark;
 		}, this);
 		var removeLogs = { value: false };
-		//~ note: following not compatible with some languages
-		var ask = this.$("cl-deck-reset").selectedPanel.label + "?"
-			+ "\n" + names.join("\n");
+		var hasLocked = this.$("cl-deck-reset").selectedIndex == 1;
+		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
+			+ "\n" + names.join("\n")
+			+ (hasLogFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
 		if(
 			!Services.prompt[hasLogFiles ? "confirmCheck" : "confirm"](
 				window, strings.selfName, ask, strings.removeLogsAlso, removeLogs

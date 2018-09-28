@@ -5,6 +5,8 @@
 <!ENTITY cl.add "Add">
 <!ENTITY cl.remove "Remove">
 <!ENTITY cl.reset "Reset">
+<!ENTITY cl.removeConfirm "Remove?">
+<!ENTITY cl.resetConfirm "Reset?">
 <!ENTITY cl.options "Options">
 <!ENTITY cl.compactMode "Compact Mode">
 <!ENTITY cl.singleButtonsToolbar "Single Buttons Toolbar">
@@ -19,7 +21,8 @@
 <!ENTITY cl.openLog "Open Log File">
 <!ENTITY cl.removeLog "Remove Log File">
 <!ENTITY cl.removeLogs "Remove all log files?">
-<!ENTITY cl.removeLogsAlso "Also remove corresponding log files (*)">
+<!ENTITY cl.removeLogsAlso "Also remove log files">
+<!ENTITY cl.hasLog "$S – contains log file">
 <!ENTITY cl.cut "Cut">
 <!ENTITY cl.copy "Copy">
 <!ENTITY cl.copyAll "Copy All">

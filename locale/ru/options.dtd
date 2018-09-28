@@ -5,6 +5,8 @@
 <!ENTITY cl.add "Добавить">
 <!ENTITY cl.remove "Удалить">
 <!ENTITY cl.reset "Сбросить">
+<!ENTITY cl.removeConfirm "Удалить?">
+<!ENTITY cl.resetConfirm "Сбросить?">
 <!ENTITY cl.options "Настройки">
 <!ENTITY cl.compactMode "Компактный режим">
 <!ENTITY cl.singleButtonsToolbar "Единая панель кнопок">
@@ -19,7 +21,8 @@
 <!ENTITY cl.openLog "Открыть лог-файл">
 <!ENTITY cl.removeLog "Удалить лог-файл">
 <!ENTITY cl.removeLogs "Удалить все лог-файлы?">
-<!ENTITY cl.removeLogsAlso "Также удалить соответствующие лог-файлы (*)">
+<!ENTITY cl.removeLogsAlso "Также удалить лог-файлы">
+<!ENTITY cl.hasLog "$S – содержит лог-файл">
 <!ENTITY cl.cut "Вырезать">
 <!ENTITY cl.copy "Копировать">
 <!ENTITY cl.copyAll "Копировать всё">

@@ -35,6 +35,9 @@
 			saveChanges:  "&cl.saveChanges;",
 			removeLogs:   "&cl.removeLogs;",
 			removeLogsAlso: "&cl.removeLogsAlso;",
+			hasLog:         "&cl.hasLog;",
+			removeConfirm:  "&cl.removeConfirm;",
+			resetConfirm:   "&cl.resetConfirm;",
 			viewerChoose: "&cl.logViewerChoose;"
 		};
 	</script>
