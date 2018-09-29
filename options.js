@@ -443,7 +443,9 @@ var consoleLoggerOptions = {
 		// chrome://browser/content/browser.js in Firefox 30
 		var str = "";
 		try {
-			var cb = Services.clipboard;
+			var cb = Services.clipboard
+				|| Components.classes["@mozilla.org/widget/clipboard;1"]
+					.getService(Components.interfaces.nsIClipboard);
 			var trans = Components.classes["@mozilla.org/widget/transferable;1"]
 				.createInstance(Components.interfaces.nsITransferable);
 			if("init" in trans) try {
@@ -467,6 +469,7 @@ var consoleLoggerOptions = {
 			}
 		}
 		catch(e) {
+			Components.utils.reportError(e);
 		}
 		return str;
 	},
