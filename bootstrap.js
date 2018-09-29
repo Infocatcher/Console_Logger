@@ -70,12 +70,12 @@ var consoleLogger = {
 	initialized: false,
 	isShutdown: false,
 	get core() {
-		Services.scriptloader.loadSubScript("chrome://consolelogger/content/core.js");
+		Services.scriptloader.loadSubScript("chrome://consolelogger/content/core.js", global);
 		delete this.core;
 		return this.core = consoleLoggerCore;
 	},
 	get io() {
-		Services.scriptloader.loadSubScript("chrome://consolelogger/content/io.js");
+		Services.scriptloader.loadSubScript("chrome://consolelogger/content/io.js", global);
 		delete this.io;
 		return this.io = consoleLoggerIO;
 	},
