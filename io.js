@@ -87,7 +87,7 @@ var consoleLoggerIO = {
 		delete this.profileDir;
 		return this.profileDir = Services.dirsvc.get("ProfD", Components.interfaces.nsIFile);
 	},
-	_getFile(name) {
+	_getFile: function(name) {
 		var file = this.profileDir.clone();
 		file.append(name);
 		return file;
