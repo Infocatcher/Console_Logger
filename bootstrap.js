@@ -70,12 +70,12 @@ var consoleLogger = {
 	initialized: false,
 	isShutdown: false,
 	get core() {
-		Services.scriptloader.loadSubScript("chrome://consolelogger/content/core.js", global);
+		Services.scriptloader.loadSubScript(rootURI + "core.js", global);
 		delete this.core;
 		return this.core = consoleLoggerCore;
 	},
 	get io() {
-		Services.scriptloader.loadSubScript("chrome://consolelogger/content/io.js", global);
+		Services.scriptloader.loadSubScript(rootURI + "io.js", global);
 		delete this.io;
 		return this.io = consoleLoggerIO;
 	},
@@ -134,7 +134,10 @@ var consoleLogger = {
 		var isUpdate = reason == ADDON_UPGRADE || reason == ADDON_DOWNGRADE;
 		function closeOptions(window) {
 			var loc = window.location.href;
-			if(loc.substr(0, 23) != "chrome://consolelogger/") {
+			if(
+				loc.substr(0, 23) != "chrome://consolelogger/"
+				&& loc.substr(0, rootURI.length) != rootURI
+			) {
 				Array.prototype.slice.call(window.frames).forEach(closeOptions);
 				return;
 			}
