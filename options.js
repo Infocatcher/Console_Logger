@@ -1061,7 +1061,7 @@ var consoleLoggerOptions = {
 		this.checkUnsaved();
 		this.updateFilter();
 	},
-	reset: function() {
+	reset: function(confirmOnlyLogFiles) {
 		var selectedItems = this.selectedItems;
 
 		var hasLogFiles = false;
@@ -1079,7 +1079,8 @@ var consoleLoggerOptions = {
 			+ "\n" + names.join("\n")
 			+ (hasLogFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
 		if(
-			!Services.prompt[hasLogFiles ? "confirmCheck" : "confirm"](
+			(hasLogFiles || !confirmOnlyLogFiles)
+			&& !Services.prompt[hasLogFiles ? "confirmCheck" : "confirm"](
 				window, strings.selfName, ask, strings.removeLogsAlso, removeLogs
 			)
 		)
@@ -1175,7 +1176,7 @@ var consoleLoggerOptions = {
 	},
 	cut: function() {
 		this.copy();
-		this.reset();
+		this.reset(true);
 	},
 	exportToFile: function(all) {
 		var options = this.exportOptions(all);
