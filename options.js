@@ -469,7 +469,8 @@ var consoleLoggerOptions = {
 			}
 		}
 		catch(e) {
-			Components.utils.reportError(e);
+			if(("" + e).indexOf("NS_ERROR_FAILURE") == -1)
+				Components.utils.reportError(e);
 		}
 		return str;
 	},
