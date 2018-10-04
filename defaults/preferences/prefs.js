@@ -31,6 +31,7 @@ pref("extensions.consoleLogger.options.compact.clickToSelect", true);
 pref("extensions.consoleLogger.options.singleButtonsBar", false);
 pref("extensions.consoleLogger.options.restoreWindow", true);
 pref("extensions.consoleLogger.options.doubleClickToOpen", true);
+pref("extensions.consoleLogger.options.confirmRemoval", true);
 pref("extensions.consoleLogger.options.logViewer", ""); // Path to external viewer
 // Supported browser (%ProfD%) and environment variables (%ProgramFiles%, %PROFD%)
 // See http://mxr.mozilla.org/mozilla-central/source/xpcom/io/nsDirectoryServiceDefs.h

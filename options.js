@@ -1080,6 +1080,7 @@ var consoleLoggerOptions = {
 			+ (hasLogFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
 		if(
 			(hasLogFiles || !confirmOnlyLogFiles)
+			&& prefs.get("options.confirmRemoval")
 			&& !Services.prompt[hasLogFiles ? "confirmCheck" : "confirm"](
 				window, strings.selfName, ask, strings.removeLogsAlso, removeLogs
 			)
