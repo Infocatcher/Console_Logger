@@ -1,6 +1,6 @@
-const LOG_PREFIX = "[Console Logger] ";
-const FILE_NAME_PREFIX = "consoleLogger_";
-const FILE_NAME_DEBUG = "consoleLogger-debug.log";
+var LOG_PREFIX = "[Console Logger] ";
+var FILE_NAME_PREFIX = "consoleLogger_";
+var FILE_NAME_DEBUG = "consoleLogger-debug.log";
 var global = this;
 var rootURI = "chrome://consolelogger/content/";
 var platformVersion;
