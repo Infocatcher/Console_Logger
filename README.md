@@ -4,6 +4,25 @@
 <hr>
 
 #### Examples
+All errors (+warnings) and all messages:
+```js
+// Console Logger options
+{
+	"All_errors": {
+		"enabled": true,
+		"source": "^",
+		"message": "",
+		"exclude": ""
+	},
+	"All_messages": {
+		"enabled": true,
+		"source": "",
+		"message": "^",
+		"exclude": ""
+	}
+}
+```
+
 Options example for <a href="https://github.com/Infocatcher/Private_Tab">Private Tab</a> extension:
 ```js
 // Console Logger options
