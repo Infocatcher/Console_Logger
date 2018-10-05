@@ -430,7 +430,6 @@ var consoleLoggerOptions = {
 				cliFirst = cli;
 		}
 		if(!override && cliFirst) {
-			this.list.ensureElementIsVisible(cli);
 			this.focusItem(cliFirst);
 			if("selectItemRange" in this.list)
 				this.list.selectItemRange(cliFirst, cli);
