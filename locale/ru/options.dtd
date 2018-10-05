@@ -32,6 +32,7 @@
 <!ENTITY cl.exportAll "Экспортировать всё в файл…">
 <!ENTITY cl.importAdd "Импортировать из файла: добавить…">
 <!ENTITY cl.importOvr "Импортировать из файла: заменить…">
+<!ENTITY cl.addForLogs "Добавить для отсутствующих в списке лог-файлов">
 <!ENTITY cl.exportTitle "&cl.selfName;: Экспорт настроек в файл">
 <!ENTITY cl.importTitle "&cl.selfName;: Импорт настроек из файла">
 <!ENTITY cl.errorTitle "&cl.selfName;: Ошибка!">

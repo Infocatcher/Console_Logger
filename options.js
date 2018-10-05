@@ -438,6 +438,32 @@ var consoleLoggerOptions = {
 		this.checkUnsaved();
 		this.updateFilter();
 	},
+	addForLogFiles: function() {
+		var prefix = consoleLoggerGlobal.FILE_NAME_PREFIX;
+		var entries = this.cl.io.profileDir.directoryEntries;
+		var cliFirst;
+		while(entries.hasMoreElements()) {
+			var entry = entries.getNext().QueryInterface(Components.interfaces.nsIFile);
+			var fName = entry.leafName;
+			if(fName.substr(0, prefix.length) != prefix || fName.substr(-4) != ".log")
+				continue;
+			var name = fName.slice(prefix.length, -4);
+			if(this.getItemsByName(name).length)
+				continue;
+			var cli = this.appendItem({
+				name: this.getUniqueName(name)
+			});
+			if(!cliFirst)
+				cliFirst = cli;
+		}
+		if(!cliFirst)
+			return;
+		this.focusItem(cliFirst);
+		if("selectItemRange" in this.list)
+			this.list.selectItemRange(cliFirst, cli);
+		this.checkUnsaved();
+		this.updateFilter();
+	},
 	readFromClipboard: function() {
 		// Based on readFromClipboard() function from
 		// chrome://browser/content/browser.js in Firefox 30

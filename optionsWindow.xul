@@ -84,6 +84,8 @@
 				<menuitem id="cl-mi-opts-exportAll" key="cl-key-exportAll" label="&cl.exportAll;" oncommand="consoleLoggerOptions.exportToFile(true);" />
 				<menuitem id="cl-mi-opts-import" key="cl-key-import" label="&cl.importAdd;" oncommand="consoleLoggerOptions.importFromFile();" />
 				<menuitem id="cl-mi-opts-importOvr" key="cl-key-importOvr" label="&cl.importOvr;" oncommand="consoleLoggerOptions.importFromFile(true);" />
+				<menuseparator id="cl-sep-opts-beforeAddForLogs" />
+				<menuitem id="cl-mi-opts-addForLogs" label="&cl.addForLogs;" oncommand="consoleLoggerOptions.addForLogFiles();" />
 				<menuseparator id="cl-sep-opts-beforeCopy" />
 				<menuitem id="cl-mi-opts-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
 				<menuitem id="cl-mi-opts-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
