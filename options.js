@@ -188,12 +188,14 @@ var consoleLoggerOptions = {
 		return document.getElementById(id);
 	},
 	get options() {
-		var options = { __proto__: null };
+		var optionsArr = [];
 		this.items.forEach(function(cli) {
 			var item = cli.state;
-			var name = item.name;
-			if(name)
-				options[name] = item;
+			item.name && optionsArr.push(item);
+		});
+		var options = { __proto__: null };
+		optionsArr.sort(this.sortOptions).forEach(function(item) {
+			options[item.name] = item;
 		});
 		return options;
 	},
@@ -201,11 +203,12 @@ var consoleLoggerOptions = {
 		var optionsArr = [];
 		for(var name in options)
 			optionsArr.push(options[name]);
-		optionsArr.sort(function(a, b) {
-			return a.name > b.name ? 1 : -1; // Note: always not equal!
-		});
+		optionsArr.sort(this.sortOptions);
 		this.clearList();
 		optionsArr.forEach(this.appendItem, this);
+	},
+	sortOptions: function(a, b) {
+		return a.name > b.name ? 1 : -1; // Note: always not equal!
 	},
 	get list() {
 		delete this.list;
