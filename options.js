@@ -843,7 +843,10 @@ var consoleLoggerOptions = {
 
 	_savedOptions: null,
 	get optionsHash() {
-		return JSON.stringify(this.options);
+		var options = this.options;
+		for(var p in options)
+			delete options[p].originalName;
+		return JSON.stringify(options);
 	},
 	get baseTitle() {
 		delete this.baseTitle;
