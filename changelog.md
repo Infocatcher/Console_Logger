@@ -14,6 +14,16 @@
 `+` Options window: added ability to use built-in view source window to open logs (<em>extensions.consoleLogger.options.logViewer</em> = "viewSource" preference).<br>
 `+` Options window: rename log file from UI.<br>
 `x` Correctly handle Pale Moon version to not hide accidentally options in Add-ons Manager.<br>
+`+` Added application version to timestamp string in log file.<br>
+`x` Fixed string prefs in Firefox 58+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1414096">bug 1414096</a>).<br>
+`x` Added trick to install in Firefox 58+ (don't use <a href="https://forum.mozilla-russia.org/viewtopic.php?pid=748266#p748266">blocklisted em:optionsType</a>; rename options.xul -> optionsWindow.xul, “magic” name causes tracking missed optionsType as <a href="https://developer.mozilla.org/en-US/docs/Archive/Add-ons/Install_Manifests#optionsType">AddonManager.OPTIONS_TYPE_INLINE</a>; use chrome.manifest override to use options.xul).<br>
+`x` Fixed TextEncoder() usage in Firefox 57+.<br>
+`x` Use SessionStore.jsm instead of nsISessionStore in Firefox 61+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1450559">bug 1450559</a>, <a href="https://forum.mozilla-russia.org/viewtopic.php?pid=756422#p756422">thanks to Dumby</a>).<br>
+`x` Added basic replacement for viewSource.xul window in Firefox 60+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1418403">bug 1418403</a>).<br>
+`+` Added confirmation to reset/remove action (+ ask to also remove log files, <em>extensions.consoleLogger.options.confirmRemoval</em> preference).<br>
+`x` Fixed constants usage across files in Firefox 44+ (<a href="https://blog.mozilla.org/addons/2015/10/14/breaking-changes-let-const-firefox-nightly-44/">Breaking changes in let and const in Firefox Nightly 44</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1202902">bug 1202902</a>).<br>
+`+` Added “Add for not listed log files” menu item.<br>
+`x` Correctly detect saved state and also always export sorted options.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>

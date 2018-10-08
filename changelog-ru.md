@@ -14,6 +14,16 @@
 `+` Окно настроек: добавлена возможность использовать встроенное окно просмотра исходного кода для открытия логов (настройка <em>extensions.consoleLogger.options.logViewer</em> = "viewSource").<br>
 `+` Окно настроек: реализовано переименование лог-файла из интерфейса.<br>
 `x` Исправлена обработка версии Pale Moon и ошибочное скрытие настроек в управлении дополнениями.<br>
+`+` Строка времени в лог-файле теперь дополняется версией приложения.<br>
+`x` Исправлена работа со строковыми настройками в Firefox 58+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1414096">bug 1414096</a>).<br>
+`x` Добавлен хак для установки в Firefox 58+ (убрано использование <a href="https://forum.mozilla-russia.org/viewtopic.php?pid=748266#p748266">запрещенного em:optionsType</a>; переименовано options.xul -> optionsWindow.xul, чтобы специальное имя файла не приводило к трактовке optionsType как <a href="https://developer.mozilla.org/en-US/docs/Archive/Add-ons/Install_Manifests#optionsType">AddonManager.OPTIONS_TYPE_INLINE</a>; через chrome.manifest добавлено переопределение, чтобы работала ссылка на options.xul).<br>
+`x` Исправлено использование TextEncoder() в Firefox 57+.<br>
+`x` Теперь используется SessionStore.jsm вместо nsISessionStore в Firefox 61+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1450559">bug 1450559</a>, <a href="https://forum.mozilla-russia.org/viewtopic.php?pid=756422#p756422">спасибо</a>).<br>
+`x` Добавлена базовая замена для окна viewSource.xul в Firefox 60+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1418403">bug 1418403</a>).<br>
+`+` Добавлено подтверждение сброса/удаления настроек (+ предложение удалить лог-файлы, настройка <em>extensions.consoleLogger.options.confirmRemoval</em>).<br>
+`x` Исправлено использование констант между файлами в Firefox 44+ (<a href="https://blog.mozilla.org/addons/2015/10/14/breaking-changes-let-const-firefox-nightly-44/">Breaking changes in let and const in Firefox Nightly 44</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1202902">bug 1202902</a>).<br>
+`+` Добавлен пункт меню «Добавить для отсутствующих в списке лог-файлов».<br>
+`x` Исправлено определение сохраненного состояния, также теперь всегда экспортируются отсортированные настройки.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Исправлено скрытие специального окна, открывающего настройки в немодальном окне.<br>
