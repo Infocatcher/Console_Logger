@@ -1177,15 +1177,11 @@ var consoleLoggerOptions = {
 				cli.canOpen = false;
 		}, this);
 
-		var count = items.length;
-		if(!count)
+		if(!items.length)
 			return;
-		var maxNames = 10;
-		var names = items.map(function(item, i) {
+		var names = this.cropNames(items.map(function(item, i) {
 			return (i + 1) + ") " + item.cli.name;
-		});
-		if(count > maxNames)
-			names.splice(maxNames - 2, count - maxNames + 1, "\u2026" /* "..." */);
+		}));
 		if(!confirmed && !Services.prompt.confirm(window, strings.selfName, strings.removeLogs + "\n" + names.join("\n")))
 			return;
 
@@ -1198,6 +1194,13 @@ var consoleLoggerOptions = {
 				this.onError(e);
 			}
 		}, this);
+	},
+	cropNames: function(names) {
+		var maxNames = 10;
+		var count = names.length;
+		if(count > maxNames)
+			names.splice(maxNames - 2, count - maxNames + 1, "\u2026" /* "..." */);
+		return names;
 	},
 	copy: function(all) {
 		this.clipboard = this.exportOptions(all);
