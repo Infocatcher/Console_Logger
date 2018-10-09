@@ -39,6 +39,8 @@ var consoleLoggerOptions = {
 		delete window.OS;
 	},
 	setupUI: function() {
+		this.baseTitle = document.title;
+
 		var root = document.documentElement;
 		var applyBtn = this.applyBtn = root.getButton("extra1");
 		applyBtn.setAttribute("icon", "apply");
@@ -847,10 +849,6 @@ var consoleLoggerOptions = {
 		for(var p in options)
 			delete options[p].originalName;
 		return JSON.stringify(options);
-	},
-	get baseTitle() {
-		delete this.baseTitle;
-		return this.baseTitle = document.title;
 	},
 	_modified: false,
 	get modified() {
