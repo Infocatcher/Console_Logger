@@ -225,7 +225,7 @@ var consoleLogger = {
 		delete this.ss;
 		if(!("nsISessionStore" in Components.interfaces)) {
 			try { // Firefox 61+, https://bugzilla.mozilla.org/show_bug.cgi?id=1450559
-				return this.ss = Components.utils.import("resource:///modules/sessionstore/SessionStore.jsm", {})
+				return this.ss = Components.utils["import"]("resource:///modules/sessionstore/SessionStore.jsm", {})
 					.SessionStore;
 			}
 			catch(e) {
