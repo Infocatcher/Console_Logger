@@ -1096,13 +1096,14 @@ var consoleLoggerOptions = {
 
 		var hasLogFiles = false;
 		var logMark = "*";
-		var names = selectedItems.map(function(cli) {
-			var name = cli.name
+		var names = this.cropNames(selectedItems.map(function(cli, i) {
+			var name = cli.name;
+			var n = (i + 1) + ") ";
 			if(!this.getLogFile(name))
-				return name;
+				return n + name;
 			hasLogFiles = true;
-			return name + " " + logMark;
-		}, this);
+			return n + name + " " + logMark;
+		}, this));
 		var removeLogs = { value: false };
 		var hasLocked = this.$("cl-deck-reset").selectedIndex == 1;
 		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
