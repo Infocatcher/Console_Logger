@@ -1094,26 +1094,26 @@ var consoleLoggerOptions = {
 	reset: function(confirmOnlyLogFiles) {
 		var selectedItems = this.selectedItems;
 
-		var hasLogFiles = false;
+		var logFiles = 0;
 		var logMark = "*";
 		var names = this.cropNames(selectedItems.map(function(cli, i) {
 			var name = cli.name;
 			var n = (i + 1) + ") ";
 			if(!this.getLogFile(name))
 				return n + name;
-			hasLogFiles = true;
+			++logFiles;
 			return n + name + " " + logMark;
 		}, this));
 		var removeLogs = { value: false };
 		var hasLocked = this.$("cl-deck-reset").selectedIndex == 1;
 		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
 			+ "\n" + names.join("\n")
-			+ (hasLogFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
+			+ (logFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
 		if(
-			(hasLogFiles || !confirmOnlyLogFiles)
+			(logFiles || !confirmOnlyLogFiles)
 			&& prefs.get("options.confirmRemoval")
-			&& !Services.prompt[hasLogFiles ? "confirmCheck" : "confirm"](
-				window, strings.selfName, ask, strings.removeLogsAlso, removeLogs
+			&& !Services.prompt[logFiles ? "confirmCheck" : "confirm"](
+				window, strings.selfName, ask, strings.removeLogsAlso.replace("$S", logFiles), removeLogs
 			)
 		)
 			return;
