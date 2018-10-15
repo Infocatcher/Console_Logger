@@ -95,6 +95,8 @@ var consoleLoggerOptions = {
 		delay(this.setKeysDesc, this);
 	},
 	updateUIFromPrefs: function() {
+		if(!this.cl) // Nothing to update, window was closed
+			return;
 		this.placeButtonsBar();
 		this.setCompactMode();
 	},
