@@ -440,6 +440,7 @@ var consoleLoggerOptions = {
 				this.list.selectItemRange(cliFirst, cli);
 		}
 		this.checkUnsaved();
+		this.updateControls();
 		this.updateFilter();
 	},
 	addForLogFiles: function() {
