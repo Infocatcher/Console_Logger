@@ -94,11 +94,15 @@ var consoleLogger = {
 		else if(reason == APP_STARTUP && prefs.get("options.restoreWindow")) {
 			Services.obs.addObserver({ // Wait for first opened window
 				cl: this,
+				hasObserver: true,
 				observe: function(subject, topic, data) {
 					subject.addEventListener("load", this, false);
 				},
 				handleEvent: function(e) {
 					e.currentTarget.removeEventListener("load", this, false);
+					if(!this.hasObserver)
+						return;
+					this.hasObserver = false;
 					Services.obs.removeObserver(this, "domwindowopened");
 					delay(this.cl.mayRestoreOptions, this.cl);
 				}
