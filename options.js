@@ -189,7 +189,8 @@ var consoleLoggerOptions = {
 	},
 
 	$: function(id) {
-		return document.getElementById(id);
+		return document.getElementById(id)
+			|| document.getAnonymousElementByAttribute(document.documentElement, "id", id); // Firefox 65+
 	},
 	get options() {
 		var optionsArr = [];
