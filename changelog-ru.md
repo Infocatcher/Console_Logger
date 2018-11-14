@@ -24,6 +24,9 @@
 `x` Исправлено использование констант между файлами в Firefox 44+ (<a href="https://blog.mozilla.org/addons/2015/10/14/breaking-changes-let-const-firefox-nightly-44/">Breaking changes in let and const in Firefox Nightly 44</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1202902">bug 1202902</a>).<br>
 `+` Добавлен пункт меню «Добавить для отсутствующих в списке лог-файлов».<br>
 `x` Исправлено определение сохраненного состояния, также теперь всегда экспортируются отсортированные настройки.<br>
+`x` Исправления для совместимости с Pale Moon 28.1+ и Basilisk (подкорректировано определение соответствующей версии платформы).<br>
+`x` Исправлена единая панель кнопок в Firefox 65+: теперь узлы рядом с анонимными сами становятся анонимными (не могут быть получены через `document.getElementById()`).<br>
+`x` Fixed richlistbox.children usage in Firefox 65+: this is HTMLCollection now, force convert to array.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Исправлено скрытие специального окна, открывающего настройки в немодальном окне.<br>

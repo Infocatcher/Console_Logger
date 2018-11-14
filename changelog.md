@@ -24,6 +24,9 @@
 `x` Fixed constants usage across files in Firefox 44+ (<a href="https://blog.mozilla.org/addons/2015/10/14/breaking-changes-let-const-firefox-nightly-44/">Breaking changes in let and const in Firefox Nightly 44</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1202902">bug 1202902</a>).<br>
 `+` Added “Add for not listed log files” menu item.<br>
 `x` Correctly detect saved state and also always export sorted options.<br>
+`x` Compatibility fixes for Pale Moon 28.1+ and Basilisk (correctly detect relevant platform version).<br>
+`x` Fixed single buttons toolbar mode in Firefox 65+: now nodes beside anonymous content becomes anonymous too (not accessible through `document.getElementById()`).<br>
+`x` Fixed richlistbox.children usage in Firefox 65+: this is HTMLCollection now, force convert to array.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
