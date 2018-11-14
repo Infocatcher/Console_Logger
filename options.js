@@ -223,7 +223,10 @@ var consoleLoggerOptions = {
 		this.list.textContent = "";
 	},
 	get items() {
-		return this.list.children;
+		var items = this.list.children;
+		if("forEach" in items)
+			return items;
+		return Array.prototype.slice.call(items); // Firefox 65+
 	},
 	get selectedItems() {
 		var rlb = this.list;
