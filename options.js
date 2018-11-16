@@ -711,7 +711,10 @@ var consoleLoggerOptions = {
 				var stopTime = Date.now() + 2000;
 				brWin.setTimeout(function wait() {
 					var sb = brWin.gBrowser.selectedBrowser;
-					var isLoading = sb && sb.webProgress && sb.webProgress.isLoadingDocument;
+					var isLoading = sb && (
+						sb.webProgress && sb.webProgress.isLoadingDocument
+						|| sb.currentURI && sb.currentURI.spec == "about:blank"
+					);
 					if(isLoading && Date.now() < stopTime)
 						brWin.setTimeout(wait, 15);
 					else
