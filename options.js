@@ -708,7 +708,7 @@ var consoleLoggerOptions = {
 			);
 			brWin.addEventListener("load", function onLoad() {
 				brWin.removeEventListener("load", onLoad, false);
-				var stopTime = Date.now() + 2000;
+				var stopTime = Date.now() + 3500;
 				brWin.setTimeout(function wait() {
 					var sb = brWin.gBrowser.selectedBrowser;
 					var isLoading = sb && (
