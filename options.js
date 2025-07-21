@@ -26,6 +26,10 @@ var consoleLoggerOptions = {
 		Services.prefs.addObserver(prefs.ns + "options.", this, false);
 		if(this.isWindow && prefs.get("options.restoreWindow"))
 			this.cl.setSessionState("optionsOpened", true);
+
+		var fb = this.filter;
+		if(fb.value && fb._searchIcons)
+			fb._searchIcons.selectedIndex = 1;
 	},
 	destroy: function() {
 		Services.obs.removeObserver(this, "consoleLogger-logUpdated");
@@ -37,6 +41,10 @@ var consoleLoggerOptions = {
 		}, this);
 		consoleLoggerGlobal = this.cl = null;
 		delete window.OS;
+
+		var fb = this.filter;
+		fb.setAttribute("value", fb.value);
+		document.persist(fb.id, "value");
 	},
 	setupUI: function() {
 		this.baseTitle = document.title;
