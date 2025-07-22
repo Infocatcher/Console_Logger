@@ -22,16 +22,14 @@ var consoleLoggerOptions = {
 		}
 		this.setupUI();
 		this.load();
+		this.loadFilter();
 		Services.obs.addObserver(this, "consoleLogger-logUpdated", false);
 		Services.prefs.addObserver(prefs.ns + "options.", this, false);
 		if(this.isWindow && prefs.get("options.restoreWindow"))
 			this.cl.setSessionState("optionsOpened", true);
-
-		var fb = this.filter;
-		if(fb.value && fb._searchIcons)
-			fb._searchIcons.selectedIndex = 1;
 	},
 	destroy: function() {
+		this.saveFilter();
 		Services.obs.removeObserver(this, "consoleLogger-logUpdated");
 		Services.prefs.removeObserver(prefs.ns + "options.", this);
 		if(!this.cl.isShutdown)
@@ -41,10 +39,6 @@ var consoleLoggerOptions = {
 		}, this);
 		consoleLoggerGlobal = this.cl = null;
 		delete window.OS;
-
-		var fb = this.filter;
-		fb.setAttribute("value", fb.value);
-		document.persist(fb.id, "value");
 	},
 	setupUI: function() {
 		this.baseTitle = document.title;
@@ -146,6 +140,16 @@ var consoleLoggerOptions = {
 			var list = this.list;
 			list.parentNode.insertBefore(btnsPanel, list.nextSibling);
 		}
+	},
+	loadFilter: function() {
+		var fb = this.filter;
+		if(fb.value && fb._searchIcons)
+			fb._searchIcons.selectedIndex = 1;
+	},
+	saveFilter: function() {
+		var fb = this.filter;
+		fb.setAttribute("value", fb.value);
+		document.persist(fb.id, "value");
 	},
 	setKeysDesc: function() {
 		var nodes = Array.prototype.concat.call(
