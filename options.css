@@ -22,7 +22,7 @@
 	color: grayText;
 }
 .cl-list-item[cl_disabled] .cl-label {
-	opacity: 0.68;
+	opacity: 0.59;
 }
 .cl-small,
 .cl-small > .button-box,
