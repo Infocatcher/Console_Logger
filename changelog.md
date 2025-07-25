@@ -27,6 +27,7 @@
 `x` Compatibility fixes for Pale Moon 28.1+ and Basilisk (correctly detect relevant platform version).<br>
 `x` Fixed single buttons toolbar mode in Firefox 65+: now nodes beside anonymous content becomes anonymous too (not accessible through `document.getElementById()`).<br>
 `x` Fixed richlistbox.children usage in Firefox 65+: this is HTMLCollection now, force convert to array.<br>
+`+` Options window: added filter restoring.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
