@@ -36,6 +36,9 @@
 .cl-small > .button-box > .button-text {
 	margin: -2px 0 !important;
 }
+.cl-small:not([disabled]) > .button-box > .button-text {
+	font-weight: bold;
+}
 .cl-old:not([disabled]) > .button-box {
 	opacity: 0.55;
 }
