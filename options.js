@@ -933,6 +933,7 @@ var consoleLoggerOptions = {
 			this.$("cl-mi-opts-copyAll").setAttribute("disabled", noVisible);
 			this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-exportAll").setAttribute("disabled", noVisible);
+			this.$("cl-mi-opts-importOvr").setAttribute("disabled", isEmpty);
 		}, this);
 	},
 	updateContextMenu: function() {
