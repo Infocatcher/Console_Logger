@@ -221,8 +221,22 @@ var consoleLoggerOptions = {
 		for(var name in options)
 			optionsArr.push(options[name]);
 		optionsArr.sort(this.sortOptions);
+		var current;
+		var selected = this.selectedItems.map(function(cli) {
+			if(cli.getAttribute("current") == "true")
+				current = cli.name;
+			return cli.name;
+		});
 		this.clearList();
-		optionsArr.forEach(this.appendItem, this);
+		var list = this.list;
+		optionsArr.forEach(function(state) {
+			var cli = this.appendItem(state);
+			if(selected.indexOf(state.name) != -1) {
+				list.addItemToSelection(cli);
+				if(state.name == current)
+					list.currentItem = cli;
+			}
+		}, this);
 	},
 	sortOptions: function(a, b) {
 		return a.name > b.name ? 1 : -1; // Note: always not equal!
