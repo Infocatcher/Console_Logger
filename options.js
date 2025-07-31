@@ -232,8 +232,11 @@ var consoleLoggerOptions = {
 		optionsArr.forEach(function(state) {
 			var cli = this.appendItem(state);
 			if(selected.indexOf(state.name) != -1) {
-				list.addItemToSelection(cli);
-				if(state.name == current)
+				if("addItemToSelection" in list)
+					list.addItemToSelection(cli);
+				else
+					list.selectedItem = cli;
+				if(state.name == current && "currentItem" in list)
 					list.currentItem = cli;
 			}
 		}, this);
