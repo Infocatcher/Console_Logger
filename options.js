@@ -221,24 +221,25 @@ var consoleLoggerOptions = {
 		for(var name in options)
 			optionsArr.push(options[name]);
 		optionsArr.sort(this.sortOptions);
+		var list = this.list;
+		var reload = list.hasChildNodes();
 		var current;
-		var selected = this.selectedItems.map(function(cli) {
+		var selected = reload && this.selectedItems.map(function(cli) {
 			if(cli.getAttribute("current") == "true")
 				current = cli.name;
 			return cli.name;
 		});
 		this.clearList();
-		var list = this.list;
 		optionsArr.forEach(function(state) {
 			var cli = this.appendItem(state);
-			if(selected.indexOf(state.name) != -1) {
-				if("addItemToSelection" in list)
-					list.addItemToSelection(cli);
-				else
-					list.selectedItem = cli;
-				if(state.name == current && "currentItem" in list)
-					list.currentItem = cli;
-			}
+			if(!reload || selected.indexOf(state.name) == -1)
+				return;
+			if("addItemToSelection" in list)
+				list.addItemToSelection(cli);
+			else
+				list.selectedItem = cli;
+			if("currentItem" in list && state.name == current)
+				list.currentItem = cli;
 		}, this);
 	},
 	sortOptions: function(a, b) {
