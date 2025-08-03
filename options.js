@@ -101,6 +101,7 @@ var consoleLoggerOptions = {
 			return;
 		this.placeButtonsBar();
 		this.setCompactMode();
+		this.setShowDisabledMode();
 	},
 	singleButtonsBar: false,
 	placeButtonsBar: function(singleBar) {
@@ -960,6 +961,7 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
+		this.$("cl-mi-opts-showDisabled").setAttribute("checked", !this.list.hasAttribute("cl_hideDisabled"));
 		this.$("cl-mi-opts-singleButtonsBar").setAttribute("checked", prefs.get("options.singleButtonsBar"));
 		var openInTab = this.$("cl-mi-opts-openInTab");
 		openInTab.setAttribute("checked", prefs.get("options.openInTab"));
@@ -1070,6 +1072,19 @@ var consoleLoggerOptions = {
 	},
 	toggleCompactMode: function() {
 		this.setCompactMode(!prefs.get("options.compact"));
+	},
+	setShowDisabledMode: function(showDisabled) {
+		if(showDisabled === undefined)
+			showDisabled = prefs.get("options.showDisabled");
+		else
+			prefs.set("options.showDisabled", showDisabled);
+		if(!showDisabled)
+			this.list.setAttribute("cl_hideDisabled", "true");
+		else
+			this.list.removeAttribute("cl_hideDisabled");
+	},
+	toggleShowDisabledMode: function() {
+		this.setShowDisabledMode(!prefs.get("options.showDisabled"));
 	},
 	get isWindow() {
 		delete this.isWindow;

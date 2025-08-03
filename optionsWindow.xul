@@ -65,6 +65,8 @@
 				onpopupshowing="if(event.target == this) consoleLoggerOptions.updateContextMenu();">
 				<menuitem id="cl-mi-opts-compact" key="cl-key-toggleCompact" type="checkbox" label="&cl.compactMode;"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
+				<menuitem id="cl-mi-opts-showDisabled" key="cl-key-toggleShowDisabled" type="checkbox" label="&cl.showDisabled;"
+					oncommand="consoleLoggerOptions.setShowDisabledMode(this.getAttribute('checked') == 'true');" />
 				<menuitem id="cl-mi-opts-singleButtonsBar" type="checkbox" label="&cl.singleButtonsToolbar;"
 					oncommand="consoleLoggerOptions.placeButtonsBar(this.getAttribute('checked') == 'true');" />
 				<menuitem id="cl-mi-opts-openInTab" type="checkbox" label="&cl.openInTab;"
@@ -145,6 +147,7 @@
 		<key id="cl-key-invertSelection" key="*" modifiers="control" oncommand="consoleLoggerOptions.list.invertSelection();" />
 		<key id="cl-key-search" key="F" modifiers="accel" oncommand="consoleLoggerOptions.filter.focus();" />
 		<key id="cl-key-toggleCompact" key="M" modifiers="accel" oncommand="consoleLoggerOptions.toggleCompactMode();" />
+		<key id="cl-key-toggleShowDisabled" key="H" modifiers="accel" oncommand="consoleLoggerOptions.toggleShowDisabledMode();" />
 		<key id="cl-key-save" key="S" modifiers="accel" oncommand="consoleLoggerOptions.save();" />
 		<key id="cl-key-accept" keycode="VK_RETURN" modifiers="control" oncommand="document.documentElement.acceptDialog();" />
 		<key id="cl-key-reload" keycode="VK_F5" oncommand="consoleLoggerOptions.load();" />

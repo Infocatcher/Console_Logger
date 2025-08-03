@@ -9,6 +9,7 @@
 <!ENTITY cl.resetConfirm "Reset?">
 <!ENTITY cl.options "Options">
 <!ENTITY cl.compactMode "Compact Mode">
+<!ENTITY cl.showDisabled "Show Disabled Items">
 <!ENTITY cl.singleButtonsToolbar "Single Buttons Toolbar">
 <!ENTITY cl.openInTab "Open in Tab">
 <!ENTITY cl.logViewer "Log viewer">

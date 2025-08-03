@@ -28,6 +28,7 @@ pref("extensions.consoleLogger.enabled", true);
 pref("extensions.consoleLogger.options.openInTab", false);
 pref("extensions.consoleLogger.options.compact", false);
 pref("extensions.consoleLogger.options.compact.clickToSelect", true);
+pref("extensions.consoleLogger.options.showDisabled", true);
 pref("extensions.consoleLogger.options.singleButtonsBar", false);
 pref("extensions.consoleLogger.options.restoreWindow", true);
 pref("extensions.consoleLogger.options.doubleClickToOpen", true);
