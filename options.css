@@ -55,6 +55,13 @@
 	outline: 2px solid #f66;
 	outline-offset: -2px;
 }
+#cl-showDisabled {
+	list-style-image: url("icons16.png");
+	-moz-image-region: rect(0, 32px, 16px, 16px);
+}
+#cl-showDisabled[cl_checked="true"] {
+	-moz-image-region: rect(0, 16px, 16px, 0);
+}
 textbox[cl_highlight] {
 	outline: 2px solid ThreeDShadow;
 	outline-offset: -2px;

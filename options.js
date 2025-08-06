@@ -1074,10 +1074,13 @@ var consoleLoggerOptions = {
 		this.setCompactMode(!prefs.get("options.compact"));
 	},
 	setShowDisabledMode: function(showDisabled) {
-		if(showDisabled === undefined)
+		if(showDisabled === undefined) {
 			showDisabled = prefs.get("options.showDisabled");
-		else
+			this.$("cl-showDisabled").setAttribute("cl_checked", showDisabled);
+		}
+		else {
 			prefs.set("options.showDisabled", showDisabled);
+		}
 		if(!showDisabled)
 			this.list.setAttribute("cl_hideDisabled", "true");
 		else
