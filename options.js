@@ -274,7 +274,10 @@ var consoleLoggerOptions = {
 		});
 	},
 	get visibleItems() {
+		var hideDisabled = this.list.hasAttribute("cl_hideDisabled");
 		return this.items.filter(function(cli) {
+			if(hideDisabled && !cli.state.enabled)
+				return false;
 			return !cli.collapsed;
 		});
 	},
