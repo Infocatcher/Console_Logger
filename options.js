@@ -1086,6 +1086,7 @@ var consoleLoggerOptions = {
 		}
 		else {
 			prefs.set("options.showDisabled", showDisabled);
+			delay(this.updateControls, this);
 		}
 		if(!showDisabled)
 			this.list.setAttribute("cl_hideDisabled", "true");
