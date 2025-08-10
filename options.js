@@ -266,20 +266,22 @@ var consoleLoggerOptions = {
 		var hideDisabled = rlb.hasAttribute("cl_hideDisabled");
 		// Note: we have NodeList in Firefox 45+
 		return Array.prototype.filter.call(selectedItems, function(cli) {
-			if(hideDisabled && !cli.state.enabled)
-				return false;
-			return cli.parentNode && !cli.collapsed;
-		}).sort(function(cli1, cli2) { // Force convert to visible order
+			return this.isItemVisible(cli, hideDisabled);
+		}, this).sort(function(cli1, cli2) { // Force convert to visible order
 			return items.indexOf(cli1) - items.indexOf(cli2);
 		});
 	},
 	get visibleItems() {
 		var hideDisabled = this.list.hasAttribute("cl_hideDisabled");
 		return this.items.filter(function(cli) {
-			if(hideDisabled && !cli.state.enabled)
-				return false;
-			return !cli.collapsed;
-		});
+			return this.isItemVisible(cli, hideDisabled);
+		}, this);
+	},
+	isItemVisible: function(cli, checkStyles) {
+		return cli.parentNode
+			&& !cli.collapsed
+			// Note: XBL with cli.enabled/cli.state.state may be not yet available e.g. during reload
+			&& (checkStyles ? getComputedStyle(cli, null).display != "none" : true);
 	},
 	get enabledInSelection() {
 		var selectedItems = this.selectedItems;
