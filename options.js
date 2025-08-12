@@ -449,7 +449,7 @@ var consoleLoggerOptions = {
 	exportOptions: function(all) {
 		var options = { __proto__: null };
 		var items = all
-			? this.visibleItems
+			? this.items
 			: this.selectedItems;
 		items.forEach(function(cli) {
 			var item = cli.state;
@@ -957,9 +957,9 @@ var consoleLoggerOptions = {
 			this.$("cl-mi-opts-cut").setAttribute("disabled", cantReset);
 			this.$("cl-mi-copy").setAttribute("disabled", cantReset);
 			this.$("cl-mi-opts-copy").setAttribute("disabled", cantReset);
-			this.$("cl-mi-opts-copyAll").setAttribute("disabled", noVisible);
+			this.$("cl-mi-opts-copyAll").setAttribute("disabled", isEmpty);
 			this.$("cl-mi-opts-export").setAttribute("disabled", cantReset);
-			this.$("cl-mi-opts-exportAll").setAttribute("disabled", noVisible);
+			this.$("cl-mi-opts-exportAll").setAttribute("disabled", isEmpty);
 			this.$("cl-mi-opts-importOvr").setAttribute("disabled", isEmpty);
 		}, this);
 	},
