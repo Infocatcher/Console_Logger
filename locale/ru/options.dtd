@@ -26,10 +26,12 @@
 <!ENTITY cl.hasLog "$S – содержит лог-файл">
 <!ENTITY cl.cut "Вырезать">
 <!ENTITY cl.copy "Копировать">
+<!ENTITY cl.copyVisible "Копировать видимое">
 <!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">
 <!ENTITY cl.pasteOvr "Вставить и заменить">
 <!ENTITY cl.exportSel "Экспортировать выбранное в файл…">
+<!ENTITY cl.exportVisible "Экспортировать видимое в файл…">
 <!ENTITY cl.exportAll "Экспортировать всё в файл…">
 <!ENTITY cl.importAdd "Импортировать из файла: добавить…">
 <!ENTITY cl.importOvr "Импортировать из файла: заменить…">

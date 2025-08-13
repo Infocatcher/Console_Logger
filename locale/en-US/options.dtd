@@ -26,10 +26,12 @@
 <!ENTITY cl.hasLog "$S – contains log file">
 <!ENTITY cl.cut "Cut">
 <!ENTITY cl.copy "Copy">
+<!ENTITY cl.copyVisible "Copy Visible">
 <!ENTITY cl.copyAll "Copy All">
 <!ENTITY cl.paste "Paste">
 <!ENTITY cl.pasteOvr "Paste and Replace">
 <!ENTITY cl.exportSel "Export Selected to File…">
+<!ENTITY cl.exportVisible "Export Visible to File…">
 <!ENTITY cl.exportAll "Export All to File…">
 <!ENTITY cl.importAdd "Import from File: Append…">
 <!ENTITY cl.importOvr "Import from File: Replace…">

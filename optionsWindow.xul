@@ -88,7 +88,8 @@
 				<menuitem id="cl-mi-opts-reload" key="cl-key-reload" label="&cl.reload;" oncommand="consoleLoggerOptions.load();" />
 				<menuseparator id="cl-sep-opts-beforeExport" />
 				<menuitem id="cl-mi-opts-export" key="cl-key-export" label="&cl.exportSel;" oncommand="consoleLoggerOptions.exportToFile();" />
-				<menuitem id="cl-mi-opts-exportAll" key="cl-key-exportAll" label="&cl.exportAll;" oncommand="consoleLoggerOptions.exportToFile(true);" />
+				<menuitem id="cl-mi-opts-exportVisible" key="cl-key-exportVisible" label="&cl.exportVisible;" oncommand="consoleLoggerOptions.exportToFile(-1);" />
+				<menuitem id="cl-mi-opts-exportAll" key="cl-key-exportAll" label="&cl.exportAll;" oncommand="consoleLoggerOptions.exportToFile(1);" />
 				<menuitem id="cl-mi-opts-import" key="cl-key-import" label="&cl.importAdd;" oncommand="consoleLoggerOptions.importFromFile();" />
 				<menuitem id="cl-mi-opts-importOvr" key="cl-key-importOvr" label="&cl.importOvr;" oncommand="consoleLoggerOptions.importFromFile(true);" />
 				<menuseparator id="cl-sep-opts-beforeAddForLogs" />
@@ -96,7 +97,8 @@
 				<menuseparator id="cl-sep-opts-beforeCopy" />
 				<menuitem id="cl-mi-opts-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
 				<menuitem id="cl-mi-opts-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
-				<menuitem id="cl-mi-opts-copyAll" key="cl-key-copyAll" label="&cl.copyAll;" oncommand="consoleLoggerOptions.copy(true);" />
+				<menuitem id="cl-mi-opts-copyVisible" key="cl-key-copyVisible" label="&cl.copyVisible;" oncommand="consoleLoggerOptions.copy(-1);" />
+				<menuitem id="cl-mi-opts-copyAll" key="cl-key-copyAll" label="&cl.copyAll;" oncommand="consoleLoggerOptions.copy(1);" />
 				<menuitem id="cl-mi-opts-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
 				<menuitem id="cl-mi-opts-pasteOvr" key="cl-key-pasteOvr" label="&cl.pasteOvr;" oncommand="consoleLoggerOptions.paste(true);" />
 			</menupopup>
@@ -138,13 +140,15 @@
 		<key id="cl-key-copy" key="C" modifiers="accel,shift" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy2" key="C" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copy3" keycode="VK_INSERT" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
-		<key id="cl-key-copyAll" key="C" modifiers="accel,alt" oncommand="consoleLoggerOptions.copy(true);" />
+		<key id="cl-key-copyVisible" key="C" modifiers="accel,alt,shift" oncommand="consoleLoggerOptions.copy(-1);" />
+		<key id="cl-key-copyAll" key="C" modifiers="accel,alt" oncommand="consoleLoggerOptions.copy(1);" />
 		<key id="cl-key-paste" key="V" modifiers="accel,shift" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-paste2" key="V" modifiers="accel" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-paste3" keycode="VK_INSERT" modifiers="shift" oncommand="consoleLoggerOptions.paste();" />
 		<key id="cl-key-pasteOvr" key="V" modifiers="accel,alt" oncommand="consoleLoggerOptions.paste(true);" />
 		<key id="cl-key-export" key="E" modifiers="accel,shift" oncommand="consoleLoggerOptions.exportToFile()" />
-		<key id="cl-key-exportAll" key="E" modifiers="accel,alt" oncommand="consoleLoggerOptions.exportToFile(true);" />
+		<key id="cl-key-exportVisible" key="E" modifiers="accel,alt,shift" oncommand="consoleLoggerOptions.exportToFile(-1)" />
+		<key id="cl-key-exportAll" key="E" modifiers="accel,alt" oncommand="consoleLoggerOptions.exportToFile(1);" />
 		<key id="cl-key-import" key="I" modifiers="accel,shift" oncommand="consoleLoggerOptions.importFromFile();" />
 		<key id="cl-key-importOvr" key="I" modifiers="accel,alt" oncommand="consoleLoggerOptions.importFromFile(true);" />
 		<key id="cl-key-selectAll" key="A" modifiers="accel,shift" oncommand="consoleLoggerOptions.list.selectAll();" />
