@@ -30,9 +30,9 @@
 <!ENTITY cl.copyAll "Copy All">
 <!ENTITY cl.paste "Paste">
 <!ENTITY cl.pasteOvr "Paste and Replace">
-<!ENTITY cl.exportSel "Export Selected to File…">
-<!ENTITY cl.exportVisible "Export Visible to File…">
-<!ENTITY cl.exportAll "Export All to File…">
+<!ENTITY cl.exportSel "Export to File: Selected…">
+<!ENTITY cl.exportVisible "Export to File: Visible…">
+<!ENTITY cl.exportAll "Export to File: All…">
 <!ENTITY cl.importAdd "Import from File: Append…">
 <!ENTITY cl.importOvr "Import from File: Replace…">
 <!ENTITY cl.addForLogs "Add for not listed log files">

@@ -30,9 +30,9 @@
 <!ENTITY cl.copyAll "Копировать всё">
 <!ENTITY cl.paste "Вставить">
 <!ENTITY cl.pasteOvr "Вставить и заменить">
-<!ENTITY cl.exportSel "Экспортировать выбранное в файл…">
-<!ENTITY cl.exportVisible "Экспортировать видимое в файл…">
-<!ENTITY cl.exportAll "Экспортировать всё в файл…">
+<!ENTITY cl.exportSel "Экспортировать в файл: выделенное…">
+<!ENTITY cl.exportVisible "Экспортировать в файл: видимое…">
+<!ENTITY cl.exportAll "Экспортировать в файл: всё…">
 <!ENTITY cl.importAdd "Импортировать из файла: добавить…">
 <!ENTITY cl.importOvr "Импортировать из файла: заменить…">
 <!ENTITY cl.addForLogs "Добавить для отсутствующих в списке лог-файлов">
