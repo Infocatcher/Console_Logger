@@ -446,7 +446,7 @@ var consoleLoggerOptions = {
 		}
 		return options;
 	},
-	exportOptions: function(all) {
+	exportOptions: function(all) { // -1 - all visible, 0 - only selected, 1 - all
 		var options = { __proto__: null };
 		var items = all
 			? all < 0
