@@ -1338,14 +1338,17 @@ var consoleLoggerOptions = {
 		if(/^\s*$/.test(filter))
 			return;
 		this.setFilter(filter);
+		this.blink(filterBox, notifyTimes);
+	},
+	blink: function(node, notifyTimes) {
 		if(notifyTimes === undefined)
 			notifyTimes = 3;
 		var _this = this;
 		if(notifyTimes) (function blink() {
 			clearTimeout(_this._notifyFilterTimer);
-			filterBox.setAttribute("cl_highlight", "true");
+			node.setAttribute("cl_highlight", "true");
 			_this._notifyFilterTimer = setTimeout(function() {
-				filterBox.removeAttribute("cl_highlight");
+				node.removeAttribute("cl_highlight");
 				if(--notifyTimes)
 					_this._notifyFilterTimer = setTimeout(blink, 100);
 			}, 150);
