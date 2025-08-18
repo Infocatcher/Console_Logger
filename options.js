@@ -1331,7 +1331,6 @@ var consoleLoggerOptions = {
 			this.filter.removeAttribute("cl-notFound");
 		delay(this.updateControls, this);
 	},
-	_notifyFilterTimer: 0,
 	updateFilter: function(notifyTimes) {
 		var filterBox = this.filter;
 		var filter = filterBox.value;
@@ -1345,12 +1344,12 @@ var consoleLoggerOptions = {
 			notifyTimes = 3;
 		var _this = this;
 		if(notifyTimes) (function blink() {
-			clearTimeout(_this._notifyFilterTimer);
+			clearTimeout(node._notifyFilterTimer || 0);
 			node.setAttribute("cl_highlight", "true");
-			_this._notifyFilterTimer = setTimeout(function() {
+			node._notifyFilterTimer = setTimeout(function() {
 				node.removeAttribute("cl_highlight");
 				if(--notifyTimes)
-					_this._notifyFilterTimer = setTimeout(blink, 100);
+					node._notifyFilterTimer = setTimeout(blink, 100);
 			}, 150);
 		})();
 	}
