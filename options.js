@@ -510,6 +510,8 @@ var consoleLoggerOptions = {
 		}
 		if(!cliFirst)
 			return;
+		if(this.list.hasAttribute("cl_hideDisabled"))
+			this.blink(this.$("cl-showDisabled"));
 		this.focusItem(cliFirst);
 		if("selectItemRange" in this.list)
 			this.list.selectItemRange(cliFirst, cli);
