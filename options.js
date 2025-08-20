@@ -263,7 +263,7 @@ var consoleLoggerOptions = {
 		var rlb = this.list;
 		var selectedItems = rlb.selectedItems || rlb.selectedItem && [rlb.selectedItem] || [];
 		var items = this.items;
-		var hideDisabled = rlb.hasAttribute("cl_hideDisabled");
+		var hideDisabled = this.hideDisabled;
 		// Note: we have NodeList in Firefox 45+
 		return Array.prototype.filter.call(selectedItems, function(cli) {
 			return this.isItemVisible(cli, hideDisabled);
@@ -272,7 +272,7 @@ var consoleLoggerOptions = {
 		});
 	},
 	get visibleItems() {
-		var hideDisabled = this.list.hasAttribute("cl_hideDisabled");
+		var hideDisabled = this.hideDisabled;
 		return this.items.filter(function(cli) {
 			return this.isItemVisible(cli, hideDisabled);
 		}, this);
@@ -510,8 +510,8 @@ var consoleLoggerOptions = {
 		}
 		if(!cliFirst)
 			return;
-		if(this.list.hasAttribute("cl_hideDisabled"))
-			this.blink(this.$("cl-showDisabled"));
+		if(this.hideDisabled)
+			this.blink(this.tbbShowDisabled);
 		this.focusItem(cliFirst);
 		if("selectItemRange" in this.list)
 			this.list.selectItemRange(cliFirst, cli);
@@ -975,7 +975,7 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
-		this.$("cl-mi-opts-showDisabled").setAttribute("checked", !this.list.hasAttribute("cl_hideDisabled"));
+		this.$("cl-mi-opts-showDisabled").setAttribute("checked", !this.hideDisabled);
 		this.$("cl-mi-opts-singleButtonsBar").setAttribute("checked", prefs.get("options.singleButtonsBar"));
 		var openInTab = this.$("cl-mi-opts-openInTab");
 		openInTab.setAttribute("checked", prefs.get("options.openInTab"));
@@ -1087,10 +1087,17 @@ var consoleLoggerOptions = {
 	toggleCompactMode: function() {
 		this.setCompactMode(!prefs.get("options.compact"));
 	},
+	get tbbShowDisabled() {
+		delete this.tbbShowDisabled;
+		return this.tbbShowDisabled = this.$("cl-showDisabled");
+	},
+	get hideDisabled() {
+		return this.list.hasAttribute("cl_hideDisabled");
+	},
 	setShowDisabledMode: function(showDisabled) {
 		if(showDisabled === undefined) {
 			showDisabled = prefs.get("options.showDisabled");
-			this.$("cl-showDisabled").setAttribute("cl_checked", showDisabled);
+			this.tbbShowDisabled.setAttribute("cl_checked", showDisabled);
 		}
 		else {
 			prefs.set("options.showDisabled", showDisabled);
