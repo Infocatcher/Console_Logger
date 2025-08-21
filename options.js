@@ -1146,6 +1146,8 @@ var consoleLoggerOptions = {
 		this.markAsSaved();
 		this.updateControls();
 		this.updateFilter();
+		if(this.hideDisabled && this.list.hasChildNodes() && !this.visibleItems.length)
+			this.blink(this.tbbShowDisabled);
 		this.validateFieldsAsync();
 	},
 	save: function(sync) {
