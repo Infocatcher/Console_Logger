@@ -949,6 +949,7 @@ var consoleLoggerOptions = {
 		this.$("cl-btn-reset").disabled = cantReset;
 		this.filter.disabled = isEmpty;
 		this.$("cl-filterLabel").disabled = isEmpty;
+		this.tbbShowDisabled.disabled = isEmpty;
 		delay(function() {
 			var noVisible = isEmpty || !this.visibleItems.length;
 			var miRemove = this.$("cl-mi-remove");
