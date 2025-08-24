@@ -397,8 +397,12 @@
 					if(e.target != trg)
 						return;
 					// Like "mousedown" handler from chrome://global/content/bindings/listbox.xml#listitem
-					if(!_this.selected)
-						control.selectItem(_this);
+					if(!_this.selected) {
+						if("selectItem" in control)
+							control.selectItem(_this);
+						else
+							control.selectedItem = _this;
+					}
 					control.currentItem = _this;
 				}, true);
 			]]>
