@@ -46,12 +46,12 @@
 <!ENTITY cl.invertSelection "Invert Selection">
 <!ENTITY cl.name "Name:">
 <!ENTITY cl.nameTip "Preference name (and name of log file), only ASCII characters">
-<!ENTITY cl.sourcePattern "Source pattern:">
-<!ENTITY cl.sourcePatternTip "Checks source URI of errors and warnings&cl.regExpTip;">
-<!ENTITY cl.messagePattern "Message pattern:">
-<!ENTITY cl.messagePatternTip "Checks message text, only for simple messages&cl.regExpTip;">
-<!ENTITY cl.excludePattern "Exclude pattern:">
-<!ENTITY cl.excludePatternTip "Checks message text (and excludes matched), for all messages, errors and warnings&cl.regExpTip;">
+<!ENTITY cl.source "Source:">
+<!ENTITY cl.sourceTip "Checks source URI of errors and warnings&cl.regExpTip;">
+<!ENTITY cl.message "Message:">
+<!ENTITY cl.messageTip "Checks message text, only for simple messages&cl.regExpTip;">
+<!ENTITY cl.exclude "Exclude:">
+<!ENTITY cl.excludeTip "Checks message text (and excludes matched), for all messages, errors and warnings&cl.regExpTip;">
 <!ENTITY cl.regExpTip " (regular expression, case insensitive)">
 <!ENTITY cl.log "Log">
 <!ENTITY cl.logs "Log ($S)">

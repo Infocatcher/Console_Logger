@@ -24,15 +24,15 @@
 						</xul:hbox>
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label class="cl-label" value="&cl.sourcePattern;" tooltiptext="&cl.sourcePatternTip;" />
+						<xul:label class="cl-label" value="&cl.source;" tooltiptext="&cl.sourceTip;" />
 						<xul:textbox anonid="source" class="cl-textbox" flex="1" />
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label class="cl-label" value="&cl.messagePattern;" tooltiptext="&cl.messagePatternTip;" />
+						<xul:label class="cl-label" value="&cl.message;" tooltiptext="&cl.messageTip;" />
 						<xul:textbox anonid="message" class="cl-textbox" flex="1" />
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail">
-						<xul:label class="cl-label" value="&cl.excludePattern;" tooltiptext="&cl.excludePatternTip;" />
+						<xul:label class="cl-label" value="&cl.exclude;" tooltiptext="&cl.excludeTip;" />
 						<xul:textbox anonid="exclude" class="cl-textbox" flex="1" />
 					</xul:row>
 				</xul:rows>
