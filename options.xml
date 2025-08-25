@@ -23,16 +23,16 @@
 								oncommand="document.getBindingParent(this).updateState();" />
 						</xul:hbox>
 					</xul:row>
-					<xul:row align="center" class="cl-row-detail">
-						<xul:label class="cl-label" value="&cl.source;" tooltiptext="&cl.sourceTip;" />
+					<xul:row align="center" class="cl-row-detail" tooltiptext="&cl.sourceTip;">
+						<xul:label class="cl-label" value="&cl.source;" />
 						<xul:textbox anonid="source" class="cl-textbox" flex="1" />
 					</xul:row>
-					<xul:row align="center" class="cl-row-detail">
-						<xul:label class="cl-label" value="&cl.message;" tooltiptext="&cl.messageTip;" />
+					<xul:row align="center" class="cl-row-detail" tooltiptext="&cl.messageTip;">
+						<xul:label class="cl-label" value="&cl.message;" />
 						<xul:textbox anonid="message" class="cl-textbox" flex="1" />
 					</xul:row>
-					<xul:row align="center" class="cl-row-detail">
-						<xul:label class="cl-label" value="&cl.exclude;" tooltiptext="&cl.excludeTip;" />
+					<xul:row align="center" class="cl-row-detail" tooltiptext="&cl.excludeTip;">
+						<xul:label class="cl-label" value="&cl.exclude;" />
 						<xul:textbox anonid="exclude" class="cl-textbox" flex="1" />
 					</xul:row>
 				</xul:rows>
