@@ -281,7 +281,7 @@ var consoleLoggerOptions = {
 		return cli.parentNode
 			&& !cli.collapsed
 			// Note: XBL with cli.enabled/cli.state.state may be not yet available e.g. during reload
-			&& (checkStyles ? getComputedStyle(cli, null).display != "none" : true);
+			&& (checkStyles ? getComputedStyle(cli, null).visibility != "collapse" : true);
 	},
 	get enabledInSelection() {
 		var selectedItems = this.selectedItems;

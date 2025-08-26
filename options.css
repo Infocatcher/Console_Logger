@@ -16,7 +16,7 @@
 	visibility: hidden; /* Hide from Tab/Shift+Tab */
 }
 #cl-list[cl_hideDisabled] > .cl-list-item[cl_disabled] {
-	display: none;
+	visibility: collapse;
 }
 #consoleLoggerOptions[cl_disabled] #cl-list .cl-enabled {
 	opacity: 0.68;
