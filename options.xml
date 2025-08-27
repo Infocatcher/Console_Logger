@@ -15,7 +15,9 @@
 					<xul:row align="center" class="cl-row-main">
 						<xul:label class="cl-label" value="&cl.name;" tooltiptext="&cl.nameTip;" />
 						<xul:hbox align="center">
-							<xul:textbox anonid="name" class="cl-textbox" flex="1" />
+							<xul:hbox align="center" flex="1" tooltiptext="&cl.nameTip;"> <!-- Tooltip wrapper -->
+								<xul:textbox anonid="name" class="cl-textbox" flex="1" />
+							</xul:hbox>
 							<xul:button anonid="open" class="cl-small" disabled="true" label="&cl.log;"
 								oncommand="document.getBindingParent(this).open();"
 								onmouseover="document.getBindingParent(this).updateLogTip();" />
