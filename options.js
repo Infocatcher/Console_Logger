@@ -1320,16 +1320,28 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	setFilter: function(filter) {
-		filter = filter
-			.replace(/^\s+|\s+$/g, "")
-			.toLowerCase();
-		var tokens = filter.split(/\s+/);
-		var matcher = filter && tokens.length && function(s) {
-			s = s.toLowerCase();
-			return !tokens.some(function(token) {
-				return s.indexOf(token) == -1;
-			});
-		};
+		var matcher;
+		if(/^\/(.+)\/(i?)$/.test(filter)) try { // /RegExp/ or /regexp/i
+			var regExp = new RegExp(RegExp.$1, RegExp.$2);
+			matcher = function(s) {
+				return regExp.test(s);
+			};
+		}
+		catch(e) {
+			Components.utils.reportError(e);
+		}
+		if(!matcher) { // Space = and
+			filter = filter
+				.replace(/^\s+|\s+$/g, "")
+				.toLowerCase();
+			var tokens = filter.split(/\s+/);
+			matcher = filter && tokens.length && function(s) {
+				s = s.toLowerCase();
+				return !tokens.some(function(token) {
+					return s.indexOf(token) == -1;
+				});
+			};
+		}
 		var found = false;
 		this.items.forEach(function(cli) {
 			var matched = cli.setFilter(matcher);
