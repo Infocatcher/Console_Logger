@@ -1353,7 +1353,11 @@ var consoleLoggerOptions = {
 			this.filter.setAttribute("cl-notFound", "true");
 		else
 			this.filter.removeAttribute("cl-notFound");
-		delay(this.updateControls, this);
+		delay(function() {
+			if(found && this.hideDisabled && !this.visibleItems.length)
+				this.blink(this.tbbShowDisabled);
+			this.updateControls();
+		}, this);
 	},
 	updateFilter: function(notifyTimes) {
 		var filterBox = this.filter;
