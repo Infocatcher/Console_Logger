@@ -30,6 +30,7 @@
 `+` Options window: added filter restoring.<br>
 `*` Options window: improved options reloading, now will be preserved selected items.<br>
 `+` Options window: added ability to hide disabled items (to focus view on currently active logs, <em>extensions.consoleLogger.options.showDisabled</em> preference).<br>
+`*` Improved filter: added support for regular expressions (/RegExp/ or /regexp/i).<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
