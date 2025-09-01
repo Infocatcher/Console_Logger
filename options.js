@@ -1244,6 +1244,7 @@ var consoleLoggerOptions = {
 		this.selectedItems.forEach(function(cli) {
 			cli.enabled = enable;
 		});
+		this.updateControls();
 	},
 	open: function(cli) {
 		var items = cli ? [cli] : this.selectedItems;
