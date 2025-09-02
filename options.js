@@ -983,10 +983,12 @@ var consoleLoggerOptions = {
 		setTimeout(function() {
 			openInTab.setAttribute("disabled", !Services.wm.getMostRecentWindow("navigator:browser"));
 		}, 0);
-		var cantSelectAll = !this.visibleItems.some(function(cli) {
+		var visibleItems = this.visibleItems;
+		var cantSelectAll = !visibleItems.some(function(cli) {
 			return !cli.hasAttribute("selected");
 		});
 		this.$("cl-mi-selectAll").setAttribute("disabled", cantSelectAll);
+		this.$("cl-mi-invertSelection").setAttribute("disabled", !visibleItems.length);
 		var toggler = this.$("cl-mi-toggle");
 		var hasEnabled = this.enabledInSelection;
 		if(hasEnabled)
