@@ -464,6 +464,7 @@ var consoleLoggerOptions = {
 			return;
 		var cliFirst;
 		var overrided = false;
+		var oldOptions = this.options;
 		for(var name in options) {
 			if(override && !overrided) {
 				overrided = true;
@@ -476,6 +477,8 @@ var consoleLoggerOptions = {
 						this.appendItem(defaultOptions[name2]);
 			}
 			var item = options[name];
+			if(name in oldOptions && this.optionsEquals(oldOptions[name], item))
+				continue;
 			item.name = this.getUniqueName(name);
 			var cli = this.appendItem(item);
 			if(!cliFirst)
@@ -489,6 +492,11 @@ var consoleLoggerOptions = {
 		this.checkUnsaved();
 		this.updateControls();
 		this.updateFilter();
+	},
+	optionsEquals: function(o1, o2) { // Will ignore "enabled" state
+		return ["source", "message", "exclude"].every(function(p) {
+			return o1[p] === o2[p];
+		});
 	},
 	addForLogFiles: function() {
 		var prefix = consoleLoggerGlobal.FILE_NAME_PREFIX;
