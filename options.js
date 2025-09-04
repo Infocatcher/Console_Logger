@@ -209,7 +209,10 @@ var consoleLoggerOptions = {
 		var optionsArr = [];
 		this.items.forEach(function(cli) {
 			var item = cli.state;
-			item.name && optionsArr.push(item);
+			if(!item.name)
+				return;
+			item._cli = cli;
+			optionsArr.push(item);
 		});
 		var options = { __proto__: null };
 		optionsArr.sort(this.sortOptions).forEach(function(item) {
@@ -477,8 +480,12 @@ var consoleLoggerOptions = {
 						this.appendItem(defaultOptions[name2]);
 			}
 			var item = options[name];
-			if(name in oldOptions && this.optionsEquals(oldOptions[name], item))
+			var oldItem = name in oldOptions && oldOptions[name];
+			if(oldItem && this.optionsEquals(oldItem, item)) {
+				if(oldItem.enabled != item.enabled)
+					oldItem._cli.enabled = item.enabled;
 				continue;
+			}
 			item.name = this.getUniqueName(name);
 			var cli = this.appendItem(item);
 			if(!cliFirst)
@@ -907,8 +914,11 @@ var consoleLoggerOptions = {
 	_savedOptions: null,
 	get optionsHash() {
 		var options = this.options;
-		for(var p in options)
-			delete options[p].originalName;
+		for(var p in options) {
+			var item = options[p];
+			delete item.originalName;
+			delete item._cli;
+		}
 		return JSON.stringify(options);
 	},
 	_modified: false,
