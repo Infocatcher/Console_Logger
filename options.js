@@ -480,7 +480,7 @@ var consoleLoggerOptions = {
 						this.appendItem(defaultOptions[name2]);
 			}
 			var item = options[name];
-			var oldItem = name in oldOptions && oldOptions[name];
+			var oldItem = !override && name in oldOptions && oldOptions[name];
 			if(oldItem && this.optionsEquals(oldItem, item)) {
 				if(oldItem.enabled != item.enabled)
 					oldItem._cli.enabled = item.enabled;
