@@ -482,8 +482,11 @@ var consoleLoggerOptions = {
 			var item = options[name];
 			var oldItem = !override && name in oldOptions && oldOptions[name];
 			if(oldItem && this.optionsEquals(oldItem, item)) {
-				if(oldItem.enabled != item.enabled)
-					oldItem._cli.enabled = item.enabled;
+				if(oldItem.enabled != item.enabled) {
+					var cli = oldItem._cli;
+					cli.enabled = item.enabled;
+					this.blink(cli.getItem("enabled"));
+				}
 				continue;
 			}
 			item.name = this.getUniqueName(name);

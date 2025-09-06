@@ -67,7 +67,8 @@ textbox[cl_highlight] {
 	outline-offset: -2px;
 }
 #cl-filter[cl_highlight],
-toolbarbutton[cl_highlight] {
+toolbarbutton[cl_highlight],
+checkbox[cl_highlight] {
 	outline: 2px solid Highlight;
 	outline-offset: -2px;
 }
