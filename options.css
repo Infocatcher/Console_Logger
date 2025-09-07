@@ -68,9 +68,12 @@ textbox[cl_highlight] {
 }
 #cl-filter[cl_highlight],
 toolbarbutton[cl_highlight],
-checkbox[cl_highlight] {
+.cl-enabled[cl_highlight] {
 	outline: 2px solid Highlight;
 	outline-offset: -2px;
+}
+#cl-list:focus > .cl-list-item[selected="true"] .cl-enabled[cl_highlight] {
+	outline: 2px solid ThreeDShadow;
 }
 textbox[cl_invalidData],
 textbox[cl_invalidUsage],
