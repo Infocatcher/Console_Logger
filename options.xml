@@ -311,7 +311,7 @@
 					setTimeout(function() {
 						highlight && nameBox.removeAttribute("cl_invalidUsage");
 						tt.parentNode && tt.hidePopup();
-					}, 1500);
+					}, 3000);
 				]]>
 				</body>
 			</method>
