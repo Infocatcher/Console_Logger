@@ -59,4 +59,5 @@
 <!ENTITY cl.day "д">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">
 <!ENTITY cl.emptyName "Пустое название">
+<!ENTITY cl.nameInternal "Невозможно сохранить имя со специальными окончаниями: $S">
 <!ENTITY cl.nameUsed "Название уже используется">

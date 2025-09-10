@@ -59,4 +59,5 @@
 <!ENTITY cl.day "d">
 <!ENTITY cl.onlyASCII "Allowed only ASCII characters!">
 <!ENTITY cl.emptyName "Empty name">
+<!ENTITY cl.nameInternal "Cannot save name with internally used postfixes: $S">
 <!ENTITY cl.nameUsed "Name already used">

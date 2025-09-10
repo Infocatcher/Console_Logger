@@ -24,6 +24,7 @@
 		var strings = {
 			selfName:       "&cl.selfName;",
 			emptyName:      "&cl.emptyName;",
+			nameInternal:   "&cl.nameInternal;",
 			nameUsed:       "&cl.nameUsed;",
 			dateTipTmpl:    "&cl.dateTipTmpl;",
 			day:            "&cl.day;",

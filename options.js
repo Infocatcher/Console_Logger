@@ -347,6 +347,8 @@ var consoleLoggerOptions = {
 		function validateName(name) {
 			if(!name)
 				return strings.emptyName;
+			if(/\.(?:enabled|exclude|message)$/.test(name))
+				return strings.nameInternal.replace("$S", ".enabled, .exclude, .message");
 			var cnt = 0;
 			for(var i = 0, l = items.length; i < l; ++i)
 				if(items[i].name == name && ++cnt > 1)
