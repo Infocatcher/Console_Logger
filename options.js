@@ -342,7 +342,6 @@ var consoleLoggerOptions = {
 	},
 	validateFields: function() {
 		var hasInvalid = false;
-		var names = ["name", "source", "message", "exclude"];
 		var items = this.items;
 		function validateName(name) {
 			if(!name)
@@ -365,7 +364,7 @@ var consoleLoggerOptions = {
 			}
 		}
 		items.forEach(function(cli) {
-			names.forEach(function(name) {
+			this.allFields.forEach(function(name) {
 				var validator = name == "name" ? validateName : validatePattern;
 				if(cli.validateItem(name, validator))
 					return;
@@ -398,6 +397,7 @@ var consoleLoggerOptions = {
 		exclude: "string",
 		__proto__: null
 	},
+	allFields: ["name", "source", "message", "exclude"],
 	requiredFields: ["source", "message"],
 	get clipboard() {
 		return this.parseOptions(this.readFromClipboard());
