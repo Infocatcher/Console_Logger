@@ -343,6 +343,7 @@ var consoleLoggerOptions = {
 	validateFields: function() {
 		var hasInvalid = false;
 		var items = this.items;
+		var _this = this;
 		function validateName(name) {
 			if(!name)
 				return strings.emptyName;
@@ -352,6 +353,11 @@ var consoleLoggerOptions = {
 			for(var i = 0, l = items.length; i < l; ++i)
 				if(items[i].name == name && ++cnt > 1)
 					return strings.nameUsed;
+			cnt = 0;
+			var safeName = _this.cl.io.safeFileName(name);
+			for(var i = 0, l = items.length; i < l; ++i)
+				if(_this.cl.io.safeFileName(items[i].name) == safeName && ++cnt > 1)
+					return strings.nameSimilar;
 			return "";
 		}
 		function validatePattern(pattern) {

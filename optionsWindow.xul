@@ -26,6 +26,7 @@
 			emptyName:      "&cl.emptyName;",
 			nameInternal:   "&cl.nameInternal;",
 			nameUsed:       "&cl.nameUsed;",
+			nameSimilar:    "&cl.nameSimilar;",
 			dateTipTmpl:    "&cl.dateTipTmpl;",
 			day:            "&cl.day;",
 			exportTitle:    "&cl.exportTitle;",
