@@ -61,4 +61,4 @@
 <!ENTITY cl.emptyName "Empty name">
 <!ENTITY cl.nameInternal "Cannot save name with internally used postfixes: $S">
 <!ENTITY cl.nameUsed "Name already used">
-<!ENTITY cl.nameSimilar "Similar name already used (will be saved in log file with the same name)">
+<!ENTITY cl.nameSimilar "Similar name already used (will be used the same log file names)">
