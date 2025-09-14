@@ -44,7 +44,7 @@
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
 <!ENTITY cl.invertSelection "Инвертировать выделение">
-<!ENTITY cl.name "Название:">
+<!ENTITY cl.name "Имя:">
 <!ENTITY cl.nameTip "Имя настройки (и имя лог-файла), только ASCII символы">
 <!ENTITY cl.source "Источник:">
 <!ENTITY cl.sourceTip "Проверяет URI источника ошибок и предупреждений&cl.regExpTip;">
@@ -58,7 +58,7 @@
 <!ENTITY cl.dateTipTmpl "$ago назад, \n$date">
 <!ENTITY cl.day "д">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">
-<!ENTITY cl.emptyName "Пустое название">
+<!ENTITY cl.emptyName "Пустое имя">
 <!ENTITY cl.nameInternal "Невозможно сохранить имя со специальными окончаниями: $S">
-<!ENTITY cl.nameUsed "Название уже используется">
-<!ENTITY cl.nameSimilar "Схожее название уже используется (будет использовано то же самое имя лог-файла)">
+<!ENTITY cl.nameUsed "Имя уже используется">
+<!ENTITY cl.nameSimilar "Схожее имя уже используется (будут использованы одинаковые имена лог-файлов)">
