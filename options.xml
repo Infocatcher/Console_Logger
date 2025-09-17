@@ -6,7 +6,7 @@
 	<binding id="consoleLoggerItem" extends="chrome://global/content/bindings/richlistbox.xml#richlistitem">
 		<content>
 			<children />
-			<xul:grid flex="1">
+			<xul:grid anonid="grid" flex="1">
 				<xul:columns>
 					<xul:column />
 					<xul:column flex="1" />

@@ -492,11 +492,12 @@ var consoleLoggerOptions = {
 			var oldItem = override === undefined
 				&& name in oldOptions && oldOptions[name];
 			if(oldItem && this.optionsEquals(oldItem, item)) {
+				var cli = oldItem._cli;
 				if(oldItem.enabled != item.enabled) {
-					var cli = oldItem._cli;
 					cli.enabled = item.enabled;
 					this.blink(cli.getItem("enabled"));
 				}
+				this.blink(cli.getItem("grid"));
 				continue;
 			}
 			item.name = this.getUniqueName(name);
