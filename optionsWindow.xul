@@ -101,7 +101,7 @@
 				<menuitem id="cl-mi-opts-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
 				<menuitem id="cl-mi-opts-copyVisible" key="cl-key-copyVisible" label="&cl.copyVisible;" oncommand="consoleLoggerOptions.copy(-1);" />
 				<menuitem id="cl-mi-opts-copyAll" key="cl-key-copyAll" label="&cl.copyAll;" oncommand="consoleLoggerOptions.copy(1);" />
-				<menuitem id="cl-mi-opts-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
+				<menuitem id="cl-mi-opts-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste(false);" />
 				<menuitem id="cl-mi-opts-pasteOvr" key="cl-key-pasteOvr" label="&cl.pasteOvr;" oncommand="consoleLoggerOptions.paste(true);" />
 			</menupopup>
 		</button>
@@ -118,7 +118,7 @@
 		<menuseparator id="cl-sep-beforeCopy" />
 		<menuitem id="cl-mi-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
 		<menuitem id="cl-mi-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
-		<menuitem id="cl-mi-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste();" />
+		<menuitem id="cl-mi-paste" key="cl-key-paste" label="&cl.paste;" oncommand="consoleLoggerOptions.paste(false);" />
 		<menuseparator id="cl-sep-beforeSelectAll" />
 		<menuitem id="cl-mi-selectAll" key="cl-key-selectAll" label="&cl.selectAll;" oncommand="consoleLoggerOptions.list.selectAll();" />
 		<menuitem id="cl-mi-invertSelection" key="cl-key-invertSelection" label="&cl.invertSelection;" oncommand="consoleLoggerOptions.list.invertSelection();" />
@@ -144,9 +144,9 @@
 		<key id="cl-key-copy3" keycode="VK_INSERT" modifiers="accel" oncommand="consoleLoggerOptions.copy();" />
 		<key id="cl-key-copyVisible" key="C" modifiers="accel,alt,shift" oncommand="consoleLoggerOptions.copy(-1);" />
 		<key id="cl-key-copyAll" key="C" modifiers="accel,alt" oncommand="consoleLoggerOptions.copy(1);" />
-		<key id="cl-key-paste" key="V" modifiers="accel,shift" oncommand="consoleLoggerOptions.paste();" />
-		<key id="cl-key-paste2" key="V" modifiers="accel" oncommand="consoleLoggerOptions.paste();" />
-		<key id="cl-key-paste3" keycode="VK_INSERT" modifiers="shift" oncommand="consoleLoggerOptions.paste();" />
+		<key id="cl-key-paste" key="V" modifiers="accel,shift" oncommand="consoleLoggerOptions.paste(false);" />
+		<key id="cl-key-paste2" key="V" modifiers="accel" oncommand="consoleLoggerOptions.paste(false);" />
+		<key id="cl-key-paste3" keycode="VK_INSERT" modifiers="shift" oncommand="consoleLoggerOptions.paste(false);" />
 		<key id="cl-key-pasteOvr" key="V" modifiers="accel,alt" oncommand="consoleLoggerOptions.paste(true);" />
 		<key id="cl-key-export" key="E" modifiers="accel,shift" oncommand="consoleLoggerOptions.exportToFile()" />
 		<key id="cl-key-exportVisible" key="E" modifiers="accel,alt,shift" oncommand="consoleLoggerOptions.exportToFile(-1)" />

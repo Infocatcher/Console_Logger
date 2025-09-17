@@ -471,6 +471,7 @@ var consoleLoggerOptions = {
 		return options;
 	},
 	importOptions: function(options, override) {
+		// override: undefined - append, false - force append (don't check for duplicates), true - replace
 		if(!options)
 			return;
 		var cliFirst;
@@ -488,7 +489,8 @@ var consoleLoggerOptions = {
 						this.appendItem(defaultOptions[name2]);
 			}
 			var item = options[name];
-			var oldItem = !override && name in oldOptions && oldOptions[name];
+			var oldItem = override === undefined
+				&& name in oldOptions && oldOptions[name];
 			if(oldItem && this.optionsEquals(oldItem, item)) {
 				if(oldItem.enabled != item.enabled) {
 					var cli = oldItem._cli;
