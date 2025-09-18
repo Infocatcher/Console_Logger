@@ -6,7 +6,7 @@
 	<binding id="consoleLoggerItem" extends="chrome://global/content/bindings/richlistbox.xml#richlistitem">
 		<content>
 			<children />
-			<xul:grid anonid="grid" flex="1">
+			<xul:grid flex="1">
 				<xul:columns>
 					<xul:column />
 					<xul:column flex="1" />
@@ -193,9 +193,9 @@
 							elt.removeAttribute("cl_highlight");
 					}, this);
 					if(matched)
-						this.setAttribute("cl_highlight", "true");
+						this.setAttribute("cl_filtered", "true");
 					else
-						this.removeAttribute("cl_highlight");
+						this.removeAttribute("cl_filtered");
 					return matched;
 				]]>
 				</body>

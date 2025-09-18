@@ -497,7 +497,7 @@ var consoleLoggerOptions = {
 					cli.enabled = item.enabled;
 					this.blink(cli.getItem("enabled"));
 				}
-				this.blink(cli.getItem("grid"));
+				this.blink(cli);
 				continue;
 			}
 			item.name = this.getUniqueName(name);

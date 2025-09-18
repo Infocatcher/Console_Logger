@@ -9,8 +9,8 @@
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 	border-bottom: 1px solid ThreeDLightShadow;
 }
-#cl-list[cl_compact] > .cl-list-item:not([selected="true"]):not([cl_highlight]) .cl-row-detail,
-#cl-list[cl_compact][seltype="multiple"] > .cl-list-item:not([current]):not([cl_highlight]) .cl-row-detail {
+#cl-list[cl_compact] > .cl-list-item:not([selected="true"]):not([cl_filtered]) .cl-row-detail,
+#cl-list[cl_compact][seltype="multiple"] > .cl-list-item:not([current]):not([cl_filtered]) .cl-row-detail {
 	overflow: hidden;
 	height: 0;
 	visibility: hidden; /* Hide from Tab/Shift+Tab */
@@ -63,7 +63,7 @@
 	-moz-image-region: rect(0, 16px, 16px, 0);
 }
 textbox[cl_highlight],
-grid[cl_highlight] {
+.cl-list-item[cl_highlight] {
 	outline: 2px solid ThreeDShadow;
 	outline-offset: -2px;
 }
