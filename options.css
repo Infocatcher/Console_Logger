@@ -63,7 +63,7 @@
 	-moz-image-region: rect(0, 16px, 16px, 0);
 }
 textbox[cl_highlight],
-.cl-list-item[cl_highlight] {
+.cl-list-item[cl_highlight] > grid {
 	outline: 2px solid ThreeDShadow;
 	outline-offset: -2px;
 }
