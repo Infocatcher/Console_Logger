@@ -457,7 +457,7 @@ var consoleLoggerOptions = {
 		}
 		return options;
 	},
-	exportOptions: function(all) { // -1 - all visible, 0 - only selected, 1 - all
+	exportOptions: function(all, feedback) { // -1 - all visible, 0 - only selected, 1 - all
 		var options = { __proto__: null };
 		var items = all
 			? all < 0
@@ -467,7 +467,8 @@ var consoleLoggerOptions = {
 		items.forEach(function(cli) {
 			var item = cli.state;
 			options[item.name] = item; // Note: exported all items, even without name
-		});
+			feedback && this.blink(cli, 1);
+		}, this);
 		return options;
 	},
 	importOptions: function(options, override) {
@@ -1323,7 +1324,7 @@ var consoleLoggerOptions = {
 		return names;
 	},
 	copy: function(all) {
-		this.clipboard = this.exportOptions(all);
+		this.clipboard = this.exportOptions(all, true);
 	},
 	paste: function(override) {
 		this.importOptions(this.clipboard, override);
