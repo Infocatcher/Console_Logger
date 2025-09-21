@@ -506,6 +506,8 @@ var consoleLoggerOptions = {
 			if(!cliFirst)
 				cliFirst = cli;
 		}
+		if(this.hideDisabled)
+			this.blink(this.tbbShowDisabled);
 		if(!override && cliFirst) {
 			this.focusItem(cliFirst);
 			if("selectItemRange" in this.list)
