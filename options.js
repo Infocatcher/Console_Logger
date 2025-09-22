@@ -310,10 +310,12 @@ var consoleLoggerOptions = {
 		delete this.filter;
 		return this.filter = this.$("cl-filter");
 	},
-	getItemsByName: function(name) {
+	getItemsByName: function(name, isFile) {
 		return this.items.filter(function(cli) {
-			return cli.name == name;
-		});
+			var cn = cli.name;
+			return cn == name
+				|| isFile && this.cl.io.safeFileName(cn) == name;
+		}, this);
 	},
 	appendItem: function(state) {
 		var cli = document.createElement("richlistitem");
@@ -532,7 +534,7 @@ var consoleLoggerOptions = {
 			if(fName.substr(0, prefix.length) != prefix || fName.substr(-4) != ".log")
 				continue;
 			var name = fName.slice(prefix.length, -4);
-			if(this.getItemsByName(name).length)
+			if(this.getItemsByName(name, true).length)
 				continue;
 			var cli = this.appendItem({
 				name: this.getUniqueName(name)
