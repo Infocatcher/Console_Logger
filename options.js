@@ -524,10 +524,11 @@ var consoleLoggerOptions = {
 			return o1[p] === o2[p];
 		});
 	},
-	addForLogFiles: function() {
+	addForLogFiles: function(justCalc) {
 		var prefix = consoleLoggerGlobal.FILE_NAME_PREFIX;
 		var entries = this.cl.io.profileDir.directoryEntries;
 		var cliFirst;
+		var count = 0;
 		while(entries.hasMoreElements()) {
 			var entry = entries.getNext().QueryInterface(Components.interfaces.nsIFile);
 			var fName = entry.leafName;
@@ -536,14 +537,17 @@ var consoleLoggerOptions = {
 			var name = fName.slice(prefix.length, -4);
 			if(this.getItemsByName(name, true).length)
 				continue;
+			++count;
+			if(justCalc)
+				continue;
 			var cli = this.appendItem({
 				name: this.getUniqueName(name)
 			});
 			if(!cliFirst)
 				cliFirst = cli;
 		}
-		if(!cliFirst)
-			return;
+		if(justCalc || !count)
+			return count;
 		if(this.hideDisabled)
 			this.blink(this.tbbShowDisabled);
 		this.focusItem(cliFirst);
@@ -551,6 +555,7 @@ var consoleLoggerOptions = {
 			this.list.selectItemRange(cliFirst, cli);
 		this.checkUnsaved();
 		this.updateFilter();
+		return count;
 	},
 	readFromClipboard: function() {
 		// Based on readFromClipboard() function from
@@ -1049,6 +1054,13 @@ var consoleLoggerOptions = {
 		}, this);
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
+		var count = this.addForLogFiles(true);
+		var mi = this.$("cl-mi-opts-addForLogs");
+		mi.setAttribute("disabled", !count);
+		var label = count
+			? strings.addForLogsN.replace("$N", count)
+			: strings.addForLogs;
+		mi.setAttribute("label", label);
 	},
 	updateLogViewerMenu: function() {
 		var viewer = prefs.get("options.logViewer");

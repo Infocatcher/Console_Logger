@@ -36,6 +36,7 @@
 <!ENTITY cl.importAdd "Import from File: Append…">
 <!ENTITY cl.importOvr "Import from File: Replace…">
 <!ENTITY cl.addForLogs "Add for not listed log files">
+<!ENTITY cl.addForLogsN "Add for not listed log files ($N)">
 <!ENTITY cl.exportTitle "&cl.selfName;: Export Options to File">
 <!ENTITY cl.importTitle "&cl.selfName;: Import Options from File">
 <!ENTITY cl.errorTitle "&cl.selfName;: Error!">

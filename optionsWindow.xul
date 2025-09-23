@@ -40,7 +40,9 @@
 			hasLog:         "&cl.hasLog;",
 			removeConfirm:  "&cl.removeConfirm;",
 			resetConfirm:   "&cl.resetConfirm;",
-			viewerChoose:   "&cl.logViewerChoose;"
+			viewerChoose:   "&cl.logViewerChoose;",
+			addForLogs:     "&cl.addForLogs;",
+			addForLogsN:    "&cl.addForLogsN;"
 		};
 	</script>
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />
