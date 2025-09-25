@@ -1054,6 +1054,8 @@ var consoleLoggerOptions = {
 		}, this);
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
+	},
+	updateContextMenuDelayed: function() {
 		var count = this.addForLogFiles(true);
 		var mi = this.$("cl-mi-opts-addForLogs");
 		mi.setAttribute("disabled", !count);
