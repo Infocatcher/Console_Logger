@@ -272,7 +272,7 @@
 			<method name="fixName">
 				<parameter name="name" />
 				<body>
-					return name.replace(/[^\x20-\x7e]+/g, "");
+					return name.replace(/[^\x20-\x7e]/g, "_");
 				</body>
 			</method>
 			<field name="onlyASCII">"&cl.onlyASCII;"</field>
