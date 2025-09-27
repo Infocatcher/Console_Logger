@@ -131,8 +131,8 @@
 							elt.checked = state[name];
 						else {
 							var v = state[name];
-							if(name == "name" && !this.isValidName(v)) {
-								v = this.fixName(v);
+							if(name == "name" && !this.clo.isValidName(v)) {
+								v = this.clo.fixName(v);
 								this.showTip(elt, this.onlyASCII, true);
 							}
 							elt.value = v;
@@ -231,7 +231,7 @@
 				<![CDATA[
 					var nameField = nameBox.inputField;
 					var curVal = nameField.value;
-					if(this.isValidName(curVal))
+					if(this.clo.isValidName(curVal))
 						return;
 					try {
 						var editor = nameField
@@ -253,26 +253,14 @@
 					}
 					catch(e) {
 						Components.utils.reportError(e);
-						var ss = this.fixName(curVal.substr(0, nameField.selectionStart)).length;
-						var se = this.fixName(curVal.substr(0, nameField.selectionEnd)).length;
-						nameField.value = this.fixName(curVal);
+						var ss = this.clo.fixName(curVal.substr(0, nameField.selectionStart)).length;
+						var se = this.clo.fixName(curVal.substr(0, nameField.selectionEnd)).length;
+						nameField.value = this.clo.fixName(curVal);
 						nameField.selectionStart = ss;
 						nameField.selectionEnd = se;
 					}
 					this.showTip(nameBox, this.onlyASCII);
 				]]>
-				</body>
-			</method>
-			<method name="isValidName">
-				<parameter name="name" />
-				<body>
-					return !/[^\x20-\x7e]/.test(name);
-				</body>
-			</method>
-			<method name="fixName">
-				<parameter name="name" />
-				<body>
-					return name.replace(/[^\x20-\x7e]/g, "_");
 				</body>
 			</method>
 			<field name="onlyASCII">"&cl.onlyASCII;"</field>

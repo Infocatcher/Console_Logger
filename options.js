@@ -397,6 +397,13 @@ var consoleLoggerOptions = {
 		delay(this.validateFields, this);
 	},
 
+	isValidName: function(name) {
+		return !/[^\x20-\x7e]/.test(name);
+	},
+	fixName: function(name) {
+		return name.replace(/[^\x20-\x7e]/g, "_");
+	},
+
 	exportHeader: "// Console Logger options\n",
 	fields: {
 		enabled: "boolean",
@@ -535,7 +542,7 @@ var consoleLoggerOptions = {
 			if(fName.substr(0, prefix.length) != prefix || fName.substr(-4) != ".log")
 				continue;
 			var name = fName.slice(prefix.length, -4);
-			if(this.getItemsByName(name, true).length)
+			if(this.getItemsByName(this.fixName(name), true).length)
 				continue;
 			++count;
 			if(justCalc)
