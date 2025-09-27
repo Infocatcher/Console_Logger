@@ -295,6 +295,7 @@
 					tt.style.margin = 0;
 					tt.setAttribute("label", message);
 					tt.setAttribute("onpopuphidden", "this.parentNode.removeChild(this);");
+					tt.setAttribute("onmouseover", "this.hidePopup();");
 					document.documentElement.appendChild(tt);
 					highlight && nameBox.setAttribute("cl_invalidUsage", "true");
 					var bo = nameBox.boxObject;
