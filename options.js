@@ -562,6 +562,7 @@ var consoleLoggerOptions = {
 			this.list.selectItemRange(cliFirst, cli);
 		this.checkUnsaved();
 		this.updateFilter();
+		this.updateContextMenuDelayed(0);
 		return count;
 	},
 	readFromClipboard: function() {
@@ -1062,8 +1063,9 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
 	},
-	updateContextMenuDelayed: function() {
-		var count = this.addForLogFiles(true);
+	updateContextMenuDelayed: function(count) {
+		if(count === undefined)
+			count = this.addForLogFiles(true);
 		var mi = this.$("cl-mi-opts-addForLogs");
 		mi.setAttribute("disabled", !count);
 		var label = count
