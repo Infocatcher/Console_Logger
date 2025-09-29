@@ -562,7 +562,7 @@ var consoleLoggerOptions = {
 			this.list.selectItemRange(cliFirst, cli);
 		this.checkUnsaved();
 		this.updateFilter();
-		this.updateContextMenuDelayed(0);
+		this.updateOptionsMenuDelayed(0);
 		return count;
 	},
 	readFromClipboard: function() {
@@ -1023,16 +1023,6 @@ var consoleLoggerOptions = {
 	updateContextMenu: function() {
 		var cantPaste = !this.clipboard;
 		this.$("cl-mi-paste").setAttribute("disabled", cantPaste);
-		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
-		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
-		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
-		this.$("cl-mi-opts-showDisabled").setAttribute("checked", !this.hideDisabled);
-		this.$("cl-mi-opts-singleButtonsBar").setAttribute("checked", prefs.get("options.singleButtonsBar"));
-		var openInTab = this.$("cl-mi-opts-openInTab");
-		openInTab.setAttribute("checked", prefs.get("options.openInTab"));
-		setTimeout(function() {
-			openInTab.setAttribute("disabled", !Services.wm.getMostRecentWindow("navigator:browser"));
-		}, 0);
 		var visibleItems = this.visibleItems;
 		var cantSelectAll = !visibleItems.some(function(cli) {
 			return !cli.hasAttribute("selected");
@@ -1063,7 +1053,20 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
 		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
 	},
-	updateContextMenuDelayed: function(count) {
+	updateOptionsMenu: function() {
+		var cantPaste = !this.clipboard;
+		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
+		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
+		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
+		this.$("cl-mi-opts-showDisabled").setAttribute("checked", !this.hideDisabled);
+		this.$("cl-mi-opts-singleButtonsBar").setAttribute("checked", prefs.get("options.singleButtonsBar"));
+		var openInTab = this.$("cl-mi-opts-openInTab");
+		openInTab.setAttribute("checked", prefs.get("options.openInTab"));
+		setTimeout(function() {
+			openInTab.setAttribute("disabled", !Services.wm.getMostRecentWindow("navigator:browser"));
+		}, 0);
+	},
+	updateOptionsMenuDelayed: function(count) {
 		if(count === undefined)
 			count = this.addForLogFiles(true);
 		var mi = this.$("cl-mi-opts-addForLogs");

@@ -71,8 +71,8 @@
 		</deck>
 		<button id="cl-btn-options" cl_key="cl-key-optionsMenu" label="&cl.options;" type="menu">
 			<menupopup id="cl-mp-options" position="before_start"
-				onpopupshowing="if(event.target == this) consoleLoggerOptions.updateContextMenu();"
-				onpopupshown="if(event.target == this) consoleLoggerOptions.updateContextMenuDelayed();">
+				onpopupshowing="if(event.target == this) consoleLoggerOptions.updateOptionsMenu();"
+				onpopupshown="if(event.target == this) consoleLoggerOptions.updateOptionsMenuDelayed();">
 				<menuitem id="cl-mi-opts-compact" key="cl-key-toggleCompact" type="checkbox" label="&cl.compactMode;"
 					oncommand="consoleLoggerOptions.setCompactMode(this.getAttribute('checked') == 'true');" />
 				<menuitem id="cl-mi-opts-showDisabled" key="cl-key-toggleShowDisabled" type="checkbox" label="&cl.showDisabled;"
