@@ -1353,14 +1353,14 @@ var consoleLoggerOptions = {
 			names.splice(maxNames - 2, count - maxNames + 1, "\u2026" /* "..." */);
 		return names;
 	},
-	copy: function(all) {
-		this.clipboard = this.exportOptions(all, true);
+	copy: function(all, feedback) {
+		this.clipboard = this.exportOptions(all, feedback === undefined ? true : feedback);
 	},
 	paste: function(override) {
 		this.importOptions(this.clipboard, override);
 	},
 	cut: function() {
-		this.copy();
+		this.copy(false, false);
 		this.reset(true);
 	},
 	exportToFile: function(all) {
