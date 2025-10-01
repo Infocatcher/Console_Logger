@@ -787,6 +787,17 @@ var consoleLoggerOptions = {
 			file instanceof Components.interfaces.nsILocalFile;
 		file.launch();
 	},
+	revealLogFile: function(cli) {
+		var name = cli.name;
+		var file = this.getLogFile(name);
+		if(!file) {
+			cli.canOpen = false;
+			return;
+		}
+		if("nsILocalFile" in Components.interfaces)
+			file instanceof Components.interfaces.nsILocalFile;
+		file.reveal();
+	},
 	openInViewSource: function(file) {
 		var fileURL = Services.io.newFileURI(file).spec;
 		if(platformVersion >= 60 && Services.appinfo.name == "Firefox") {
@@ -1051,6 +1062,7 @@ var consoleLoggerOptions = {
 			return hasLogFile;
 		}, this);
 		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
+		this.$("cl-mi-reveal").setAttribute("disabled", !logFileExists);
 		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
 	},
 	updateOptionsMenu: function() {
@@ -1316,6 +1328,12 @@ var consoleLoggerOptions = {
 		items.forEach(function(cli) {
 			this.openLogFile(cli);
 			cli.markAsRead();
+		}, this);
+	},
+	reveal: function(cli) {
+		var items = cli ? [cli] : this.selectedItems;
+		items.forEach(function(cli) {
+			this.revealLogFile(cli);
 		}, this);
 	},
 	clear: function(confirmed) {

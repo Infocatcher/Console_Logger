@@ -20,6 +20,7 @@
 <!ENTITY cl.saveChanges "Сохранить изменения?">
 <!ENTITY cl.reload "Перезагрузить">
 <!ENTITY cl.openLog "Открыть лог-файл">
+<!ENTITY cl.revealLog "Перейти к лог-файлу">
 <!ENTITY cl.removeLog "Удалить лог-файл">
 <!ENTITY cl.removeLogs "Удалить все лог-файлы?">
 <!ENTITY cl.removeLogsAlso "Также удалить лог-файлы ($S)">

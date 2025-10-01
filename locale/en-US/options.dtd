@@ -20,6 +20,7 @@
 <!ENTITY cl.saveChanges "Save changes?">
 <!ENTITY cl.reload "Reload">
 <!ENTITY cl.openLog "Open Log File">
+<!ENTITY cl.revealLog "Go to Log File">
 <!ENTITY cl.removeLog "Remove Log File">
 <!ENTITY cl.removeLogs "Remove all log files?">
 <!ENTITY cl.removeLogsAlso "Also remove log files ($S)">

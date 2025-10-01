@@ -117,6 +117,7 @@
 		<menuitem id="cl-mi-toggle" type="checkbox" key="cl-key-toggle" label="&cl.enabled;" oncommand="consoleLoggerOptions.toggle();" />
 		<menuseparator id="cl-sep-beforeOpen" />
 		<menuitem id="cl-mi-open" key="cl-key-open" label="&cl.openLog;" oncommand="consoleLoggerOptions.open();" />
+		<menuitem id="cl-mi-reveal" key="cl-key-reveal" label="&cl.revealLog;" oncommand="consoleLoggerOptions.reveal();" />
 		<menuitem id="cl-mi-clear" key="cl-key-clear" label="&cl.removeLog;" oncommand="consoleLoggerOptions.clear();" />
 		<menuseparator id="cl-sep-beforeCopy" />
 		<menuitem id="cl-mi-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
@@ -138,6 +139,7 @@
 			if(document.commandDispatcher.focusedElement.localName == 'richlistbox')
 				consoleLoggerOptions.toggle();" />
 		<key id="cl-key-open" key="O" modifiers="accel" oncommand="consoleLoggerOptions.open();" />
+		<key id="cl-key-reveal" key="O" modifiers="accel,shift" oncommand="consoleLoggerOptions.reveal();" />
 		<key id="cl-key-clear" key="W" modifiers="accel" oncommand="consoleLoggerOptions.clear();" />
 		<key id="cl-key-cut" key="X" modifiers="accel,shift" oncommand="consoleLoggerOptions.cut();" />
 		<key id="cl-key-copy2" key="X" modifiers="accel" oncommand="consoleLoggerOptions.cut();" />
