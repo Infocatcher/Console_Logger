@@ -132,6 +132,8 @@
 						else {
 							var v = state[name];
 							if(name == "name" && !this.clo.isValidName(v)) {
+								if(!state.originalName)
+									state.originalName = v;
 								v = this.clo.fixName(v);
 								this.showTip(elt, this.onlyASCII, true);
 							}
