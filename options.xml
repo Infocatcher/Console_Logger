@@ -323,7 +323,7 @@
 					if(date) // Will use cached value
 						this.setLogTip(date);
 					else {
-						this.clo.getLogFileDate(this.name, function(date) {
+						this.clo.getLogFileDate(this.originalName || this.name, function(date) {
 							this._logDate = date;
 							this.setLogTip(date);
 						}, this);

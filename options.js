@@ -323,7 +323,7 @@ var consoleLoggerOptions = {
 		this.list.appendChild(cli);
 		if(state) {
 			cli.state = state;
-			var name = state.name;
+			var name = state.originalName || state.name;
 			this.logFileExists(name, function(exists) {
 				cli.canOpen = exists;
 				cli.isOldChanges = !(name in this.cl._changedInSession);
@@ -750,19 +750,20 @@ var consoleLoggerOptions = {
 		Services.prompt.alert(window, strings.errorTitle, error);
 	},
 
-	getLogFile: function(name) {
+	getLogFile: function(cli) {
+		var name = cli.originalName || cli.name;
 		var file = name && this.cl.io.getFile(name);
-		return file && file.exists() ? file : null;
+		if(file && !file.exists())
+			file = null;
+		var canOpen = !!file;
+		if(cli.canOpen != canOpen)
+			cli.canOpen = canOpen;
+		return file;
 	},
 	openLogFile: function(cli) {
-		var name = cli.name;
-		var file = this.getLogFile(name);
-		if(!file) {
-			cli.canOpen = false;
+		var file = this.getLogFile(cli);
+		if(!file)
 			return;
-		}
-		if(!cli.canOpen)
-			cli.canOpen = true;
 		var viewer = prefs.get("options.logViewer");
 		if(viewer == "viewSource") {
 			this.openInViewSource(file);
@@ -788,12 +789,9 @@ var consoleLoggerOptions = {
 		file.launch();
 	},
 	revealLogFile: function(cli) {
-		var name = cli.name;
-		var file = this.getLogFile(name);
-		if(!file) {
-			cli.canOpen = false;
+		var file = this.getLogFile(cli);
+		if(!file)
 			return;
-		}
 		if("nsILocalFile" in Components.interfaces)
 			file instanceof Components.interfaces.nsILocalFile;
 		file.reveal();
@@ -1053,7 +1051,7 @@ var consoleLoggerOptions = {
 		toggler.setAttribute("disabled", hasEnabled === undefined);
 		var logFileExists = this.selectedItems.some(function(cli) {
 			var hasLogFile = cli.canOpen; // Take fast check
-			this.logFileExists(cli.name, function(exists) { // And take async check for real state
+			this.logFileExists(cli.originalName || cli.name, function(exists) { // And take async check for real state
 				if(exists == hasLogFile)
 					return;
 				cli.canOpen = exists;
@@ -1258,9 +1256,9 @@ var consoleLoggerOptions = {
 		var logFiles = 0;
 		var logMark = "*";
 		var names = this.cropNames(selectedItems.map(function(cli, i) {
-			var name = cli.name;
 			var n = (i + 1) + ") ";
-			if(!this.getLogFile(name))
+			var name = cli.originalName || cli.name;
+			if(!this.getLogFile(cli))
 				return n + name;
 			++logFiles;
 			return n + name + " " + logMark;
@@ -1339,11 +1337,8 @@ var consoleLoggerOptions = {
 	clear: function(confirmed) {
 		var items = [];
 		this.selectedItems.forEach(function(cli) {
-			var file = this.getLogFile(cli.name);
-			if(file)
-				items.push({ cli: cli, file: file });
-			else
-				cli.canOpen = false;
+			var file = this.getLogFile(cli);
+			file && items.push({ cli: cli, file: file });
 		}, this);
 
 		if(!items.length)
