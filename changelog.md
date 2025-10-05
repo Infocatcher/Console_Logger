@@ -31,9 +31,12 @@
 `*` Options window: improved options reloading, now will be preserved selected items.<br>
 `+` Options window: added ability to hide disabled items (to focus view on currently active logs, <em>extensions.consoleLogger.options.showDisabled</em> preference).<br>
 `*` Improved filter: added support for regular expressions (/RegExp/ or /regexp/i).<br>
-`*` Improved import in append mode: don't add already existed items and update enabled state.<br>
+`*` Improved import from file in append mode: don't add already existed items and update enabled state.<br>
 `x` Prevent saving names with internally used postfixes .enabled, .exclude, .message (will be wrongly handled).<br>
 `x` Prevent saving similar names with special characters like “Extension:test” and “Extension/test” (will be used the same log file names).<br>
+`*` Added indication for “copy” action.<br>
+`+` Added “Go to Log File” context menu item and Ctrl+Shift+O hotkey.<br>
+`x` Fixed file-related actions in case of not saved renaming.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
