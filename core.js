@@ -64,8 +64,15 @@ var consoleLoggerCore = {
 			prefs.setPref(ns + name + ".message", item.message);
 			prefs.setPref(ns + name + ".exclude", item.exclude);
 			prefs.setPref(ns + name + ".enabled", item.enabled);
-			if(item.originalName && name != item.originalName)
-				this.cl.io.renameFileAsync(item.originalName, name);
+			var origName = item.originalName;
+			if(origName && name != origName) {
+				this.cl.io.renameFileAsync(origName, name);
+				var cis = this.cl._changedInSession;
+				if(origName in cis) {
+					delete cis[origName];
+					cis[name] = true;
+				}
+			}
 		}
 		prefs.lockObserver = false;
 		this.loadPatterns();
