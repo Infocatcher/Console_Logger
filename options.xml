@@ -108,6 +108,20 @@
 					this.setAttribute("cl_isOldChanges", !!val);
 				</setter>
 			</property>
+			<property name="file" readonly="true">
+				<getter>
+				<![CDATA[
+					var name = this.originalName || this.name;
+					var file = name && this.clo.cl.io.getFile(name);
+					if(file && !file.exists())
+						file = null;
+					var canOpen = !!file;
+					if(this.canOpen != canOpen)
+						this.canOpen = canOpen;
+					return file;
+				]]>
+				</getter>
+			</property>
 			<property name="searchLabel" readonly="true" onget="return this.name;" />
 			<property name="state">
 				<getter>

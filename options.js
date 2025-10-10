@@ -750,18 +750,8 @@ var consoleLoggerOptions = {
 		Services.prompt.alert(window, strings.errorTitle, error);
 	},
 
-	getLogFile: function(cli) {
-		var name = cli.originalName || cli.name;
-		var file = name && this.cl.io.getFile(name);
-		if(file && !file.exists())
-			file = null;
-		var canOpen = !!file;
-		if(cli.canOpen != canOpen)
-			cli.canOpen = canOpen;
-		return file;
-	},
 	openLogFile: function(cli) {
-		var file = this.getLogFile(cli);
+		var file = cli.file;
 		if(!file)
 			return;
 		var viewer = prefs.get("options.logViewer");
@@ -789,7 +779,7 @@ var consoleLoggerOptions = {
 		file.launch();
 	},
 	revealLogFile: function(cli) {
-		var file = this.getLogFile(cli);
+		var file = cli.file;
 		if(!file)
 			return;
 		if("nsILocalFile" in Components.interfaces)
@@ -1258,7 +1248,7 @@ var consoleLoggerOptions = {
 		var names = this.cropNames(selectedItems.map(function(cli, i) {
 			var n = (i + 1) + ") ";
 			var name = cli.originalName || cli.name;
-			if(!this.getLogFile(cli))
+			if(!cli.file)
 				return n + name;
 			++logFiles;
 			return n + name + " " + logMark;
@@ -1337,7 +1327,7 @@ var consoleLoggerOptions = {
 	clear: function(confirmed) {
 		var items = [];
 		this.selectedItems.forEach(function(cli) {
-			var file = this.getLogFile(cli);
+			var file = cli.file;
 			file && items.push({ cli: cli, file: file });
 		}, this);
 
