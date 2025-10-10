@@ -1247,11 +1247,10 @@ var consoleLoggerOptions = {
 		var logMark = "*";
 		var names = this.cropNames(selectedItems.map(function(cli, i) {
 			var n = (i + 1) + ") ";
-			var name = cli.originalName || cli.name;
 			if(!cli.file)
-				return n + name;
+				return n + cli.name;
 			++logFiles;
-			return n + name + " " + logMark;
+			return n + cli.name + " " + logMark;
 		}, this));
 		var removeLogs = { value: false };
 		var hasLocked = this.$("cl-deck-reset").selectedIndex == 1;
