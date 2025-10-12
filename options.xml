@@ -155,7 +155,7 @@
 						elt.value = v;
 					}
 					this.locked = "locked" in state && state.locked;
-					this.originalName = state.originalName || undefined;
+					this.originalName = state.originalName || state.name;
 					this.updateState();
 				]]>
 				</setter>
