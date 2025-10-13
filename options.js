@@ -1039,19 +1039,19 @@ var consoleLoggerOptions = {
 		else
 			toggler.removeAttribute("cl_intermediate");
 		toggler.setAttribute("disabled", hasEnabled === undefined);
-		var logFileExists = this.selectedItems.some(function(cli) {
-			var hasLogFile = cli.canOpen; // Take fast check
+		var hasLog = this.selectedItems.some(function(cli) {
+			var hasLog = cli.canOpen; // Take fast check
 			this.logFileExists(cli.originalName || cli.name, function(exists) { // And take async check for real state
-				if(exists == hasLogFile)
+				if(exists == hasLog)
 					return;
 				cli.canOpen = exists;
 				this.updateContextMenu(); // Just re-update
 			}, this);
-			return hasLogFile;
+			return hasLog;
 		}, this);
-		this.$("cl-mi-open").setAttribute("disabled", !logFileExists);
-		this.$("cl-mi-reveal").setAttribute("disabled", !logFileExists);
-		this.$("cl-mi-clear").setAttribute("disabled", !logFileExists);
+		this.$("cl-mi-open").setAttribute("disabled", !hasLog);
+		this.$("cl-mi-reveal").setAttribute("disabled", !hasLog);
+		this.$("cl-mi-clear").setAttribute("disabled", !hasLog);
 	},
 	updateOptionsMenu: function() {
 		var cantPaste = !this.clipboard;
