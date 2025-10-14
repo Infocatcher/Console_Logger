@@ -1019,7 +1019,7 @@ var consoleLoggerOptions = {
 			this.$("cl-mi-opts-importOvr").setAttribute("disabled", isEmpty);
 		}, this);
 	},
-	updateContextMenu: function() {
+	updateContextMenu: function(fastCheck) {
 		var cantPaste = !this.clipboard;
 		this.$("cl-mi-paste").setAttribute("disabled", cantPaste);
 		var visibleItems = this.visibleItems;
@@ -1041,11 +1041,12 @@ var consoleLoggerOptions = {
 		toggler.setAttribute("disabled", hasEnabled === undefined);
 		var hasLog = this.selectedItems.some(function(cli) {
 			var hasLog = cli.canOpen; // Take fast check
-			this.logFileExists(cli.originalName || cli.name, function(exists) { // And take async check for real state
+			// And take async check for real state
+			!fastCheck && this.logFileExists(cli.originalName || cli.name, function(exists) {
 				if(exists == hasLog)
 					return;
 				cli.canOpen = exists;
-				this.updateContextMenu(); // Just re-update
+				this.updateContextMenu(true); // Just re-update
 			}, this);
 			return hasLog;
 		}, this);
