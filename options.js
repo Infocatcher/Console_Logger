@@ -1089,8 +1089,10 @@ var consoleLoggerOptions = {
 	setLogViewer: function(e) {
 		var mi = e.target;
 		var id = mi.id.replace("cl-mi-opts-logViewer-", "");
-		function setViewer(viewer) {
-			prefs.set("options.logViewer", viewer);
+		var _this = this;
+		function setViewer(viewer, rawPath) {
+			if((rawPath || viewer) != _this.expandVariables(prefs.get("options.logViewer")))
+				prefs.set("options.logViewer", viewer);
 		}
 		if(id == "default")
 			setViewer("");
@@ -1102,10 +1104,9 @@ var consoleLoggerOptions = {
 			fp.appendFilters(fp.filterApps);
 			fp.appendFilters(fp.filterAll);
 			fp.init(window, strings.viewerChoose, fp.modeOpen);
-			var _this = this;
 			var done = function(result) {
 				if(result != fp.returnCancel)
-					setViewer(_this.tryMakeRelativePath(fp.file.path));
+					setViewer(_this.tryMakeRelativePath(fp.file.path), fp.file.path);
 			};
 			if("open" in fp)
 				fp.open({ done: done });
