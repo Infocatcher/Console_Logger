@@ -843,13 +843,12 @@ var consoleLoggerOptions = {
 			}, 15);
 		}, false);
 	},
-	logFileExists: function() {
-		delay(this._logFileExists, this, arguments);
-	},
-	_logFileExists: function(name, callback, context) {
+	logFileExists: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
 		if(platformVersion < 19) {
-			callback.call(context, file.exists());
+			delay(function() {
+				callback.call(context, file.exists());
+			});
 			return;
 		}
 		OS.File.exists(file.path).then(
