@@ -342,6 +342,9 @@ var consoleLoggerOptions = {
 		}
 		return name;
 	},
+	validateFieldsAsync: function() {
+		delay(this.validateFields, this);
+	},
 	validateFields: function() {
 		var hasInvalid = false;
 		var items = this.items;
@@ -392,9 +395,6 @@ var consoleLoggerOptions = {
 			this.okBtn.removeAttribute("cl_error");
 		}
 		return !hasInvalid;
-	},
-	validateFieldsAsync: function() {
-		delay(this.validateFields, this);
 	},
 
 	isValidName: function(name) {
