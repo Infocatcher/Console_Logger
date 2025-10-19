@@ -858,13 +858,12 @@ var consoleLoggerOptions = {
 			this.onError
 		).then(null, this.onError);
 	},
-	getLogFileDate: function() {
-		delay(this._getLogFileDate, this, arguments);
-	},
-	_getLogFileDate: function(name, callback, context) {
+	getLogFileDate: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
 		if(platformVersion < 24) {
-			callback.call(context, file.exists() && file.lastModifiedTime);
+			delay(function() {
+				callback.call(context, file.exists() && file.lastModifiedTime);
+			});
 			return;
 		}
 		OS.File.stat(file.path).then(
