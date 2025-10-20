@@ -327,31 +327,60 @@
 			</method>
 			<field name="_logDate">0</field>
 			<method name="updateLogTip">
+				<parameter name="force" />
 				<body>
 					if(!this.canOpen) {
 						this._logDate = 0;
-						this.setLogTip("");
+						this.setLogTip("", force);
 						return;
 					}
 					var date = this._logDate;
 					if(date) // Will use cached value
-						this.setLogTip(date);
+						this.setLogTip(date, force);
 					else {
 						this.clo.getLogFileDate(this.originalName || this.name, function(date) {
 							this._logDate = date;
-							this.setLogTip(date);
+							this.setLogTip(date, force);
 						}, this);
 					}
+					if(this._updateLogTipTimer || 0)
+						return;
+					var _this = this;
+					this._updateLogTipTimer = setInterval(function() {
+						_this.updateLogTip(true);
+					}, 2000);
+					window.addEventListener("mouseout", function onMouseOut(e) {
+						window.removeEventListener(e.type, onMouseOut, true);
+						clearInterval(_this._updateLogTipTimer);
+						_this._updateLogTipTimer = 0;
+					}, true);
 				</body>
 			</method>
 			<method name="setLogTip">
 				<parameter name="date" />
+				<parameter name="force" />
 				<body>
 				<![CDATA[
 					var tip = date && this.clo.formatDate(date);
 					var btn = this.getItem("open");
 					if(btn.tooltipText != tip)
 						btn.tooltipText = tip;
+					else
+						return;
+					if(!force)
+						return;
+					var domUtils = "inIDOMUtils" in Components.interfaces
+						? Components.classes["@mozilla.org/inspector/dom-utils;1"]
+							.getService(Components.interfaces.inIDOMUtils)
+						: InspectorUtils; // Firefox 59+
+					var nodes = domUtils.getChildrenForNode(document.documentElement, true);
+					for(var i = nodes.length - 1; i >= 0; --i) {
+						var tt = nodes[i];
+						if(tt.nodeName == "tooltip") {
+							tt.fillInPageTooltip && tt.fillInPageTooltip(btn);
+							break;
+						}
+					}
 				]]>
 				</body>
 			</method>
