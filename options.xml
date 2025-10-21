@@ -373,6 +373,8 @@
 						? Components.classes["@mozilla.org/inspector/dom-utils;1"]
 							.getService(Components.interfaces.inIDOMUtils)
 						: InspectorUtils; // Firefox 59+
+					if(!("getChildrenForNode" in domUtils)) // Available in Gecko 7.0+
+						return;
 					var nodes = domUtils.getChildrenForNode(document.documentElement, true);
 					for(var i = nodes.length - 1; i >= 0; --i) {
 						var tt = nodes[i];
