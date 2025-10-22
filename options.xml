@@ -326,9 +326,12 @@
 				</body>
 			</method>
 			<field name="_logDate">0</field>
+			<field name="_ttWait">false</field>
+			<field name="_ttElt">null</field>
 			<method name="updateLogTip">
 				<parameter name="force" />
 				<body>
+				<![CDATA[
 					if(!this.canOpen) {
 						this._logDate = 0;
 						this.setLogTip("", force);
@@ -354,6 +357,18 @@
 						clearInterval(_this._updateLogTipTimer);
 						_this._updateLogTipTimer = 0;
 					}, true);
+					if(!this._ttWait) {
+						this._ttWait = true;
+						var _this = this;
+						window.addEventListener("popupshowing", function onPopup(e) {
+							var tt = e.originalTarget || e.target;
+ 							if(tt.nodeName == "tooltip" && "fillInPageTooltip" in tt) {
+								_this._ttElt = tt;
+								window.removeEventListener(e.type, onPopup, true);
+ 							}
+						}, true);
+					}
+				]]>
 				</body>
 			</method>
 			<method name="setLogTip">
@@ -363,26 +378,11 @@
 				<![CDATA[
 					var tip = date && this.clo.formatDate(date);
 					var btn = this.getItem("open");
-					if(btn.tooltipText != tip)
-						btn.tooltipText = tip;
-					else
+					if(btn.tooltipText == tip)
 						return;
-					if(!force)
-						return;
-					var domUtils = "inIDOMUtils" in Components.interfaces
-						? Components.classes["@mozilla.org/inspector/dom-utils;1"]
-							.getService(Components.interfaces.inIDOMUtils)
-						: InspectorUtils; // Firefox 59+
-					if(!("getChildrenForNode" in domUtils)) // Available in Gecko 7.0+
-						return;
-					var nodes = domUtils.getChildrenForNode(document.documentElement, true);
-					for(var i = nodes.length - 1; i >= 0; --i) {
-						var tt = nodes[i];
-						if(tt.nodeName == "tooltip") {
-							tt.fillInPageTooltip && tt.fillInPageTooltip(btn);
-							break;
-						}
-					}
+					btn.tooltipText = tip;
+					if(force && this._ttElt)
+						this._ttElt.fillInPageTooltip(btn);
 				]]>
 				</body>
 			</method>
