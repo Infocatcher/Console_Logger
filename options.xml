@@ -60,6 +60,11 @@
 				nameBox.removeEventListener("drop",     this, false);
 				nameBox.removeEventListener("dragexit", this, false);
 				nameBox.removeEventListener("dragend",  this, false);
+				this._ttElt = null;
+				if(this._ttUnwatch) {
+					this._ttUnwatch();
+					this._ttUnwatch = null;
+				}
 			</destructor>
 			<method name="handleEvent">
 				<parameter name="event" />
@@ -326,7 +331,7 @@
 				</body>
 			</method>
 			<field name="_logDate">0</field>
-			<field name="_ttWait">false</field>
+			<field name="_ttUnwatch">null</field>
 			<field name="_ttElt">null</field>
 			<method name="updateLogTip">
 				<parameter name="force" />
@@ -357,17 +362,21 @@
 						clearInterval(_this._updateLogTipTimer);
 						_this._updateLogTipTimer = 0;
 					}, true);
-					if(!this._ttWait) {
-						this._ttWait = true;
-						var _this = this;
-						window.addEventListener("popupshowing", function onPopup(e) {
-							var tt = e.originalTarget || e.target;
- 							if(tt.nodeName == "tooltip" && "fillInPageTooltip" in tt) {
-								_this._ttElt = tt;
-								window.removeEventListener(e.type, onPopup, true);
- 							}
-						}, true);
-					}
+					if(this._ttUnwatch)
+						return;
+					var _this = this;
+					var onPopup, destroyWaiter;
+					window.addEventListener("popupshowing", onPopup = function(e) {
+						var tt = e.originalTarget || e.target;
+						if(tt.nodeName == "tooltip" && "fillInPageTooltip" in tt) {
+							_this._ttElt = tt;
+							destroyWaiter();
+						}
+					}, true);
+					window.addEventListener("unload", this._ttUnwatch = destroyWaiter = function() {
+						window.removeEventListener("popupshowing", onPopup, true);
+						window.removeEventListener("unload", destroyWaiter, false);
+					}, false);
 				]]>
 				</body>
 			</method>
