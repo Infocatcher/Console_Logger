@@ -24,6 +24,7 @@
 		var strings = {
 			selfName:       "&cl.selfName;",
 			emptyName:      "&cl.emptyName;",
+			onlyASCII:      "&cl.onlyASCII;",
 			nameInternal:   "&cl.nameInternal;",
 			nameUsed:       "&cl.nameUsed;",
 			nameSimilar:    "&cl.nameSimilar;",

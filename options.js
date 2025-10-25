@@ -352,6 +352,8 @@ var consoleLoggerOptions = {
 		function validateName(name) {
 			if(!name)
 				return strings.emptyName;
+			if(!_this.isValidName(name))
+				return strings.onlyASCII;
 			if(/\.(?:enabled|exclude|message)$/.test(name))
 				return strings.nameInternal.replace("$S", ".enabled, .exclude, .message");
 			var cnt = 0;
