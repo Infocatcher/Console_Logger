@@ -226,7 +226,7 @@ var consoleLoggerOptions = {
 			optionsArr.push(options[name]);
 		optionsArr.sort(this.sortOptions);
 		var list = this.list;
-		var reload = list.hasChildNodes();
+		var reload = !this.isEmpty;
 		var current;
 		var selected = reload && this.selectedItems.map(function(cli) {
 			if(cli.getAttribute("current") == "true")
@@ -252,6 +252,9 @@ var consoleLoggerOptions = {
 	get list() {
 		delete this.list;
 		return this.list = this.$("cl-list");
+	},
+	get isEmpty() {
+		return !this.list.hasChildNodes();
 	},
 	clearList: function() {
 		this.list.textContent = "";
@@ -992,7 +995,7 @@ var consoleLoggerOptions = {
 		}, this);
 		var cantReset = !selectedItems.length;
 		var cantRemove = cantReset || hasLocked;
-		var isEmpty = !this.list.hasChildNodes();
+		var isEmpty = this.isEmpty;
 		this.$("cl-deck-reset").selectedIndex = hasLocked ? 1 : 0;
 		this.$("cl-btn-remove").disabled = cantRemove;
 		this.$("cl-btn-reset").disabled = cantReset;
@@ -1219,7 +1222,7 @@ var consoleLoggerOptions = {
 		this.markAsSaved();
 		this.updateControls();
 		this.updateFilter();
-		if(this.hideDisabled && this.list.hasChildNodes() && !this.visibleItems.length)
+		if(this.hideDisabled && !this.isEmpty && !this.visibleItems.length)
 			this.blink(this.tbbShowDisabled);
 		this.validateFieldsAsync();
 	},
