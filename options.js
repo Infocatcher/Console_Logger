@@ -537,7 +537,7 @@ var consoleLoggerOptions = {
 		var prefix = consoleLoggerGlobal.FILE_NAME_PREFIX;
 		var entries = this.cl.io.profileDir.directoryEntries;
 		var cliFirst;
-		var count = 0;
+		var logs = [];
 		while(entries.hasMoreElements()) {
 			var entry = entries.getNext().QueryInterface(Components.interfaces.nsIFile);
 			var fName = entry.leafName;
@@ -546,7 +546,7 @@ var consoleLoggerOptions = {
 			var name = fName.slice(prefix.length, -4);
 			if(this.getItemsByName(this.fixName(name), true).length)
 				continue;
-			++count;
+			logs.push(fName);
 			if(justCalc)
 				continue;
 			var cli = this.appendItem({
@@ -555,8 +555,8 @@ var consoleLoggerOptions = {
 			if(!cliFirst)
 				cliFirst = cli;
 		}
-		if(justCalc || !count)
-			return count;
+		if(justCalc || !logs.length)
+			return logs;
 		if(this.hideDisabled)
 			this.blink(this.tbbShowDisabled);
 		this.focusItem(cliFirst);
@@ -564,8 +564,8 @@ var consoleLoggerOptions = {
 			this.list.selectItemRange(cliFirst, cli);
 		this.checkUnsaved();
 		this.updateFilter();
-		this.updateOptionsMenuDelayed(0);
-		return count;
+		this.updateOptionsMenuDelayed([]);
+		return logs;
 	},
 	readFromClipboard: function() {
 		// Based on readFromClipboard() function from
@@ -1067,15 +1067,20 @@ var consoleLoggerOptions = {
 			openInTab.setAttribute("disabled", !Services.wm.getMostRecentWindow("navigator:browser"));
 		}, 0);
 	},
-	updateOptionsMenuDelayed: function(count) {
-		if(count === undefined)
-			count = this.addForLogFiles(true);
+	updateOptionsMenuDelayed: function(logs) {
+		if(logs === undefined)
+			logs = this.addForLogFiles(true);
+		var count = logs.length;
 		var mi = this.$("cl-mi-opts-addForLogs");
 		mi.setAttribute("disabled", !count);
 		var label = count
 			? strings.addForLogsN.replace("$N", count)
 			: strings.addForLogs;
 		mi.setAttribute("label", label);
+		if(count)
+			mi.setAttribute("tooltiptext", logs.join(" \n"));
+		else
+			mi.removeAttribute("tooltiptext");
 	},
 	updateLogViewerMenu: function() {
 		var viewer = prefs.get("options.logViewer");
