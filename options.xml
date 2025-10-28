@@ -22,7 +22,7 @@
 								oncommand="document.getBindingParent(this).open();"
 								onmouseover="document.getBindingParent(this).updateLogTip();" />
 							<xul:checkbox anonid="enabled" class="cl-enabled" label="&cl.enabled;"
-								oncommand="document.getBindingParent(this).updateState();" />
+								oncommand="document.getBindingParent(this).updateState(this.checked);" />
 						</xul:hbox>
 					</xul:row>
 					<xul:row align="center" class="cl-row-detail" tooltiptext="&cl.sourceTip;">
@@ -89,7 +89,7 @@
 				onset="this.getItem('name').value = val;" />
 			<property name="enabled"
 				onget="return this.getItem('enabled').checked;"
-				onset="this.getItem('enabled').checked = val; this.updateState();" />
+				onset="this.getItem('enabled').checked = val; this.updateState(val);" />
 			<property name="locked"
 				onget="return this.getItem('name').disabled;"
 				onset="this.getItem('name').disabled = val;" />
@@ -163,13 +163,14 @@
 					}
 					this.locked = "locked" in state && state.locked;
 					this.originalName = state.originalName || state.name;
-					this.updateState();
+					this.updateState("enabled" in state ? state.enabled : undefined);
 				]]>
 				</setter>
 			</property>
 			<method name="updateState">
+				<parameter name="enabled" />
 				<body>
-					if(this.enabled)
+					if(enabled === undefined ? this.enabled : enabled)
 						this.removeAttribute("cl_disabled");
 					else
 						this.setAttribute("cl_disabled", "true");
