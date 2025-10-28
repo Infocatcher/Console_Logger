@@ -130,13 +130,15 @@
 			<property name="searchLabel" readonly="true" onget="return this.name;" />
 			<property name="state">
 				<getter>
-					var state = { __proto__: null };
+					var state = {
+						locked:       this.locked,
+						originalName: this.originalName,
+						__proto__: null
+					};
 					this.params.forEach(function(name) {
 						var elt = this.getItem(name);
 						state[name] = "checked" in elt ? elt.checked : elt.value;
 					}, this);
-					state.locked = this.locked;
-					state.originalName = this.originalName;
 					return state;
 				</getter>
 				<setter>
