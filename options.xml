@@ -61,10 +61,8 @@
 				nameBox.removeEventListener("dragexit", this, false);
 				nameBox.removeEventListener("dragend",  this, false);
 				this._ttElt = null;
-				if(this._ttUnwatch) {
+				if(this._ttUnwatch)
 					this._ttUnwatch();
-					this._ttUnwatch = null;
-				}
 			</destructor>
 			<method name="handleEvent">
 				<parameter name="event" />
@@ -377,6 +375,7 @@
 						}
 					}, true);
 					window.addEventListener("unload", this._ttUnwatch = destroyWaiter = function() {
+						_this._ttUnwatch = null;
 						window.removeEventListener("popupshowing", onPopup, true);
 						window.removeEventListener("unload", destroyWaiter, false);
 					}, false);
