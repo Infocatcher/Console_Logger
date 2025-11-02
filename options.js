@@ -1262,18 +1262,9 @@ var consoleLoggerOptions = {
 			++logFiles;
 			return n + cli.name + " " + logMark;
 		}, this));
+
 		var removeLogs = { value: false };
-		var hasLocked = this.$("cl-deck-reset").selectedIndex == 1;
-		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
-			+ "\n" + names.join("\n")
-			+ (logFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
-		if(
-			(logFiles || !confirmOnlyLogFiles)
-			&& prefs.get("options.confirmRemoval")
-			&& !Services.prompt[logFiles ? "confirmCheck" : "confirm"](
-				window, strings.selfName, ask, strings.removeLogsAlso.replace("$S", logFiles), removeLogs
-			)
-		)
+		if(!this.confirmRemove(names, logFiles, removeLogs))
 			return;
 		if(removeLogs.value)
 			this.clear(true);
@@ -1312,6 +1303,32 @@ var consoleLoggerOptions = {
 		this.checkUnsaved();
 		this.updateControls();
 		this.updateFilter();
+	},
+	confirmRemove: function(names, logFiles, removeLogs) {
+		if(!prefs.get("options.confirmRemoval"))
+			return true;
+		var btnDeck = this.$("cl-deck-reset");
+		var hasLocked = btnDeck.selectedIndex == 1;
+		var btnText = btnDeck.selectedPanel.getAttribute("label");
+		var logMark = "*";
+		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
+			+ "\n" + names.join("\n")
+			+ (logFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
+		var checkText = logFiles && strings.removeLogsAlso.replace("$S", logFiles);
+		var ps = Services.prompt;
+		// https://bugzilla.mozilla.org/show_bug.cgi?id=345067
+		// confirmEx always returns 1 if the user closes the window using the close button in the titlebar
+		return ps.confirmEx(
+			window,
+			strings.selfName,
+			ask,
+			  ps.BUTTON_POS_0 * ps.BUTTON_TITLE_IS_STRING
+			+ ps.BUTTON_POS_1 * ps.BUTTON_TITLE_CANCEL
+			+ ps.BUTTON_POS_0_DEFAULT,
+			btnText, "", "",
+			checkText || null,
+			removeLogs || {}
+		) != 1;
 	},
 	toggle: function() {
 		var enable = this.enabledInSelection < 1;
