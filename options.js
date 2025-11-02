@@ -1254,13 +1254,12 @@ var consoleLoggerOptions = {
 		var selectedItems = this.selectedItems;
 
 		var logFiles = 0;
-		var logMark = "*";
 		var names = this.cropNames(selectedItems.map(function(cli, i) {
 			var n = (i + 1) + ") ";
 			if(!cli.file)
 				return n + cli.name;
 			++logFiles;
-			return n + cli.name + " " + logMark;
+			return n + cli.name + " " + strings.logMark;
 		}, this));
 
 		var removeLogs = { value: false };
@@ -1310,10 +1309,9 @@ var consoleLoggerOptions = {
 		var btnDeck = this.$("cl-deck-reset");
 		var hasLocked = btnDeck.selectedIndex == 1;
 		var btnText = btnDeck.selectedPanel.getAttribute("label");
-		var logMark = "*";
 		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
 			+ "\n" + names.join("\n")
-			+ (logFiles ? "\n" + strings.hasLog.replace("$S", logMark) : "");
+			+ (logFiles ? "\n" + strings.hasLog.replace("$S", strings.logMark) : "");
 		var checkText = logFiles && strings.removeLogsAlso.replace("$S", logFiles);
 		var ps = Services.prompt;
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=345067

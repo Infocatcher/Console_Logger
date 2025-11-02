@@ -39,6 +39,7 @@
 			removeLogs:     "&cl.removeLogs;",
 			removeLogsAlso: "&cl.removeLogsAlso;",
 			hasLog:         "&cl.hasLog;",
+			logMark:        "&cl.logMark;",
 			removeConfirm:  "&cl.removeConfirm;",
 			resetConfirm:   "&cl.resetConfirm;",
 			viewerChoose:   "&cl.logViewerChoose;",

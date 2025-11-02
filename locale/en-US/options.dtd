@@ -26,6 +26,7 @@
 <!ENTITY cl.removeLogs "Remove all log files?">
 <!ENTITY cl.removeLogsAlso "Also remove log files ($S)">
 <!ENTITY cl.hasLog "$S – contains log file">
+<!ENTITY cl.logMark "*">
 <!ENTITY cl.cut "Cut">
 <!ENTITY cl.copy "Copy">
 <!ENTITY cl.copyVisible "Copy Visible">
