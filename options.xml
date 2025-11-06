@@ -353,14 +353,13 @@
 						this.clo.getLogFileDate(this.originalName || this.name, function(date) {
 							this._logDate = date;
 							this.setLogTip(date, force);
+							this._setLogTipTimer(date);
 						}, this);
 					}
 					if(this._updateLogTipTimer || 0)
 						return;
+					date && this._setLogTipTimer(date);
 					var _this = this;
-					this._updateLogTipTimer = setInterval(function() {
-						_this.updateLogTip(true);
-					}, 2000);
 					window.addEventListener("mouseout", this._ttOnMove = function onMouseOut(e) {
 						window.removeEventListener("mouseout", onMouseOut, true);
 						_this._ttOnMove = null;
@@ -383,6 +382,23 @@
 						window.removeEventListener("popupshowing", onPopup, true);
 						window.removeEventListener("unload", destroyWaiter, false);
 					}, false);
+				]]>
+				</body>
+			</method>
+			<method name="_setLogTipTimer">
+				<parameter name="date" />
+				<body>
+				<![CDATA[
+					if(this._updateLogTipTimer)
+						clearTimeout(this._updateLogTipTimer);
+					var dt = new Date() - new Date(date);
+					var dms = 60e3 - dt % 60e3;
+					this._updateLogTipTimer = setTimeout(function(_this) {
+						_this.updateLogTip(true);
+						_this._updateLogTipTimer = setInterval(function() {
+							_this.updateLogTip(true);
+						}, 60e3);
+					}, dms, this);
 				]]>
 				</body>
 			</method>
