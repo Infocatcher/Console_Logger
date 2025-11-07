@@ -369,19 +369,18 @@
 					if(this._ttUnwatch)
 						return;
 					var _this = this;
-					var onPopup, destroyWaiter;
+					var onPopup;
 					window.addEventListener("popupshowing", onPopup = function(e) {
 						var tt = e.originalTarget || e.target;
 						if(tt.nodeName == "tooltip" && "fillInPageTooltip" in tt) {
 							_this._ttElt = tt;
-							destroyWaiter();
+							_this._ttUnwatch();
 						}
 					}, true);
-					window.addEventListener("unload", this._ttUnwatch = destroyWaiter = function() {
+					this._ttUnwatch = function() {
 						_this._ttUnwatch = null;
 						window.removeEventListener("popupshowing", onPopup, true);
-						window.removeEventListener("unload", destroyWaiter, false);
-					}, false);
+					};
 				]]>
 				</body>
 			</method>
