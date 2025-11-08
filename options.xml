@@ -347,8 +347,10 @@
 						return;
 					}
 					var date = this._logDate;
-					if(date) // Will use cached value
+					if(date) { // Will use cached value
 						this.setLogTip(date, force);
+						this._setLogTipTimer(date);
+					}
 					else {
 						this.clo.getLogFileDate(this.originalName || this.name, function(date) {
 							this._logDate = date;
@@ -356,9 +358,8 @@
 							this._setLogTipTimer(date);
 						}, this);
 					}
-					if(this._updateLogTipTimer || 0)
+					if(this._ttOnMove)
 						return;
-					date && this._setLogTipTimer(date);
 					var _this = this;
 					window.addEventListener("mouseout", this._ttOnMove = function onMouseOut(e) {
 						window.removeEventListener("mouseout", onMouseOut, true);
@@ -366,7 +367,7 @@
 						clearInterval(_this._updateLogTipTimer);
 						_this._updateLogTipTimer = 0;
 					}, true);
-					if(this._ttUnwatch)
+					if(this._ttUnwatch || this._ttElt)
 						return;
 					var _this = this;
 					var onPopup;
