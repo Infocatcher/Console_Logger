@@ -364,7 +364,7 @@
 					window.addEventListener("mouseout", this._ttOnMove = function onMouseOut(e) {
 						window.removeEventListener("mouseout", onMouseOut, true);
 						_this._ttOnMove = null;
-						clearInterval(_this._updateLogTipTimer);
+						clearTimeout(_this._updateLogTipTimer);
 						_this._updateLogTipTimer = 0;
 					}, true);
 					if(this._ttUnwatch || this._ttElt)
@@ -387,17 +387,16 @@
 			</method>
 			<method name="_setLogTipTimer">
 				<parameter name="date" />
+				<parameter name="force" />
 				<body>
 				<![CDATA[
-					if(this._updateLogTipTimer)
-						clearTimeout(this._updateLogTipTimer);
+					if(this._updateLogTipTimer && !force)
+						return;
 					var dt = new Date() - new Date(date);
 					var dms = 60e3 - dt % 60e3;
 					this._updateLogTipTimer = setTimeout(function(_this) {
 						_this.updateLogTip(true);
-						_this._updateLogTipTimer = setInterval(function() {
-							_this.updateLogTip(true);
-						}, 60e3);
+						_this._setLogTipTimer(date, true);
 					}, dms, this);
 				]]>
 				</body>
