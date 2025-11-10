@@ -349,7 +349,7 @@
 					var date = this._logDate;
 					if(date) { // Will use cached value
 						this.setLogTip(date, force);
-						this._setLogTipTimer(date);
+						!force && this._setLogTipTimer(date);
 					}
 					else {
 						this.clo.getLogFileDate(this.originalName || this.name, function(date) {
@@ -387,16 +387,16 @@
 			</method>
 			<method name="_setLogTipTimer">
 				<parameter name="date" />
-				<parameter name="force" />
 				<body>
 				<![CDATA[
-					if(this._updateLogTipTimer && !force)
-						return;
+					if(this._updateLogTipTimer)
+						clearTimeout(this._updateLogTipTimer);
 					var dt = new Date() - new Date(date);
 					var dms = 60e3 - dt % 60e3;
 					this._updateLogTipTimer = setTimeout(function(_this) {
 						_this.updateLogTip(true);
-						_this._setLogTipTimer(date, true);
+						_this._updateLogTipTimer = 0;
+						_this._setLogTipTimer(date);
 					}, dms, this);
 				]]>
 				</body>
