@@ -23,7 +23,7 @@
 <!ENTITY cl.openLog "Open Log File">
 <!ENTITY cl.revealLog "Go to Log File">
 <!ENTITY cl.removeLog "Remove Log File">
-<!ENTITY cl.removeLogs "Remove all log files?">
+<!ENTITY cl.removeLogs "Remove following log files?">
 <!ENTITY cl.removeLogsAlso "Also remove log files ($S)">
 <!ENTITY cl.hasLog "$S – contains log file">
 <!ENTITY cl.logMark "*">
