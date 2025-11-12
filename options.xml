@@ -60,11 +60,11 @@
 				nameBox.removeEventListener("drop",     this, false);
 				nameBox.removeEventListener("dragexit", this, false);
 				nameBox.removeEventListener("dragend",  this, false);
-				this._ttElt = null;
 				if(this._ttUnwatch)
 					this._ttUnwatch();
 				if(this._ttOnMove)
 					this._ttOnMove();
+				this._elts = this._ttElt = null;
 			</destructor>
 			<method name="handleEvent">
 				<parameter name="event" />
