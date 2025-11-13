@@ -283,11 +283,11 @@ var consoleLoggerOptions = {
 			return this.isItemVisible(cli, hideDisabled);
 		}, this);
 	},
-	isItemVisible: function(cli, checkStyles) {
+	isItemVisible: function(cli, hideDisabled) {
 		return cli.parentNode
 			&& !cli.collapsed
-			// Note: XBL with cli.enabled/cli.state.state may be not yet available e.g. during reload
-			&& (checkStyles ? getComputedStyle(cli, null).visibility != "collapse" : true);
+			// Note: XBL with cli.enabled may be not yet available e.g. during reload
+			&& (hideDisabled ? !cli.hasAttribute("cl_disabled") : true);
 	},
 	get enabledInSelection() {
 		var selectedItems = this.selectedItems;
