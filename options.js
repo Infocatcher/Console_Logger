@@ -1167,9 +1167,7 @@ var consoleLoggerOptions = {
 		delete this.tbbShowDisabled;
 		return this.tbbShowDisabled = this.$("cl-showDisabled");
 	},
-	get hideDisabled() {
-		return this.list.hasAttribute("cl_hideDisabled");
-	},
+	hideDisabled: undefined,
 	setShowDisabledMode: function(showDisabled) {
 		if(showDisabled === undefined) {
 			showDisabled = prefs.get("options.showDisabled");
@@ -1183,6 +1181,7 @@ var consoleLoggerOptions = {
 			this.list.setAttribute("cl_hideDisabled", "true");
 		else
 			this.list.removeAttribute("cl_hideDisabled");
+		this.hideDisabled = !showDisabled;
 	},
 	toggleShowDisabledMode: function() {
 		this.setShowDisabledMode(!prefs.get("options.showDisabled"));
