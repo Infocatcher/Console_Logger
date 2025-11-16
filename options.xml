@@ -302,12 +302,22 @@
 				<parameter name="highlight" />
 				<body>
 				<![CDATA[
-					var tt = document.createElement("tooltip");
+					var tt = nameBox._clTip || null;
+					tt && tt._clDestroy && tt._clDestroy(true);
+					tt = nameBox._clTip = document.createElement("tooltip");
+					tt._clDestroy = function(hide) {
+						delete tt._clDestroy;
+						delete nameBox._clTip;
+						if(tt.parentNode) {
+							hide && tt.hidePopup();
+							tt.parentNode.removeChild(tt);
+						}
+					};
 					tt.className = "cl-tip";
 					tt.style.margin = 0;
 					tt.setAttribute("label", message);
-					tt.setAttribute("onpopuphidden", "this.parentNode.removeChild(this);");
-					tt.setAttribute("onmouseover", "this.hidePopup();");
+					tt.setAttribute("onpopuphidden", "this._clDestroy && this._clDestroy();");
+					tt.setAttribute("onmouseover", "this._clDestroy && this._clDestroy(true);");
 					document.documentElement.appendChild(tt);
 					highlight && nameBox.setAttribute("cl_invalidUsage", "true");
 					var bo = nameBox.boxObject;
@@ -323,7 +333,7 @@
 						tt.showPopup(nameBox, x, y, "tooltip", null, null);
 					setTimeout(function() {
 						highlight && nameBox.removeAttribute("cl_invalidUsage");
-						tt.parentNode && tt.hidePopup();
+						tt._clDestroy && tt._clDestroy(true);
 					}, 3000);
 				]]>
 				</body>
@@ -366,6 +376,9 @@
 						_this._ttOnMove = null;
 						clearTimeout(_this._updateLogTipTimer);
 						_this._updateLogTipTimer = 0;
+						Components.classes["@mozilla.org/consoleservice;1"]
+							.getService(Components.interfaces.nsIConsoleService)
+							.logStringMessage("xxx clearTimeout()");
 					}, true);
 					if(this._ttUnwatch || this._ttElt)
 						return;
@@ -381,6 +394,9 @@
 					this._ttUnwatch = function() {
 						_this._ttUnwatch = null;
 						window.removeEventListener("popupshowing", onPopup, true);
+						Components.classes["@mozilla.org/consoleservice;1"]
+							.getService(Components.interfaces.nsIConsoleService)
+							.logStringMessage("xxx _ttUnwatch()");
 					};
 				]]>
 				</body>
@@ -393,6 +409,9 @@
 						clearTimeout(this._updateLogTipTimer);
 					var dt = new Date() - new Date(date);
 					var dms = 60e3 - dt % 60e3;
+					Components.classes["@mozilla.org/consoleservice;1"]
+						.getService(Components.interfaces.nsIConsoleService)
+						.logStringMessage("xxx _setLogTipTimer() " + new Date(date) + " " + dt + " " + dms);
 					this._updateLogTipTimer = setTimeout(function(_this) {
 						_this.updateLogTip(true);
 						_this._updateLogTipTimer = 0;
@@ -413,6 +432,9 @@
 					btn.tooltipText = tip;
 					if(force && this._ttElt)
 						this._ttElt.fillInPageTooltip(btn);
+					force && Components.classes["@mozilla.org/consoleservice;1"]
+						.getService(Components.interfaces.nsIConsoleService)
+						.logStringMessage("xxx setLogTip()\n" + tip);
 				]]>
 				</body>
 			</method>
