@@ -242,8 +242,10 @@
 						return;
 					}
 					// Wait for changes (and don't call too often)
-					clearTimeout(this._checkNameTimer);
+					if(this._checkNameTimer)
+						return;
 					this._checkNameTimer = setTimeout(function(_this) {
+						_this._checkNameTimer = 0;
 						_this.checkName(nameBox);
 					}, 0, this);
 				]]>
