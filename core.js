@@ -117,11 +117,11 @@ var consoleLoggerCore = {
 		prefs.resetBranch(prefs.ns + "patterns." + name);
 	},
 	loadPatterns: function() {
-		delete this.messages;
 		delete this.sources;
+		delete this.messages;
 		delete this.excludes;
-		var messages = this.messages = { __proto__: null };
 		var sources  = this.sources  = { __proto__: null };
+		var messages = this.messages = { __proto__: null };
 		var excludes = this.excludes = { __proto__: null };
 		function makePattern(out, name, item, type, flags) {
 			if(item[type]) try {
@@ -137,8 +137,8 @@ var consoleLoggerCore = {
 			var item = options[name];
 			if(!item.enabled)
 				continue;
-			makePattern(messages, name, item, "message", "i");
 			makePattern(sources,  name, item, "source",  "i");
+			makePattern(messages, name, item, "message", "i");
 			makePattern(excludes, name, item, "exclude", "i");
 		}
 		return this;
