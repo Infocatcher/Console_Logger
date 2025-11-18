@@ -207,7 +207,8 @@ var consoleLoggerCore = {
 			return null;
 		var gBrowser = browserWindow.gBrowser;
 		if(
-			!gBrowser.webProgress.isLoadingDocument && (
+			gBrowser.webProgress
+			&& !gBrowser.webProgress.isLoadingDocument && (
 				"isBlankPageURL" in browserWindow
 					? browserWindow.isBlankPageURL(gBrowser.currentURI.spec)
 					: gBrowser.currentURI.spec == "about:blank"
