@@ -164,10 +164,13 @@ var consoleLoggerOptions = {
 			var keyId = node.getAttribute("cl_key");
 			if(!keyId)
 				return;
-			var mi = document.createElement("menuitem");
-			mi.__node = node;
-			mi.setAttribute("key", keyId);
-			mp.appendChild(mi);
+			node.__keys = [];
+			keyId.split(/\s*,\s*/).forEach(function(keyId) {
+				var mi = document.createElement("menuitem");
+				mi.__node = node;
+				mi.setAttribute("key", keyId);
+				mp.appendChild(mi);
+			});
 		});
 		mp._onpopupshown = function() {
 			Array.prototype.forEach.call(
@@ -177,11 +180,18 @@ var consoleLoggerOptions = {
 					if(!keyDesk)
 						return;
 					var node = mi.__node;
-					node.tooltipText = node.tooltipText
-						? node.tooltipText + " (" + keyDesk + ")"
-						: keyDesk;
+					node.__keys.push(keyDesk);
 				}
 			);
+			nodes.forEach(function(node) {
+				if(!("__keys" in node))
+					return;
+				var keyDesk = node.__keys.join(", ");
+				delete node.__keys;
+				node.tooltipText = node.tooltipText
+					? node.tooltipText + " (" + keyDesk + ")"
+					: keyDesk;
+			});
 			this.parentNode.removeChild(this);
 		};
 		mp.setAttribute("onpopupshown", "this._onpopupshown();");
