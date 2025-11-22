@@ -161,11 +161,9 @@ var consoleLoggerOptions = {
 		var mp = document.documentElement.appendChild(document.createElement("menupopup"));
 		mp.style.visibility = "collapse";
 		nodes.forEach(function(node) {
-			var keyId = node.getAttribute("cl_key");
-			if(!keyId)
-				return;
 			node.__keys = [];
-			keyId.split(/\s*,\s*/).forEach(function(keyId) {
+			var keyIds = node.getAttribute("cl_key");
+			keyIds && keyIds.split(/\s*,\s*/).forEach(function(keyId) {
 				var mi = document.createElement("menuitem");
 				mi.__node = node;
 				mi.setAttribute("key", keyId);
@@ -177,17 +175,14 @@ var consoleLoggerOptions = {
 				this.childNodes,
 				function(mi) {
 					var keyDesk = mi.getAttribute("acceltext");
-					if(!keyDesk)
-						return;
-					var node = mi.__node;
-					node.__keys.push(keyDesk);
+					keyDesk && mi.__node.__keys.push(keyDesk);
 				}
 			);
 			nodes.forEach(function(node) {
-				if(!("__keys" in node))
-					return;
 				var keyDesk = node.__keys.join(", ");
 				delete node.__keys;
+				if(!keyDesk)
+					return;
 				node.tooltipText = node.tooltipText
 					? node.tooltipText + " (" + keyDesk + ")"
 					: keyDesk;
