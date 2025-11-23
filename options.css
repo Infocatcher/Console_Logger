@@ -51,8 +51,16 @@
 	box-shadow: 0 0 0 1em #f66 inset;
 	color: white;
 }
+#cl-filter[cl_invalidData] {
+	outline: 2px dotted #f66;
+	outline-offset: 0;
+}
 #cl-filter[type="timed"][cl-notFound] { /* Firefox 3.0 and older */
 	outline: 2px solid #f66;
+	outline-offset: -2px;
+}
+#cl-filter[type="timed"][cl_invalidData] { /* Firefox 3.0 and older */
+	outline: 2px dotted #f66;
 	outline-offset: -2px;
 }
 #cl-showDisabled {

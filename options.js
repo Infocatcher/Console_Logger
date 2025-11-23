@@ -1417,6 +1417,9 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	setFilter: function(filter) {
+		var ftb = this.filter;
+		if(ftb.hasAttribute("cl_invalidData"))
+			ftb.removeAttribute("cl_invalidData");
 		var matcher;
 		if(/^\/(.+)\/(i?)$/.test(filter)) try { // /RegExp/ or /regexp/i
 			var regExp = new RegExp(RegExp.$1, RegExp.$2);
@@ -1426,6 +1429,7 @@ var consoleLoggerOptions = {
 		}
 		catch(e) {
 			Components.utils.reportError(e);
+			ftb.setAttribute("cl_invalidData", "true");
 		}
 		if(!matcher) { // Space = and
 			filter = filter
@@ -1447,9 +1451,9 @@ var consoleLoggerOptions = {
 				found = true;
 		});
 		if(!found && matcher)
-			this.filter.setAttribute("cl-notFound", "true");
+			ftb.setAttribute("cl-notFound", "true");
 		else
-			this.filter.removeAttribute("cl-notFound");
+			ftb.removeAttribute("cl-notFound");
 		delay(function() {
 			if(found && this.hideDisabled && !this.visibleItems.length)
 				this.blink(this.tbbShowDisabled);
