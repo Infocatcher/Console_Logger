@@ -19,7 +19,7 @@
 	visibility: collapse;
 }
 #consoleLoggerOptions[cl_disabled] #cl-list .cl-enabled {
-	opacity: 0.68;
+	opacity: 0.42;
 }
 .cl-list-item[cl_disabled] .cl-textbox {
 	color: grayText;
