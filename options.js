@@ -1418,8 +1418,10 @@ var consoleLoggerOptions = {
 	},
 	setFilter: function(filter) {
 		var ftb = this.filter;
-		if(ftb.hasAttribute("cl_invalidData"))
+		if(ftb.hasAttribute("cl_invalidData")) {
 			ftb.removeAttribute("cl_invalidData");
+			ftb.removeAttribute("tooltiptext");
+		}
 		var matcher;
 		if(/^\/(.+)\/(i?)$/.test(filter)) try { // /RegExp/ or /regexp/i
 			var regExp = new RegExp(RegExp.$1, RegExp.$2);
@@ -1430,6 +1432,7 @@ var consoleLoggerOptions = {
 		catch(e) {
 			Components.utils.reportError(e);
 			ftb.setAttribute("cl_invalidData", "true");
+			ftb.setAttribute("tooltiptext", e);
 		}
 		if(!matcher) { // Space = and
 			filter = filter
