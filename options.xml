@@ -467,7 +467,7 @@
 						? "&cl.logs;".replace("$S", this._changes)
 						: "&cl.log;";
 					this.setAttribute("cl_hasNewChanges", hasNew);
-					this.getItem("open").setAttribute("label", label);
+					this.getItem("open").label = label;
 				</body>
 			</method>
 		</implementation>
