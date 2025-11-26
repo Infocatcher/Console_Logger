@@ -1081,14 +1081,10 @@ var consoleLoggerOptions = {
 		var count = logs.length;
 		var mi = this.$("cl-mi-opts-addForLogs");
 		mi.setAttribute("disabled", !count);
-		var label = count
+		mi.label = count
 			? strings.addForLogsN.replace("$N", count)
 			: strings.addForLogs;
-		mi.setAttribute("label", label);
-		if(count)
-			mi.setAttribute("tooltiptext", logs.join(" \n"));
-		else
-			mi.removeAttribute("tooltiptext");
+		mi.tooltipText = count ? logs.join(" \n") : "";
 	},
 	updateLogViewerMenu: function() {
 		var viewer = prefs.get("options.logViewer");
