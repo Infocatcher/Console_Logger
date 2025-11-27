@@ -462,12 +462,11 @@
 			</method>
 			<method name="updateChangesCounter">
 				<body>
-					var hasNew = this._changes > 0;
-					var label = hasNew
-						? "&cl.logs;".replace("$S", this._changes)
+					var changes = this._changes;
+					this.setAttribute("cl_hasNewChanges", changes > 0);
+					this.getItem("open").label = changes
+						? "&cl.logs;".replace("$S", changes)
 						: "&cl.log;";
-					this.setAttribute("cl_hasNewChanges", hasNew);
-					this.getItem("open").label = label;
 				</body>
 			</method>
 		</implementation>
