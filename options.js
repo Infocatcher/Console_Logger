@@ -1308,7 +1308,7 @@ var consoleLoggerOptions = {
 			return true;
 		var btnDeck = this.$("cl-deck-reset");
 		var hasLocked = btnDeck.selectedIndex == 1;
-		var btnText = btnDeck.selectedPanel.getAttribute("label");
+		var btnText = btnDeck.selectedPanel.label;
 		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
 			+ "\n" + names.join("\n")
 			+ (logFiles ? "\n" + strings.hasLog.replace("$S", strings.logMark) : "");
