@@ -438,13 +438,19 @@ var consoleLoggerOptions = {
 	},
 	parseOptions: function(data, silent) {
 		data = data.replace(/^\s*\/\/[^\n\r]+[\n\r]+/, "");
-		if(data && data.charAt(0) == "{") try {
+		var err;
+		if(!data || data.charAt(0) != "{")
+			err = "Doesn't looks like JSON string.";
+		if(!err) try {
 			var options = this.validateOptions(JSON.parse(data));
+			if(!options)
+				err = "JSON string doesn't looks like correct options.";
 		}
 		catch(e) {
+			err = "Invalid JSON:\n" + e;
 		}
 		if(!options && !silent)
-			Services.prompt.alert(window, strings.errorTitle, "Can't parse options!");
+			Services.prompt.alert(window, strings.errorTitle, "Can't parse options!" + (err ? "\n" + err : ""));
 		return options || null;
 	},
 	stringifyOptions: function(options) {
