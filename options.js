@@ -425,20 +425,27 @@ var consoleLoggerOptions = {
 	allFields: ["name", "source", "message", "exclude"],
 	requiredFields: ["source", "message"],
 	get clipboard() {
-		return this.parseOptions(this.readFromClipboard());
+		return this.getClipboardOptions();
 	},
 	set clipboard(options) {
 		this.copyString(this.stringifyOptions(options));
 	},
-	parseOptions: function(data) {
+	get cantPaste() {
+		return !this.getClipboardOptions(true);
+	},
+	getClipboardOptions: function(silent) {
+		return this.parseOptions(this.readFromClipboard(), silent);
+	},
+	parseOptions: function(data, silent) {
 		data = data.replace(/^\s*\/\/[^\n\r]+[\n\r]+/, "");
 		if(data && data.charAt(0) == "{") try {
-			var options = JSON.parse(data);
-			return this.validateOptions(options);
+			var options = this.validateOptions(JSON.parse(data));
 		}
 		catch(e) {
 		}
-		return null;
+		if(!options && !silent)
+			Services.prompt.alert(window, strings.errorTitle, "Can't parse options!");
+		return options || null;
 	},
 	stringifyOptions: function(options) {
 		this.cleanupOptions(options);
@@ -1028,7 +1035,7 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	updateContextMenu: function(fastCheck) {
-		var cantPaste = !this.clipboard;
+		var cantPaste = this.cantPaste;
 		this.$("cl-mi-paste").setAttribute("disabled", cantPaste);
 		var visibleItems = this.visibleItems;
 		var cantSelectAll = !visibleItems.some(function(cli) {
@@ -1063,7 +1070,7 @@ var consoleLoggerOptions = {
 		this.$("cl-mi-clear").setAttribute("disabled", !hasLog);
 	},
 	updateOptionsMenu: function() {
-		var cantPaste = !this.clipboard;
+		var cantPaste = this.cantPaste;
 		this.$("cl-mi-opts-paste").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-pasteOvr").setAttribute("disabled", cantPaste);
 		this.$("cl-mi-opts-compact").setAttribute("checked", this.list.hasAttribute("cl_compact"));
