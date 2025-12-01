@@ -440,17 +440,17 @@ var consoleLoggerOptions = {
 		data = data.replace(/^\s*\/\/[^\n\r]+[\n\r]+/, "");
 		var err;
 		if(!data || data.charAt(0) != "{")
-			err = "Doesn't looks like JSON string.";
+			err = strings.err.notJSON;
 		if(!err) try {
 			var options = this.validateOptions(JSON.parse(data));
 			if(!options)
-				err = "JSON string doesn't looks like correct options.";
+				err = strings.err.invalidObject;
 		}
 		catch(e) {
-			err = "Invalid JSON:\n" + e;
+			err = strings.err.invalidJSON + e;
 		}
 		if(!options && !silent)
-			Services.prompt.alert(window, strings.errorTitle, "Can't parse options!" + (err ? "\n" + err : ""));
+			Services.prompt.alert(window, strings.errorTitle, strings.err.invalidOptions + (err ? "\n" + err : ""));
 		return options || null;
 	},
 	stringifyOptions: function(options) {

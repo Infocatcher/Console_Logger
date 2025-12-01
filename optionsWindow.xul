@@ -44,7 +44,13 @@
 			resetConfirm:   "&cl.resetConfirm;",
 			viewerChoose:   "&cl.logViewerChoose;",
 			addForLogs:     "&cl.addForLogs;",
-			addForLogsN:    "&cl.addForLogsN;"
+			addForLogsN:    "&cl.addForLogsN;",
+			err: {
+				invalidOptions: "&cl.err.invalidOptions;",
+				notJSON:        "&cl.err.notJSON;",
+				invalidJSON:    "&cl.err.invalidJSON;",
+				invalidObject:  "&cl.err.invalidObject;"
+			}
 		};
 	</script>
 	<script type="application/javascript" src="chrome://consolelogger/content/options.js" />

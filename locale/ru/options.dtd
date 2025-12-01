@@ -45,6 +45,10 @@
 <!ENTITY cl.errorTitle "&cl.selfName;: Ошибка!">
 <!ENTITY cl.optionsFiles "Настройки &cl.selfName;">
 <!ENTITY cl.jsonFiles "JSON-файлы">
+<!ENTITY cl.err.invalidOptions "Невозможно разобрать настройки!">
+<!ENTITY cl.err.notJSON "Не является JSON.">
+<!ENTITY cl.err.invalidJSON "Некорректный JSON:\n">
+<!ENTITY cl.err.invalidObject "Объект из JSON-строки не является корректными настройками.">
 <!ENTITY cl.enabled "Включено">
 <!ENTITY cl.selectAll "Выделить всё">
 <!ENTITY cl.invertSelection "Инвертировать выделение">
