@@ -46,7 +46,7 @@
 <!ENTITY cl.optionsFiles "&cl.selfName; Options">
 <!ENTITY cl.jsonFiles "JSON Files">
 <!ENTITY cl.err.invalidOptions "Unable to parse options!">
-<!ENTITY cl.err.notJSON "Doesn't match to JSON string.">
+<!ENTITY cl.err.notJSON "Doesn't match to JSON-encoded object.">
 <!ENTITY cl.err.invalidJSON "Invalid JSON:\n">
 <!ENTITY cl.err.invalidObject "Object from JSON string doesn't match to valid options.">
 <!ENTITY cl.enabled "Enabled">
