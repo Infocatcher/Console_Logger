@@ -437,11 +437,13 @@ var consoleLoggerOptions = {
 		return this.parseOptions(this.readFromClipboard(), silent);
 	},
 	parseOptions: function(data, silent) {
-		data = data.replace(/^\s*\/\/[^\n\r]*[\n\r]+\s*/, "");
+		data = data
+			.replace(/^\s*\/\/[^\n\r]*[\n\r]+\s*/, "")
+			.replace(/\s+$/, "");
 		var err;
 		if(!data || data.charAt(0) != "{" || data.slice(-1) != "}")
 			err = strings.err.notJSON;
-		if(!err) try {
+		else try {
 			var options = this.validateOptions(JSON.parse(data));
 			if(!options)
 				err = strings.err.invalidObject;
