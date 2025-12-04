@@ -55,6 +55,12 @@
 	outline: 2px dotted #f66;
 	outline-offset: 0;
 }
+#cl-filter[cl_regExp] {
+	color: -moz-nativehyperlinktext;
+}
+#cl-filter[cl_regExp][cl-notFound] {
+	color: #00d;
+}
 #cl-filter[type="timed"][cl-notFound] { /* Firefox 3.0 and older */
 	outline: 2px solid #f66;
 	outline-offset: -2px;
