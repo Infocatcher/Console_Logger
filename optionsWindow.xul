@@ -58,7 +58,7 @@
 	<hbox id="cl-filterBox" align="center">
 		<label id="cl-filterLabel" control="cl-filter" value="&cl.filter;" cl_key="cl-key-search"
 			ondblclick="if(event.button == 0) consoleLoggerOptions.updateFilter(1);" />
-		<textbox id="cl-filter" type="search" timeout="250" flex="1"
+		<textbox id="cl-filter" type="search" timeout="150" flex="1"
 			oncommand="consoleLoggerOptions.setFilter(this.value);" />
 		<toolbarbutton id="cl-showDisabled" cl_key="cl-key-toggleShowDisabled" tooltiptext="&cl.showDisabled;"
 			oncommand="
