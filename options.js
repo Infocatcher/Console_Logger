@@ -1429,24 +1429,28 @@ var consoleLoggerOptions = {
 	},
 	setFilter: function(filter) {
 		var ftb = this.filter;
-		if(ftb.hasAttribute("cl_invalidData")) {
-			ftb.removeAttribute("cl_invalidData");
-			ftb.removeAttribute("tooltiptext");
-		}
-		if(ftb.hasAttribute("cl_regExp"))
-			ftb.removeAttribute("cl_regExp");
-		var matcher;
+		var matcher, dataErr;
 		if(/^\/(.+)\/(i?)$/.test(filter)) try { // /RegExp/ or /regexp/i
 			var regExp = new RegExp(RegExp.$1, RegExp.$2);
 			matcher = function(s) {
 				return regExp.test(s);
 			};
-			ftb.setAttribute("cl_regExp", "true");
 		}
 		catch(e) {
 			Components.utils.reportError(e);
+			dataErr = e;
+		}
+		if(matcher)
+			ftb.setAttribute("cl_regExp", "true");
+		else
+			ftb.removeAttribute("cl_regExp");
+		if(dataErr) {
 			ftb.setAttribute("cl_invalidData", "true");
-			ftb.setAttribute("tooltiptext", e);
+			ftb.setAttribute("tooltiptext", dataErr);
+		}
+		else {
+			ftb.removeAttribute("cl_invalidData");
+			ftb.removeAttribute("tooltiptext");
 		}
 		if(!matcher) { // Space = and
 			filter = filter
