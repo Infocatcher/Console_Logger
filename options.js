@@ -143,14 +143,14 @@ var consoleLoggerOptions = {
 		}
 	},
 	loadFilter: function() {
-		var fb = this.filter;
-		if(fb.value && fb._searchIcons)
-			fb._searchIcons.selectedIndex = 1;
+		var ftb = this.filter;
+		if(ftb.value && ftb._searchIcons)
+			ftb._searchIcons.selectedIndex = 1;
 	},
 	saveFilter: function() {
-		var fb = this.filter;
-		fb.setAttribute("value", fb.value);
-		document.persist(fb.id, "value");
+		var ftb = this.filter;
+		ftb.setAttribute("value", ftb.value);
+		document.persist(ftb.id, "value");
 	},
 	setKeysDesc: function() {
 		var nodes = Array.prototype.concat.call(
@@ -1482,12 +1482,12 @@ var consoleLoggerOptions = {
 		}, this);
 	},
 	updateFilter: function(notifyTimes) {
-		var filterBox = this.filter;
-		var filter = filterBox.value;
+		var ftb = this.filter;
+		var filter = ftb.value;
 		if(/^\s*$/.test(filter))
 			return;
 		this.setFilter(filter);
-		this.blink(filterBox, notifyTimes);
+		this.blink(ftb, notifyTimes);
 	},
 	blink: function(node, notifyTimes) {
 		if(notifyTimes === undefined)
