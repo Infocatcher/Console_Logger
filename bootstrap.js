@@ -23,7 +23,8 @@ function uninstall(params, reason) {
 }
 function startup(params, reason) {
 	platformVersion = parseFloat(Services.appinfo.platformVersion);
-	if(Services.appinfo.name == "Pale Moon" || Services.appinfo.name == "Basilisk")
+	var app = Services.appinfo.name;
+	if(app == "Pale Moon" || app == "Iceape-UXP" || app == "Basilisk")
 		platformVersion = platformVersion >= 4.1 ? 56 : 28;
 	if(platformVersion < 10 && "addBootstrappedManifestLocation" in Components.manager)
 		Components.manager.addBootstrappedManifestLocation(params.installPath);
