@@ -145,7 +145,9 @@ var consoleLogger = {
 				return;
 			}
 			if(!isUpdate) {
-				window.close();
+				window.setTimeout(function(w) { // Wait for modal dialogs
+					w.close();
+				}, 0, window);
 				return;
 			}
 			window.location.replace("about:blank");
