@@ -138,9 +138,13 @@ var consoleLogger = {
 		function closeOptions(window) {
 			var loc = window.location.href;
 			if(
-				loc.substr(0, 23) != "chrome://consolelogger/"
-				&& loc.substr(0, rootURI.length) != rootURI
+				loc == "chrome://global/content/commonDialog.xul"
+				&& window.opener && isCL(window.opener.location.href)
 			) {
+				window.close();
+				return;
+			}
+			if(!isCL(loc)) {
 				Array.prototype.slice.call(window.frames).forEach(closeOptions);
 				return;
 			}
@@ -170,7 +174,11 @@ var consoleLogger = {
 				else
 					w.setTimeout(reload, 10, w);
 			}, 50, window);
-		};
+		}
+		function isCL(loc) {
+			return loc.substr(0, 23) == "chrome://consolelogger/"
+				|| loc.substr(0, rootURI.length) == rootURI;
+		}
 		var windows = Services.wm.getEnumerator(null);
 		while(windows.hasMoreElements())
 			closeOptions(windows.getNext());
