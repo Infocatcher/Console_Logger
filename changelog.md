@@ -39,6 +39,7 @@
 `+` Added “Go to Log File” context menu item and Ctrl+Shift+O hotkey.<br>
 `x` Fixed file-related actions in case of not saved renaming.<br>
 `*` Show errors for invalid imported options.<br>
+`*` Improve extension updating/disabling: automatically close modal prompt dialogs, opened from options window.<br>
 
 ##### 0.2.0pre2 (2015-12-14)
 `x` Fixed hiding of special window that open options in non-modal window.<br>
