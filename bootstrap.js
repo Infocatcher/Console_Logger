@@ -175,9 +175,9 @@ var consoleLogger = {
 					w.setTimeout(reload, 10, w);
 			}, 50, window);
 		}
+		var baseURI = rootURI.replace(/content\/$/, "");
 		function isCL(loc) {
-			return loc.substr(0, 23) == "chrome://consolelogger/"
-				|| loc.substr(0, rootURI.length) == rootURI;
+			return loc.substr(0, baseURI.length) == baseURI;
 		}
 		var windows = Services.wm.getEnumerator(null);
 		while(windows.hasMoreElements())
