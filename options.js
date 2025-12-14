@@ -7,13 +7,12 @@ var consoleLoggerOptions = {
 	cl: null,
 	exports: ["consoleLogger", "Services", "prefs", "delay", "platformVersion"],
 	init: function() {
-		//Services.obs
 		Components.classes["@mozilla.org/observer-service;1"]
 			.getService(Components.interfaces.nsIObserverService)
 			.notifyObservers(window, "consoleLogger-exportScope", "consoleLoggerGlobal");
 		this.exports.forEach(function(prop) {
 			window[prop] = consoleLoggerGlobal[prop];
-		}, this);
+		});
 		this.cl = consoleLogger;
 		if(!("JSON" in window)) {
 			var scope = {}; // Note: we can't load directly into content window
@@ -36,7 +35,7 @@ var consoleLoggerOptions = {
 			this.cl.setSessionState("optionsOpened", false);
 		this.exports.forEach(function(prop) {
 			window[prop] = null;
-		}, this);
+		});
 		consoleLoggerGlobal = this.cl = null;
 		delete window.OS;
 	},
