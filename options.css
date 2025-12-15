@@ -5,6 +5,9 @@
 #cl-list {
 	margin: 2px;
 }
+#cl-list > scrollbox > .scrollbox-innerbox {
+	padding-bottom: 14px; /* Empty space on bottom for double-click action */
+}
 .cl-list-item {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 	border-bottom: 1px solid ThreeDLightShadow;
