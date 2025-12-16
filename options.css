@@ -5,12 +5,13 @@
 #cl-list {
 	margin: 2px;
 }
-#cl-list > scrollbox > .scrollbox-innerbox {
-	padding-bottom: 14px; /* Empty space on bottom for double-click action */
-}
 .cl-list-item {
 	-moz-binding: url("chrome://consolelogger/content/options.xml#consoleLoggerItem");
 	border-bottom: 1px solid ThreeDLightShadow;
+}
+.cl-list-item:last-child {
+	/* Empty space after last item for double-click action */
+	margin-bottom: 14px;
 }
 #cl-list[cl_compact] > .cl-list-item:not([selected="true"]):not([cl_filtered]) .cl-row-detail,
 #cl-list[cl_compact][seltype="multiple"] > .cl-list-item:not([current]):not([cl_filtered]) .cl-row-detail {
