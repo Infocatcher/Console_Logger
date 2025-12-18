@@ -375,13 +375,13 @@ var consoleLoggerOptions = {
 			return "";
 		}
 		function validatePattern(pattern) {
-			try {
+			if(pattern) try {
 				new RegExp(pattern);
-				return "";
 			}
 			catch(e) {
 				return "" + e;
 			}
+			return "";
 		}
 		items.forEach(function(cli) {
 			this.allFields.forEach(function(name) {
