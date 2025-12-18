@@ -205,8 +205,19 @@ var consoleLoggerIO = {
 		}
 		OS.File.move(oldFile.path, newFile.path, { noOverwrite: true })
 			.then(null, function onFailure(reason) {
-				if(!(reason instanceof OS.File.Error && (reason.becauseNoSuchFile || reason.becauseExists)))
+				if(!(reason instanceof OS.File.Error))
+					return;
+				if(reason.becauseExists) {
+					OS.File.openUnique(newFile.path, { humanReadable: true }).then(function(data) {
+						data.file.close();
+						OS.File.move(newFile.path, data.path).then(function() { // Try move again
+							OS.File.move(oldFile.path, newFile.path);
+						}, Components.utils.reportError);
+					}, Components.utils.reportError);
+				}
+				else if(!reason.becauseNoSuchFile) {
 					Components.utils.reportError(reason);
+				}
 			});
 	},
 
