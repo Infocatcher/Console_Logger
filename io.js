@@ -199,7 +199,12 @@ var consoleLoggerIO = {
 		var newFile = this.getFile(newKey);
 		delete this._files[oldKey];
 		if(platformVersion < 20) {
-			if(oldFile.exists() && !newFile.exists())
+			if(newFile.exists()) {
+				var newFile2 = newFile.clone();
+				newFile2.createUnique(newFile.NORMAL_FILE_TYPE, parseInt("0644", 8));
+				newFile.clone().renameTo(null, newFile2.leafName);
+			}
+			if(oldFile.exists())
 				oldFile.renameTo(null, newFile.leafName);
 			return;
 		}
