@@ -202,10 +202,10 @@ var consoleLoggerIO = {
 			if(newFile.exists()) {
 				var newFile2 = newFile.clone();
 				newFile2.createUnique(newFile.NORMAL_FILE_TYPE, parseInt("0644", 8));
-				newFile.clone().renameTo(null, newFile2.leafName);
+				newFile.clone().moveTo(null, newFile2.leafName);
 			}
 			if(oldFile.exists())
-				oldFile.renameTo(null, newFile.leafName);
+				oldFile.moveTo(null, newFile.leafName);
 			return;
 		}
 		OS.File.move(oldFile.path, newFile.path, { noOverwrite: true })
