@@ -199,18 +199,21 @@ var consoleLoggerIO = {
 		var newFile = this.getFile(newKey);
 		delete this._files[oldKey];
 		if(platformVersion < 20) {
+			if(!oldFile.exists()) // Nothing to rename
+				return;
 			if(newFile.exists()) {
 				var newFile2 = newFile.clone();
 				newFile2.createUnique(newFile.NORMAL_FILE_TYPE, parseInt("0644", 8));
 				newFile.clone().moveTo(null, newFile2.leafName);
 			}
-			if(oldFile.exists())
-				oldFile.moveTo(null, newFile.leafName);
+			oldFile.moveTo(null, newFile.leafName);
 			return;
 		}
 		OS.File.move(oldFile.path, newFile.path, { noOverwrite: true })
 			.then(null, function onFailure(reason) {
 				if(!(reason instanceof OS.File.Error))
+					return;
+				if(reason.becauseNoSuchFile) // Nothing to rename
 					return;
 				if(reason.becauseExists) {
 					OS.File.openUnique(newFile.path, { humanReadable: true }).then(function(data) {
@@ -220,7 +223,7 @@ var consoleLoggerIO = {
 						}, Components.utils.reportError);
 					}, Components.utils.reportError);
 				}
-				else if(!reason.becauseNoSuchFile) {
+				else {
 					Components.utils.reportError(reason);
 				}
 			});
