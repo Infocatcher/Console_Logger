@@ -202,9 +202,9 @@ var consoleLoggerIO = {
 			if(!oldFile.exists()) // Nothing to rename
 				return;
 			if(newFile.exists()) {
-				var newFile2 = newFile.clone();
-				newFile2.createUnique(newFile.NORMAL_FILE_TYPE, parseInt("0644", 8));
-				newFile.clone().moveTo(null, newFile2.leafName);
+				var bakFile = newFile.clone();
+				bakFile.createUnique(newFile.NORMAL_FILE_TYPE, parseInt("0644", 8));
+				newFile.clone().moveTo(null, bakFile.leafName);
 			}
 			oldFile.moveTo(null, newFile.leafName);
 			return;
@@ -216,10 +216,10 @@ var consoleLoggerIO = {
 				if(reason.becauseNoSuchFile) // Nothing to rename
 					return;
 				if(reason.becauseExists) {
-					OS.File.openUnique(newFile.path, { humanReadable: true }).then(function(data) {
-						data.file.close();
-						OS.File.move(newFile.path, data.path).then(function() { // Try move again
-							OS.File.move(oldFile.path, newFile.path);
+					OS.File.openUnique(newFile.path, { humanReadable: true }).then(function(bak) {
+						bak.file.close();
+						OS.File.move(newFile.path, bak.path).then(function() {
+							OS.File.move(oldFile.path, newFile.path); // Try move again
 						}, Components.utils.reportError);
 					}, Components.utils.reportError);
 				}
