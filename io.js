@@ -217,9 +217,10 @@ var consoleLoggerIO = {
 					return;
 				if(reason.becauseExists) {
 					OS.File.openUnique(newFile.path, { humanReadable: true }).then(function(bak) {
-						bak.file.close();
-						OS.File.move(newFile.path, bak.path).then(function() {
-							OS.File.move(oldFile.path, newFile.path); // Try move again
+						bak.file.close().then(function() {
+							OS.File.move(newFile.path, bak.path).then(function() {
+								OS.File.move(oldFile.path, newFile.path); // Try move again
+							}, Components.utils.reportError);
 						}, Components.utils.reportError);
 					}, Components.utils.reportError);
 				}
