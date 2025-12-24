@@ -441,32 +441,32 @@
 				</body>
 			</method>
 			<field name="_changes">0</field>
+			<property name="changes">
+				<getter>
+					return this._changes;
+				</getter>
+				<setter>
+					var changes = val;
+					this.setAttribute("cl_hasNewChanges", changes > 0);
+					this.getItem("open").label = changes
+						? "&cl.logs;".replace("$S", changes)
+						: "&cl.log;";
+				</setter>
+			</property>
 			<method name="markAsUpdated">
 				<body>
 					if(!this._changes) {
 						this.canOpen = true;
 						this.isOldChanges = false;
 					}
-					++this._changes;
-					this.updateChangesCounter();
+					this.changes = ++this._changes;
 					this._logDate = 0;
 				</body>
 			</method>
 			<method name="markAsRead">
 				<body>
-					if(this._changes) {
-						this._changes = 0;
-						this.updateChangesCounter();
-					}
-				</body>
-			</method>
-			<method name="updateChangesCounter">
-				<body>
-					var changes = this._changes;
-					this.setAttribute("cl_hasNewChanges", changes > 0);
-					this.getItem("open").label = changes
-						? "&cl.logs;".replace("$S", changes)
-						: "&cl.log;";
+					if(this._changes)
+						this.changes = this._changes = 0;
 				</body>
 			</method>
 		</implementation>
