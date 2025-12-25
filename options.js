@@ -886,7 +886,7 @@ var consoleLoggerOptions = {
 		var file = this.cl.io.getFile(name);
 		if(platformVersion < 24) {
 			delay(function() {
-				callback.call(context, file.exists() && file.lastModifiedTime);
+				file.exists() && callback.call(context, file.lastModifiedTime);
 			});
 			return;
 		}
