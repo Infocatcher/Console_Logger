@@ -882,17 +882,21 @@ var consoleLoggerOptions = {
 			this.onError
 		).then(null, this.onError);
 	},
-	getLogFileDate: function(name, callback, context) {
+	getLogFileInfo: function(name, callback, context) {
 		var file = this.cl.io.getFile(name);
 		if(platformVersion < 24) {
 			delay(function() {
-				file.exists() && callback.call(context, file.lastModifiedTime);
+				file.exists() && callback.call(context, {
+					date: file.lastModifiedTime
+				});
 			});
 			return;
 		}
 		OS.File.stat(file.path).then(
 			function onSuccess(info) {
-				callback.call(context, info.lastModificationDate);
+				callback.call(context, {
+					date: info.lastModificationDate
+				});
 			},
 			function onFailure(reason) {
 				if(!(reason instanceof OS.File.Error && reason.becauseNoSuchFile))
