@@ -370,6 +370,8 @@
 							this._logDate = info.date;
 							this._logSize = info.size;
 							this.setLogTip(info.date, info.size, force);
+							if(force && force.noTimer)
+								return;
 							this._setLogTipTimer(info.date);
 						}, this);
 					}
@@ -462,6 +464,7 @@
 			</property>
 			<method name="markAsUpdated">
 				<body>
+				<![CDATA[
 					if(!this._changes) {
 						this.canOpen = true;
 						this.isOldChanges = false;
@@ -469,6 +472,10 @@
 					this.changes = ++this._changes;
 					this._logDate = 0;
 					this._logSize = 0;
+					if(this._ttElt && this._ttOnMove) setTimeout(function(_this) {
+						_this.updateLogTip({ noTimer: true });
+					}, 0, this);
+				]]>
 				</body>
 			</method>
 			<method name="markAsRead">
