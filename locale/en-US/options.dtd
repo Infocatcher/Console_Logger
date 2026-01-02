@@ -65,6 +65,7 @@
 <!ENTITY cl.logs "Log ($S)">
 <!ENTITY cl.dateTipTmpl "$ago ago, \n$date">
 <!ENTITY cl.day "d">
+<!ENTITY cl.bytes "bytes">
 <!ENTITY cl.onlyASCII "Allowed only ASCII characters!">
 <!ENTITY cl.emptyName "Empty name">
 <!ENTITY cl.nameInternal "Cannot save name with internally used postfixes: $S">

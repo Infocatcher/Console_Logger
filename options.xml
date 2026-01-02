@@ -346,6 +346,7 @@
 				</body>
 			</method>
 			<field name="_logDate">0</field>
+			<field name="_logSize">0</field>
 			<field name="_ttUnwatch">null</field>
 			<field name="_ttElt">null</field>
 			<field name="_ttOnMove">null</field>
@@ -355,18 +356,20 @@
 				<![CDATA[
 					if(!this.canOpen) {
 						this._logDate = 0;
-						this.setLogTip("", force);
+						this._logSize = 0;
+						this.setLogTip("", "", force);
 						return;
 					}
 					var date = this._logDate;
 					if(date) { // Will use cached value
-						this.setLogTip(date, force);
+						this.setLogTip(date, this._logSize, force);
 						!force && this._setLogTipTimer(date);
 					}
 					else {
 						this.clo.getLogFileInfo(this.originalName || this.name, function(info) {
 							this._logDate = info.date;
-							this.setLogTip(info.date, force);
+							this._logSize = info.size;
+							this.setLogTip(info.date, info.size, force);
 							this._setLogTipTimer(info.date);
 						}, this);
 					}
@@ -424,10 +427,14 @@
 			</method>
 			<method name="setLogTip">
 				<parameter name="date" />
+				<parameter name="size" />
 				<parameter name="force" />
 				<body>
 				<![CDATA[
-					var tip = date && this.clo.formatDate(date);
+					var tip = this.clo.formatDate(date);
+					var tipSize = this.clo.formatSize(size);
+					if(tipSize)
+						tip += " \n" + tipSize;
 					var btn = this.getItem("open");
 					if(btn.tooltipText == tip)
 						return;
@@ -461,6 +468,7 @@
 					}
 					this.changes = ++this._changes;
 					this._logDate = 0;
+					this._logSize = 0;
 				</body>
 			</method>
 			<method name="markAsRead">

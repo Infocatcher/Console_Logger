@@ -65,6 +65,7 @@
 <!ENTITY cl.logs "Лог ($S)">
 <!ENTITY cl.dateTipTmpl "$ago назад, \n$date">
 <!ENTITY cl.day "д">
+<!ENTITY cl.bytes "байт">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">
 <!ENTITY cl.emptyName "Пустое имя">
 <!ENTITY cl.nameInternal "Невозможно сохранить имя со специальными окончаниями: $S">

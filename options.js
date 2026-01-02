@@ -887,7 +887,8 @@ var consoleLoggerOptions = {
 		if(platformVersion < 24) {
 			delay(function() {
 				file.exists() && callback.call(context, {
-					date: file.lastModifiedTime
+					date: file.lastModifiedTime,
+					size: file.fileSize
 				});
 			});
 			return;
@@ -895,7 +896,8 @@ var consoleLoggerOptions = {
 		OS.File.stat(file.path).then(
 			function onSuccess(info) {
 				callback.call(context, {
-					date: info.lastModificationDate
+					date: info.lastModificationDate,
+					size: info.size
 				});
 			},
 			function onFailure(reason) {
@@ -919,6 +921,11 @@ var consoleLoggerOptions = {
 		return strings.dateTipTmpl
 			.replace("$ago", ts)
 			.replace("$date", date.toLocaleString());
+	},
+	formatSize: function(size) {
+		if(!size)
+			return "";
+		return size.toLocaleString() + " " + strings.bytes;
 	},
 	getRelativeFile: function(path) {
 		if(!path)

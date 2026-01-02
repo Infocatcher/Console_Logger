@@ -30,6 +30,7 @@
 			nameSimilar:    "&cl.nameSimilar;",
 			dateTipTmpl:    "&cl.dateTipTmpl;",
 			day:            "&cl.day;",
+			bytes:          "&cl.bytes;",
 			exportTitle:    "&cl.exportTitle;",
 			importTitle:    "&cl.importTitle;",
 			errorTitle:     "&cl.errorTitle;",
