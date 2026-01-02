@@ -366,6 +366,9 @@
 						!force && this._setLogTipTimer(date);
 					}
 					else {
+						if(force && force.noTimer && this._logSize === undefined)
+							return;
+						this._logSize = undefined;
 						this.clo.getLogFileInfo(this.originalName || this.name, function(info) {
 							this._logDate = info.date;
 							this._logSize = info.size;
