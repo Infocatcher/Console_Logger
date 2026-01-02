@@ -434,7 +434,7 @@
 					var tip = this.clo.formatDate(date);
 					var tipSize = this.clo.formatSize(size);
 					if(tipSize)
-						tip += " \n" + tipSize;
+						tip += " \n(" + tipSize + ")";
 					var btn = this.getItem("open");
 					if(btn.tooltipText == tip)
 						return;
