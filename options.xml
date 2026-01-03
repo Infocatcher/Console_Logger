@@ -366,16 +366,15 @@
 						!force && this._setLogTipTimer(date);
 					}
 					else {
-						if(force && force.noTimer && this._logSize === undefined)
+						var noTimer = force && force.noTimer;
+						if(noTimer && this._logSize === undefined)
 							return;
 						this._logSize = undefined;
 						this.clo.getLogFileInfo(this.originalName || this.name, function(info) {
 							this._logDate = info.date;
 							this._logSize = info.size;
 							this.setLogTip(info.date, info.size, force);
-							if(force && force.noTimer)
-								return;
-							this._setLogTipTimer(info.date);
+							!noTimer && this._setLogTipTimer(info.date);
 						}, this);
 					}
 					if(this._ttOnMove)
