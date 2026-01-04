@@ -7,7 +7,7 @@
 
 ##### master/HEAD
 `*` Improved performance: now used separate files with lazy loading (<a href="https://github.com/Infocatcher/Console_Logger/issues/23">#23</a>).<br>
-`+` Options window: show last modified date in tooltip for “Log” button.<br>
+`+` Options window: show last modified date and file size in tooltip for “Log” button.<br>
 `*` Options window: improved performance, now used asynchronous functions to update UI.<br>
 `x` Fixed compatibility with future Firefox versions: don't use Array generics like `Array.forEach()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222547">bug 1222547</a>).<br>
 `x` Fixed compatibility with future Firefox versions: don't use deprecated `Date.prototype.toLocaleFormat()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=818634">bug 818634</a>).<br>
