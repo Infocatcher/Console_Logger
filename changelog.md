@@ -12,7 +12,7 @@
 `x` Fixed compatibility with future Firefox versions: don't use Array generics like `Array.forEach()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1222547">bug 1222547</a>).<br>
 `x` Fixed compatibility with future Firefox versions: don't use deprecated `Date.prototype.toLocaleFormat()` (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=818634">bug 818634</a>).<br>
 `+` Options window: added ability to use built-in view source window to open logs (<em>extensions.consoleLogger.options.logViewer</em> = "viewSource" preference).<br>
-`+` Options window: rename log file from UI.<br>
+`+` Options window: rename log file from UI + also rename already exists (unlisted) log file to not loose it contents.<br>
 `x` Correctly handle Pale Moon version to not hide accidentally options in Add-ons Manager.<br>
 `+` Added application version to timestamp string in log file.<br>
 `x` Fixed string prefs in Firefox 58+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1414096">bug 1414096</a>).<br>
@@ -22,7 +22,7 @@
 `x` Added basic replacement for viewSource.xul window in Firefox 60+ (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1418403">bug 1418403</a>).<br>
 `+` Added confirmation to reset/remove action (+ ask to also remove log files, <em>extensions.consoleLogger.options.confirmRemoval</em> preference).<br>
 `x` Fixed constants usage across files in Firefox 44+ (<a href="https://blog.mozilla.org/addons/2015/10/14/breaking-changes-let-const-firefox-nightly-44/">Breaking changes in let and const in Firefox Nightly 44</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1202902">bug 1202902</a>).<br>
-`+` Added “Add for not listed log files” menu item.<br>
+`+` Added “Add for Unlisted Log Files” menu item.<br>
 `x` Correctly detect saved state and also always export sorted options.<br>
 `x` Compatibility fixes for Pale Moon 28.1+ and Basilisk (correctly detect relevant platform version).<br>
 `x` Fixed single buttons toolbar mode in Firefox 65+: now nodes beside anonymous content becomes anonymous too (not accessible through `document.getElementById()`).<br>
