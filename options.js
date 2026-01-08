@@ -5,7 +5,7 @@ this.__defineGetter__("OS", function() {
 });
 var consoleLoggerOptions = {
 	cl: null,
-	exports: ["consoleLogger", "Services", "prefs", "delay", "platformVersion"],
+	exports: ["consoleLogger", "Services", "prefs", "delay", "platformVersion", "_log", "_msg", "_dump"],
 	init: function() {
 		Components.classes["@mozilla.org/observer-service;1"]
 			.getService(Components.interfaces.nsIObserverService)

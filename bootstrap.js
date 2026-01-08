@@ -420,6 +420,10 @@ function delay(callback, context, args) {
 
 function _log(s) {
 	if(prefs.get("debug"))
+		Services.console.logStringMessage(LOG_PREFIX + s);
+}
+function _msg(s) {
+	if(prefs.get("debug"))
 		consoleLogger.io.writeDebugMessage(s);
 }
 function _dump(s) {
