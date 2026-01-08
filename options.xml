@@ -385,9 +385,6 @@
 						_this._ttOnMove = null;
 						clearTimeout(_this._updateLogTipTimer);
 						_this._updateLogTipTimer = 0;
-						Components.classes["@mozilla.org/consoleservice;1"]
-							.getService(Components.interfaces.nsIConsoleService)
-							.logStringMessage("xxx clearTimeout()");
 					}, true);
 					if(this._ttUnwatch || this._ttElt)
 						return;
@@ -403,9 +400,6 @@
 					this._ttUnwatch = function() {
 						_this._ttUnwatch = null;
 						window.removeEventListener("popupshowing", onPopup, true);
-						Components.classes["@mozilla.org/consoleservice;1"]
-							.getService(Components.interfaces.nsIConsoleService)
-							.logStringMessage("xxx _ttUnwatch()");
 					};
 				]]>
 				</body>
@@ -418,9 +412,6 @@
 						clearTimeout(this._updateLogTipTimer);
 					var dt = new Date() - new Date(date);
 					var dms = 60e3 - dt % 60e3;
-					Components.classes["@mozilla.org/consoleservice;1"]
-						.getService(Components.interfaces.nsIConsoleService)
-						.logStringMessage("xxx _setLogTipTimer() " + new Date(date) + " " + dt + " " + dms);
 					this._updateLogTipTimer = setTimeout(function(_this) {
 						_this.updateLogTip(true);
 						_this._updateLogTipTimer = 0;
@@ -445,9 +436,6 @@
 					btn.tooltipText = tip;
 					if(force && this._ttElt)
 						this._ttElt.fillInPageTooltip(btn);
-					force && Components.classes["@mozilla.org/consoleservice;1"]
-						.getService(Components.interfaces.nsIConsoleService)
-						.logStringMessage("xxx setLogTip()\n" + tip);
 				]]>
 				</body>
 			</method>
