@@ -11,7 +11,7 @@
 <!ENTITY cl.options "Настройки">
 <!ENTITY cl.compactMode "Компактный режим">
 <!ENTITY cl.showDisabled "Показывать отключенные">
-<!ENTITY cl.singleButtonsToolbar "Единая панель кнопок">
+<!ENTITY cl.singleButtonsToolbar "Объединенная панель кнопок">
 <!ENTITY cl.openInTab "Открывать во вкладке">
 <!ENTITY cl.logViewer "Просмотрщик логов">
 <!ENTITY cl.logViewerDefault "Приложение по умолчанию для *.log">
