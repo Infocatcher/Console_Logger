@@ -100,6 +100,8 @@
 				</menu>
 				<menuseparator id="cl-sep-opts-beforeReload" />
 				<menuitem id="cl-mi-opts-reload" key="cl-key-reload" label="&cl.reload;" oncommand="consoleLoggerOptions.load();" />
+				<menuseparator id="cl-sep-opts-beforeAddForLogs" />
+				<menuitem id="cl-mi-opts-addForLogs" label="&cl.addForLogs;" oncommand="consoleLoggerOptions.addForLogFiles();" />
 				<menuseparator id="cl-sep-opts-beforeExport" />
 				<menu label="&cl.export;">
 					<menupopup>
@@ -119,8 +121,6 @@
 						<menuitem id="cl-mi-opts-pasteOvr" key="cl-key-pasteOvr" label="&cl.pasteOvr;" oncommand="consoleLoggerOptions.paste(true);" />
 					</menupopup>
 				</menu>
-				<menuseparator id="cl-sep-opts-beforeAddForLogs" />
-				<menuitem id="cl-mi-opts-addForLogs" label="&cl.addForLogs;" oncommand="consoleLoggerOptions.addForLogFiles();" />
 				<menuseparator id="cl-sep-opts-beforeCopy" />
 				<menuitem id="cl-mi-opts-cut" key="cl-key-cut" label="&cl.cut;" oncommand="consoleLoggerOptions.cut();" />
 				<menuitem id="cl-mi-opts-copy" key="cl-key-copy" label="&cl.copy;" oncommand="consoleLoggerOptions.copy();" />
