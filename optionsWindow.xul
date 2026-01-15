@@ -103,21 +103,21 @@
 				<menuseparator id="cl-sep-opts-beforeAddForLogs" />
 				<menuitem id="cl-mi-opts-addForLogs" label="&cl.addForLogs;" oncommand="consoleLoggerOptions.addForLogFiles();" />
 				<menuseparator id="cl-sep-opts-beforeExport" />
-				<menu label="&cl.export;">
+				<menu id="cl-mn-opts-export" label="&cl.export;">
 					<menupopup>
 						<menuitem id="cl-mi-opts-export" key="cl-key-export" label="&cl.exportSel;" oncommand="consoleLoggerOptions.exportToFile();" />
 						<menuitem id="cl-mi-opts-exportVisible" key="cl-key-exportVisible" label="&cl.exportVisible;" oncommand="consoleLoggerOptions.exportToFile(-1);" />
 						<menuitem id="cl-mi-opts-exportAll" key="cl-key-exportAll" label="&cl.exportAll;" oncommand="consoleLoggerOptions.exportToFile(1);" />
-						<menuseparator />
+						<menuseparator id="cl-sep-opts-beforeCopyExp" />
 						<menuitem id="cl-mi-opts-copyVisible" key="cl-key-copyVisible" label="&cl.copyVisible;" oncommand="consoleLoggerOptions.copy(-1);" />
 						<menuitem id="cl-mi-opts-copyAll" key="cl-key-copyAll" label="&cl.copyAll;" oncommand="consoleLoggerOptions.copy(1);" />
 					</menupopup>
 				</menu>
-				<menu label="&cl.import;">
+				<menu id="cl-mn-opts-import" label="&cl.import;">
 					<menupopup>
 						<menuitem id="cl-mi-opts-import" key="cl-key-import" label="&cl.importAdd;" oncommand="consoleLoggerOptions.importFromFile();" />
 						<menuitem id="cl-mi-opts-importOvr" key="cl-key-importOvr" label="&cl.importOvr;" oncommand="consoleLoggerOptions.importFromFile(true);" />
-						<menuseparator />
+						<menuseparator id="cl-sep-opts-beforePasteImp" />
 						<menuitem id="cl-mi-opts-pasteOvr" key="cl-key-pasteOvr" label="&cl.pasteOvr;" oncommand="consoleLoggerOptions.paste(true);" />
 					</menupopup>
 				</menu>
