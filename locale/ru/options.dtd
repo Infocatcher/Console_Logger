@@ -1,59 +1,15 @@
 <!ENTITY cl.selfName "Console Logger">
 <!ENTITY cl.optionsTitle "&cl.selfName;: Настройки">
-<!ENTITY cl.apply "Применить">
+
 <!ENTITY cl.filter "Фильтр:">
+<!ENTITY cl.showDisabled "Показывать отключенные">
+<!ENTITY cl.enabled "Включено">
+
+<!ENTITY cl.apply "Применить">
 <!ENTITY cl.add "Добавить">
 <!ENTITY cl.remove "Удалить">
 <!ENTITY cl.removeConfirm "Вы уверены что хотите удалить следующие настройки?">
-<!-- Button name and conformation request for default preferences (currently not used) -->
-<!ENTITY cl.reset "Сбросить">
-<!ENTITY cl.resetConfirm "Вы уверены что хотите сбросить следующие настройки?">
-<!ENTITY cl.options "Настройки">
-<!ENTITY cl.compactMode "Компактный режим">
-<!ENTITY cl.showDisabled "Показывать отключенные">
-<!ENTITY cl.singleButtonsToolbar "Объединенная панель кнопок">
-<!ENTITY cl.openInTab "Открывать во вкладке">
-<!ENTITY cl.logViewer "Просмотрщик логов">
-<!ENTITY cl.logViewerDefault "Приложение по умолчанию для *.log">
-<!ENTITY cl.logViewerViewSource "Окно просмотра исходного кода">
-<!ENTITY cl.logViewerExtApp "Внешнее приложение…">
-<!ENTITY cl.logViewerChoose "Выберите приложение для просмотра лог-файлов:">
-<!ENTITY cl.saveChanges "Сохранить изменения?">
-<!ENTITY cl.reload "Перезагрузить">
-<!ENTITY cl.openLog "Открыть лог-файл">
-<!ENTITY cl.revealLog "Перейти к лог-файлу">
-<!ENTITY cl.removeLog "Удалить лог-файл">
-<!ENTITY cl.removeLogs "Удалить следующие лог-файлы?">
-<!ENTITY cl.removeLogsAlso "Также удалить лог-файлы ($S)">
-<!ENTITY cl.hasLog "$S – содержит лог-файл">
-<!ENTITY cl.logMark "*">
-<!ENTITY cl.cut "Вырезать">
-<!ENTITY cl.copy "Копировать">
-<!ENTITY cl.copyVisible "Копировать видимое">
-<!ENTITY cl.copyAll "Копировать всё">
-<!ENTITY cl.paste "Вставить">
-<!ENTITY cl.pasteOvr "Вставить и заменить">
-<!ENTITY cl.export "Экспорт">
-<!ENTITY cl.exportSel "Экспортировать в файл: выделенное…">
-<!ENTITY cl.exportVisible "Экспортировать в файл: видимое…">
-<!ENTITY cl.exportAll "Экспортировать в файл: всё…">
-<!ENTITY cl.import "Импорт">
-<!ENTITY cl.importAdd "Импортировать из файла: добавить…">
-<!ENTITY cl.importOvr "Импортировать из файла: заменить…">
-<!ENTITY cl.addForLogs "Добавить для отсутствующих в списке лог-файлов">
-<!ENTITY cl.addForLogsN "Добавить для отсутствующих в списке лог-файлов ($N)">
-<!ENTITY cl.exportTitle "&cl.selfName;: Экспорт настроек в файл">
-<!ENTITY cl.importTitle "&cl.selfName;: Импорт настроек из файла">
-<!ENTITY cl.errorTitle "&cl.selfName;: Ошибка!">
-<!ENTITY cl.optionsFiles "Настройки &cl.selfName;">
-<!ENTITY cl.jsonFiles "JSON-файлы">
-<!ENTITY cl.err.invalidOptions "Невозможно разобрать настройки!">
-<!ENTITY cl.err.notJSON "Не является объектом, закодированным в формате JSON.">
-<!ENTITY cl.err.invalidJSON "Некорректный JSON:\n">
-<!ENTITY cl.err.invalidObject "Объект из JSON-строки не является корректными настройками.">
-<!ENTITY cl.enabled "Включено">
-<!ENTITY cl.selectAll "Выделить всё">
-<!ENTITY cl.invertSelection "Инвертировать выделение">
+
 <!ENTITY cl.name "Имя:">
 <!ENTITY cl.nameTip "Имя настройки (и имя лог-файла), только ASCII символы">
 <!ENTITY cl.source "Источник:">
@@ -73,3 +29,56 @@
 <!ENTITY cl.nameInternal "Невозможно сохранить имя со специальными окончаниями: $S">
 <!ENTITY cl.nameUsed "Имя уже используется">
 <!ENTITY cl.nameSimilar "Схожее имя уже используется (будет использовано то же самое имя лог-файла)">
+
+<!ENTITY cl.openLog "Открыть лог-файл">
+<!ENTITY cl.revealLog "Перейти к лог-файлу">
+<!ENTITY cl.removeLog "Удалить лог-файл">
+<!ENTITY cl.removeLogs "Удалить следующие лог-файлы?">
+<!ENTITY cl.removeLogsAlso "Также удалить лог-файлы ($S)">
+<!ENTITY cl.hasLog "$S – содержит лог-файл">
+<!ENTITY cl.logMark "*">
+<!ENTITY cl.cut "Вырезать">
+<!ENTITY cl.copy "Копировать">
+<!ENTITY cl.paste "Вставить">
+<!ENTITY cl.selectAll "Выделить всё">
+<!ENTITY cl.invertSelection "Инвертировать выделение">
+
+<!-- Button name and conformation request for default preferences (currently not used) -->
+<!ENTITY cl.reset "Сбросить">
+<!ENTITY cl.resetConfirm "Вы уверены что хотите сбросить следующие настройки?">
+
+<!ENTITY cl.options "Настройки">
+<!ENTITY cl.compactMode "Компактный режим">
+<!ENTITY cl.singleButtonsToolbar "Объединенная панель кнопок">
+<!ENTITY cl.openInTab "Открывать во вкладке">
+<!ENTITY cl.saveChanges "Сохранить изменения?">
+<!ENTITY cl.logViewer "Просмотрщик логов">
+<!ENTITY cl.logViewerDefault "Приложение по умолчанию для *.log">
+<!ENTITY cl.logViewerViewSource "Окно просмотра исходного кода">
+<!ENTITY cl.logViewerExtApp "Внешнее приложение…">
+<!ENTITY cl.logViewerChoose "Выберите приложение для просмотра лог-файлов:">
+<!ENTITY cl.reload "Перезагрузить">
+<!ENTITY cl.addForLogs "Добавить для отсутствующих в списке лог-файлов">
+<!ENTITY cl.addForLogsN "Добавить для отсутствующих в списке лог-файлов ($N)">
+
+<!ENTITY cl.export "Экспорт">
+<!ENTITY cl.exportSel "Экспортировать в файл: выделенное…">
+<!ENTITY cl.exportVisible "Экспортировать в файл: видимое…">
+<!ENTITY cl.exportAll "Экспортировать в файл: всё…">
+<!ENTITY cl.copyVisible "Копировать видимое">
+<!ENTITY cl.copyAll "Копировать всё">
+
+<!ENTITY cl.import "Импорт">
+<!ENTITY cl.importAdd "Импортировать из файла: добавить…">
+<!ENTITY cl.importOvr "Импортировать из файла: заменить…">
+<!ENTITY cl.pasteOvr "Вставить и заменить">
+
+<!ENTITY cl.exportTitle "&cl.selfName;: Экспорт настроек в файл">
+<!ENTITY cl.importTitle "&cl.selfName;: Импорт настроек из файла">
+<!ENTITY cl.errorTitle "&cl.selfName;: Ошибка!">
+<!ENTITY cl.optionsFiles "Настройки &cl.selfName;">
+<!ENTITY cl.jsonFiles "JSON-файлы">
+<!ENTITY cl.err.invalidOptions "Невозможно разобрать настройки!">
+<!ENTITY cl.err.notJSON "Не является объектом, закодированным в формате JSON.">
+<!ENTITY cl.err.invalidJSON "Некорректный JSON:\n">
+<!ENTITY cl.err.invalidObject "Объект из JSON-строки не является корректными настройками.">
