@@ -9,6 +9,9 @@
 <!ENTITY cl.add "Add">
 <!ENTITY cl.remove "Remove">
 <!ENTITY cl.removeConfirm "Are you sure you want to remove following items?">
+<!-- Button name and conformation request for default preferences (currently not used) -->
+<!ENTITY cl.reset "Reset">
+<!ENTITY cl.resetConfirm "Are you sure you want to reset following items?">
 
 <!ENTITY cl.name "Name:">
 <!ENTITY cl.nameTip "Preference name (and name of log file), only ASCII characters">
@@ -43,15 +46,11 @@
 <!ENTITY cl.selectAll "Select All">
 <!ENTITY cl.invertSelection "Invert Selection">
 
-<!-- Button name and conformation request for default preferences (currently not used) -->
-<!ENTITY cl.reset "Reset">
-<!ENTITY cl.resetConfirm "Are you sure you want to reset following items?">
-
 <!ENTITY cl.options "Options">
 <!ENTITY cl.compactMode "Compact Mode">
 <!ENTITY cl.singleButtonsToolbar "Unified Buttons Toolbar">
 <!ENTITY cl.openInTab "Open in Tab">
-<!ENTITY cl.saveChanges "Save changes?">
+<!ENTITY cl.saveChanges "Save changes?"> <!-- Confirmation to move to tab/window -->
 <!ENTITY cl.logViewer "Log Viewer">
 <!ENTITY cl.logViewerDefault "Default Application for *.log">
 <!ENTITY cl.logViewerViewSource "View Source Window">
