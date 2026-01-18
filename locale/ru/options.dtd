@@ -38,7 +38,7 @@
 <!ENTITY cl.removeLog "Удалить лог-файл">
 <!ENTITY cl.removeLogs "Удалить следующие лог-файлы?">
 <!ENTITY cl.removeLogsAlso "Также удалить лог-файлы ($S)">
-<!ENTITY cl.hasLog "$S – содержит лог-файл">
+<!ENTITY cl.hasLog "&cl.logMark; – содержит лог-файл">
 <!ENTITY cl.logMark "*">
 <!ENTITY cl.cut "Вырезать">
 <!ENTITY cl.copy "Копировать">

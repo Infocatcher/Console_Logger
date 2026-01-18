@@ -1336,7 +1336,7 @@ var consoleLoggerOptions = {
 		var btnText = btnDeck.selectedPanel.label;
 		var ask = (hasLocked ? strings.resetConfirm : strings.removeConfirm)
 			+ "\n" + names.join("\n")
-			+ (logFiles ? "\n" + strings.hasLog.replace("$S", strings.logMark) : "");
+			+ (logFiles ? "\n" + strings.hasLog : "");
 		var checkText = logFiles && strings.removeLogsAlso.replace("$S", logFiles);
 		var ps = Services.prompt;
 		// https://bugzilla.mozilla.org/show_bug.cgi?id=345067
