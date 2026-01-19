@@ -29,6 +29,7 @@
 <!ENTITY cl.bytes "байт">
 <!ENTITY cl.onlyASCII "Разрешены только ASCII символы!">
 <!ENTITY cl.emptyName "Пустое имя">
+<!ENTITY cl.tooLongName "Слишком длинное имя (достигнут лимит длины пути к файлу)">
 <!ENTITY cl.nameInternal "Невозможно сохранить имя со специальными окончаниями: $S">
 <!ENTITY cl.nameUsed "Имя уже используется">
 <!ENTITY cl.nameSimilar "Схожее имя уже используется (будет использовано то же самое имя лог-файла)">

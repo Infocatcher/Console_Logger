@@ -349,6 +349,10 @@ var consoleLoggerOptions = {
 		}
 		return name;
 	},
+	get maxNameLength() {
+		delete this.maxNameLength;
+		return this.maxNameLength = 259 /*MAX_PATH*/ - this.cl.io.getFile("").path.length;
+	},
 	validateFieldsAsync: function() {
 		delay(this.validateFields, this);
 	},
@@ -359,6 +363,8 @@ var consoleLoggerOptions = {
 		function validateName(name) {
 			if(!name)
 				return strings.emptyName;
+			if(name.length > _this.maxNameLength)
+				return strings.tooLongName;
 			if(!_this.isValidName(name))
 				return strings.onlyASCII;
 			if(/\.(?:enabled|exclude|message)$/.test(name))

@@ -29,6 +29,7 @@
 <!ENTITY cl.bytes "bytes">
 <!ENTITY cl.onlyASCII "Allowed only ASCII characters!">
 <!ENTITY cl.emptyName "Empty name">
+<!ENTITY cl.tooLongName "Too long name (reached file path length limit)">
 <!ENTITY cl.nameInternal "Cannot save name with internally used postfixes: $S">
 <!ENTITY cl.nameUsed "Name already used">
 <!ENTITY cl.nameSimilar "Similar name already used (will be used the same log file name)">
