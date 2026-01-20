@@ -61,14 +61,14 @@
 <!ENTITY cl.addForLogs "Add for Unlisted Log Files">
 <!ENTITY cl.addForLogsN "Add for Unlisted Log Files ($N)">
 
-<!ENTITY cl.export "Export">
+<!ENTITY cl.export "Export Options">
 <!ENTITY cl.exportSel "Export to File: Selected…">
 <!ENTITY cl.exportVisible "Export to File: Visible…">
 <!ENTITY cl.exportAll "Export to File: All…">
 <!ENTITY cl.copyVisible "Copy Visible">
 <!ENTITY cl.copyAll "Copy All">
 
-<!ENTITY cl.import "Import">
+<!ENTITY cl.import "Import Options">
 <!ENTITY cl.importAdd "Import from File: Append…">
 <!ENTITY cl.importOvr "Import from File: Replace…">
 <!ENTITY cl.pasteOvr "Paste and Replace">

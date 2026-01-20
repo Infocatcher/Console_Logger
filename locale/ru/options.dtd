@@ -61,14 +61,14 @@
 <!ENTITY cl.addForLogs "Добавить для отсутствующих в списке лог-файлов">
 <!ENTITY cl.addForLogsN "Добавить для отсутствующих в списке лог-файлов ($N)">
 
-<!ENTITY cl.export "Экспорт">
+<!ENTITY cl.export "Экспорт настроек">
 <!ENTITY cl.exportSel "Экспортировать в файл: выделенное…">
 <!ENTITY cl.exportVisible "Экспортировать в файл: видимое…">
 <!ENTITY cl.exportAll "Экспортировать в файл: всё…">
 <!ENTITY cl.copyVisible "Копировать видимое">
 <!ENTITY cl.copyAll "Копировать всё">
 
-<!ENTITY cl.import "Импорт">
+<!ENTITY cl.import "Импорт настроек">
 <!ENTITY cl.importAdd "Импортировать из файла: добавить…">
 <!ENTITY cl.importOvr "Импортировать из файла: заменить…">
 <!ENTITY cl.pasteOvr "Вставить и заменить">
